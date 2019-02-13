@@ -25,6 +25,15 @@ namespace RPG_Project
         public MainPage()
         {
             this.InitializeComponent();
+
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            roll.StartAnimation();
+            desroll.StartAnimation();
+        }
+
+        
     }
 }
