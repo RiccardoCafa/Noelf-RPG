@@ -10,5 +10,14 @@
 
     <Grid>
 
+        <Button FontSize="48px" Name="MakeHappen" Content="Eyes" HorizontalAlignment="Left" Margin="244,380,0,0" VerticalAlignment="Top" Height="132" Width="293" Click="MakeHappen_Click"/>
+        <Canvas Name="Personagem"  HorizontalAlignment="Left" Height="197" Margin="1200,317,0,0" VerticalAlignment="Top" Width="202" ManipulationMode="System">
+            <Image Name="Head" HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/000---.png"/>
+            <Image  HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/00-0--.png"/>
+        </Canvas>
+        <Image Name="RenderedImage" HorizontalAlignment="Left" Height="197" Margin="813,335,0,0" VerticalAlignment="Top" Width="202"/>
+
+
+
     </Grid>
 </Page>
