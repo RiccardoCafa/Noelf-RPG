@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace RPG_Noelf
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void MakeHappen_Click(object sender, RoutedEventArgs e)
+        {
+            GeradorFoto.MergeImages(Personagem, 197, 202, RenderedImage);
         }
     }
 }
