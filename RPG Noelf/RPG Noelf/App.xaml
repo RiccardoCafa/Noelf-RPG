@@ -1,7 +1,7 @@
 ﻿<Application
-    x:Class="RPG_Project.App"
+    x:Class="RPG_Noelf.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RPG_Project">
+    xmlns:local="using:RPG_Noelf">
 
 </Application>

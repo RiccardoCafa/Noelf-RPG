@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace RPG_Project
+namespace RPG_Noelf
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

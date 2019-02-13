@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="b7aa710c-d575-448c-9720-432559073b63"
+    Name="f4f31d17-6e70-4e8f-a6fb-e9b9b0ffda54"
     Publisher="CN=ricca"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="b7aa710c-d575-448c-9720-432559073b63" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f4f31d17-6e70-4e8f-a6fb-e9b9b0ffda54" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>RPG Project</DisplayName>
+    <DisplayName>RPG Noelf</DisplayName>
     <PublisherDisplayName>ricca</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="RPG_Project.App">
+      EntryPoint="RPG_Noelf.App">
       <uap:VisualElements
-        DisplayName="RPG Project"
+        DisplayName="RPG Noelf"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="RPG Project"
+        Description="RPG Noelf"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
