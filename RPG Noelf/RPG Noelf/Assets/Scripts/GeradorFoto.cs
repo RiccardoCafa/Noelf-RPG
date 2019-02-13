@@ -33,6 +33,10 @@ namespace RPG_Noelf.Assets
 
         public static async void SaveFrame(RenderTargetBitmap _bitmap)
         {
+            /* TODO
+             * Mudar essa parte de salvamento para ser interno em alguma pasta e tentar fazer algum jeito de criptografia.
+             * Descriptografar depois para conseguir obter a imagem.
+             */ 
             FileSavePicker fileSavePicker = new FileSavePicker();
             fileSavePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             fileSavePicker.FileTypeChoices.Add("PNG files", new List<string>() { ".png" });
@@ -70,20 +74,3 @@ namespace RPG_Noelf.Assets
 
 
 }
-
-
-/*
-//int offsetWidth = img1.Width > img2.Width ? img1.Width : img2.Width;
-//int offsetHeight = img1.Height > img2.Height ? img1.Height : img2.Height;
-
-//Bitmap output = new Bitmap(offsetWidth, offsetHeight, PixelFormat.Format32bppRgb);
-Bitmap output = new Bitmap((int)img1.Width, (int)img1.Height, PixelFormat.Format32bppRgb);
-//Windows.UI.Xaml.Controls.Image output = new Windows.UI.Xaml.Controls.Image();
-
-using (Graphics g = Graphics.FromImage(output))
-{
-    g.Clear(System.Drawing.Color.Transparent);
-    int _width = (int)img1.Width;
-    int _height = (int)img1.Height;
-    g.DrawImage(img1, new Rectangle(0, 0, _width, _height), new Rectangle(0, 0, _width, _height), GraphicsUnit.Pixel);
-}*/
