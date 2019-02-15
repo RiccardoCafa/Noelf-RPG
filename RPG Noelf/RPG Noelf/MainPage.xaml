@@ -16,8 +16,27 @@
             <Image  HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/00-0--.png"/>
         </Canvas>
         <Image Name="RenderedImage" HorizontalAlignment="Left" Height="197" Margin="813,335,0,0" VerticalAlignment="Top" Width="202"/>
-
-
-
+        <!--<Image>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Source" Duration="0:0:2">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage UriSource="/Assets/Images/0png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:1">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage UriSource="/Assets/Images/00-0-.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>-->
     </Grid>
 </Page>
