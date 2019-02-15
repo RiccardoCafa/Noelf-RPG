@@ -120,7 +120,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Assets\Images\Inventory_Scripts\Class1.cs" />
+    <Compile Include="Assets\Images\Inventory_Scripts\Bag.cs" />
+    <Compile Include="Assets\Images\Inventory_Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
