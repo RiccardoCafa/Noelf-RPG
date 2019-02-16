@@ -1,22 +1,12 @@
-﻿using System.IO;
-using System;
+﻿using System;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Controls;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
-using Windows.UI.Xaml.Media.Imaging;
-//using System.Drawing;
-//using System.Drawing.Imaging;
-//using System.Windows.Media.Imaging;
-//using Windows.Graphics;
-//using Windows.Graphics.DirectX;
-//using Windows.Graphics.Imaging;
 
 namespace RPG_Noelf.Assets
 {
