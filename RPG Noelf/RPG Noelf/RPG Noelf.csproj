@@ -123,6 +123,7 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\ItemRecipe.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

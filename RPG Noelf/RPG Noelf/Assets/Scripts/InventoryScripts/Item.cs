@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Images.Inventory_Scripts
 {
-    abstract class Item
+     class Item
     {
         public int goldValue { get; set; } // valor em ouro do item
         public int amount { get; set; } // quantidade de um mesmo item
