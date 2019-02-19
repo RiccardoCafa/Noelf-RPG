@@ -56,7 +56,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         {
             return item.amount;
         }
-        public bool SearchID(int id)//verifica se o ID esta na mochila
+        public bool SearchID(string id)//verifica se o ID esta na mochila
         {
             foreach (Item item in slots)
             {
@@ -105,7 +105,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
 
         }
 
-        public void IncreaseItemNumber(int id)//incrementa em um a quantidade de um item no inventario
+        public void IncreaseItemNumber(string id)//incrementa em um a quantidade de um item no inventario
         {
             foreach (Item item in slots)
             {

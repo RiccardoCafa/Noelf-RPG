@@ -10,11 +10,12 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     class Consumable:Item 
     {
         public float giveBonus { get; set; }
+        public Item material { get; }
 
         public Consumable()
         {
+
             isStackable = true;
-            amount = 1;
         }
 
 

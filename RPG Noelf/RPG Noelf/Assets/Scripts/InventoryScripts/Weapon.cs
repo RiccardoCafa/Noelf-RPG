@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
+   
+    public enum TypeWeapon
+    {
+        Melee,Ranged,Magical 
+    }
     class Weapon:Item
     {
         public int bonusDamage { get; set; }
         public int bonusDefense { get; set; }
         public Recipe weaponRecipe;
-        //atributo da arma, 
+        public TypeWeapon tpWeapon { get; }
+        public Weapon(TypeWeapon tWeapon)
+        {
+            tpWeapon = tWeapon;
+        }
+
 
 
 
