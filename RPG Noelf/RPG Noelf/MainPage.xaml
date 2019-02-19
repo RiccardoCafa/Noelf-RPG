@@ -6,18 +6,41 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="932" Height="619">
 
-    <Grid>
+    <Canvas Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 
-        <Button FontSize="48px" Name="MakeHappen" Content="Eyes" HorizontalAlignment="Left" Margin="244,380,0,0" VerticalAlignment="Top" Height="132" Width="293" Click="MakeHappen_Click"/>
-        <Canvas Name="Personagem"  HorizontalAlignment="Left" Height="197" Margin="1200,317,0,0" VerticalAlignment="Top" Width="202" ManipulationMode="System">
+        <Button FontSize="48px" Name="MakeHappen" Content="Eyes" HorizontalAlignment="Left" Margin="76,68,0,0" VerticalAlignment="Top" Height="88" Width="160" Click="MakeHappen_Click"/>
+        <Canvas Name="Personagem"  HorizontalAlignment="Left" Height="197" Margin="720,30,0,0" VerticalAlignment="Top" Width="202" ManipulationMode="System">
             <Image Name="Head" HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/000---.png"/>
-            <Image  HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/00-0--.png"/>
+            <Image HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/00-0--.png"/>
         </Canvas>
-        <Image Name="RenderedImage" HorizontalAlignment="Left" Height="197" Margin="813,335,0,0" VerticalAlignment="Top" Width="202"/>
 
+        <Image Name="RenderedImage" HorizontalAlignment="Left" Height="197" Margin="457,30,0,0" VerticalAlignment="Top" Width="202"/>
 
+        <Canvas Name="PlayerCanvas" Canvas.Left="320" Canvas.Top="40" HorizontalAlignment="Left" Height="50" Width="50" VerticalAlignment="Top">
+            <Canvas.RenderTransform>
+                <TranslateTransform x:Name="PlayerTransform"></TranslateTransform>
+            </Canvas.RenderTransform>
+            <Image x:Name="Player" HorizontalAlignment="Center" Height="50" VerticalAlignment="Center" Width="50" Source="/Assets/Images/Player.jpg"/>
+            <Rectangle Name="ColliderBox" Width="50" Height="50" Margin="0,0,0,0"/>
+        </Canvas>
 
-    </Grid>
+        <Canvas HorizontalAlignment="Left" Height="619" Width="932" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Canvas Name="Chunck01" Canvas.Left="150" Canvas.Top="250" Height="50" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="150" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="568" Canvas.Top="532"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="200" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="250" Canvas.Top="0"/>
+            </Canvas>
+        </Canvas>
+
+        <Button Content="Jump" HorizontalAlignment="Left" Margin="76,195,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="76,232,0,0" Click="Button_Click_1" />
+        <TextBox Name="Constant" HorizontalAlignment="Left" Margin="76,278,0,0" Text="" VerticalAlignment="Top" InputScope="Number" PlaceholderText="0.4"/>
+        <TextBox Name="BlockPos" HorizontalAlignment="Left" Margin="606,278,0,0" Text="TextBox" VerticalAlignment="Top" Height="42" Width="316"/>
+        <TextBox Name="PlayerPos" HorizontalAlignment="Left" Margin="606,346,0,0" Text="TextBox" VerticalAlignment="Top" Width="316" Height="44"/>
+    </Canvas>
 </Page>
