@@ -122,9 +122,11 @@
     </Compile>
     <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Recipe.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

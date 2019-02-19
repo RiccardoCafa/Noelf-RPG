@@ -75,9 +75,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
         }
 
-        public bool canCraft(int ID1, int ID2)
+        public bool canCraft(int ID1,int amountID1, int ID2, int amountID2)
         {
-            if(isIngredient(ID1) == true  && isIngredient(ID2) ==  true && hasTheAmount(ID1) ==  true && hasTheAmount(ID2) == true)
+            if(isIngredient(ID1) == true  && isIngredient(ID2) ==  true && hasTheAmount(ID1,amountID1) ==  true && hasTheAmount(ID2,amountID2) == true)
             {
                 return true;
             }

@@ -58,13 +58,11 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         }
         public bool SearchID(int id)//verifica se o ID esta na mochila
         {
-            bool result;
             foreach (Item item in slots)
             {
                 if (item.itemID == id)
                 {
-                    return true;
-                    break;
+                    return true;           
                 }
             }
             return false;
