@@ -6,12 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="932" Height="619">
 
     <Canvas Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 
         <Button FontSize="48px" Name="MakeHappen" Content="Eyes" HorizontalAlignment="Left" Margin="76,68,0,0" VerticalAlignment="Top" Height="88" Width="160" Click="MakeHappen_Click"/>
-        <Canvas Name="Personagem"  HorizontalAlignment="Left" Height="197" Margin="720,30,0,0" VerticalAlignment="Top" Width="202" ManipulationMode="System">
+
+
+        <Canvas Name="Personagem"  HorizontalAlignment="Left" Height="197" Margin="120,317,0,0" VerticalAlignment="Top" Width="202" ManipulationMode="System">
             <Image Name="Head" HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/000---.png"/>
             <Image HorizontalAlignment="Left" Height="197" Margin="0,0,0,0" VerticalAlignment="Top" Width="202" Source="/Assets/Images/00-0--.png"/>
         </Canvas>
@@ -31,7 +34,7 @@
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="150" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="568" Canvas.Top="532"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="100"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="200" Canvas.Top="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="250" Canvas.Top="0"/>
             </Canvas>
@@ -42,5 +45,52 @@
         <TextBox Name="Constant" HorizontalAlignment="Left" Margin="76,278,0,0" Text="" VerticalAlignment="Top" InputScope="Number" PlaceholderText="0.4"/>
         <TextBox Name="BlockPos" HorizontalAlignment="Left" Margin="606,278,0,0" Text="TextBox" VerticalAlignment="Top" Height="42" Width="316"/>
         <TextBox Name="PlayerPos" HorizontalAlignment="Left" Margin="606,346,0,0" Text="TextBox" VerticalAlignment="Top" Width="316" Height="44"/>
+        <!-- Button that begins animation. -->
+        <!-- <Button Click="Animation_Begin"
+         Margin="391,604,0,0" Content="Begin" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+         Button that pauses Animation. 
+        <Button Click="Animation_Pause"
+         Margin="694,604,0,0" Content="Pause" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+         Button that resumes Animation. 
+        <Button Click="Animation_Resume"
+         Margin="582,604,0,0" Content="Resume" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+         Button that stops Animation. Stopping the animation 
+         returns the ellipse to its original location. 
+        <Button Click="Animation_Stop"
+         Margin="488,604,0,0" Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Rectangle Fill="Blue" Width="200" Height="30">
+            <Rectangle.RenderTransform>
+                <ScaleTransform x:Name="rectScaleTransform" />
+            </Rectangle.RenderTransform>
+        </Rectangle> -->
+
+        <!--<Rectangle x:Name="MyRectangle"
+                   PointerPressed="MyRectangle_PointerPressed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Height="100" Width="100"
+                   Margin="430,230,0,0"
+                   Fill="#FFFF4109"/>-->
+
     </Canvas>
 </Page>
+
+<!--<Page>
+                <Storyboard x:Name="myStoryboard">
+                <DoubleAnimation From="1" To="6" Duration="00:00:6" 
+                Storyboard.TargetName="rectScaleTransform" 
+                Storyboard.TargetProperty="ScaleY">
+                    <DoubleAnimation.EasingFunction>
+                        <BounceEase Bounces="2" EasingMode="EaseOut" 
+                                Bounciness="2" />
+                    </DoubleAnimation.EasingFunction>
+                       <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectScaleTransform"
+                                                Storyboard.TargetProperty="(RenderTransform).(SkewTransform.AngleX)">
+                    <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0"/>
+                    <LinearDoubleKeyFrame Value="45" KeyTime="0:0:4"/>
+                </DoubleAnimation>
+            </Storyboard>
+            </Page> -->

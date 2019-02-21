@@ -13,8 +13,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -45,7 +48,7 @@ namespace RPG_Noelf
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if(player == null)
+            if (player == null)
             {
                 player = new Character(Player, PlayerCanvas);
                 player.setFloorPos(BlockPos);
@@ -55,6 +58,27 @@ namespace RPG_Noelf
             player.constant = double.Parse(Constant?.Text);
             player.ResetPosition(320, 40);
         }
-        
+
+        /* private void Animation_Begin(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Begin();
+        }
+        private void Animation_Pause(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Pause();
+        }
+        private void Animation_Resume(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Resume();
+        }
+        private void Animation_Stop(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Stop();
+        }*/
+
+        //private void MyRectangle_PointerPressed(object sender, PointerRoutedEventArgs e)
+        //{
+        //    TimeLine.Begin();
+        //}
     }
 }
