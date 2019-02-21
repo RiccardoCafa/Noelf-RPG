@@ -55,7 +55,6 @@ namespace RPG_Noelf
                 player.setPlayerPosText(PlayerPos);
             }
             player.UpdateBlocks(Chunck01);
-            player.constant = double.Parse(Constant?.Text);
             player.ResetPosition(320, 40);
         }
 

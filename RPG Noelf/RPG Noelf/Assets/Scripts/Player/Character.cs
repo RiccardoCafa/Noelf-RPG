@@ -28,11 +28,14 @@ namespace RPG_Noelf.Assets.Scripts.Player
         TextBox playerPos;
         TextBox floorPos;
 
-        public double constant { get; set; }
+        public const double GravityMultiplier = 1.2;
+        public double speed { get; set; }
+
 
         private bool alive = true;
         private bool isFalling = false;
-        private bool up, down, right, left;
+        private bool freeUp, freeDown, freeRight = true, freeLeft = true;
+        private bool moveRight, moveLeft;
 
         private Thread update;
 
@@ -43,9 +46,10 @@ namespace RPG_Noelf.Assets.Scripts.Player
             charac = character;
             characT = T;
             //colliderBox = box;
-            constant = 0.4;
+            speed = 5;
 
-            charac.KeyDown += Charac_KeyDown;
+            Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
+            Window.Current.CoreWindow.KeyUp += Charac_KeyUp;
 
             Start();
         }
@@ -76,16 +80,61 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         {
                             TimeSpan secs = time - DateTime.Now;
                             characT.SetValue(Canvas.TopProperty, 
-                                (double)characT.GetValue(Canvas.TopProperty) + 1.2 * Math.Pow(secs.TotalSeconds, 2));
+                                (double)characT.GetValue(Canvas.TopProperty) + GravityMultiplier * Math.Pow(secs.TotalSeconds, 2));
+                        }
+                    });
+                } else
+                {
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                        CheckCollision();
+                        time = DateTime.Now;
+
+                        if (moveLeft)
+                        {
+                            characT.SetValue(Canvas.LeftProperty,
+                                      (double)characT.GetValue(Canvas.LeftProperty) - speed);
+                            Thread.Sleep(50);
+                        }
+                        if (moveRight)
+                        {
+                            characT.SetValue(Canvas.LeftProperty,
+                                      (double)characT.GetValue(Canvas.LeftProperty) + speed);
+                            Thread.Sleep(50);
                         }
                     });
                 }
             }
         }
 
-        private void Charac_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            playerPos.Text = "MOVENDO KEYDOWN";
+            
+            if(e.VirtualKey == Windows.System.VirtualKey.A)
+            {
+                if(freeRight)
+                {
+                    moveLeft = true;
+                }
+            } else if(e.VirtualKey == Windows.System.VirtualKey.D)
+            {
+                if(freeLeft)
+                {
+                    moveRight = true;
+                }
+            }
+        }
+
+        private void Charac_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
+        {
+
+            if (e.VirtualKey == Windows.System.VirtualKey.A)
+            {
+                moveLeft = false;
+            }
+            else if (e.VirtualKey == Windows.System.VirtualKey.D)
+            {
+                moveRight = false;
+            }
         }
 
         public void ResetPosition(int X, int Y)
@@ -134,10 +183,10 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     {
                         isFalling = true;
                     }
-                    down = false;
+                    freeDown = false;
                 } else if (_yoffset >= -charac.Height  && _yoffset < 0)
                 {
-                    up = false;
+                    freeUp = false;
                 }
             }
         }
