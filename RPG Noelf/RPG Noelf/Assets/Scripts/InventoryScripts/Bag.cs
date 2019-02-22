@@ -11,7 +11,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         public int freeSlots { get; set; } //numero de  espaços livres no inventário do player
         public int nGold { get; set; } // dinheiro do player;
         public List<Item> slots; //espaços para guardar os itens
-        public Bag()// precisa de construtor?
+        public Bag()
         {
             slots = new List<Item>();
             this.freeSlots = 30;
