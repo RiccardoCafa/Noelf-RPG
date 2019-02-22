@@ -21,71 +21,161 @@ namespace RPG_Noelf.Assets.Scripts.Player
     {
         Image charac;
         Canvas characT;
-        Rectangle colliderBox;
-        Canvas actualBlock;
         DateTime time;
-        //Remove after
-        TextBox playerPos;
-        TextBox floorPos;
 
-        public double constant { get; set; }
+        public const double GravityMultiplier = 0.9;
+
+        public double hspeed { get; set; }
+        public double vspeed { get; set; }
 
         private bool alive = true;
         private bool isFalling = false;
-        private bool up, down, right, left;
+        private bool freeUp, freeDown, freeRight = true, freeLeft = true;
+        private bool moveRight, moveLeft, jumping;
 
         private Thread update;
 
         private List<Canvas> collisionBlocks = new List<Canvas>();
 
+        private enum EDirection {
+            top,
+            left
+        }
+
         public Character(Image character, Canvas T)
         {
+            // Getting character image and Canvas for control
             charac = character;
             characT = T;
-            //colliderBox = box;
-            constant = 0.4;
 
-            charac.KeyDown += Charac_KeyDown;
+            // Setting horizontal and vertical speed
+            hspeed = 0.1;
+            vspeed = 80;
 
+            // Setting Key events
+            Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
+            Window.Current.CoreWindow.KeyUp += Charac_KeyUp;
+
+            // Initialize Class
             Start();
         }
 
-        public void setPlayerPosText(TextBox textBox) { playerPos = textBox; }
-        public void setFloorPos(TextBox textBox) { floorPos = textBox; }
-
         private void Start()
         {
+            // Get the actual time
             time = DateTime.Now;
+            // Creates a loop while alive Thread for update
             update = new Thread(Update);
             update.Start();
+            
         }
 
         private async void Update()
         {
             while(alive)
             {
-                
-                // Calcula a gravidade
-                if(isFalling)
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                        CheckCollision();
-                        // Getting the difference between the time from the start
-                        //Task.Delay(1000);
-                        if (isFalling)
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    // Calcula a gravidade
+                    if (isFalling)
+                    {
+                        if (!CheckGround())
                         {
                             TimeSpan secs = time - DateTime.Now;
-                            characT.SetValue(Canvas.TopProperty, 
-                                (double)characT.GetValue(Canvas.TopProperty) + 1.2 * Math.Pow(secs.TotalSeconds, 2));
+                            MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
                         }
-                    });
-                }
+                    }
+                    else
+                    {
+                        CheckGround();
+                        time = DateTime.Now;
+                    }
+
+                    
+                    if (moveLeft)
+                    {
+                        MoveCharac(-hspeed, EDirection.left);
+                    }
+                    if (moveRight)
+                    {
+                        MoveCharac(hspeed, EDirection.left);
+                    }
+                    if(jumping)
+                    {
+                        MoveCharac(-vspeed, EDirection.top);
+                        jumping = false;
+                    }
+                    
+                }); 
             }
         }
 
-        private void Charac_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            playerPos.Text = "MOVENDO KEYDOWN";
+            
+            if(e.VirtualKey == Windows.System.VirtualKey.A)
+            {
+                if(freeLeft)
+                {
+                    //MoveCharac(-hspeed, EDirection.left);
+                    moveLeft = true;
+                }
+            } else if(e.VirtualKey == Windows.System.VirtualKey.D)
+            {
+                if(freeRight)
+                {
+                    //MoveCharac(hspeed, EDirection.left);
+                    moveRight = true;
+                }
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+            {
+                if(!isFalling)
+                {
+                    //MoveCharac(-vspeed, EDirection.top);
+                    jumping = true;
+                    Jump();
+                }
+                
+            }
+        }
+
+        private void Charac_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
+        {
+
+            if (e.VirtualKey == Windows.System.VirtualKey.A)
+            {
+                
+                moveLeft = false;
+            }
+            else if (e.VirtualKey == Windows.System.VirtualKey.D)
+            {
+                moveRight = false;
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+            {
+                jumping = false;
+            }
+        }
+
+        private void MoveCharac(double hspeed, double vspeed)
+        {
+            characT.SetValue(Canvas.LeftProperty,
+                              (double)characT.GetValue(Canvas.LeftProperty) + hspeed);
+            characT.SetValue(Canvas.TopProperty,
+                              (double)characT.GetValue(Canvas.TopProperty) + vspeed);
+        }
+
+        private void MoveCharac(double speed, EDirection dir)
+        {
+            switch(dir)
+            {
+                case EDirection.left:
+                    characT.SetValue(Canvas.LeftProperty,
+                              (double)characT.GetValue(Canvas.LeftProperty) + speed);
+                    break;
+                case EDirection.top:
+                    characT.SetValue(Canvas.TopProperty,
+                              (double)characT.GetValue(Canvas.TopProperty) + speed);
+                    break;
+            }
         }
 
         public void ResetPosition(int X, int Y)
@@ -114,7 +204,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
             }*/
         }
 
-        public void CheckCollision()
+        public bool CheckGround()
         {
             foreach(Canvas bloco in collisionBlocks)
             {
@@ -129,17 +219,18 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     if (_xoffset < charac.Width && _xoffset > -bloco.Width)
                     {
                         isFalling = false;
-                        break;
+                        return true;
                     } else
                     {
                         isFalling = true;
                     }
-                    down = false;
-                } else if (_yoffset >= -charac.Height  && _yoffset < 0)
+                    freeDown = false;
+                } else if (_yoffset >= -10  && _yoffset < 0)
                 {
-                    up = false;
+                    freeUp = false;
                 }
             }
+            return false;
         }
 
     }
