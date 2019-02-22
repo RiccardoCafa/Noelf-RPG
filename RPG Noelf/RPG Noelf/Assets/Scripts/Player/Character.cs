@@ -21,88 +21,91 @@ namespace RPG_Noelf.Assets.Scripts.Player
     {
         Image charac;
         Canvas characT;
-        Rectangle colliderBox;
-        Canvas actualBlock;
         DateTime time;
-        //Remove after
-        TextBox playerPos;
-        TextBox floorPos;
 
-        public const double GravityMultiplier = 1.2;
-        public double speed { get; set; }
+        public const double GravityMultiplier = 0.9;
 
+        public double hspeed { get; set; }
+        public double vspeed { get; set; }
 
         private bool alive = true;
         private bool isFalling = false;
         private bool freeUp, freeDown, freeRight = true, freeLeft = true;
-        private bool moveRight, moveLeft;
+        private bool moveRight, moveLeft, jumping;
 
         private Thread update;
 
         private List<Canvas> collisionBlocks = new List<Canvas>();
 
+        private enum EDirection {
+            top,
+            left
+        }
+
         public Character(Image character, Canvas T)
         {
+            // Getting character image and Canvas for control
             charac = character;
             characT = T;
-            //colliderBox = box;
-            speed = 5;
 
+            // Setting horizontal and vertical speed
+            hspeed = 0.1;
+            vspeed = 80;
+
+            // Setting Key events
             Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
             Window.Current.CoreWindow.KeyUp += Charac_KeyUp;
 
+            // Initialize Class
             Start();
         }
 
-        public void setPlayerPosText(TextBox textBox) { playerPos = textBox; }
-        public void setFloorPos(TextBox textBox) { floorPos = textBox; }
-
         private void Start()
         {
+            // Get the actual time
             time = DateTime.Now;
+            // Creates a loop while alive Thread for update
             update = new Thread(Update);
             update.Start();
+            
         }
 
         private async void Update()
         {
             while(alive)
             {
-                
-                // Calcula a gravidade
-                if(isFalling)
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                        CheckCollision();
-                        // Getting the difference between the time from the start
-                        //Task.Delay(1000);
-                        if (isFalling)
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    // Calcula a gravidade
+                    if (isFalling)
+                    {
+                        if (!CheckGround())
                         {
                             TimeSpan secs = time - DateTime.Now;
-                            characT.SetValue(Canvas.TopProperty, 
-                                (double)characT.GetValue(Canvas.TopProperty) + GravityMultiplier * Math.Pow(secs.TotalSeconds, 2));
+                            MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
                         }
-                    });
-                } else
-                {
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                        CheckCollision();
+                    }
+                    else
+                    {
+                        CheckGround();
                         time = DateTime.Now;
+                    }
 
-                        if (moveLeft)
-                        {
-                            characT.SetValue(Canvas.LeftProperty,
-                                      (double)characT.GetValue(Canvas.LeftProperty) - speed);
-                            Thread.Sleep(50);
-                        }
-                        if (moveRight)
-                        {
-                            characT.SetValue(Canvas.LeftProperty,
-                                      (double)characT.GetValue(Canvas.LeftProperty) + speed);
-                            Thread.Sleep(50);
-                        }
-                    });
-                }
+                    
+                    if (moveLeft)
+                    {
+                        MoveCharac(-hspeed, EDirection.left);
+                    }
+                    if (moveRight)
+                    {
+                        MoveCharac(hspeed, EDirection.left);
+                    }
+                    if(jumping)
+                    {
+                        MoveCharac(-vspeed, EDirection.top);
+                        jumping = false;
+                    }
+                    
+                }); 
             }
         }
 
@@ -111,16 +114,27 @@ namespace RPG_Noelf.Assets.Scripts.Player
             
             if(e.VirtualKey == Windows.System.VirtualKey.A)
             {
-                if(freeRight)
+                if(freeLeft)
                 {
+                    //MoveCharac(-hspeed, EDirection.left);
                     moveLeft = true;
                 }
             } else if(e.VirtualKey == Windows.System.VirtualKey.D)
             {
-                if(freeLeft)
+                if(freeRight)
                 {
+                    //MoveCharac(hspeed, EDirection.left);
                     moveRight = true;
                 }
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+            {
+                if(!isFalling)
+                {
+                    //MoveCharac(-vspeed, EDirection.top);
+                    jumping = true;
+                    Jump();
+                }
+                
             }
         }
 
@@ -129,11 +143,38 @@ namespace RPG_Noelf.Assets.Scripts.Player
 
             if (e.VirtualKey == Windows.System.VirtualKey.A)
             {
+                
                 moveLeft = false;
             }
             else if (e.VirtualKey == Windows.System.VirtualKey.D)
             {
                 moveRight = false;
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+            {
+                jumping = false;
+            }
+        }
+
+        private void MoveCharac(double hspeed, double vspeed)
+        {
+            characT.SetValue(Canvas.LeftProperty,
+                              (double)characT.GetValue(Canvas.LeftProperty) + hspeed);
+            characT.SetValue(Canvas.TopProperty,
+                              (double)characT.GetValue(Canvas.TopProperty) + vspeed);
+        }
+
+        private void MoveCharac(double speed, EDirection dir)
+        {
+            switch(dir)
+            {
+                case EDirection.left:
+                    characT.SetValue(Canvas.LeftProperty,
+                              (double)characT.GetValue(Canvas.LeftProperty) + speed);
+                    break;
+                case EDirection.top:
+                    characT.SetValue(Canvas.TopProperty,
+                              (double)characT.GetValue(Canvas.TopProperty) + speed);
+                    break;
             }
         }
 
@@ -163,7 +204,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
             }*/
         }
 
-        public void CheckCollision()
+        public bool CheckGround()
         {
             foreach(Canvas bloco in collisionBlocks)
             {
@@ -178,17 +219,18 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     if (_xoffset < charac.Width && _xoffset > -bloco.Width)
                     {
                         isFalling = false;
-                        break;
+                        return true;
                     } else
                     {
                         isFalling = true;
                     }
                     freeDown = false;
-                } else if (_yoffset >= -charac.Height  && _yoffset < 0)
+                } else if (_yoffset >= -10  && _yoffset < 0)
                 {
                     freeUp = false;
                 }
             }
+            return false;
         }
 
     }

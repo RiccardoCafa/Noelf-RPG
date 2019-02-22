@@ -42,9 +42,6 @@
 
         <Button Content="Jump" HorizontalAlignment="Left" Margin="76,195,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="76,232,0,0" Click="Button_Click_1" />
-        <TextBox Name="Constant" HorizontalAlignment="Left" Margin="76,278,0,0" Text="" VerticalAlignment="Top" InputScope="Number" PlaceholderText="0.4"/>
-        <TextBox Name="BlockPos" HorizontalAlignment="Left" Margin="606,278,0,0" Text="TextBox" VerticalAlignment="Top" Height="42" Width="316"/>
-        <TextBox Name="PlayerPos" HorizontalAlignment="Left" Margin="606,346,0,0" Text="TextBox" VerticalAlignment="Top" Width="316" Height="44"/>
         <!-- Button that begins animation. -->
         <!-- <Button Click="Animation_Begin"
          Margin="391,604,0,0" Content="Begin" HorizontalAlignment="Left" VerticalAlignment="Top" />
