@@ -15,7 +15,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public int Con { get; set; }
         public int Mnd { get; set; }
         public int Hp { get; set; }
-        
+        public Bag playerInventory;
     }
 
     class Human : Race
@@ -29,7 +29,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Con = 14 + path.Con;
             Mnd = 16 + path.Mnd;
             Hp = 112 + path.Hp;
-            
+            playerInventory = new Bag();
         }
     }
 
@@ -44,7 +44,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Con = 21 + path.Con;
             Mnd = 9 + path.Mnd;
             Hp = 168 + path.Hp;
-           
+            playerInventory = new Bag();
         }
     }
 
@@ -59,7 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Con = 11 + path.Con;
             Mnd = 16 + path.Mnd;
             Hp = 88 + path.Hp;
-            
+            playerInventory = new Bag();
         }
     }
 }
