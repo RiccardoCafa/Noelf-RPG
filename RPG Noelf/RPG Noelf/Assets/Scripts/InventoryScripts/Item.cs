@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
     }
 
   
-     abstract class Item
+      class Item
     {
         
         public int goldValue { get; set; } // valor em ouro do item
@@ -22,15 +22,6 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         public Category itemCategory { get; set; }
         public string itemID { get; set; }// ID de indentificação dos itens
         
-
-
-
-            
-            
-        
-
-
-
     }
 
 

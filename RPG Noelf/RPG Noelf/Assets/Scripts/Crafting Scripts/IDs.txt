@@ -1,0 +1,36 @@
+﻿# Basic Materials 
+The IDs of basic materials begins with "BM" //string para buscar materiais basicos =  "BM"
+* Iron BM1
+* Coal BM2
+* Wood BM3
+* Leather BM4
+* Wool BM5
+* Line BM6
+* Magic Stone BM7
+
+
+# Advanced Materials
+The IDs of Advanced materials begins with "AM"//string para buscar materiais basicos =  "AM"
+* Steel AM1112
+* Hardened Leather AM2415
+* Hardened Line AM46
+* Magic Wool AM1517
+* Improved Magic Stone AM27
+
+# Weapons
+The Weapons IDs begins with "W"//string para buscar materiais basicos =  "W"
+* Iron Sword W3123
+* Iron Axe W4133
+* Long Bow W4326
+* Magic Staff W3317 
+* Steel Sword W3111233
+* Steel Axe W4111233
+* Crossbow W43246
+* Improved Magic Staff W33127
+
+# Armors
+The Armors IDs begins with "A"//string para buscar materiais basicos =  "A"
+* Iron Armor A71
+* Leather Armor A74
+* Wool Cloth A75
+*Steel Armor A71112
