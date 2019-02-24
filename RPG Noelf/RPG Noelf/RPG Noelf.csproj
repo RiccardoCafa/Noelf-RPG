@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Vector2d.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
