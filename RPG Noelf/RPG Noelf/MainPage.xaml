@@ -29,13 +29,11 @@
         </Canvas>
 
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="619" Width="932" VerticalAlignment="Top" Margin="0,0,0,0">
-            <Canvas Name="Plataforma1" Canvas.Left="150" Canvas.Top="250" Height="50" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Canvas Canvas.Left="250" Canvas.Top="250" Height="50" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="150" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="100"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="200" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="250" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="100" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="150"/>
             </Canvas>
             <Canvas Canvas.Left="450" Canvas.Top="300" Height="50" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
@@ -43,8 +41,13 @@
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="100" Canvas.Top="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="150"/>
             </Canvas>
+            <Canvas Canvas.Left="750" Canvas.Top="300" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
+            </Canvas>
+            
             <TextBlock Name="Texto" Canvas.Left="616" Canvas.Top="365" Text="TextBlock" TextWrapping="Wrap" Height="243" Width="234" Margin="0,0,0,0"/>
-            <Canvas Canvas.Left="650" Canvas.Top="270" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Canvas Canvas.Left="650" Canvas.Top="250" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
             </Canvas>

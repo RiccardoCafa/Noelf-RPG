@@ -29,6 +29,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
         public double hspeed { get; set; }
         public double vspeed { get; set; }
 
+        private double lastY;
+
         private bool alive = true;
         private bool isFalling = false;
         private bool freeUp, freeDown, freeRight = true, freeLeft = true;
@@ -110,13 +112,13 @@ namespace RPG_Noelf.Assets.Scripts.Player
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
             
-            if(e.VirtualKey == Windows.System.VirtualKey.A)
+            if(e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
             {
                 moveLeft = true;
-            } else if(e.VirtualKey == Windows.System.VirtualKey.D)
+            } else if(e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
             {
                 moveRight = true;
-            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
             {
                 if(!isFalling)
                 {
@@ -131,14 +133,14 @@ namespace RPG_Noelf.Assets.Scripts.Player
         private void Charac_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
 
-            if (e.VirtualKey == Windows.System.VirtualKey.A)
+            if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
             {   
                 moveLeft = false;
             }
-            else if (e.VirtualKey == Windows.System.VirtualKey.D)
+            else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
             {
                 moveRight = false;
-            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
             {
                 jumping = false;
             }
@@ -173,6 +175,16 @@ namespace RPG_Noelf.Assets.Scripts.Player
             characT.SetValue(Canvas.TopProperty, Y);
         }
 
+        public double GetCanvasTop(Canvas c)
+        {
+            return (double)c?.GetValue(Canvas.TopProperty);
+        }
+
+        public double GetCanvasLeft(Canvas c)
+        {
+            return (double)c?.GetValue(Canvas.LeftProperty);
+        }
+
         public void Jump()
         {
             time = DateTime.Now;
@@ -201,23 +213,31 @@ namespace RPG_Noelf.Assets.Scripts.Player
              * Checar com os x
              */
             double xPlayer, yPlayer;
-            double yMin, xMin;
+            Canvas bottomBlock = null;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
+
             foreach (Canvas bloco in collisionBlocks)
             {
-                Canvas bottomBlock;
 
                 double actualBlockX = (double) bloco.GetValue(Canvas.LeftProperty);
-                double actualBlockY = (double) bloco.GetValue(Canvas.TopProperty);
-
-                double xoffset = xPlayer - actualBlockX;
-                double yoffset = yPlayer - actualBlockY;
-
-                if(xPlayer >= actualBlockX && xPlayer < actualBlockX + bloco.Width)
+                
+                // Get the nearest block on the bottom
+                if(xPlayer + charac.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
+                    && GetCanvasTop(bloco) - yPlayer <= 50)
                 {
-                        
-                } 
+                    bottomBlock = bloco;
+                }
+            }
+
+            if(bottomBlock != null)
+            {
+                double ydist = GetCanvasTop(bottomBlock) - yPlayer;
+                lastY = GetCanvasTop(bottomBlock);
+                isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
+            } else
+            {
+                isFalling = true;
             }
         }
 
@@ -329,7 +349,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
             }
         }
 
-        public void CheckGround_01()
+        public void CheckGround01()
         {
             textu.Text = "";
             bool flagx = true, flagy = true, first = true;
