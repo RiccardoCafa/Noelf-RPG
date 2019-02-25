@@ -201,6 +201,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
              * Checar com os x
              */
             double xPlayer, yPlayer;
+            double yMin, xMin;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
             foreach (Canvas bloco in collisionBlocks)
@@ -210,13 +211,13 @@ namespace RPG_Noelf.Assets.Scripts.Player
                 double actualBlockX = (double) bloco.GetValue(Canvas.LeftProperty);
                 double actualBlockY = (double) bloco.GetValue(Canvas.TopProperty);
 
-                double xoffset;
-                double yoffset;
+                double xoffset = xPlayer - actualBlockX;
+                double yoffset = yPlayer - actualBlockY;
 
                 if(xPlayer >= actualBlockX && xPlayer < actualBlockX + bloco.Width)
                 {
-
-                }
+                        
+                } 
             }
         }
 
