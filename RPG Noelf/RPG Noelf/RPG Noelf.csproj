@@ -129,6 +129,8 @@
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Crafting Scripts\Shop.cs" />
+    <Compile Include="Assets\Scripts\Runas\RunaArv.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
