@@ -127,7 +127,6 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Material.cs" />
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -147,7 +146,7 @@
     <Content Include="Assets\Images\Chao.jpg" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
-    <Content Include="Assets\Scripts\InventoryScripts\IDs.txt" />
+    <Content Include="Assets\Scripts\Crafting Scripts\IDs.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

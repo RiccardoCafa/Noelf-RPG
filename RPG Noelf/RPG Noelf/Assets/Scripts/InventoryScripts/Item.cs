@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Images.Inventory_Scripts
 {
-    public enum Category
-    {
-        Normal,Magical,Epic, Legendary
-    }
+
+        public enum Category//definição de raridade do item
+        {
+            Normal,Magical,Epic, Legendary
+        }
 
   
       class Item
@@ -19,7 +20,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         public int amount { get; set; } // quantidade de um mesmo item
         public string name { get; set; } // nome do item;
         public bool isStackable;//se é possivel acumular ou não
-        public Category itemCategory { get; set; }
+        public Category itemCategory { get; set; }//raridade do item
         public string itemID { get; set; }// ID de indentificação dos itens
         
     }
