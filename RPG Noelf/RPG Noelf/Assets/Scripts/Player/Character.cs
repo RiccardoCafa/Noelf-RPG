@@ -21,17 +21,23 @@ namespace RPG_Noelf.Assets.Scripts.Player
     {
         Image charac;
         Canvas characT;
+        Canvas LastBlock;
         DateTime time;
+        public TextBlock textu { get; set; } 
 
-        public const double GravityMultiplier = 0.9;
+        public const double GravityMultiplier = 0.8;
 
         public double hspeed { get; set; }
         public double vspeed { get; set; }
+
+        private double lastY;
+        private double distancia;
 
         private bool alive = true;
         private bool isFalling = false;
         private bool freeUp, freeDown, freeRight = true, freeLeft = true;
         private bool moveRight, moveLeft, jumping;
+        private bool prepRight, prepLeft;
 
         private Thread update;
 
@@ -75,27 +81,34 @@ namespace RPG_Noelf.Assets.Scripts.Player
             while(alive)
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    CheckGround();
                     // Calcula a gravidade
                     if (isFalling)
                     {
-                        if (!CheckGround())
-                        {
-                            TimeSpan secs = time - DateTime.Now;
-                            MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
-                        }
+                        TimeSpan secs = time - DateTime.Now;
+                        MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
                     }
                     else
                     {
-                        CheckGround();
                         time = DateTime.Now;
+                        if(prepLeft)
+                        {
+                            moveLeft = true;
+                            prepLeft = false;
+                        }
+                        if(prepRight)
+                        {
+                            prepRight = false;
+                            moveRight = true;
+                        }
                     }
 
                     
-                    if (moveLeft)
+                    if (freeLeft && moveLeft)
                     {
                         MoveCharac(-hspeed, EDirection.left);
                     }
-                    if (moveRight)
+                    if (freeRight && moveRight)
                     {
                         MoveCharac(hspeed, EDirection.left);
                     }
@@ -104,55 +117,56 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         MoveCharac(-vspeed, EDirection.top);
                         jumping = false;
                     }
-                    
                 }); 
             }
         }
 
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            
-            if(e.VirtualKey == Windows.System.VirtualKey.A)
+            if(!isFalling)
             {
-                if(freeLeft)
+                if(e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
                 {
-                    //MoveCharac(-hspeed, EDirection.left);
                     moveLeft = true;
-                }
-            } else if(e.VirtualKey == Windows.System.VirtualKey.D)
-            {
-                if(freeRight)
+                } else if(e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
                 {
-                    //MoveCharac(hspeed, EDirection.left);
                     moveRight = true;
-                }
-            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
-            {
-                if(!isFalling)
+                } else if(e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
                 {
                     //MoveCharac(-vspeed, EDirection.top);
                     jumping = true;
                     Jump();
                 }
-                
+            } else
+            {
+                if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
+                {
+                    prepLeft = true;
+                }
+                else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
+                {
+                    prepRight = true;
+                }
             }
         }
 
         private void Charac_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
 
-            if (e.VirtualKey == Windows.System.VirtualKey.A)
-            {
-                
+            if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
+            {   
                 moveLeft = false;
+                if(isFalling) prepLeft = false;
             }
-            else if (e.VirtualKey == Windows.System.VirtualKey.D)
+            else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
             {
                 moveRight = false;
-            } else if(e.VirtualKey == Windows.System.VirtualKey.W)
+                if (isFalling) prepRight = false;
+            } else if(e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
             {
                 jumping = false;
             }
+            
         }
 
         private void MoveCharac(double hspeed, double vspeed)
@@ -182,7 +196,16 @@ namespace RPG_Noelf.Assets.Scripts.Player
         {
             characT.SetValue(Canvas.LeftProperty, X);
             characT.SetValue(Canvas.TopProperty, Y);
-            isFalling = false;
+        }
+
+        public double GetCanvasTop(Canvas c)
+        {
+            return (double)c?.GetValue(Canvas.TopProperty);
+        }
+
+        public double GetCanvasLeft(Canvas c)
+        {
+            return (double)c?.GetValue(Canvas.LeftProperty);
         }
 
         public void Jump()
@@ -194,44 +217,85 @@ namespace RPG_Noelf.Assets.Scripts.Player
         public void UpdateBlocks(Canvas blockCanvas)
         {
             collisionBlocks.Clear();
-            collisionBlocks.Add(blockCanvas);
-            /*foreach(UIElement block in blockCanvas.Children)
+            //collisionBlocks.Add(blockCanvas);
+            foreach(UIElement block in blockCanvas.Children)
             {
                 if(block is Canvas)
                 {
-                    collisionBlocks.Add(block);
-                }
-            }*/
-        }
-
-        public bool CheckGround()
-        {
-            foreach(Canvas bloco in collisionBlocks)
-            {
-                double _xoffset, _yoffset;
-                double _Xblock = (double)bloco.GetValue(Canvas.LeftProperty);
-                double _Yblock = (double)bloco.GetValue(Canvas.TopProperty);
-                _xoffset = _Xblock - (double) characT.GetValue(Canvas.LeftProperty);
-                _yoffset = _Yblock - (double) characT.GetValue(Canvas.TopProperty);
-
-                if (_yoffset <= charac.Height && _yoffset > 0)
-                {
-                    if (_xoffset < charac.Width && _xoffset > -bloco.Width)
-                    {
-                        isFalling = false;
-                        return true;
-                    } else
-                    {
-                        isFalling = true;
-                    }
-                    freeDown = false;
-                } else if (_yoffset >= -10  && _yoffset < 0)
-                {
-                    freeUp = false;
+                    collisionBlocks.Add((Canvas)block);
                 }
             }
-            return false;
         }
 
+        public void CheckGround()
+        {
+            double xPlayer, yPlayer;
+            Canvas bottomBlock = null;
+            xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
+            yPlayer = (double)characT.GetValue(Canvas.TopProperty);
+
+            foreach (Canvas bloco in collisionBlocks)
+            {
+
+                double actualBlockX = GetCanvasLeft(bloco);
+                double actualBlockY = GetCanvasTop(bloco);
+
+                // Get the nearest block on the bottom
+                if (xPlayer + charac.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
+                    && actualBlockY - yPlayer <= 50)
+                {
+                    bottomBlock = bloco;
+                }
+
+                // Get the distant
+                double xvalue, yvalue;
+                double dif = xPlayer - actualBlockX;
+                // Ver a altura do player
+                if(bloco != LastBlock || isFalling)
+                {
+                    // Checar primeiro depois de qual ponta o player se encontra
+                    if (xPlayer >= actualBlockX + bloco.Width && dif > 0) // Se (player) encontra no lado direito
+                    {
+                        xvalue = xPlayer - (actualBlockX + bloco.Width);
+                        yvalue = actualBlockY - yPlayer;
+
+                        if(xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
+                            yPlayer <= actualBlockY + bloco.Width)
+                        {
+                            freeLeft = false;
+                        } else
+                        {
+                            freeLeft = true;
+                        }
+                    }
+                    else if (xPlayer + charac.Width <= actualBlockX && dif <= 0) // Se (player) encontra no lado esquerdo
+                    {
+                        xvalue = actualBlockX - (xPlayer + charac.Width);
+                        yvalue = actualBlockY - yPlayer;
+
+                        if (xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
+                            yPlayer <= actualBlockY + bloco.Width)
+                        {
+                            freeRight = false;
+                        }
+                        else
+                        {
+                            freeRight = true;
+                        }
+                    }
+                }
+            }
+
+            if (bottomBlock != null)
+            {
+                double ydist = GetCanvasTop(bottomBlock) - yPlayer;
+                //lastY = GetCanvasTop(bottomBlock);
+                LastBlock = bottomBlock;
+                isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
+            } else
+            {
+                isFalling = true;
+            }
+        }
     }
 }
