@@ -120,6 +120,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Assets\Scripts\Crafting Scripts\Crafter.cs" />
+    <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Atributes.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
@@ -127,8 +129,9 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Race.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Path.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Material.cs" />
+    <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -144,6 +147,10 @@
   <ItemGroup>
     <Content Include="Assets\Images\00-0--.png" />
     <Content Include="Assets\Images\000---.png" />
+    <Content Include="Assets\Images\Chao.jpg" />
+    <Content Include="Assets\Images\Inimigo.jpg" />
+    <Content Include="Assets\Images\Player.jpg" />
+    <Content Include="Assets\Scripts\InventoryScripts\IDs.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
