@@ -51,7 +51,6 @@ namespace RPG_Noelf
             if (player == null)
             {
                 player = new Character(Player, PlayerCanvas);
-                player.textu = Texto;
             }
             player.UpdateBlocks(Chunck01);
             player.ResetPosition(320, 40);

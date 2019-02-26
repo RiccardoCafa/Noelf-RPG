@@ -23,12 +23,11 @@ namespace RPG_Noelf.Assets.Scripts.Player
         Canvas characT;
         Canvas LastBlock;
         DateTime time;
-        public TextBlock textu { get; set; } 
 
         public const double GravityMultiplier = 0.8;
 
-        public double hspeed { get; set; }
-        public double vspeed { get; set; }
+        public double Hspeed { get; set; }
+        public double Vspeed { get; set; }
 
         private double lastY;
         private double distancia;
@@ -55,8 +54,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
             characT = T;
 
             // Setting horizontal and vertical speed
-            hspeed = 0.1;
-            vspeed = 80;
+            Hspeed = 0.1;
+            Vspeed = 80;
 
             // Setting Key events
             Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
@@ -106,15 +105,15 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     
                     if (freeLeft && moveLeft)
                     {
-                        MoveCharac(-hspeed, EDirection.left);
+                        MoveCharac(-Hspeed, EDirection.left);
                     }
                     if (freeRight && moveRight)
                     {
-                        MoveCharac(hspeed, EDirection.left);
+                        MoveCharac(Hspeed, EDirection.left);
                     }
                     if(jumping)
                     {
-                        MoveCharac(-vspeed, EDirection.top);
+                        MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
                     }
                 }); 
