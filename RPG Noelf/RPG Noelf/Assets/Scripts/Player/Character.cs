@@ -248,7 +248,6 @@ namespace RPG_Noelf.Assets.Scripts.Player
                 }
 
                 // Get the distant
-                double dist = -1;
                 double xvalue, yvalue;
                 double dif = xPlayer - actualBlockX;
                 // Ver a altura do player
@@ -259,21 +258,30 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     {
                         xvalue = xPlayer - (actualBlockX + bloco.Width);
                         yvalue = actualBlockY - yPlayer;
-                        dist = Math.Sqrt(Math.Pow(xvalue, 2) + Math.Pow(yvalue, 2));
-                        if (dist <= 1 && dist != -1)
+
+                        if(xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
+                            yPlayer <= actualBlockY + bloco.Width)
                         {
-                            freeLeft = false;//leftBlock = bloco;
-                        } else { freeLeft = true; }
+                            freeLeft = false;
+                        } else
+                        {
+                            freeLeft = true;
+                        }
                     }
                     else if (xPlayer + charac.Width <= actualBlockX && dif <= 0) // Se (player) encontra no lado esquerdo
                     {
                         xvalue = actualBlockX - (xPlayer + charac.Width);
                         yvalue = actualBlockY - yPlayer;
-                        dist = Math.Sqrt(Math.Pow(xvalue, 2) + Math.Pow(yvalue, 2));
-                        if (dist <= 1 && dist != -1)
+
+                        if (xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
+                            yPlayer <= actualBlockY + bloco.Width)
                         {
                             freeRight = false;
-                        } else { freeRight = true; }
+                        }
+                        else
+                        {
+                            freeRight = true;
+                        }
                     }
                 }
             }
