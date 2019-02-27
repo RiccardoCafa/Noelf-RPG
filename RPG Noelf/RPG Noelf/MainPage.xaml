@@ -61,7 +61,7 @@
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
             </Canvas>
-            <Canvas Name="Plat3" Canvas.Left="650" Canvas.Top="200" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Canvas Name="Plat3" Canvas.Left="650" Canvas.Top="100" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
             </Canvas>

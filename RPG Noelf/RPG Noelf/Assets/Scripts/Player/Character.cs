@@ -283,8 +283,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         xvalue = xPlayer - (actualBlockX + bloco.Width);
                         yvalue = actualBlockY - yPlayer;
 
-                        if(xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
-                            yPlayer <= actualBlockY + bloco.Height)
+                        if(xvalue <= 2 && yvalue < charac.Height && yvalue >= 0/* && yPlayer + charac.Height >= actualBlockY &&
+                            yPlayer <= actualBlockY + bloco.Height*/)
                         {
                             freeLeft = false;
                         } else
@@ -298,8 +298,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         xvalue = actualBlockX - (xPlayer + charac.Width);
                         yvalue = actualBlockY - yPlayer;
 
-                        if (xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
-                            yPlayer <= actualBlockY + bloco.Height)
+                        if (xvalue <= 2 && yvalue < charac.Height && yvalue >= 0/* && yPlayer + charac.Height >= actualBlockY &&
+                            yPlayer <= actualBlockY + bloco.Height*/)
                         {
                             freeRight = false;
                         }
