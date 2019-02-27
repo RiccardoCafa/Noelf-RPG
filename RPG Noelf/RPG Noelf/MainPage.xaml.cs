@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
+using RPG_Noelf.Assets.Scripts.Interface;
+using System.Threading;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,54 +30,32 @@ namespace RPG_Noelf
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        Thread Start;
         Character player;
+        InterfaceManager interfaceManager = new InterfaceManager();
 
         public MainPage()
         {
             this.InitializeComponent();
             
-        }
-        
-        private void MakeHappen_Click(object sender, RoutedEventArgs e)
-        {
-            GeradorFoto.MergeImages(Personagem, 197, 202, RenderedImage);
+            Start = new Thread(start);
+            Start.Start();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public async void start()
         {
-            player.Jump();
-        }
+            // Settando Janelas de Interface
+            interfaceManager.Inventario = InventarioWindow;
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (player == null)
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                // Settando o player
                 player = new Character(Player, PlayerCanvas);
-            }
-            player.UpdateBlocks(Chunck01);
-            player.ResetPosition(320, 40);
+                player.UpdateBlocks(Chunck01);
+                player.ResetPosition(320, 40);
+                player.textBlock = Texticulu;
+                player.rotation = Rotation;
+            });
         }
-
-        /* private void Animation_Begin(object sender, RoutedEventArgs e)
-        {
-            myStoryboard.Begin();
-        }
-        private void Animation_Pause(object sender, RoutedEventArgs e)
-        {
-            myStoryboard.Pause();
-        }
-        private void Animation_Resume(object sender, RoutedEventArgs e)
-        {
-            myStoryboard.Resume();
-        }
-        private void Animation_Stop(object sender, RoutedEventArgs e)
-        {
-            myStoryboard.Stop();
-        }*/
-
-        //private void MyRectangle_PointerPressed(object sender, PointerRoutedEventArgs e)
-        //{
-        //    TimeLine.Begin();
-        //}
     }
 }

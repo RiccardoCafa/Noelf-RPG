@@ -23,18 +23,21 @@ namespace RPG_Noelf.Assets.Scripts.Player
         Canvas characT;
         Canvas LastBlock;
         DateTime time;
+        public RotateTransform rotation { get; set; }
+
+        // Apagar depois
+        public TextBlock textBlock { get; set; }
+        public Canvas blocoLeftx, blocoRightx, blocoBottomx;
+        public double xPlayerVal = 0, yPlayerVal = 0;
 
         public const double GravityMultiplier = 0.8;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
 
-        private double lastY;
-        private double distancia;
-
         private bool alive = true;
         private bool isFalling = false;
-        private bool freeUp, freeDown, freeRight = true, freeLeft = true;
+        private bool freeRight = true, freeLeft = true;
         private bool moveRight, moveLeft, jumping;
         private bool prepRight, prepLeft;
 
@@ -72,7 +75,6 @@ namespace RPG_Noelf.Assets.Scripts.Player
             // Creates a loop while alive Thread for update
             update = new Thread(Update);
             update.Start();
-            
         }
 
         private async void Update()
@@ -86,6 +88,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     {
                         TimeSpan secs = time - DateTime.Now;
                         MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
+                        //rotation.Angle += 2;
                     }
                     else
                     {
@@ -101,21 +104,42 @@ namespace RPG_Noelf.Assets.Scripts.Player
                             moveRight = true;
                         }
                     }
-
                     
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, EDirection.left);
+                        rotation.Angle -= 0.5;
                     }
                     if (freeRight && moveRight)
                     {
                         MoveCharac(Hspeed, EDirection.left);
+                        rotation.Angle += 0.5;
                     }
+
                     if(jumping)
                     {
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
                     }
+
+                    textBlock.Text = "Player [X1,X2,Y1,Y2]: [" + string.Format("{0:N2}", xPlayerVal) 
+                    + "," + string.Format("{0:N2}", (xPlayerVal + charac.Width)) + "," +
+                    string.Format("{0:N2}", yPlayerVal) + "," + string.Format("{0:N2}", (yPlayerVal + charac.Height)) + "]\n";
+
+                    if (blocoLeftx != null)
+                        textBlock.Text += "Bloco LeftX: [" + GetCanvasLeft(blocoLeftx) + "," +
+                        (GetCanvasLeft(blocoLeftx) + blocoLeftx.Width) + "," + GetCanvasTop(blocoLeftx) + ","
+                        + (GetCanvasTop(blocoLeftx) + blocoLeftx.Height) + "]\n";
+
+                    if (blocoRightx != null)
+                        textBlock.Text += "Bloco RightX: [" + GetCanvasLeft(blocoRightx) + "," +
+                        (GetCanvasLeft(blocoRightx) + blocoRightx.Width) + "," + GetCanvasTop(blocoRightx) + ","
+                        + (GetCanvasTop(blocoRightx) + blocoRightx.Height) + "]\n";
+
+                    if(blocoBottomx != null)
+                        textBlock.Text += "Bloco BottomX: [" + GetCanvasLeft(blocoBottomx) + "," +
+                        (GetCanvasLeft(blocoBottomx) + blocoBottomx.Width) + "," + GetCanvasTop(blocoBottomx) + ","
+                        + (GetCanvasTop(blocoBottomx) + blocoBottomx.Height) + "\n"; 
                 }); 
             }
         }
@@ -232,7 +256,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
             Canvas bottomBlock = null;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
-
+            xPlayerVal = xPlayer;
+            yPlayerVal = yPlayer;
             foreach (Canvas bloco in collisionBlocks)
             {
 
@@ -259,27 +284,29 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         yvalue = actualBlockY - yPlayer;
 
                         if(xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
-                            yPlayer <= actualBlockY + bloco.Width)
+                            yPlayer <= actualBlockY + bloco.Height)
                         {
                             freeLeft = false;
                         } else
                         {
                             freeLeft = true;
+                            blocoLeftx = bloco;
                         }
                     }
-                    else if (xPlayer + charac.Width <= actualBlockX && dif <= 0) // Se (player) encontra no lado esquerdo
+                    else if (xPlayer + charac.Width <= actualBlockX && dif < 0) // Se (player) encontra no lado esquerdo
                     {
                         xvalue = actualBlockX - (xPlayer + charac.Width);
                         yvalue = actualBlockY - yPlayer;
 
                         if (xvalue <= 2 && yPlayer + charac.Height >= actualBlockY &&
-                            yPlayer <= actualBlockY + bloco.Width)
+                            yPlayer <= actualBlockY + bloco.Height)
                         {
                             freeRight = false;
                         }
                         else
                         {
                             freeRight = true;
+                            blocoRightx = bloco;
                         }
                     }
                 }
@@ -290,6 +317,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                 double ydist = GetCanvasTop(bottomBlock) - yPlayer;
                 //lastY = GetCanvasTop(bottomBlock);
                 LastBlock = bottomBlock;
+                blocoBottomx = bottomBlock;
                 isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
             } else
             {
