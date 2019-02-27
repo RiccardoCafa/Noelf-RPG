@@ -13,7 +13,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         }
 
   
-      class Item
+      class Item//item não precisa ser abstrato
     {
         
         public int goldValue { get; set; } // valor em ouro do item
