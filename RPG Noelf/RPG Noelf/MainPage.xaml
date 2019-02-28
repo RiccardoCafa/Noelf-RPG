@@ -40,7 +40,7 @@
                     
                 </RotateTransform>
             </Canvas.RenderTransform>
-            <Image x:Name="Player" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/Images/000---.png" Stretch="Fill"/>
+            <Image x:Name="Player" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Player.jpg" Stretch="Fill"/>
         
         </Canvas>
 

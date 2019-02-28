@@ -108,12 +108,12 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, EDirection.left);
-                        rotation.Angle -= 0.5;
+                        //rotation.Angle -= 0.5;
                     }
                     if (freeRight && moveRight)
                     {
                         MoveCharac(Hspeed, EDirection.left);
-                        rotation.Angle += 0.5;
+                        //rotation.Angle += 0.5;
                     }
 
                     if(jumping)
@@ -254,6 +254,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
         {
             double xPlayer, yPlayer;
             Canvas bottomBlock = null;
+            blocoLeftx = null;
+            blocoRightx = null;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
             xPlayerVal = xPlayer;
@@ -266,62 +268,50 @@ namespace RPG_Noelf.Assets.Scripts.Player
 
                 // Get the nearest block on the bottom
                 if (xPlayer + charac.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
-                    && actualBlockY - yPlayer <= 50)
+                    && actualBlockY - (yPlayer + charac.Height) <= 0 && actualBlockY - (yPlayer + charac.Height) > -2)
                 {
                     bottomBlock = bloco;
                 }
 
                 // Get the distant
-                double xvalue, yvalue;
-                double dif = xPlayer - actualBlockX;
-                // Ver a altura do player
-                if(bloco != LastBlock || isFalling)
+                double dif = actualBlockX - xPlayer;
+                double dif02 = xPlayer - (actualBlockX + bloco.Width);
+                // Pegar os blocos a direita e esquerda mais proximos do player
+                if (bloco != LastBlock)
                 {
-                    // Checar primeiro depois de qual ponta o player se encontra
-                    if (xPlayer >= actualBlockX + bloco.Width && dif > 0) // Se (player) encontra no lado direito
+                    if (xPlayer > actualBlockX + bloco.Width && dif02 <= 2 && dif02 > 0)
                     {
-                        xvalue = xPlayer - (actualBlockX + bloco.Width);
-                        yvalue = actualBlockY - yPlayer;
-
-                        if(xvalue <= 2 && yvalue < charac.Height && yvalue >= 0/* && yPlayer + charac.Height >= actualBlockY &&
-                            yPlayer <= actualBlockY + bloco.Height*/)
-                        {
-                            freeLeft = false;
-                        } else
-                        {
-                            freeLeft = true;
-                            blocoLeftx = bloco;
-                        }
+                        blocoLeftx = bloco;
                     }
-                    else if (xPlayer + charac.Width <= actualBlockX && dif < 0) // Se (player) encontra no lado esquerdo
-                    {
-                        xvalue = actualBlockX - (xPlayer + charac.Width);
-                        yvalue = actualBlockY - yPlayer;
 
-                        if (xvalue <= 2 && yvalue < charac.Height && yvalue >= 0/* && yPlayer + charac.Height >= actualBlockY &&
-                            yPlayer <= actualBlockY + bloco.Height*/)
-                        {
-                            freeRight = false;
-                        }
-                        else
-                        {
-                            freeRight = true;
-                            blocoRightx = bloco;
-                        }
+                    if (xPlayer + charac.Width <= actualBlockX && dif <= 20 && dif > 0)
+                    {
+                        blocoRightx = bloco;
                     }
                 }
-            }
 
-            if (bottomBlock != null)
-            {
-                double ydist = GetCanvasTop(bottomBlock) - yPlayer;
-                //lastY = GetCanvasTop(bottomBlock);
-                LastBlock = bottomBlock;
-                blocoBottomx = bottomBlock;
-                isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
-            } else
-            {
-                isFalling = true;
+                if (bottomBlock != null)
+                {
+                    double ydist = GetCanvasTop(bottomBlock) - yPlayer;
+                    //lastY = GetCanvasTop(bottomBlock);
+                    LastBlock = bottomBlock;
+                    blocoBottomx = bottomBlock;
+                    isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
+                }
+                else
+                {
+                    isFalling = true;
+                }
+
+                if(blocoLeftx != null)
+                {
+                    //yvalue = actualBlockY - yPlayer;
+                    freeLeft = (yPlayer + charac.Height >= GetCanvasTop(blocoLeftx) &&
+                                    yPlayer <= GetCanvasTop(blocoLeftx) + blocoLeftx.Height) ? false : true;
+                } else
+                {
+                    freeLeft = true;
+                }
             }
         }
     }
