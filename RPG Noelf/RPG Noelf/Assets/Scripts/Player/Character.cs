@@ -28,6 +28,8 @@ namespace RPG_Noelf.Assets.Scripts.Player
         // Apagar depois
         public TextBlock textBlock { get; set; }
         public Canvas blocoLeftx, blocoRightx, blocoBottomx;
+
+        public double diferenca= 0;
         public double xPlayerVal = 0, yPlayerVal = 0;
 
         public const double GravityMultiplier = 0.8;
@@ -139,7 +141,9 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     if(blocoBottomx != null)
                         textBlock.Text += "Bloco BottomX: [" + GetCanvasLeft(blocoBottomx) + "," +
                         (GetCanvasLeft(blocoBottomx) + blocoBottomx.Width) + "," + GetCanvasTop(blocoBottomx) + ","
-                        + (GetCanvasTop(blocoBottomx) + blocoBottomx.Height) + "\n"; 
+                        + (GetCanvasTop(blocoBottomx) + blocoBottomx.Height) + "\n";
+
+                    textBlock.Text += "\n Diferenca: " + diferenca + "\n";
                 }); 
             }
         }
@@ -274,8 +278,9 @@ namespace RPG_Noelf.Assets.Scripts.Player
                 }
 
                 // Get the distant
-                double dif = actualBlockX - xPlayer;
+                double dif = actualBlockX - (xPlayer + charac.Width);
                 double dif02 = xPlayer - (actualBlockX + bloco.Width);
+                if(dif > 0 && dif < 10) diferenca = dif;
                 // Pegar os blocos a direita e esquerda mais proximos do player
                 if (bloco != LastBlock)
                 {
@@ -284,7 +289,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         blocoLeftx = bloco;
                     }
 
-                    if (xPlayer + charac.Width <= actualBlockX && dif <= 20 && dif > 0)
+                    if (xPlayer + charac.Width <= actualBlockX && dif <= 2 && dif > 0)
                     {
                         blocoRightx = bloco;
                     }
@@ -311,6 +316,16 @@ namespace RPG_Noelf.Assets.Scripts.Player
                 } else
                 {
                     freeLeft = true;
+                }
+
+                if (blocoRightx != null)
+                {
+                    //yvalue = actualBlockY - yPlayer;
+                    freeRight = (yPlayer + charac.Height >= GetCanvasTop(blocoRightx) &&
+                                    yPlayer <= GetCanvasTop(blocoRightx) + blocoRightx.Height) ? false : true;
+                } else
+                {
+                    freeRight = true;
                 }
             }
         }
