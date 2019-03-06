@@ -14,6 +14,8 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     class Armor : Item
     {
         public TypeArmor tpArmor;
+
+
         public int defense
         {
             get
