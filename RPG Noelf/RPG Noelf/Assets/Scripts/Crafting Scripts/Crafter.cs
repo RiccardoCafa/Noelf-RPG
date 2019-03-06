@@ -10,7 +10,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
     class Crafter
     {
-
+       
         public Weapon craftWeapon(Recipe weaponRecipe,Bag playerBag, TypeWeapon tpWeapon)//pesquisando os materiais na mochila e criando a arma nova, removendo os materiais
         {
             bool isReady = false;
