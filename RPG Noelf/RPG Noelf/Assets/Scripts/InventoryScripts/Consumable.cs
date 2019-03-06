@@ -9,8 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
     class Consumable:Item 
     {
-        public float giveBonus { get; set; }
-        public Item material { get; }
+        public float giveBonus { get; set; }//bonus do consumivel
 
         public Consumable()
         {
@@ -19,7 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         }
 
 
-        public float returnBonus()
+        public float returnBonus()//retorna o valor do bonus com base na quantidade
         {
             if(amount == 0)
             {
@@ -27,12 +26,12 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             }
             else
             {
-                return giveBonus;
+                return giveBonus*amount;
             }
 
         }
 
-        public bool canUse()
+        public bool canUse()//retorna se pode usar ou não
         {
             if(amount == 0)
             {
@@ -45,11 +44,12 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
         }
        
-        public void afterUsed(int nTimes)
+        public void afterUsed(int nTimes)//decrementa quando usado um numero n de vezes
         {
             if (nTimes > amount)
             {
-                amount = 0;
+                nTimes = amount;
+                amount = amount - amount;
             }
             else
             {
