@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
         public int Damage { get; set; }
         public int Level { get; private set; } = 1;
         public double AtkSpd { get; set; }
+        public Bag inventory;
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar
         {
