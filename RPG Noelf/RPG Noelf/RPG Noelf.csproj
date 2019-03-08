@@ -131,7 +131,6 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\Race.cs" />
     <Compile Include="Assets\Scripts\Player\Class.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Material.cs" />
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\Vector2d.cs" />
@@ -152,7 +151,6 @@
     <Content Include="Assets\Images\Chao.jpg" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
-    <Content Include="Assets\Scripts\InventoryScripts\IDs.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

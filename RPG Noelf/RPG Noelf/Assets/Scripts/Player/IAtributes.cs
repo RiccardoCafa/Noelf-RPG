@@ -8,10 +8,10 @@ namespace RPG_Noelf.Assets.Scripts.Player
 {
     interface IAtributes
     {
-        int Str { get; set; }
-        int Spd { get; set; }
-        int Dex { get; set; }
-        int Con { get; set; }
-        int Mnd { get; set; }
+        int Str { get; set; }//força
+        int Spd { get; set; }//velocidade
+        int Dex { get; set; }//destreza
+        int Con { get; set; }//constituiçao
+        int Mnd { get; set; }//mente
     }
 }

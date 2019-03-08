@@ -8,7 +8,6 @@ namespace RPG_Noelf.Assets.Scripts.Player
 {
     abstract class Race : IAtributes
     {
-        public Class Class { get; set; }
         public int Str { get; set; }
         public int Spd { get; set; }
         public int Dex { get; set; }
@@ -18,40 +17,37 @@ namespace RPG_Noelf.Assets.Scripts.Player
 
     class Human : Race
     {
-        public Human(Class @class)
+        public Human()
         {
-            Class = @class;
-            Str = 6 + @class.Str;
-            Spd = 4 + @class.Spd;
-            Dex = 5 + @class.Dex;
-            Con = 4 + @class.Con;
-            Mnd = 6 + @class.Mnd;
+            Str = 6;
+            Spd = 4;
+            Dex = 5;
+            Con = 4;
+            Mnd = 6;
         }
     }
 
     class Orc : Race
     {
-        public Orc(Class @class)
+        public Orc()
         {
-            Class = @class;
-            Str = 9 + @class.Str;
-            Spd = 2 + @class.Spd;
-            Dex = 3 + @class.Dex;
-            Con = 9 + @class.Con;
-            Mnd = 2 + @class.Mnd;
+            Str = 9;
+            Spd = 2;
+            Dex = 3;
+            Con = 9;
+            Mnd = 2;
         }
     }
 
     class Elf : Race
     {
-        public Elf(Class @class)
+        public Elf()
         {
-            Class = @class;
-            Str = 2 + @class.Str;
-            Spd = 7 + @class.Spd;
-            Dex = 7 + @class.Dex;
-            Con = 2 + @class.Con;
-            Mnd = 7 + @class.Mnd;
+            Str = 2;
+            Spd = 7;
+            Dex = 7;
+            Con = 2;
+            Mnd = 7;
         }
     }
 }

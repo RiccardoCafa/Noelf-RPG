@@ -16,7 +16,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public int bonusDamage { get; set; }
         public int bonusDefense { get; set; }
-        public Recipe weaponRecipe;
+        //public Recipe weaponRecipe;
         public TypeWeapon tpWeapon { get; }
         public Weapon(TypeWeapon tWeapon)
         {
