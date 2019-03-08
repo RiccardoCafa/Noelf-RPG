@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Images.Inventory_Scripts
+namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
 
         public enum Category//definição de raridade do item

@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Assets\Scripts\Crafting Scripts\Crafter.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
+    <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
     <Compile Include="Assets\Scripts\Player\IAtributes.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
