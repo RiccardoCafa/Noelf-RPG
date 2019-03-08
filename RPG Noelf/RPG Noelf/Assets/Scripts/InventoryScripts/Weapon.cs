@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Images.Inventory_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
