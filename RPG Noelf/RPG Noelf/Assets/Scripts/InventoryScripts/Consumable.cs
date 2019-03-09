@@ -10,9 +10,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     class Consumable:Item 
     {
         public float giveBonus { get; set; }
-        public Item material { get; }
 
-        public Consumable()
+        public Consumable(int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage) :
+                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
         {
 
             isStackable = true;

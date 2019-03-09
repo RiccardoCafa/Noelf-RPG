@@ -146,6 +146,8 @@
     <Content Include="Assets\Images\000---.png" />
     <Content Include="Assets\Images\Chao.jpg" />
     <Content Include="Assets\Images\Inimigo.jpg" />
+    <Content Include="Assets\Images\Item1.jpg" />
+    <Content Include="Assets\Images\Item2.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

@@ -301,7 +301,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     //lastY = GetCanvasTop(bottomBlock);
                     LastBlock = bottomBlock;
                     blocoBottomx = bottomBlock;
-                    isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
+                    isFalling = ydist <= charac.Height ? isFalling = false : isFalling = true;
                 }
                 else
                 {

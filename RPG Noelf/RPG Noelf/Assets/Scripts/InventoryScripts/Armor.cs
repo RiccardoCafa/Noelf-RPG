@@ -15,6 +15,11 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public TypeArmor tpArmor;
 
+        public Armor(int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage) :
+                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
+        {
+            //tpWeapon = tWeapon;
+        }
 
         public int defense
         {

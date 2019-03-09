@@ -19,7 +19,8 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public int bonusDefense { get; set; }
         public Recipe weaponRecipe;
         public TypeWeapon tpWeapon { get; }
-        public Weapon(TypeWeapon tWeapon)
+        public Weapon(TypeWeapon tWeapon, int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage) :
+                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
         {
             tpWeapon = tWeapon;
         }
