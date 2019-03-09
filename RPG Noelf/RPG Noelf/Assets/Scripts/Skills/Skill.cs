@@ -7,51 +7,63 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
+
+    public enum SkillType
+    {
+        passive,
+        active
+    }
+
     class Skill
     {
-        public float damage { get; }
-        private int manac;
+        public float Damage { get; }
+        private int manaCost;
         public int Lvl { get; set; } = 1;
         public int block { get; }
-        private float bonusD;
+        private float BonusMultiplier;
         private float DamageBonus;
-        public char type { get; }
+        public char Type { get; }
         private bool area;
         private char atrib;
+        public string pathImage { get; set; }
+        public string name { get; set; }
         
-        public void UseSkill(Player p, Skill a,Player Enemy)
+        public float UseSkill(Player player, Player Enemy)
         {
-            if (a.manac <= p.Mp)
+            if (manaCost <= player.Mp)
             {
                 float Damagetotal;
-                p.Mp -= a.manac;
-                CalcBonus(p);
-                p.ArmoCalc();
-                Damagetotal = (damage + bonusD) * p.Armor;
+                player.Mp -= manaCost;
+                CalcBonus(player);
+                Enemy.ArmoCalc();
+                Damagetotal = (Damage + DamageBonus) - (Damage + DamageBonus) * Enemy.Armor;
                 Enemy.Hp -= Damagetotal;
+                return Damagetotal;
             }
-            
-
-
+            return 0f;
         }
-        public Skill(float d, int m, int b, float bd, char t,char a)
+
+        public Skill(float damage, int manaCost, int blockLevel, float BonusMultiplier, char Type,char atrib, string pathImage, string name)
         {
-            this.damage = d;
-            this.manac = m;
-            this.block = b;
-            this.bonusD = bd;
-            this.type = t;
-            this.atrib = a;
+            this.pathImage = pathImage;
+            this.Damage = damage;
+            this.manaCost = manaCost;
+            this.block = blockLevel;
+            this.BonusMultiplier = BonusMultiplier;
+            this.Type = Type;
+            this.atrib = atrib;
+            this.name = name;
         }
+
         public void CalcBonus(Player calcP)
         {
             if(atrib == 'F')
             {
-                DamageBonus = calcP.Str * bonusD; 
+                DamageBonus = calcP.Str * BonusMultiplier; 
             }else if(atrib == 'I'){
-                DamageBonus = calcP.Mnd * bonusD;
+                DamageBonus = calcP.Mnd * BonusMultiplier;
             }else{
-                DamageBonus = calcP.Dex * bonusD;
+                DamageBonus = calcP.Dex * BonusMultiplier;
             }
         }
 

@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             {
                 if(weaponRecipe.IDsMateriais.Contains(item.itemID) == true)
                 {
-                    playerBag.removeFromBag(item);
+                    playerBag.RemoveFromBag(item);
                     isReady = true;
                 }
                 else
@@ -29,8 +29,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             }
             if (isReady ==  true)
             {
-                newWeapon = new Weapon(tpWeapon);
-                return newWeapon;
+                //newWeapon = new Weapon(tpWeapon);
+                return null;//newWeapon;
             }
             else
             {
@@ -48,7 +48,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             {
                 if (armorRecipe.IDsMateriais.Contains(item.itemID) == true)
                 {
-                    playerBag.removeFromBag(item);
+                    playerBag.RemoveFromBag(item);
                     isReady = true;
                 }
                 else
@@ -58,8 +58,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             }
             if (isReady == true)
             {
-                newWeapon = new Armor();
-                return newWeapon;
+                //newWeapon = new Armor();
+                return null;//newWeapon;
             }
             else
             {
@@ -76,7 +76,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             {
                 if (consumableRecipe.IDsMateriais.Contains(item.itemID) == true)
                 {
-                    playerBag.removeFromBag(item);
+                    playerBag.RemoveFromBag(item);
                     ready = true;
                 }
                 else
@@ -88,8 +88,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             }
             if (ready)
             {
-                novoCP = new Consumable();
-                return novoCP;
+                //novoCP = new Consumable();
+                return null;//novoCP;
             }
             else
             {

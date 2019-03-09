@@ -38,7 +38,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double AtkSpd { get; set; }
         public Bag inventory;
 
-        public Player(string id)
+        public Player(string id, Race race, Class _class)
         {
             /* ID: rc_x.kysh
              *  r -> raça  0-2
@@ -49,6 +49,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
              *  s -> tipo de cabelo  0-3
              *  h -> cor de cabelo  0-2
              */
+            Race = race;
+            _Class = _class;
             Id = id;
             Str = Race.Str + _Class.Str;
             Spd = Race.Spd + _Class.Spd;

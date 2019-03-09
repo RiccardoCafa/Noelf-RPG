@@ -13,7 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         }
 
   
-      class Item//item não precisa ser abstrato
+    class Item
     {
         
         public int goldValue { get; set; } // valor em ouro do item
@@ -22,8 +22,18 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public bool isStackable;//se é possivel acumular ou não
         public Category itemCategory { get; set; }//raridade do item
         public string itemID { get; set; }// ID de indentificação dos itens
+        public string pathImage { get; set; }
+
+        public Item(int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage)
+        {
+            this.goldValue = goldValue;
+            this.amount = amount;
+            this.name = name;
+            this.isStackable = isStackable;
+            itemCategory = categoria;
+            this.itemID = itemID;
+            this.pathImage = pathImage;
+        }
         
     }
-
-
 }

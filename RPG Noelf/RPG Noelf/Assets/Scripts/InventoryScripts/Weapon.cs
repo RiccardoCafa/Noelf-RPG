@@ -20,7 +20,8 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura
         //public Recipe weaponRecipe;
         public TypeWeapon tpWeapon { get; }
-        public Weapon(TypeWeapon tWeapon)
+        public Weapon(TypeWeapon tWeapon, int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage) :
+                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
         {
             tpWeapon = tWeapon;
         }

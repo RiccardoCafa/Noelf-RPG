@@ -20,6 +20,11 @@ using Windows.UI;
 using Windows.UI.Xaml.Media;
 using RPG_Noelf.Assets.Scripts.Interface;
 using System.Threading;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Diagnostics;
+using RPG_Noelf.Assets.Scripts.InventoryScripts;
+using RPG_Noelf.Assets.Scripts.Skills;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,6 +38,9 @@ namespace RPG_Noelf
         Thread Start;
         Character player;
         InterfaceManager interfaceManager = new InterfaceManager();
+        Bag bag = new Bag();
+        SkillManager skillManager = new SkillManager();
+        Player p1, p2;
 
         public MainPage()
         {
@@ -49,6 +57,13 @@ namespace RPG_Noelf
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
+            });
+
+            
+
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
                 // Settando o player
                 player = new Character(Player, PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
@@ -56,6 +71,163 @@ namespace RPG_Noelf
                 //player.textBlock = Texticulu;
                 player.rotation = Rotation;
             });
+
+            p1 = new Player("1", new Orc(), new Warrior());
+            p1.MpMax = 5000;
+            p1.Mp += 500;
+            p2 = new Player("2", new Human(), new Wizard());
+
+            p2.Armor = 0;
+
+            skillManager.MakeSkill(10, 2, 1, 0.5f, 'P', 'F', "/Assets/Images/Item1.jpg", "jorrada");
+            skillManager.MakeSkill(15, 1, 1, 0.2f, 'H', 'F', "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
+
+            Item banana = new Item(5, 1, "Banana", true, Category.Legendary, "Comunista", "/Assets/Images/Item1.jpg");
+            Item jorro = new Item(500000, 1, "Jorro", true, Category.Magical, "ComunistaJorrando", "/Assets/Images/Item2.jpg");
+            Item espadona = new Item(2500000, 1, "Espadona", false, Category.Normal, "ComunistaComunismo", "/Assets/Images/Item1.jpg");
+            Consumable potion = new Consumable(50, 1, "HP pot", true, Category.Normal, "PotHP", "/Assets/Images/Item2.jpg");
+
+            #region InvTest
+
+            bag.AddToBag(banana);
+            bag.AddToBag(jorro);
+            bag.AddToBag(banana);
+            bag.AddToBag(jorro);
+            bag.AddToBag(banana);
+            bag.AddToBag(jorro);
+            bag.AddToBag(banana);
+            bag.AddToBag(jorro);
+
+            bag.RemoveFromBag(jorro);
+            bag.RemoveFromBag(jorro);
+            bag.RemoveFromBag(jorro);
+            bag.RemoveFromBag(jorro);
+
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+
+            bag.AddToBag(potion);
+            bag.AddToBag(potion);
+            bag.AddToBag(potion);
+
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+            bag.AddToBag(espadona);
+
+            bag.RemoveFromBag(espadona);
+            bag.RemoveFromBag(espadona);
+
+            bag.RemoveFromBag(potion);
+
+            bag.RemoveFromBag(banana);
+            #endregion
+
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                UpdateBag();
+                LoadSkillTree();
+            });
+            
+            
+        }
+
+        private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
+        {
+            if (e.VirtualKey == Windows.System.VirtualKey.Number1)
+            {
+                if(skillManager.SkillList.Count >= 1)
+                {
+                    string s = skillManager.SkillList[0].UseSkill(p1, p2).ToString();
+                    Texticulu.Text = skillManager.SkillList[0].name + " tirou " + s + " de dano";
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number2)
+            {
+                if (skillManager.SkillList.Count >= 2)
+                {
+                    string s = skillManager.SkillList[1].UseSkill(p1, p2).ToString();
+                    Texticulu.Text = skillManager.SkillList[1].name + " tirou " + s + " de dano";
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number3)
+            {
+                if (skillManager.SkillList.Count >= 3)
+                {
+                    string s = skillManager.SkillList[2].UseSkill(p1, p2).ToString();
+                    Texticulu.Text = skillManager.SkillList[2].name + " tirou " + s + " de dano";
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number4)
+            {
+                if (skillManager.SkillList.Count >= 4)
+                {
+                    string s = skillManager.SkillList[3].UseSkill(p1, p2).ToString();
+                    Texticulu.Text = skillManager.SkillList[3].name + " tirou " + s + " de dano";
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number5)
+            {
+                if (skillManager.SkillList.Count >= 5)
+                {
+                    string s = skillManager.SkillList[4].UseSkill(p1, p2).ToString();
+                    Texticulu.Text = skillManager.SkillList[4].name + " tirou " + s + " de dano";
+                }
+            }
+
+        }
+
+        public void LoadSkillTree()
+        {
+            for (int i = 0; i < skillManager.SkillList.Count; i++)
+            {
+                var slotTemp = from element in BarraSkill.Children
+                               where (int)element.GetValue(Grid.ColumnProperty) == i
+                               select element;
+                if (slotTemp != null)
+                {
+                    Image slot = (Image)slotTemp.ElementAt(0);
+                    slot.Source = new BitmapImage(new Uri(this.BaseUri, skillManager.SkillList[i].pathImage));
+                }
+
+            }
+        }
+
+        public void UpdateBag()
+        {
+            for (int i = 0; i < bag.slots.Count; i++)
+            {
+                int column = i, row = i;
+                row = i / 6;
+                while (column > 5) column -= 6;
+
+                var slotTemp = from element in InventarioGrid.Children
+                             where (int)element.GetValue(Grid.ColumnProperty) == column && (int)element.GetValue(Grid.RowProperty) == row
+                             select element;
+                if(slotTemp != null)
+                {
+                    Image slot = (Image)slotTemp.ElementAt(0);
+                    slot.Source = new BitmapImage(new Uri(this.BaseUri, bag.slots[i].pathImage));
+                }
+                
+            }
         }
     }
 }
