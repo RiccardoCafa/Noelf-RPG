@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             //tpWeapon = tWeapon;
         }
 
-        public int defense
+        public int defense //armaduraTotal /armaduratotal + 100 
         {
             get
             {
@@ -46,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 }
                 else
                 {
-
+                    tpArmor = TypeArmor.Light;
                 }
             }
         }
