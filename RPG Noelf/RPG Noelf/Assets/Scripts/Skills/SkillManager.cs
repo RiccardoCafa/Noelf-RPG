@@ -9,50 +9,60 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 {
     class SkillManager
     {
-        List<Skill> SkillList;
+        public List<Skill> SkillList { get; set; }
+        
         public  SkillManager(){
+
             SkillList = new List<Skill>();
 
         }
-        
-        public void TestLvl(Player a, Skill b)
+
+        public void MakeSkill(float damage, int manaCost, int blockLevel, float BonusMultiplier, char Type, char atrib, string pathImage, string name)
         {
-            if (a.Level > b.block)
-            {
-                UpSkill(b);
-            }
-            else
-            {
-                //mensagem
-            }
+            SkillList.Add(new Skill(damage, manaCost, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
         }
-        public void UpSkill(Skill b)
+        
+        public bool TestLevelUp(Player player, Skill skill)
         {
-            if (b.type == 'P')
+            if (player.Level > skill.block)
             {
-                if (b.Lvl <= 15)
-                {
-                    b.Lvl++;
-                }
-            }
-            else if (b.type == 'R')
-            {
-                if (b.Lvl < 10)
-                {
-                    b.Lvl++;
-                }
-            }
-            else
-            {
-                if (b.Lvl < 25)
-                {
-                    b.Lvl++;
-                }
+                return UpSkill(skill);
             }
 
+            return false;
         }
-        public void TrocaSkill(Skill velha, Skill nova){
-	        if(velha.type == 'P'){
+
+        private bool UpSkill(Skill skill)
+        {
+            if (skill.Type == 'P')
+            {
+                if (skill.Lvl < 15)
+                {
+                    skill.Lvl++;
+                    return true;
+                }
+            }
+            else if (skill.Type == 'R')
+            {
+                if (skill.Lvl < 10)
+                {
+                    skill.Lvl++;
+                    return true;
+                }
+            }
+            else
+            {
+                if (skill.Lvl < 25)
+                {
+                    skill.Lvl++;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void ChangeSkill(Skill velha, Skill nova){
+	        if(velha.Type == 'P'){
 	            //n pode
 	            }else{
 	                int indexnew, indexold;

@@ -10,9 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
     <Canvas Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="700" Canvas.Top="430" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="550" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <Grid Name="InventarioGrid" ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
-                
+
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
@@ -60,7 +60,7 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
-
+        
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="0"/>
@@ -111,7 +111,44 @@
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="840" Canvas.Top="200"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="140"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="140"/>
-            <TextBlock Name="Texticulu" Canvas.Left="13" Canvas.Top="296" Text="TextBlock" TextWrapping="Wrap" Height="305" Width="353" Margin="0,0,0,0"/>
+            <TextBlock Name="Texticulu" Canvas.Left="13" Canvas.Top="408" Text="TextBlock" TextWrapping="Wrap" Height="143" Width="813" Margin="0,0,0,0"/>
+        </Canvas>
+
+        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="700" VerticalAlignment="Stretch" Width="300">
+            <Grid Name="BarraSkill" ColumnSpacing="0" RowSpacing="0"  Height="50" Width="300" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Image Grid.Column="0" Grid.Row="0" Width="40" Height="50" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Grid.Column="1" Grid.Row="0" Width="40" Height="50" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Grid.Column="2" Grid.Row="0" Width="40" Height="50" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Grid.Column="3" Grid.Row="0" Width="40" Height="50" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Grid.Column="4" Grid.Row="0" Width="40" Height="50" Source="/Assets/Images/Chao.jpg"></Image>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </Canvas>
+
+        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="510" VerticalAlignment="Stretch" Width="250">
+            <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0"  Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+            </Grid>
         </Canvas>
 
         <Canvas Name="PlayerCanvas" Canvas.Left="360" Canvas.Top="60" HorizontalAlignment="Left" Height="120" Width="60

@@ -91,28 +91,19 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 slots.Add(item);
                 freeSlots--;
-                Debug.WriteLine("Item non-stackable added!");
             }
-            if (freeSlots == 0 && SearchID(item.itemID) == true && item.isStackable == true)//se não tiver espaço, porem ter um item do mesmo tipo e este for stackavel, incrementar
+            else if (freeSlots == 0 && SearchID(item.itemID) == true && item.isStackable == true)//se não tiver espaço, porem ter um item do mesmo tipo e este for stackavel, incrementar
             {
                 IncreaseItemNumber(item.itemID);
-                Debug.WriteLine("Item existing and stackable but without space in the bag incremented!");
             }
             else if (freeSlots != 0 && SearchID(item.itemID) == true && item.isStackable == true)
             {//ter espaço e ainda assim ter um mesmo item, incrementar caso seja stackavel
 
                 IncreaseItemNumber(item.itemID);
-                Debug.WriteLine("Item existing and stackable but with space in the bag incremented!");
-            } else if(freeSlots > 0) {
+            } else if(freeSlots > 0 && item.isStackable == true) {
                 slots.Add(item);
                 freeSlots--;
-            }
-            if (freeSlots == 0 && SearchID(item.itemID) == false)//não ter espaço e não ter um item
-            {
-                //o player não pode pegar
-            }
-
-
+            } 
         }
 
         public void IncreaseItemNumber(string id)//incrementa em um a quantidade de um item no inventario
