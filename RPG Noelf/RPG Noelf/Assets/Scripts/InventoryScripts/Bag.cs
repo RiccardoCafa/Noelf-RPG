@@ -1,20 +1,23 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Images.Inventory_Scripts
+namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
     class Bag
     {
         public int freeSlots { get; set; } //numero de  espaços livres no inventário do player
         public int nGold { get; set; } // dinheiro do player;
         public List<Item> slots; //espaços para guardar os itens
+        public Recipe possibleCrafting { get; set; }
         public Bag()// precisa de construtor?
         {
             slots = new List<Item>();
             this.freeSlots = 30;
+            possibleCrafting = new Recipe();
         }
         // atribuir o item para null é o suficiente para remove-lo, pois o GB ira eventualmente limpar
         public void removeFromBag(Item removed)//remove o item da bag
@@ -28,12 +31,14 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
                 slots.Remove(removed);
                 removed = null;
                 freeSlots++;//incrementa o numero de espaços livres
+                possibleCrafting.IDsMateriais.Remove(removed.itemID);
             }
             else if (slots.Contains(removed) && removed.isStackable && removed.amount == 1)//se so houver um e for stackavel, remove total
             {
                 slots.Remove(removed);
                 removed = null;
                 freeSlots++;
+                possibleCrafting.IDsMateriais.Remove(removed.itemID);
             }
         }
         public void addGold(int coins) // incrementa o gold na mochila
@@ -56,15 +61,13 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
         {
             return item.amount;
         }
-        public bool SearchID(int id)//verifica se o ID esta na mochila
+        public bool SearchID(string id)//verifica se o ID esta na mochila
         {
-            bool result;
             foreach (Item item in slots)
             {
                 if (item.itemID == id)
                 {
-                    return true;
-                    break;
+                    return true;           
                 }
             }
             return false;
@@ -107,7 +110,7 @@ namespace RPG_Noelf.Assets.Images.Inventory_Scripts
 
         }
 
-        public void IncreaseItemNumber(int id)//incrementa em um a quantidade de um item no inventario
+        public void IncreaseItemNumber(string id)//incrementa em um a quantidade de um item no inventario
         {
             foreach (Item item in slots)
             {
