@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,27 +10,31 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     class Skill
     {
         public float damage { get; }
-        private float manac;
+        private int manac;
         public int Lvl { get; set; } = 1;
         public int block { get; }
         private float bonusD;
         private float DamageBonus;
         public char type { get; }
-        private Boolean area;
+        private bool area;
         private char atrib;
-
+        
         public void UseSkill(Player p, Skill a,Player Enemy)
         {
-            if (a.manac <= p.mana)
+            if (a.manac <= p.Mp)
             {
-                p.mana -= a.manac;
-                Enemy.Hp -= damage + bonusD;
+                float Damagetotal;
+                p.Mp -= a.manac;
+                CalcBonus(p);
+                p.ArmoCalc();
+                Damagetotal = (damage + bonusD) * p.Armor;
+                Enemy.Hp -= Damagetotal;
             }
             
 
 
         }
-        public Skill(float d, float m, int b, float bd, char t,char a)
+        public Skill(float d, int m, int b, float bd, char t,char a)
         {
             this.damage = d;
             this.manac = m;
@@ -42,7 +47,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             if(atrib == 'F')
             {
-                DamageBonus = calcP.force * bonusD; 
+                DamageBonus = calcP.Str * bonusD; 
+            }else if(atrib == 'I'){
+                DamageBonus = calcP.Mnd * bonusD;
+            }else{
+                DamageBonus = calcP.Dex * bonusD;
             }
         }
     }

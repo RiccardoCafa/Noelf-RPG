@@ -12,7 +12,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Shapes;
 using System.Diagnostics;
 
-namespace RPG_Noelf.Assets.Scripts.Player
+namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     /// <summary>
     /// The Character class that will manage gravity, movement, jump, animations...

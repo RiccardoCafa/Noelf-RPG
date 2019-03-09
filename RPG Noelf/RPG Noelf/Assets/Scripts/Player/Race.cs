@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.Player
+namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     abstract class Race : IAtributes
     {

@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
     class SkillManager
     {
         List<Skill> SkillList;
-        /*public void TestLvl(player a, Skill b)
+        public  SkillManager(){
+            SkillList = new List<Skill>();
+
+        }
+        
+        public void TestLvl(Player a, Skill b)
         {
-            if (a.lvl > b.block)
+            if (a.Level > b.block)
             {
                 UpSkill(b);
             }
@@ -19,7 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 //mensagem
             }
-        }*/
+        }
         public void UpSkill(Skill b)
         {
             if (b.type == 'P')
@@ -45,21 +51,21 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
 
         }
-        /*public void TrocaSkill(Player perso, Skill velha, Skill nova){
+        public void TrocaSkill(Skill velha, Skill nova){
 	        if(velha.type == 'P'){
 	            //n pode
 	            }else{
 	                int indexnew, indexold;
                     Skill olds, news;
-                    indexold = velha.FindIndex(a=>a.Prop == aProp);
-	                indexnew = nova.FindIndex(a=>a.Prop == aProp);
+                    indexold = SkillList.IndexOf(velha);
+	                indexnew = SkillList.IndexOf(nova);
                     olds = velha;
 	                news = nova;
-	                perso.SkillList.insert(news, indexold);
-	                perso.SkillList.insert(olds, indexnew);
+                    SkillList.Insert(indexold, news);
+                    SkillList.Insert(indexnew, olds);
 	            }
 
-        }*/
+        }
 	}
 }
     
