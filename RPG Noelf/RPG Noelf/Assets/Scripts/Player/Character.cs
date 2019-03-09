@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
     /// </summary>
     class Character
     {
-        Image charac;
+        Rectangle charac;
         Canvas characT;
         Canvas LastBlock;
         DateTime time;
@@ -52,7 +52,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
             left
         }
 
-        public Character(Image character, Canvas T)
+        public Character(Rectangle character, Canvas T)
         {
             // Getting character image and Canvas for control
             charac = character;
@@ -123,7 +123,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
                     }
-
+                    /*
                     textBlock.Text = "Player [X1,X2,Y1,Y2]: [" + string.Format("{0:N2}", xPlayerVal) 
                     + "," + string.Format("{0:N2}", (xPlayerVal + charac.Width)) + "," +
                     string.Format("{0:N2}", yPlayerVal) + "," + string.Format("{0:N2}", (yPlayerVal + charac.Height)) + "]\n";
@@ -143,7 +143,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                         (GetCanvasLeft(blocoBottomx) + blocoBottomx.Width) + "," + GetCanvasTop(blocoBottomx) + ","
                         + (GetCanvasTop(blocoBottomx) + blocoBottomx.Height) + "\n";
 
-                    textBlock.Text += "\n Diferenca: " + diferenca + "\n";
+                    textBlock.Text += "\n Diferenca: " + diferenca + "\n";*/
                 }); 
             }
         }
@@ -301,7 +301,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
                     //lastY = GetCanvasTop(bottomBlock);
                     LastBlock = bottomBlock;
                     blocoBottomx = bottomBlock;
-                    isFalling = ydist <= 50 ? isFalling = false : isFalling = true;
+                    isFalling = ydist <= charac.Height ? isFalling = false : isFalling = true;
                 }
                 else
                 {

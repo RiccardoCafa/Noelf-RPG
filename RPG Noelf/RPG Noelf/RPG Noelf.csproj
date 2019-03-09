@@ -149,6 +149,8 @@
     <Content Include="Assets\Images\00-0--.png" />
     <Content Include="Assets\Images\000---.png" />
     <Content Include="Assets\Images\Chao.jpg" />
+    <Content Include="Assets\Images\grass.png" />
+    <Content Include="Assets\Images\ground.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
     <Content Include="Properties\Default.rd.xml" />
