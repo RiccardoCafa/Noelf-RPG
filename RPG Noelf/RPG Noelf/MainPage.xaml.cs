@@ -1,5 +1,5 @@
 ﻿using RPG_Noelf.Assets;
-using RPG_Noelf.Assets.Scripts.Player;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.IO;
