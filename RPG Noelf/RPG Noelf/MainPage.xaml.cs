@@ -53,7 +53,7 @@ namespace RPG_Noelf
                 player = new Character(Player, PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
                 player.ResetPosition(320, 40);
-                player.textBlock = Texticulu;
+                //player.textBlock = Texticulu;
                 player.rotation = Rotation;
             });
         }

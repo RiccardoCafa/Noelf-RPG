@@ -4,54 +4,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.InventoryScripts
+namespace RPG_Noelf.Assets.Scripts.Player
 {
-    class Path : Atributes
+    class Class : IAtributes
     {
         public int Str { get; set; }
         public int Spd { get; set; }
         public int Dex { get; set; }
         public int Con { get; set; }
         public int Mnd { get; set; }
-        public int Hp { get; set; }
     }
 
-    class Warrior : Path
+    class Warrior : Class
     {
         public Warrior()
         {
-            Str = 12;
-            Spd = 2;
-            Dex = 7;
-            Con = 9;
+            Str = 5;
+            Spd = 0;
+            Dex = 0;
+            Con = 5;
             Mnd = 0;
-            Hp = 72;
         }
     }
 
-    class Ranger : Path
+    class Ranger : Class
     {
         public Ranger()
         {
             Str = 0;
-            Spd = 14;
-            Dex = 10;
-            Con = 3;
-            Mnd = 3;
-            Hp = 24;
+            Spd = 5;
+            Dex = 5;
+            Con = 0;
+            Mnd = 0;
         }
     }
 
-    class Wizard : Path
+    class Wizard : Class
     {
         public Wizard()
         {
             Str = 0;
-            Spd = 3;
-            Dex = 4;
+            Spd = 0;
+            Dex = 0;
             Con = 0;
-            Mnd = 23;
-            Hp = 0;
+            Mnd = 10;
         }
     }
 }

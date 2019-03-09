@@ -124,10 +124,14 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
+    <Compile Include="Assets\Scripts\Player\IAtributes.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\Player\Race.cs" />
+    <Compile Include="Assets\Scripts\Player\Class.cs" />
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -145,6 +149,8 @@
     <Content Include="Assets\Images\00-0--.png" />
     <Content Include="Assets\Images\000---.png" />
     <Content Include="Assets\Images\Chao.jpg" />
+    <Content Include="Assets\Images\grass.png" />
+    <Content Include="Assets\Images\ground.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
     <Content Include="Properties\Default.rd.xml" />

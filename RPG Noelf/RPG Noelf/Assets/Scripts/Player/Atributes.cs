@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
-    interface Atributes
+    interface IAtributes
     {
         int Str { get; set; }
         int Spd { get; set; }
