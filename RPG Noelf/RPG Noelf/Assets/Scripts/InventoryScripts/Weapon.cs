@@ -18,7 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public int bonusDamage { get; set; }
         public int bonusDefense { get; set; }
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura
-
+        //public Recipe weaponRecipe;
         public TypeWeapon tpWeapon { get; }
         public Weapon(TypeWeapon tWeapon)
         {

@@ -129,6 +129,8 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\Skills\Skill.cs" />
+    <Compile Include="Assets\Scripts\Skills\SkillManager.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\Race.cs" />
     <Compile Include="Assets\Scripts\Player\Class.cs" />
@@ -151,6 +153,8 @@
     <Content Include="Assets\Images\00-0--.png" />
     <Content Include="Assets\Images\000---.png" />
     <Content Include="Assets\Images\Chao.jpg" />
+    <Content Include="Assets\Images\grass.png" />
+    <Content Include="Assets\Images\ground.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
     <Content Include="Assets\Scripts\Crafting Scripts\IDs.txt" />

@@ -1,62 +1,73 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
-public class SkillManager
+namespace RPG_Noelf.Assets.Scripts.Skills
 {
-
-    public void TestLvl(Player a, Skill b)
+    class SkillManager
     {
-        if (a.lvl > b.block)
-        {
-            UpSkill(b);
+        List<Skill> SkillList;
+        public  SkillManager(){
+            SkillList = new List<Skill>();
+
         }
-        else
+        
+        public void TestLvl(Player a, Skill b)
         {
-            //mensagem
-        }
-    }
-    public void Upskill(Skill b)
-    {
-        if (b.type == "P")
-        {
-            if (b.lvl <= 15)
+            if (a.Level > b.block)
             {
-                b.lvl++;
+                UpSkill(b);
+            }
+            else
+            {
+                //mensagem
             }
         }
-        else if (b.type == "R")
+        public void UpSkill(Skill b)
         {
-            if (b.lvl < 10)
+            if (b.type == 'P')
             {
-                b.lvl++;
+                if (b.Lvl <= 15)
+                {
+                    b.Lvl++;
+                }
             }
-        }
-        else
-        {
-            if (b.lvl < 25)
+            else if (b.type == 'R')
             {
-                b.lvl++;
+                if (b.Lvl < 10)
+                {
+                    b.Lvl++;
+                }
             }
+            else
+            {
+                if (b.Lvl < 25)
+                {
+                    b.Lvl++;
+                }
+            }
+
         }
+        public void TrocaSkill(Skill velha, Skill nova){
+	        if(velha.type == 'P'){
+	            //n pode
+	            }else{
+	                int indexnew, indexold;
+                    Skill olds, news;
+                    indexold = SkillList.IndexOf(velha);
+	                indexnew = SkillList.IndexOf(nova);
+                    olds = velha;
+	                news = nova;
+                    SkillList.Insert(indexold, news);
+                    SkillList.Insert(indexnew, olds);
+	            }
 
-    }
-
-    public void TrocaSkill(Player perso, Skill old, Skill new){
-	if(old.type == "P"){
-	//n pode
-	    }else{
-	        int indexnew, indexold;
-    Skill olds, news;
-    indexold = old.FindIndex(a=>a.Prop == aProp);
-	        indexnew = new.FindIndex(a=>a.Prop == aProp);
-    olds = old;
-	        news = new;
-	        perso.SkillList.insert(news, indexold);
-	        perso.SkillList.insert(olds, indexnew);
-	} 
-
-
+        }
+	}
 }
+    
 
 
-
-}

@@ -1,5 +1,5 @@
 ﻿using RPG_Noelf.Assets;
-using RPG_Noelf.Assets.Scripts.Player;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,7 +53,7 @@ namespace RPG_Noelf
                 player = new Character(Player, PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
                 player.ResetPosition(320, 40);
-                player.textBlock = Texticulu;
+                //player.textBlock = Texticulu;
                 player.rotation = Rotation;
             });
         }

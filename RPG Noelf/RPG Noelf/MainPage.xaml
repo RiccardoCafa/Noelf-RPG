@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
 
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="932" Height="619">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
     <Canvas Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Canvas Name="InventarioWindow" Height="150" Canvas.Left="700" Canvas.Top="430" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
@@ -34,44 +34,67 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="PlayerCanvas" Canvas.Left="320" Canvas.Top="40" HorizontalAlignment="Left" Height="50" Width="50" VerticalAlignment="Top">
-            <Canvas.RenderTransform>
-                <RotateTransform x:Name="Rotation" CenterX="25" CenterY="25">
-                    
-                </RotateTransform>
-            </Canvas.RenderTransform>
-            <Image x:Name="Player" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Player.jpg" Stretch="Fill"/>
-        
-        </Canvas>
+        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="60"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="120"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="180"/>
+            </Canvas>
+            <Canvas Name="Plat2" Canvas.Left="540" Canvas.Top="300" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="60" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="120" Canvas.Top="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="180"/>
+            </Canvas>
+            <Canvas Name="Plat4" Canvas.Left="780" Canvas.Top="240" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="60" Canvas.Top="0"/>
+            </Canvas>
+            <Canvas Name="Plat3" Canvas.Left="900" Canvas.Top="180" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="60" Canvas.Top="0"/>
+            </Canvas>
+            <Canvas Name="Plat5" Canvas.Left="60" Canvas.Top="180" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
+                <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="60" Canvas.Top="0"/>
+            </Canvas>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="780" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="840" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="480" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="420" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="360" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Stretch="Fill" Canvas.Left="300" Canvas.Top="260"/>
 
-        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="619" Width="932" VerticalAlignment="Top" Margin="0,0,0,0">
-            <Canvas Name="Plat1" Canvas.Left="250" Canvas.Top="100" Height="50" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="100" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="150"/>
-            </Canvas>
-            <Canvas Name="Plat2" Canvas.Left="450" Canvas.Top="150" Height="50" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="100" Canvas.Top="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="150"/>
-            </Canvas>
-            <Canvas Name="Plat4" Canvas.Left="750" Canvas.Top="250" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
-            </Canvas>
-            <Canvas Name="Plat3" Canvas.Left="650" Canvas.Top="100" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
-            </Canvas>
-            <Canvas Name="Plat5" Canvas.Left="100" Canvas.Top="200" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Top="0" Canvas.Left="0"/>
-                <Image HorizontalAlignment="Left" Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="50" Canvas.Top="0"/>
-            </Canvas>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="60" Canvas.Top="140"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="120" Canvas.Top="140"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="360" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="300" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="420" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="480" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="540" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="600" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="660" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="720" Canvas.Top="260"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="780" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="840" Canvas.Top="200"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="140"/>
+            <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="140"/>
             <TextBlock Name="Texticulu" Canvas.Left="13" Canvas.Top="296" Text="TextBlock" TextWrapping="Wrap" Height="305" Width="353" Margin="0,0,0,0"/>
         </Canvas>
 
+        <Canvas Name="PlayerCanvas" Canvas.Left="360" Canvas.Top="60" HorizontalAlignment="Left" Height="120" Width="60
+                " VerticalAlignment="Top" Background="#FF00FF5B">
+            <Canvas.RenderTransform>
+                <RotateTransform x:Name="Rotation" CenterX="25" CenterY="25">
+                </RotateTransform>
+            </Canvas.RenderTransform>
+            <Rectangle Name="Player" HorizontalAlignment="Stretch" Height="120" Canvas.Left="0" Canvas.Top="2" VerticalAlignment="Stretch" Width="60" Fill="#FF00FF5B"/>
+        </Canvas>
         <!-- Button that begins animation. -->
         <!-- <Button Click="Animation_Begin"
          Margin="391,604,0,0" Content="Begin" HorizontalAlignment="Left" VerticalAlignment="Top" />
