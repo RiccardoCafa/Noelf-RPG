@@ -136,6 +136,8 @@
     <Compile Include="Assets\Scripts\Player\Class.cs" />
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Runes\RunaNode.cs" />
+    <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -155,6 +157,7 @@
     <Content Include="Assets\Images\ground.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
+    <Content Include="Assets\Scripts\Crafting Scripts\IDs.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -188,6 +191,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

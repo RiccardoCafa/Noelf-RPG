@@ -1,3 +1,4 @@
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 ﻿using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public float Armor { get; set; }
         public int Damage { get; set; }
         public double AtkSpd { get; set; }
+        public Bag inventory;
 
         public Player(string id)
         {

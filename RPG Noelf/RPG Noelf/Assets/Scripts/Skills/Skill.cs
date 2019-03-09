@@ -1,4 +1,4 @@
-﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,5 +54,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 DamageBonus = calcP.Dex * bonusD;
             }
         }
+
     }
 }
