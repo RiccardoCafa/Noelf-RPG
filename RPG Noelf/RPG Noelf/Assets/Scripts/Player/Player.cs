@@ -1,15 +1,17 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Skills;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.Player
+namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     class Player : IAtributes
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
+        public SkillManager skillManager; 
 
         public int Level { get; private set; }
 
@@ -21,7 +23,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
         public int Con { get; set; }
         public int Mnd { get; set; }
 
-        public int Hp { get; set; }
+        public float Hp { get; set; }
         public int HpMax { get; set; }
 
         public int Xp { get; private set; }
@@ -30,7 +32,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
         public int Mp { get; set; }
         public int MpMax { get; set; }
 
-        public int Armor { get; set; }
+        public float Armor { get; set; }
         public int Damage { get; set; }
         public double AtkSpd { get; set; }
 
@@ -53,6 +55,7 @@ namespace RPG_Noelf.Assets.Scripts.Player
             Mnd = Race.Mnd + _Class.Mnd;
             Level = 1;
             LevelUpdate(0, 0, 0, 0, 0);
+            
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
@@ -80,6 +83,10 @@ namespace RPG_Noelf.Assets.Scripts.Player
             MpMax = Mnd * 5 + Level;
             Mp = MpMax;
             AtkSpd = 2 - 1.75 * Spd / 100;
+        }
+        public void ArmoCalc()
+        {
+            Armor = Armor / (100 + Armor);
         }
     }
 }
