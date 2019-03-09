@@ -13,6 +13,9 @@ namespace RPG_Noelf.Assets.Scripts.Runes
         public int[] keylist;
         public float bonus;
         public RunaNode[] nodes;
+        /*sequencia de atributos dos nós:
+         * 
+         Ataque,Defesa, Regeneração, Skills, HS/SP*/
 
 
         public RunaNode(int nkey)//construindo diversos nós cada vez que uma runa nova é instanciada
@@ -61,7 +64,7 @@ namespace RPG_Noelf.Assets.Scripts.Runes
                     if(nodes[i].key == key)
                     {
                         return nodes[i].bonus;
-                        break;
+                       
                     }
                     i++;
                 }
@@ -69,7 +72,23 @@ namespace RPG_Noelf.Assets.Scripts.Runes
             }
             return 0;   
         }
+
+
+        /* metodo para percorrer o caminho feito pela runa */
+        public void percorreRunas(RunaNode raiz, int key)
+        {
+            if(raiz != null && raiz.key == key){
+                    
+
+
+            }
+
+
+        }
+
     }
+
+
 
     
 }

@@ -16,12 +16,12 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 
             if(playerbag.nGold > selled.goldValue && playerbag.canAddMore() == true)
             {
-
-                playerbag.addToBag
-
+                playerbag.addToBag(selled);
+                playerbag.cashOut(0);
+                    return null;
             }
 
-
+            return null;
         }
     }
 }
