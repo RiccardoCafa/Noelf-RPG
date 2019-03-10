@@ -38,7 +38,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public bool UpSkill(Skill skill)
         {
-            int MinimiumLevel;
+            int MinimiumLevel = 0;
 
             if (SkillPoints <= 0 || !TestLevelUp(skill))
             {
