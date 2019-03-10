@@ -88,9 +88,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mp = MpMax;
             AtkSpd = 2 - 1.75 * Spd / 100;
         }
-        public void ArmoCalc()
+        public float ArmoCalc()
         {
             Armor = Armor / (100 + Armor);
+            return Armor;
         }
     }
 }
