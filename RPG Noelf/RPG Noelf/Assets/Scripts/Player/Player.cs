@@ -85,6 +85,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = Race.Dex + _Class.Dex;
             Con = Race.Con + _Class.Con;
             Mnd = Race.Mnd + _Class.Mnd;
+            XpLim = Level * 100;
             Level = 1;
             LevelUpdate(0, 0, 0, 0, 0);
         }
@@ -97,7 +98,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Xp -= XpLim;
                 Level++;
                 _SkillManager.SkillPoints++;
-
+                _Class.StatsPoints++;
+                XpLim = Level * 100;
                 return true;
             }
             return false;
@@ -112,10 +114,32 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mnd += mnd;
             HpMax = Con * 6 + Level * 2;
             Hp = HpMax;
-            XpLim = Level * 100;
             MpMax = Mnd * 5 + Level;
             Mp = MpMax;
             AtkSpd = 2 - 1.75 * Spd / 100;
+        }
+
+        public void AddMP(int MP)
+        {
+            if(Mp + MP >= MpMax)
+            {
+                Mp = MpMax;
+            } else
+            {
+                Mp += MP;
+            }
+        }
+
+        public void AddHP(int HP)
+        {
+            if (Hp + HP >= HpMax)
+            {
+                Hp = HpMax;
+            }
+            else
+            {
+                Hp += HP;
+            }
         }
 
         public void ArmoCalc()

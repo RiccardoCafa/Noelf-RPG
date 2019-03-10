@@ -112,8 +112,47 @@
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="140"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="140"/>
             <TextBlock Name="Texticulu" Canvas.Left="13" Canvas.Top="408" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="679" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
         </Canvas>
 
+        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="520" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
+            <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
+            <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
+            <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
+        </StackPanel>
+
+        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="520">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="0" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="STRENGHT"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="1" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="SPEED"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="2" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="CONSTITUTION"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="3" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="DEXTERITY"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="4" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="MIND"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSTR"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSPD"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MCON"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MDEX"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MMND"/>
+
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSTR"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSPD"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PCON"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
+            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
+        </Grid>
         <ScrollViewer Width="150" Height="232" Canvas.Left="518" Canvas.Top="514" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
             <TextBlock Name="PlayerInfo" Canvas.Left="518" Canvas.Top="514" Text="TextBlock" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
         </ScrollViewer>
