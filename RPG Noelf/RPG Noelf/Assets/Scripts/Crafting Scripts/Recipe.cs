@@ -41,10 +41,11 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             int count = 0;//contador de materiais
            foreach(Item item in playerBag.slots)//buscando os IDs na mochila do player
             {
-                if(IDsMateriais.Contains(item.itemID) == true)
+                // TODO COMUNISTA
+                /*if(IDsMateriais.Contains(item.itemID) == true)
                 {
                     count++;//incrementa se achar
-                }
+                }*/
             }
 
 
@@ -65,10 +66,11 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 
             foreach(Item item in playerBag.slots)
             {
-                if(item.itemID.StartsWith("BM") == true || item.itemID.StartsWith("AM") == true)
+                // TODO COMUNISTA
+                /*if(item.itemID.StartsWith("BM") == true || item.itemID.StartsWith("AM") == true)
                 {
                     count++;
-                }
+                }*/
             }
 
             return count;

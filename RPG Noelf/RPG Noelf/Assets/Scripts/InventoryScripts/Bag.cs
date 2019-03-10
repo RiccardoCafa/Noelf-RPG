@@ -33,14 +33,16 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 slots.Remove(removed);
                 freeSlots++;//incrementa o numero de espaços livres
-                possibleCrafting.IDsMateriais.Remove(removed.itemID);
+                // TODO COMUNISTA
+                // possibleCrafting.IDsMateriais.Remove(removed.itemID);
                 removed = null;
             }
             else if (slots.Contains(removed) && removed.isStackable && removed.amount == 1)//se so houver um e for stackavel, remove total
             {
                 slots.Remove(removed);
                 freeSlots++;
-                possibleCrafting.IDsMateriais.Remove(removed.itemID);
+                // TODO COMUNISTA
+                //possibleCrafting.IDsMateriais.Remove(removed.itemID);
                 removed = null;
             }
         }

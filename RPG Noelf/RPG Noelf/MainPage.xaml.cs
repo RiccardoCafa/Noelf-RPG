@@ -78,10 +78,10 @@ namespace RPG_Noelf
             p1._SkillManager.MakeSkill(10, 2, 1, 0.5f, 'P', 'F', "/Assets/Images/Item1.jpg", "jorrada");
             p1._SkillManager.MakeSkill(15, 1, 1, 0.2f, 'H', 'F', "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
 
-            Item banana = new Item(5, 1, "Banana", true, Category.Legendary, "Comunista", "/Assets/Images/Item1.jpg");
-            Item jorro = new Item(500000, 1, "Jorro", true, Category.Magical, "ComunistaJorrando", "/Assets/Images/Item2.jpg");
-            Item espadona = new Item(2500000, 1, "Espadona", false, Category.Normal, "ComunistaComunismo", "/Assets/Images/Item1.jpg");
-            Consumable potion = new Consumable(50, 1, "HP pot", true, Category.Normal, "PotHP", "/Assets/Images/Item2.jpg");
+            Item banana = new Item(5, 1, "Banana", true, Category.Legendary, 1, "/Assets/Images/Item1.jpg");
+            Item jorro = new Item(500000, 1, "Jorro", true, Category.Magical, 2, "/Assets/Images/Item2.jpg");
+            Item espadona = new Item(2500000, 1, "Espadona", false, Category.Normal, 3, "/Assets/Images/Item1.jpg");
+            Consumable potion = new Consumable(50, 1, "HP pot", true, Category.Normal, 4, "/Assets/Images/Item2.jpg");
 
             #region InvTest
 
