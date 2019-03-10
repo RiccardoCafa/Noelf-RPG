@@ -10,11 +10,15 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     class SkillManager
     {
         public List<Skill> SkillList { get; set; }
-        
-        public  SkillManager(){
+        public Player myPlayer;
 
+        public int SkillPoints { get; set; }
+
+        public SkillManager(Player myPlayer)
+        {
+            SkillPoints = 0;
+            this.myPlayer = myPlayer;
             SkillList = new List<Skill>();
-
         }
 
         public void MakeSkill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType Type, AtributBonus atrib, string pathImage, string name)
@@ -22,43 +26,48 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillList.Add(new Skill(damage, manaCost, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
         }
         
-        public bool TestLevelUp(Player player, Skill skill)
+        private bool TestLevelUp(Skill skill)
         {
-            if (player.Level > skill.block)
+            if (myPlayer.Level > skill.block)
             {
-                return UpSkill(skill);
+                return true;
             }
 
             return false;
         }
 
-        private bool UpSkill(Skill skill)
+        public bool UpSkill(Skill skill)
         {
-            if (skill.tipo == SkillType.passive)
+            int MinimiumLevel;
+
+            if (SkillPoints <= 0 || !TestLevelUp(skill))
             {
-                if (skill.Lvl < 15)
-                {
-                    skill.Lvl++;
-                    return true;
-                }
+                return false;
             }
             else if (skill.tipo == SkillType.ultimate)
+
+            if (skill.tipo == SkillType.ultimate)
             {
-                if (skill.Lvl < 10)
-                {
-                    skill.Lvl++;
-                    return true;
-                }
+                MinimiumLevel = 10;
+            }
+            else if (skill.tipo == SkillType.passive)
+            {
+                MinimiumLevel = 15;
             }
             else
             {
-                if (skill.Lvl < 25)
-                {
-                    skill.Lvl++;
-                    return true;
-                }
+                MinimiumLevel = 25;
             }
-            return false;
+
+            if (skill.Lvl < MinimiumLevel)
+            {
+                skill.Lvl++;
+                SkillPoints--;
+                return true;
+            } else
+            {
+                return false;
+            }
         }
 
         public void ChangeSkill(Skill velha, Skill nova){

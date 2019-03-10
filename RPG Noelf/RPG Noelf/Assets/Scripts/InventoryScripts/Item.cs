@@ -21,10 +21,10 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public string name { get; set; } // nome do item;
         public bool isStackable;//se é possivel acumular ou não
         public Category itemCategory { get; set; }//raridade do item
-        public string itemID { get; set; }// ID de indentificação dos itens
+        public int itemID { get; set; }// ID de indentificação dos itens
         public string pathImage { get; set; }
 
-        public Item(int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage)
+        public Item(int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage)
         {
             this.goldValue = goldValue;
             this.amount = amount;

@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
     class Bag
     {
+        public const int maxStack = 99;
         public int freeSlots { get; set; } //numero de  espaços livres no inventário do player
         public int nGold { get; set; } // dinheiro do player;
         public List<Item> slots { get; set; } //espaços para guardar os itens
@@ -31,14 +33,16 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 slots.Remove(removed);
                 freeSlots++;//incrementa o numero de espaços livres
-                possibleCrafting.IDsMateriais.Remove(removed.itemID);
+                // TODO COMUNISTA
+                // possibleCrafting.IDsMateriais.Remove(removed.itemID);
                 removed = null;
             }
             else if (slots.Contains(removed) && removed.isStackable && removed.amount == 1)//se so houver um e for stackavel, remove total
             {
                 slots.Remove(removed);
                 freeSlots++;
-                possibleCrafting.IDsMateriais.Remove(removed.itemID);
+                // TODO COMUNISTA
+                //possibleCrafting.IDsMateriais.Remove(removed.itemID);
                 removed = null;
             }
         }
@@ -46,15 +50,17 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             nGold = nGold + coins;
         }
-        public void CashOut(int coins)//retorna o dinheiro que sobrou
+        public bool CashOut(int coins)//retorna o dinheiro que sobrou
         {
             if (nGold < coins)
             {
-                nGold = 0;
+                //não tenho dinheiro suficiente
+                return false;
             }
             else
             {
                 nGold = nGold - coins;
+                return true;
             }
 
         }
@@ -62,7 +68,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             return item.amount;
         }
-        public bool SearchID(string id)//verifica se o ID esta na mochila
+        public bool SearchID(int id)//verifica se o ID esta na mochila
         {
             foreach (Item item in slots)
             {
@@ -85,34 +91,41 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             else return false;
         }
         //resolvido o problema de adição na mochila com a criação de 3 funções extras
-        public void AddToBag(Item item)
+        public bool AddToBag(Item item)
         {
             if (freeSlots != 0 && item.isStackable == false)//adiciona na proxima posição se o item não for stackavel
             {
                 slots.Add(item);
                 freeSlots--;
+                return true;
             }
-            else if (freeSlots == 0 && SearchID(item.itemID) == true && item.isStackable == true)//se não tiver espaço, porem ter um item do mesmo tipo e este for stackavel, incrementar
+            else if (freeSlots == 0 && SearchID(item.itemID) == true && item.isStackable == true && item.amount < maxStack)//se não tiver espaço, porem ter um item do mesmo tipo e este for stackavel, incrementar
             {
                 IncreaseItemNumber(item.itemID);
+                return true;
             }
-            else if (freeSlots != 0 && SearchID(item.itemID) == true && item.isStackable == true)
+            else if (freeSlots != 0 && SearchID(item.itemID) == true && item.isStackable == true && item.amount == maxStack)
             {//ter espaço e ainda assim ter um mesmo item, incrementar caso seja stackavel
 
-                IncreaseItemNumber(item.itemID);
+                slots.Add(item);
+                freeSlots--;
+                return true;
+                
             } else if(freeSlots > 0 && item.isStackable == true) {
                 slots.Add(item);
                 freeSlots--;
-            } 
+                return true;
+            }
+            return false;
         }
 
-        public void IncreaseItemNumber(string id)//incrementa em um a quantidade de um item no inventario
+        public void IncreaseItemNumber(int id)//incrementa em um a quantidade de um item no inventario
         {
             foreach (Item item in slots)
             {
                 if (SearchID(id) == true)
                 {
-                    if (item.itemID == id && item.isStackable == true)
+                    if (item.itemID == id && item.isStackable == true && item.amount < maxStack)
                     {
                         item.amount++;
                         break;
