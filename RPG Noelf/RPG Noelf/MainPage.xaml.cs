@@ -58,12 +58,6 @@ namespace RPG_Noelf
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
-            });
-
-            
-
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
                 // Settando o player
                 player = new Character(Player, PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
@@ -88,6 +82,8 @@ namespace RPG_Noelf
             Consumable potion = new Consumable(50, 1, "HP pot", true, Category.Normal, "PotHP", "/Assets/Images/Item2.jpg");
 
             #region InvTest
+
+            bag.AddGold(50);
 
             bag.AddToBag(banana);
             bag.AddToBag(jorro);
@@ -144,54 +140,63 @@ namespace RPG_Noelf
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                 UpdateBag();
                 LoadSkillTree();
+                UpdatePlayerInfo();
             });
-            
-            
         }
 
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
+            int indicadorzao = 0;
             if (e.VirtualKey == Windows.System.VirtualKey.Number1)
             {
                 if(skillManager.SkillList.Count >= 1)
                 {
-                    string s = skillManager.SkillList[0].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[0].name + " tirou " + s + " de dano";
+                    indicadorzao = 0;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number2)
             {
                 if (skillManager.SkillList.Count >= 2)
                 {
-                    string s = skillManager.SkillList[1].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[1].name + " tirou " + s + " de dano";
+                    indicadorzao = 1;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number3)
             {
                 if (skillManager.SkillList.Count >= 3)
                 {
-                    string s = skillManager.SkillList[2].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[2].name + " tirou " + s + " de dano";
+                    indicadorzao = 2;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number4)
             {
                 if (skillManager.SkillList.Count >= 4)
                 {
-                    string s = skillManager.SkillList[3].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[3].name + " tirou " + s + " de dano";
+                    indicadorzao = 3;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number5)
             {
                 if (skillManager.SkillList.Count >= 5)
                 {
-                    string s = skillManager.SkillList[4].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[4].name + " tirou " + s + " de dano";
+                    indicadorzao = 4;
                 }
             }
 
+            string s = skillManager.SkillList[indicadorzao].UseSkill(p1, p2).ToString();
+            Texticulu.Text = skillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
+
+        }
+
+        public void UpdatePlayerInfo()
+        {
+            PlayerInfo.Text = p1.Race.NameRace + " " + p1._Class.ClassName + "\n";
+            PlayerInfo.Text += "Atributos: \n" +
+                                "Força: " + p1.Str + "\n" +
+                                "Mente: " + p1.Mnd + "\n" +
+                                "Velocidade: " + p1.Spd + "\n" +
+                                "Destreza: " + p1.Dex + "\n" +
+                                "Constituição: " + p1.Con + "\n";
         }
 
         public void LoadSkillTree()

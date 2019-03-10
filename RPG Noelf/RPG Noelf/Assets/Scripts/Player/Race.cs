@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
+    public enum IRaces
+    {
+        Human,
+        Orc,
+        Elf
+    }
     abstract class Race : IAtributes
     {
         public int Str { get; set; }
@@ -13,6 +19,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Dex { get; set; }
         public int Con { get; set; }
         public int Mnd { get; set; }
+
+        protected string nameRace;
+
+        public string NameRace {
+            get {
+                return nameRace;
+            }
+        }
     }
 
     class Human : Race
@@ -24,6 +38,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = 5;
             Con = 4;
             Mnd = 6;
+
+            nameRace = "Humano";
         }
     }
 
@@ -36,6 +52,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = 3;
             Con = 9;
             Mnd = 2;
+
+            nameRace = "Orc";
         }
     }
 
@@ -48,6 +66,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = 7;
             Con = 2;
             Mnd = 7;
+
+            nameRace = "Elf";
         }
     }
 }

@@ -12,7 +12,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
-        public SkillManager skillManager; 
+        public SkillManager _SkillManager { get; }
+        public Bag _Inventory { get; }
 
         public int Level { get; private set; }
 
@@ -36,9 +37,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public float Armor { get; set; }
         public int Damage { get; set; }
         public double AtkSpd { get; set; }
-        public Bag inventory;
 
-        public Player(string id, Race race, Class _class)
+        public Player(string id, IRaces race, IClasses _class)
         {
             /* ID: rc_x.kysh
              *  r -> raça  0-2
@@ -49,8 +49,36 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
              *  s -> tipo de cabelo  0-3
              *  h -> cor de cabelo  0-2
              */
-            Race = race;
-            _Class = _class;
+
+            _SkillManager = new SkillManager(this);
+            _Inventory = new Bag();
+
+            switch (race)
+            {
+                case IRaces.Human:
+                    Race = new Human();
+                    break;
+                case IRaces.Orc:
+                    Race = new Orc();
+                    break;
+                case IRaces.Elf:
+                    Race = new Elf();
+                    break;
+            }
+
+            switch (_class)
+            {
+                case IClasses.Warrior:
+                    _Class = new Warrior(_SkillManager);
+                    break;
+                case IClasses.Ranger:
+                    _Class = new Ranger(_SkillManager);
+                    break;
+                case IClasses.Wizard:
+                    _Class = new Wizard(_SkillManager);
+                    break;
+            }
+
             Id = id;
             Str = Race.Str + _Class.Str;
             Spd = Race.Spd + _Class.Spd;
@@ -59,7 +87,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mnd = Race.Mnd + _Class.Mnd;
             Level = 1;
             LevelUpdate(0, 0, 0, 0, 0);
-            
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
@@ -69,6 +96,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Xp -= XpLim;
                 Level++;
+                _SkillManager.SkillPoints++;
+
                 return true;
             }
             return false;
@@ -88,6 +117,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mp = MpMax;
             AtkSpd = 2 - 1.75 * Spd / 100;
         }
+
         public void ArmoCalc()
         {
             Armor = Armor / (100 + Armor);

@@ -14,10 +14,10 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         public Item sellItem(Item selled, Bag playerbag)
         {
 
-            if(playerbag.nGold > selled.goldValue && playerbag.canAddMore() == true)
+            if(playerbag.nGold > selled.goldValue && playerbag.CanAddMore() == true)
             {
-                playerbag.addToBag(selled);
-                playerbag.cashOut(0);
+                playerbag.AddToBag(selled);
+                playerbag.CashOut(0);
                     return null;
             }
 
