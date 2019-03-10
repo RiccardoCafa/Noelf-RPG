@@ -9,23 +9,34 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
     static class Encyclopedia
     {
-        public static  Dictionary<string,Item> store;
+        public static Dictionary<int, Item> encyclopedia;
 
-        public static void InsertForSearch(Bag playerBag)
+        public static bool UpdateEncyclopedia(Bag bag)
         {
-            foreach(Item i in playerBag.slots)
+            try
             {
-                store.Add(i.itemID, i);
+                foreach (Item i in bag.slots)
+                {
+                    encyclopedia.Add(i.itemID, i);
+                }
+                return true;
             }
+            catch (NullReferenceException)
+            {
+                return false;
+            }
+            
+
         }
 
-        public static Item searchForItem(string key)
+        public static Item searchFor(int key)
         {
-            Item item;
-            item = store[key];
-            return item;
+            Item generic;
+            generic = encyclopedia[key];
+            return generic;
+
         }
 
-
+        
     }
 }

@@ -9,19 +9,53 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
     class Shop
     {
-        public List<Item> itens;
+        public List<Item> selled;
+        public List<Item> purchased;
 
-        public Item sellItem(Item selled, Bag playerbag)
+
+        public Shop()
         {
+            selled = new List<Item>();
+            purchased = new List<Item>();
+        } 
+        
 
-            if(playerbag.nGold > selled.goldValue && playerbag.CanAddMore() == true)
+        // função para vender itens ao jogador
+        public bool sellItem(Item sell, Bag player)
+        {
+            if (selled.Contains(sell) == true && player.CanAddMore() == true && player.nGold >= sell.goldValue)
             {
-                playerbag.AddToBag(selled);
-                playerbag.CashOut(0);
-                    return null;
+                selled.Remove(sell);
+                if (player.AddToBag(sell) == true)
+                {
+                    player.CashOut(sell.goldValue);
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
             }
 
-            return null;
+            return false;
+        }
+
+        //função para comprar itens do jogador
+
+        public bool BuyItem(Item item, Bag player)
+        {
+            if(item != null && player != null)
+            {
+                player.RemoveFromBag(item);
+                purchased.Add(item);
+                player.AddGold(item.goldValue);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
+
 }
