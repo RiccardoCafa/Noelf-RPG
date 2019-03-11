@@ -10,7 +10,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
     <Canvas Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="550" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <Grid Canvas.Left="150" Canvas.Top="0" Width="200" Height="250">
+            <Grid.ColumnDefinitions>
+                
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
+        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="420" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <Grid Name="InventarioGrid" ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
 
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
@@ -60,6 +66,8 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
+
+
 
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -111,18 +119,18 @@
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="840" Canvas.Top="200"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="140"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="140"/>
-            <TextBlock Name="Texticulu" Canvas.Left="13" Canvas.Top="408" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock Name="Texticulu" Canvas.Left="7" Canvas.Top="15" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0"/>
             <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="679" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
+            <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="580" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
         </Canvas>
 
-        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="520" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
+        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="430" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
             <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
             <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
             <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
         </StackPanel>
 
-        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="520">
+        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="410">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="70"/>
@@ -153,11 +161,11 @@
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
         </Grid>
-        <ScrollViewer Width="150" Height="232" Canvas.Left="518" Canvas.Top="514" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
-            <TextBlock Name="PlayerInfo" Canvas.Left="518" Canvas.Top="514" Text="TextBlock" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
+        <ScrollViewer Width="150" Height="232" Canvas.Left="500" Canvas.Top="400" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
+            <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
         </ScrollViewer>
 
-        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="700" VerticalAlignment="Stretch" Width="300">
+        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="570" VerticalAlignment="Stretch" Width="300">
             <Image Width="300" Height="50" Source="/Assets/Images/UI Elements/UIAtivo 13-0.png" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="Fill"/>
             <Grid Name="BarraSkill" ColumnSpacing="0" RowSpacing="0"  Height="50" Width="300" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <Image Grid.Column="0" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg"></Image>
@@ -178,8 +186,8 @@
             </Grid>
         </Canvas>
 
-        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="510" VerticalAlignment="Stretch" Width="250">
-            <Image Width="250" Height="150"  VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
+        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="400" VerticalAlignment="Stretch" Width="250">
+            <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
             <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0"  Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
