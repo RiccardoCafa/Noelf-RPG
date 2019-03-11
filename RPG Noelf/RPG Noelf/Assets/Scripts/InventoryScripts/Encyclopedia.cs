@@ -13,18 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
         public static bool UpdateEncyclopedia(Bag bag)
         {
-            try
-            {
-                foreach (Item i in bag.slots)
-                {
-                    encyclopedia.Add(i.itemID, i);
-                }
-                return true;
-            }
-            catch (NullReferenceException)
-            {
-                return false;
-            }
+            
             
 
         }
