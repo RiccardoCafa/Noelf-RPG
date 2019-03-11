@@ -142,9 +142,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        public void ArmoCalc()
+        public float ArmoCalc()
         {
             Armor = Armor / (100 + Armor);
+            return Armor;
         }
     }
 }

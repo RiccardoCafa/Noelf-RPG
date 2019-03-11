@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillList = new List<Skill>();
         }
 
-        public void MakeSkill(float damage, int manaCost, int blockLevel, float BonusMultiplier, char Type, char atrib, string pathImage, string name)
+        public void MakeSkill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType Type, AtributBonus atrib, string pathImage, string name)
         {
             SkillList.Add(new Skill(damage, manaCost, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
         }
@@ -38,18 +38,19 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public bool UpSkill(Skill skill)
         {
-            int MinimiumLevel;
+            int MinimiumLevel = 0;
 
             if (SkillPoints <= 0 || !TestLevelUp(skill))
             {
                 return false;
             }
+            else if (skill.tipo == SkillType.ultimate)
 
-            if (skill.Type == 'R')
+            if (skill.tipo == SkillType.ultimate)
             {
                 MinimiumLevel = 10;
             }
-            else if (skill.Type == 'P')
+            else if (skill.tipo == SkillType.passive)
             {
                 MinimiumLevel = 15;
             }
@@ -70,7 +71,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
 
         public void ChangeSkill(Skill velha, Skill nova){
-	        if(velha.Type == 'P'){
+	        if(velha.tipo == SkillType.passive){
 	            //n pode
 	            }else{
 	                int indexnew, indexold;
