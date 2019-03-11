@@ -12,45 +12,25 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
     class Bag
     {
-        public const int maxStack = 99;
+        public const uint maxStack = 99;
         public int freeSlots { get; set; } //numero de  espaços livres no inventário do player
         public int nGold { get; set; } // dinheiro do player;
-        public List<SlotInventario> slots { get; set; } //espaços para guardar os itens
-        public Bag()// precisa de construtor?
+        public List<SlotInventory> slots { get; set; } //espaços para guardar os itens
+        public Bag() //precisa de construtor?
         {
-            slots = new List<SlotInventario>();
+            slots = new List<SlotInventory>();
             this.freeSlots = 30;
             
         }
         //resolvido o problema de adição na mochila com a criação de 3 funções extras
-        public bool AddToBag(int itemID, int amount;)
+        public bool AddToBag(int itemID, int amount)
         {
-
+            return true;
         }
         // atribuir o item para null é o suficiente para remove-lo, pois o GB ira eventualmente limpar
         public void RemoveFromBag(int itemID, int amount)//remove o item da bag
         {
 
-            if (slots.Contains(removed) && removed.isStackable && removed.amount > 1)//se for stackavel e tiver mais de um, retira apenas um
-            {
-                removed.amount--;
-            }
-            else if (slots.Contains(removed) && removed.isStackable == false)//remove se não for stackavel e se so tiver um
-            {
-                slots.Remove(removed);
-                freeSlots++;//incrementa o numero de espaços livres
-                // TODO COMUNISTA
-                // possibleCrafting.IDsMateriais.Remove(removed.itemID);
-                removed = null;
-            }
-            else if (slots.Contains(removed) && removed.isStackable && removed.amount == 1)//se so houver um e for stackavel, remove total
-            {
-                slots.Remove(removed);
-                freeSlots++;
-                // TODO COMUNISTA
-                //possibleCrafting.IDsMateriais.Remove(removed.itemID);
-                removed = null;
-            }
         }
         public void AddGold(int coins) // incrementa o gold na mochila
         {
@@ -73,7 +53,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public int AmountInBag(int itemID) //retorna a quantidade de um item especifico na mochila
         {
             int amt = 0;
-            foreach(SlotInventario slot in slots)
+            foreach(SlotInventory slot in slots)
             {
                 if(slot.itemID == itemID)
                 {
@@ -84,9 +64,14 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         }
         public bool SearchID(int itemID)//verifica se o ID esta na mochila
         {
-            foreach(SlotInventario)
-
-            
+            foreach(SlotInventory sl in slots)
+            {
+                if(sl.itemID == itemID)
+                {
+                    return true;
+                }
+            }
+            return false;            
         }
         // não estou muito certo se deve-se usar isso
         void Clearbag()

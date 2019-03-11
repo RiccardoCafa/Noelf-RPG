@@ -17,22 +17,16 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         
         public int goldValue { get; set; } // valor em ouro do item
-        public int amount { get; set; } // quantidade de um mesmo item
+        public uint amount { get; set; } // quantidade de um mesmo item
         public string name { get; set; } // nome do item;
         public bool isStackable;//se é possivel acumular ou não
         public Category itemCategory { get; set; }//raridade do item
-        public int itemID { get; set; }// ID de indentificação dos itens
+        public uint itemID { get; set; }// ID de indentificação dos itens
         public string pathImage { get; set; }
 
-        public Item(int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage)
+        public Item()
         {
-            this.goldValue = goldValue;
-            this.amount = amount;
-            this.name = name;
-            this.isStackable = isStackable;
-            itemCategory = categoria;
-            this.itemID = itemID;
-            this.pathImage = pathImage;
+            
         }
         
     }
