@@ -1,5 +1,5 @@
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-﻿using RPG_Noelf.Assets.Scripts.Skills;
+using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public Player(string id, IRaces race, IClasses _class)
         {
-            /* ID: rc_x.kysh
+            /* ID: rc_x kysh
              *  r -> raça  0-2
              *  c -> classe  0-2
              *  x -> sexo  0,1
@@ -50,18 +50,20 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
              *  h -> cor de cabelo  0-2
              */
 
+            Id = id;
+
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
 
-            switch (race)
+            switch (Id.Substring(0, 1))
             {
-                case IRaces.Human:
+                case "0":
                     Race = new Human();
                     break;
-                case IRaces.Orc:
+                case "1":
                     Race = new Orc();
                     break;
-                case IRaces.Elf:
+                case "2":
                     Race = new Elf();
                     break;
             }
@@ -106,7 +108,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
 
         public void LevelUpdate(int str, int spd, int dex, int con, int mnd)//atualiza os atributos ao upar
-        { 
+        {
             Str += str;
             Spd += spd;
             Dex += dex;
@@ -121,10 +123,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void AddMP(int MP)
         {
-            if(Mp + MP >= MpMax)
+            if (Mp + MP >= MpMax)
             {
                 Mp = MpMax;
-            } else
+            }
+            else
             {
                 Mp += MP;
             }
@@ -142,9 +145,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        public void ArmoCalc()
+        public void Hit()
         {
-            Armor = Armor / (100 + Armor);
+
+        }
+
+        public void BeHit(float damage)
+        {
+            Hp -= damage / (1 + Con * 0.02f + Armor);
         }
     }
 }
