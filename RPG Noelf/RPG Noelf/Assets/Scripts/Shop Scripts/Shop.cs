@@ -30,14 +30,20 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         //função para comprar itens do jogador
         public bool BuyItem(int purchasedID, Bag player)
         {
-           
+
+            if(item != null && player != null)
+            {
+                player.RemoveFromBag(item);
+                purchased.Add(item);
+                player.AddGold(item.goldValue);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
-
-
-
-
-
     }
 
 }

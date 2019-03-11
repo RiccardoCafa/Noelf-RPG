@@ -160,6 +160,8 @@
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />
     <Content Include="Assets\Images\Player.jpg" />
+    <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
+    <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Scripts\Crafting Scripts\IDs.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

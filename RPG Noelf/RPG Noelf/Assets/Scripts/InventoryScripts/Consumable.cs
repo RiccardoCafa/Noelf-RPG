@@ -11,7 +11,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public float giveBonus { get; set; }
 
-        public Consumable(int goldValue, int amount, string name, bool isStackable, Category categoria, string itemID, string pathImage) :
+        public Consumable(int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage) :
                             base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
         {
 

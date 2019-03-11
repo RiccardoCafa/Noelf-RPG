@@ -39,8 +39,9 @@ namespace RPG_Noelf
         Character player;
         InterfaceManager interfaceManager = new InterfaceManager();
         Bag bag = new Bag();
-        SkillManager skillManager = new SkillManager();
         Player p1, p2;
+
+        int _str, _spd, _dex, _con, _mnd;
 
         public MainPage()
         {
@@ -52,18 +53,13 @@ namespace RPG_Noelf
 
         public async void start()
         {
+            _str = _spd = _dex = _con = _mnd = 0;
             // Settando Janelas de Interface
             interfaceManager.Inventario = InventarioWindow;
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
-            });
-
-            
-
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
                 // Settando o player
                 player = new Character(Player, PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
@@ -72,22 +68,24 @@ namespace RPG_Noelf
                 player.rotation = Rotation;
             });
 
-            p1 = new Player("1", new Orc(), new Warrior());
-            p1.MpMax = 5000;
-            p1.Mp += 500;
-            p2 = new Player("2", new Human(), new Wizard());
+            p1 = new Player("1", IRaces.Orc, IClasses.Warrior);
+            //p1.MpMax = 5000;
+            //p1.Mp += 500;
+            p2 = new Player("2", IRaces.Human, IClasses.Wizard);
 
             p2.Armor = 0;
 
-            skillManager.MakeSkill(10, 2, 1, 0.5f, 'P', 'F', "/Assets/Images/Item1.jpg", "jorrada");
-            skillManager.MakeSkill(15, 1, 1, 0.2f, 'H', 'F', "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
+            p1._SkillManager.MakeSkill(10, 2, 1, 0.5f, 'P', 'F', "/Assets/Images/Item1.jpg", "jorrada");
+            p1._SkillManager.MakeSkill(15, 1, 1, 0.2f, 'H', 'F', "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
 
-            Item banana = new Item(5, 1, "Banana", true, Category.Legendary, "Comunista", "/Assets/Images/Item1.jpg");
-            Item jorro = new Item(500000, 1, "Jorro", true, Category.Magical, "ComunistaJorrando", "/Assets/Images/Item2.jpg");
-            Item espadona = new Item(2500000, 1, "Espadona", false, Category.Normal, "ComunistaComunismo", "/Assets/Images/Item1.jpg");
-            Consumable potion = new Consumable(50, 1, "HP pot", true, Category.Normal, "PotHP", "/Assets/Images/Item2.jpg");
+            Item banana = new Item(5, 1, "Banana", true, Category.Legendary, 1, "/Assets/Images/Item1.jpg");
+            Item jorro = new Item(500000, 1, "Jorro", true, Category.Magical, 2, "/Assets/Images/Item2.jpg");
+            Item espadona = new Item(2500000, 1, "Espadona", false, Category.Normal, 3, "/Assets/Images/Item1.jpg");
+            Consumable potion = new Consumable(50, 1, "HP pot", true, Category.Normal, 4, "/Assets/Images/Item2.jpg");
 
             #region InvTest
+
+            bag.AddGold(50);
 
             bag.AddToBag(banana);
             bag.AddToBag(jorro);
@@ -144,59 +142,76 @@ namespace RPG_Noelf
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                 UpdateBag();
                 LoadSkillTree();
+                UpdatePlayerInfo();
             });
-            
-            
         }
 
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
+            int indicadorzao = 0;
             if (e.VirtualKey == Windows.System.VirtualKey.Number1)
             {
-                if(skillManager.SkillList.Count >= 1)
+                if(p1._SkillManager.SkillList.Count >= 1)
                 {
-                    string s = skillManager.SkillList[0].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[0].name + " tirou " + s + " de dano";
+                    indicadorzao = 0;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number2)
             {
-                if (skillManager.SkillList.Count >= 2)
+                if (p1._SkillManager.SkillList.Count >= 2)
                 {
-                    string s = skillManager.SkillList[1].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[1].name + " tirou " + s + " de dano";
+                    indicadorzao = 1;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number3)
             {
-                if (skillManager.SkillList.Count >= 3)
+                if (p1._SkillManager.SkillList.Count >= 3)
                 {
-                    string s = skillManager.SkillList[2].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[2].name + " tirou " + s + " de dano";
+                    indicadorzao = 2;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number4)
             {
-                if (skillManager.SkillList.Count >= 4)
+                if (p1._SkillManager.SkillList.Count >= 4)
                 {
-                    string s = skillManager.SkillList[3].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[3].name + " tirou " + s + " de dano";
+                    indicadorzao = 3;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number5)
             {
-                if (skillManager.SkillList.Count >= 5)
+                if (p1._SkillManager.SkillList.Count >= 5)
                 {
-                    string s = skillManager.SkillList[4].UseSkill(p1, p2).ToString();
-                    Texticulu.Text = skillManager.SkillList[4].name + " tirou " + s + " de dano";
+                    indicadorzao = 4;
                 }
             }
 
+            string s = p1._SkillManager.SkillList[indicadorzao].UseSkill(p1, p2).ToString();
+            Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
+
+        }
+
+        public void UpdatePlayerInfo()
+        {
+            PlayerInfo.Text = p1.Race.NameRace + " " + p1._Class.ClassName + "\n";
+            PlayerInfo.Text += "Atributos: ( " + p1._Class.StatsPoints + " pontos)\n" +
+                                "Força: " + p1.Str + " + " + _str + "\n" +
+                                "Mente: " + p1.Mnd + " + " + _mnd + "\n" +
+                                "Velocidade: " + p1.Spd + " + " + _spd + "\n" +
+                                "Destreza: " + p1.Dex + " + " + _dex + "\n" +
+                                "Constituição: " + p1.Con + " + " + _con + "\n\n" +
+                                "HP: " + p1.Hp + "/" + p1.HpMax + "\n" +
+                                "MP: " + p1.Mp + "/" + p1.MpMax + "\n" +
+                                "Damage: " + p1.Damage + "\n" +
+                                "Atack Speed: " + p1.AtkSpd + "\n" +
+                                "Armor: " + p1.Armor + "\n\n" +
+                                "Level: " + p1.Level + "\n" +
+                                "Experience: " + p1.Xp + "/" + p1.XpLim + "\n" +
+                                "Pontos de skill disponivel: " + p1._SkillManager.SkillPoints;
         }
 
         public void LoadSkillTree()
         {
-            for (int i = 0; i < skillManager.SkillList.Count; i++)
+            for (int i = 0; i < p1._SkillManager.SkillList.Count; i++)
             {
                 var slotTemp = from element in BarraSkill.Children
                                where (int)element.GetValue(Grid.ColumnProperty) == i
@@ -204,10 +219,136 @@ namespace RPG_Noelf
                 if (slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    slot.Source = new BitmapImage(new Uri(this.BaseUri, skillManager.SkillList[i].pathImage));
+                    slot.Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.SkillList[i].pathImage));
                 }
 
             }
+        }
+
+        private void XPPlus(object sender, RoutedEventArgs e)
+        {
+            p1.XpLevel(50);
+            UpdatePlayerInfo();
+        }
+
+        private void MPPlus(object sender, RoutedEventArgs e)
+        {
+            p1.AddMP(20);
+            UpdatePlayerInfo();
+        }
+
+        private void HPPlus(object sender, RoutedEventArgs e)
+        {
+            p1.AddHP(20);
+            UpdatePlayerInfo();
+        }
+
+        private void GeralSumStat()
+        {
+            p1._Class.StatsPoints--;
+            UpdatePlayerInfo();
+        }
+
+        private void GeralSubStat()
+        {
+            p1._Class.StatsPoints++;
+            UpdatePlayerInfo();
+        }
+
+        private void PSTR(object sender, RoutedEventArgs e)
+        {
+            if(p1._Class.StatsPoints > 0)
+            {
+                _str++;
+                GeralSumStat();
+            }
+        }
+
+        private void PMND(object sender, RoutedEventArgs e)
+        {
+            if (p1._Class.StatsPoints > 0)
+            {
+                _mnd++;
+                GeralSumStat();
+            }
+        }
+
+        private void PSPD(object sender, RoutedEventArgs e)
+        {
+            if (p1._Class.StatsPoints > 0)
+            {
+                _spd++;
+                GeralSumStat();
+            }
+        }
+
+        private void PDEX(object sender, RoutedEventArgs e)
+        {
+            if (p1._Class.StatsPoints > 0)
+            {
+                _dex++;
+                GeralSumStat();
+            }
+        }
+
+        private void PCON(object sender, RoutedEventArgs e)
+        {
+            if (p1._Class.StatsPoints > 0)
+            {
+                _con++;
+                GeralSumStat();
+            }
+        }
+
+        private void MSTR(object sender, RoutedEventArgs e)
+        {
+            if (_str > 0)
+            {
+                _str--;
+                GeralSubStat();
+            }
+        }
+
+        private void MDEX(object sender, RoutedEventArgs e)
+        {
+            if (_dex > 0)
+            {
+                _dex--;
+                GeralSubStat();
+            }
+        }
+
+        private void MSPD(object sender, RoutedEventArgs e)
+        {
+            if (_spd > 0)
+            {
+                _spd--;
+                GeralSubStat();
+            }
+        }
+
+        private void MCON(object sender, RoutedEventArgs e)
+        {
+            if (_con > 0)
+            {
+                _con--;
+                GeralSubStat();
+            }
+        }
+        private void MMND(object sender, RoutedEventArgs e)
+        {
+            if (_mnd > 0)
+            {
+                _mnd--;
+                GeralSubStat();
+            }
+        }
+
+        private void ApplyStats(object sender, RoutedEventArgs e)
+        {
+            p1.LevelUpdate(_str, _spd, _dex, _con, _mnd);
+            _str = _spd = _dex = _con = _mnd = 0;
+            UpdatePlayerInfo();
         }
 
         public void UpdateBag()

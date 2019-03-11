@@ -30,7 +30,27 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         // atribuir o item para null é o suficiente para remove-lo, pois o GB ira eventualmente limpar
         public void RemoveFromBag(int itemID, int amount)//remove o item da bag
         {
-           
+
+            if (slots.Contains(removed) && removed.isStackable && removed.amount > 1)//se for stackavel e tiver mais de um, retira apenas um
+            {
+                removed.amount--;
+            }
+            else if (slots.Contains(removed) && removed.isStackable == false)//remove se não for stackavel e se so tiver um
+            {
+                slots.Remove(removed);
+                freeSlots++;//incrementa o numero de espaços livres
+                // TODO COMUNISTA
+                // possibleCrafting.IDsMateriais.Remove(removed.itemID);
+                removed = null;
+            }
+            else if (slots.Contains(removed) && removed.isStackable && removed.amount == 1)//se so houver um e for stackavel, remove total
+            {
+                slots.Remove(removed);
+                freeSlots++;
+                // TODO COMUNISTA
+                //possibleCrafting.IDsMateriais.Remove(removed.itemID);
+                removed = null;
+            }
         }
         public void AddGold(int coins) // incrementa o gold na mochila
         {

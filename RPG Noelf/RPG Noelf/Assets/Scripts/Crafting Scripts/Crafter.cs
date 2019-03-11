@@ -17,7 +17,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             Weapon newWeapon;
             foreach(Item item in playerBag.slots)
             {
-                if(weaponRecipe.IDsMateriais.Contains(item.itemID) == true)
+                // TODO COMUNISTA
+                /*if(weaponRecipe.IDsMateriais.Contains(item.itemID) == true)
                 {
                     playerBag.RemoveFromBag(item);
                     isReady = true;
@@ -25,7 +26,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 else
                 {
                   //string a =  nothing
-                }
+                }*/
             }
             if (isReady ==  true)
             {
@@ -46,7 +47,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             Armor newWeapon;
             foreach (Item item in playerBag.slots)
             {
-                if (armorRecipe.IDsMateriais.Contains(item.itemID) == true)
+                // TODO COMUNISTA
+                /*if (armorRecipe.IDsMateriais.Contains(item.itemID) == true)
                 {
                     playerBag.RemoveFromBag(item);
                     isReady = true;
@@ -54,7 +56,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 else
                 {
                     //string a =  nothing
-                }
+                }*/
             }
             if (isReady == true)
             {
@@ -74,16 +76,17 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             Consumable novoCP;
             foreach(Item item in playerBag.slots)
             {
-                if (consumableRecipe.IDsMateriais.Contains(item.itemID) == true)
-                {
-                    playerBag.RemoveFromBag(item);
-                    ready = true;
-                }
-                else
-                {
-                    //string a =  nothing
-                }
-
+                // TODO COMUNISTA
+                /*   if (consumableRecipe.IDsMateriais.Contains(item.itemID) == true)
+                   {
+                       playerBag.RemoveFromBag(item);
+                       ready = true;
+                   }
+                   else
+                   {
+                       //string a =  nothing
+                   }
+                   */
 
             }
             if (ready)
