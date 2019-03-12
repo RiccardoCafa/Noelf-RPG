@@ -222,39 +222,42 @@
             <Rectangle Name="Player" HorizontalAlignment="Stretch" Height="120" Canvas.Left="0" Canvas.Top="2" VerticalAlignment="Stretch" Width="60" Fill="#FF00FF5B"/>
         </Canvas>
 
-        <Grid Name="Window" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="110"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Image Name="W_ItemImage" Grid.Column="0" Grid.Row="0" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"></Image>
-            <TextBlock Name="W_ItemName" Grid.Row="1" Text="Item Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-            <Grid Grid.Row="2">
+        <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
+            <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
+            <Grid Width="200" Height="250">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Name="W_ItemType" Text="Item Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Name="W_ItemQntd" Text="Item Quantity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Image Name="W_ItemImage" Grid.Column="0" Grid.Row="0" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"></Image>
+                <TextBlock Name="W_ItemName" Grid.Row="1" Text="Item Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Name="W_ItemType" Text="Item Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Name="W_ItemQntd" Text="Item Quantity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <TextBlock Grid.Row="3" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
+                <Grid Grid.Row="4" Width="200" Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="W_ItemValue" Text="ItemValue" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Name="W_ItemRarity" Grid.Column="1" Text="Item Rarity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+                </Grid>
             </Grid>
-            <TextBlock Grid.Row="3" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
-            <Grid Grid.Row="4" Width="200" Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Name="W_ItemValue" Text="ItemValue" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
-                <TextBlock Name="W_ItemRarity" Grid.Column="1" Text="Item Rarity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
-            </Grid>
-        </Grid>
-
+        </Canvas>
+        
         <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed" AllowFocusOnInteraction="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" AutomationProperties.Level="-2" >
             <Image Margin="-5,0,0,0"  Width="205" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"/>
             <Grid  Width="200" Height="250" >

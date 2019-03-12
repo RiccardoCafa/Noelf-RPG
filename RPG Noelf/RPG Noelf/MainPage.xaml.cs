@@ -39,7 +39,6 @@ namespace RPG_Noelf
         Thread Start;
         Character player;
         InterfaceManager interfaceManager = new InterfaceManager();
-        Bag bag = new Bag();
         Player p1, p2;
 
         int _str, _spd, _dex, _con, _mnd;
@@ -83,58 +82,58 @@ namespace RPG_Noelf
 
             #region InvTest
 
-            bag.AddGold(50);
+            p1._Inventory.AddGold(50);
+            
+            p1._Inventory.AddToBag(banana);
+            p1._Inventory.AddToBag(jorro);
+            p1._Inventory.AddToBag(banana);
+            p1._Inventory.AddToBag(jorro);
+            p1._Inventory.AddToBag(banana);
+            p1._Inventory.AddToBag(jorro);
+            p1._Inventory.AddToBag(banana);
+            p1._Inventory.AddToBag(jorro);
 
-            bag.AddToBag(banana);
-            bag.AddToBag(jorro);
-            bag.AddToBag(banana);
-            bag.AddToBag(jorro);
-            bag.AddToBag(banana);
-            bag.AddToBag(jorro);
-            bag.AddToBag(banana);
-            bag.AddToBag(jorro);
+            p1._Inventory.RemoveFromBag(jorro);
+            p1._Inventory.RemoveFromBag(jorro);
+            p1._Inventory.RemoveFromBag(jorro);
+            p1._Inventory.RemoveFromBag(jorro);
 
-            bag.RemoveFromBag(jorro);
-            bag.RemoveFromBag(jorro);
-            bag.RemoveFromBag(jorro);
-            bag.RemoveFromBag(jorro);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
 
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
+            p1._Inventory.AddToBag(potion);
+            p1._Inventory.AddToBag(potion);
+            p1._Inventory.AddToBag(potion);
 
-            bag.AddToBag(potion);
-            bag.AddToBag(potion);
-            bag.AddToBag(potion);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona);
 
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
-            bag.AddToBag(espadona);
+            p1._Inventory.RemoveFromBag(espadona);
+            p1._Inventory.RemoveFromBag(espadona);
 
-            bag.RemoveFromBag(espadona);
-            bag.RemoveFromBag(espadona);
+            p1._Inventory.RemoveFromBag(potion);
 
-            bag.RemoveFromBag(potion);
-
-            bag.RemoveFromBag(banana);
+            p1._Inventory.RemoveFromBag(banana);
             #endregion
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
@@ -144,6 +143,7 @@ namespace RPG_Noelf
                 UpdateSkillBar();
                 SetEventForSkillBar();
                 SetEventForSkillTree();
+                SetEventForBagItem();
             });
         }
 
@@ -263,7 +263,71 @@ namespace RPG_Noelf
                 }
             }
         }
+
+        private void SetEventForBagItem()
+        {
+            foreach(UIElement element in InventarioGrid.Children)
+            {
+                if(element is Image)
+                {
+                    element.PointerEntered += ShowItemWindow;
+                    element.PointerExited += CloseItemWindow;
+                }
+            }
+        }
+
+        private void ShowItemWindow(object sender, PointerRoutedEventArgs e)
+        {
+            if (WindowSkill.Visibility == Visibility.Visible)
+            {
+                return;
+            }
+
+            Point mousePosition = e.GetCurrentPoint(Tela).Position;
+
+            Image itemEnter = null;
+            try
+            {
+                itemEnter = sender as Image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+
+            if (itemEnter == null) return;
+            int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
+            int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
+            int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+            Item itemInfo = null;
+            if(position < p1._Inventory.slots.Count)
+            {
+                itemInfo = p1._Inventory.slots[position];
+            }
+
+            if (itemInfo == null) return;
+
+            RealocateWindow(WindowBag, mousePosition);
+
+            UpdateItemWindowText(itemInfo);
+        }
         
+        private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
+        {
+            InventarioWindow.Visibility = Visibility.Collapsed;
+        }
+
+        private void UpdateItemWindowText(Item item)
+        {
+            W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.pathImage));
+            W_ItemName.Text = item.name;
+            W_ItemQntd.Text = item.amount.ToString() + "x";
+            W_ItemRarity.Text = item.GetTypeString();
+            //W_ItemType.Text = item.itemType;
+            W_ItemValue.Text = item.goldValue + " gold";
+        }
+
         private void ShowSkillBarWindow(object sender, PointerRoutedEventArgs e)
         {
             if(WindowSkill.Visibility == Visibility.Visible)
@@ -505,7 +569,7 @@ namespace RPG_Noelf
 
         public void UpdateBag()
         {
-            for (int i = 0; i < bag.slots.Count; i++)
+            for (int i = 0; i < p1._Inventory.slots.Count; i++)
             {
                 int column = i, row = i;
                 row = i / 6;
@@ -517,7 +581,7 @@ namespace RPG_Noelf
                 if(slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    slot.Source = new BitmapImage(new Uri(this.BaseUri, bag.slots[i].pathImage));
+                    slot.Source = new BitmapImage(new Uri(this.BaseUri, p1._Inventory.slots[i].pathImage));
                 }
                 
             }
