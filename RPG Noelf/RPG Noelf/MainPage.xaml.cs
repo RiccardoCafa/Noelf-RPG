@@ -147,12 +147,68 @@ namespace RPG_Noelf
             });
         }
 
+
+        public void UpdatePlayerInfo()
+        {
+            PlayerInfo.Text = p1.Race.NameRace + " " + p1._Class.ClassName + "\n";
+            PlayerInfo.Text += "Atributos: ( " + p1._Class.StatsPoints + " pontos)\n" +
+                                "Força: " + p1.Str + " + " + _str + "\n" +
+                                "Mente: " + p1.Mnd + " + " + _mnd + "\n" +
+                                "Velocidade: " + p1.Spd + " + " + _spd + "\n" +
+                                "Destreza: " + p1.Dex + " + " + _dex + "\n" +
+                                "Constituição: " + p1.Con + " + " + _con + "\n\n" +
+                                "HP: " + p1.Hp + "/" + p1.HpMax + "\n" +
+                                "MP: " + p1.Mp + "/" + p1.MpMax + "\n" +
+                                "Damage: " + p1.Damage + "\n" +
+                                "Atack Speed: " + p1.AtkSpd + "\n" +
+                                "Armor: " + p1.Armor + "\n\n" +
+                                "Level: " + p1.Level + "\n" +
+                                "Experience: " + p1.Xp + "/" + p1.XpLim + "\n" +
+                                "Pontos de skill disponivel: " + p1._SkillManager.SkillPoints;
+        }
+
+
+
+        #region Events
+
+        public void UpSkill(object sender, PointerRoutedEventArgs e)
+        {
+            Image skillEnter = sender as Image;
+            Skill skillClicked;
+
+            int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+            int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+            int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+            skillClicked = p1._SkillManager.SkillList[position];
+            if(p1._SkillManager.SkillPoints > 0)
+            {
+                if(skillClicked.Unlocked)
+                {
+                    p1._SkillManager.UpSkill(skillClicked); // returns true if sucessfully up
+                } else if(skillClicked.block <= p1.Level)
+                {
+                    p1._SkillManager.UnlockSkill(position);
+                    for(int i = 0; i < 3; i++)
+                    {
+                        if(p1._SkillManager.SkillBar[i] == null)
+                        {
+                            p1._SkillManager.AddSkillToBar(skillClicked, i);
+                            break;
+                        }
+                    }
+                }
+                UpdateSkillWindowText(skillClicked);
+                UpdatePlayerInfo();
+                UpdateSkillBar();
+            }
+        }
+
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
             int indicadorzao = 0;
             if (e.VirtualKey == Windows.System.VirtualKey.Number1)
             {
-                if(p1._SkillManager.SkillList.Count >= 1)
+                if (p1._SkillManager.SkillList.Count >= 1)
                 {
                     indicadorzao = 0;
                 }
@@ -178,36 +234,13 @@ namespace RPG_Noelf
                     indicadorzao = 3;
                 }
             }
-            if (e.VirtualKey == Windows.System.VirtualKey.Number5)
+            string s;
+            if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
-                if (p1._SkillManager.SkillList.Count >= 5)
-                {
-                    indicadorzao = 4;
-                }
+                s = p1._SkillManager.SkillBar[indicadorzao].UseSkill(p1, p2).ToString();
+                Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
             }
 
-            string s = p1._SkillManager.SkillList[indicadorzao].UseSkill(p1, p2).ToString();
-            Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
-
-        }
-
-        public void UpdatePlayerInfo()
-        {
-            PlayerInfo.Text = p1.Race.NameRace + " " + p1._Class.ClassName + "\n";
-            PlayerInfo.Text += "Atributos: ( " + p1._Class.StatsPoints + " pontos)\n" +
-                                "Força: " + p1.Str + " + " + _str + "\n" +
-                                "Mente: " + p1.Mnd + " + " + _mnd + "\n" +
-                                "Velocidade: " + p1.Spd + " + " + _spd + "\n" +
-                                "Destreza: " + p1.Dex + " + " + _dex + "\n" +
-                                "Constituição: " + p1.Con + " + " + _con + "\n\n" +
-                                "HP: " + p1.Hp + "/" + p1.HpMax + "\n" +
-                                "MP: " + p1.Mp + "/" + p1.MpMax + "\n" +
-                                "Damage: " + p1.Damage + "\n" +
-                                "Atack Speed: " + p1.AtkSpd + "\n" +
-                                "Armor: " + p1.Armor + "\n\n" +
-                                "Level: " + p1.Level + "\n" +
-                                "Experience: " + p1.Xp + "/" + p1.XpLim + "\n" +
-                                "Pontos de skill disponivel: " + p1._SkillManager.SkillPoints;
         }
 
         public void LoadSkillTree()
@@ -260,6 +293,7 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowSkillTreeWindow;
                     element.PointerExited += CloseSkillWindow;
+                    element.PointerReleased += UpSkill;
                 }
             }
         }
@@ -297,10 +331,13 @@ namespace RPG_Noelf
             }
 
             if (itemEnter == null) return;
+
             int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
             int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
             int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+
             Item itemInfo = null;
+
             if(position < p1._Inventory.slots.Count)
             {
                 itemInfo = p1._Inventory.slots[position];
@@ -439,7 +476,9 @@ namespace RPG_Noelf
         {
             WindowSkill.Visibility = Visibility.Collapsed;
         }
+        #endregion
 
+        #region ButtonEvents
         private void XPPlus(object sender, RoutedEventArgs e)
         {
             p1.XpLevel(50);
@@ -566,6 +605,7 @@ namespace RPG_Noelf
             _str = _spd = _dex = _con = _mnd = 0;
             UpdatePlayerInfo();
         }
+        #endregion
 
         public void UpdateBag()
         {
