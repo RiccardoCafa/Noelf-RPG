@@ -315,7 +315,7 @@ namespace RPG_Noelf
         
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
         {
-            InventarioWindow.Visibility = Visibility.Collapsed;
+            WindowBag.Visibility = Visibility.Collapsed;
         }
 
         private void UpdateItemWindowText(Item item)
