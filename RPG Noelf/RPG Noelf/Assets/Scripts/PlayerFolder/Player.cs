@@ -155,13 +155,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
         
-        public double Hit()//golpeia
+        public double Hit(double bonusDamage)//golpeia
         {
             Random random = new Random();
             double dmg100 = random.NextDouble() * 100;
             if (dmg100 < 1 / Dex * 0.05) return 0;//errou
-            else if (dmg100 < Dex * 0.1) return Damage * dmg100;//acertou
-            else return Damage * dmg100 * 2;//critico
+            else if (dmg100 < Dex * 0.1) return bonusDamage + Damage * dmg100;//acertou
+            else return bonusDamage + Damage * dmg100 * 2;//critico
         }
 
         public void BeHit(double damage)//tratamento do dano levado

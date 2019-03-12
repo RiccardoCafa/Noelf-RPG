@@ -78,21 +78,15 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return "";
         }
 
-        public float UseSkill(Player player, Player Enemy)
-
+        public bool UseSkill(Player player, Player Enemy)
         {
             if (manaCost <= player.Mp)
             {
-                double Damagetotal;
-                player.Mp -= manaCost;
                 CalcBonus(player);
-
-                Damagetotal = (Damage + DamageBonus) - (Damage + DamageBonus) * Enemy.ArmoCalc();
-
-                Enemy.Hp -= Damagetotal;
-                return Damagetotal;
+                Enemy.BeHit(player.Hit(DamageBonus));
+                return true;
             }
-            return 0f;
+            return false;
         }
 
 
