@@ -23,12 +23,24 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             
         }
         //resolvido o problema de adição na mochila com a criação de 3 funções extras
-        public bool AddToBag(int itemID, int amount)
+        public bool AddToBag(uint itemID, uint amount)
         {
-            return true;
+            if(freeSlots>0 && Encyclopedia.SearchStackID(itemID) == false)
+            {
+                SlotInventory ad = new SlotInventory(itemID, amount);
+                slots.Add(ad);
+                freeSlots--;
+                return true;
+            }
+            else
+            {
+                return false
+            }
+
+
         }
         // atribuir o item para null é o suficiente para remove-lo, pois o GB ira eventualmente limpar
-        public void RemoveFromBag(int itemID, int amount)//remove o item da bag
+        public void RemoveFromBag(uint itemID, uint amount)//remove o item da bag
         {
 
         }
@@ -50,17 +62,16 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             }
 
         }
-        public int AmountInBag(int itemID) //retorna a quantidade de um item especifico na mochila
+        public uint AmountInBag(uint itemID) //retorna a quantidade de um item especifico na mochila
         {
-            int amt = 0;
-            foreach(SlotInventory slot in slots)
+           
+
+            foreach(SlotInventory sl in slots)
             {
-                if(slot.itemID == itemID)
-                {
-                    amt = slot.itemAmount;
-                }
+                if (sl.itemID == itemID &&) return sl.itemAmount;
             }
-            return amt;
+
+            return 0;
         }
         public bool SearchID(int itemID)//verifica se o ID esta na mochila
         {
@@ -73,26 +84,12 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             }
             return false;            
         }
-        // não estou muito certo se deve-se usar isso
-        void Clearbag()
-        {
-            
-        }
-
+       
         public bool CanAddMore()
         {
             if (this.freeSlots > 0) return true;
             else return false;
         }
-
-        //incrementa em um a quantidade de um item no inventario
-        public void IncreaseItemNumber(int id, int amount)
-        {
-            
-
-        }
-
-
 
     }
 }

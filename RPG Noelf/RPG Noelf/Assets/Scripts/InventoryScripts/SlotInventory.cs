@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public uint itemID { get; set; }
         public uint itemAmount { get; set; }
 
-        public SlotInventory(uint id, byte amount)
+        public SlotInventory(uint id, uint amount)
         {
             itemID = id;
             itemAmount = amount;
@@ -50,7 +50,14 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
         public bool stackableID(uint id)
         {
-
+            if(Encyclopedia.SearchStackID(id) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
 

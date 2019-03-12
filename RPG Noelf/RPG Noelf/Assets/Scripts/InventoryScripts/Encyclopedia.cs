@@ -48,14 +48,14 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             encyclopedia.Add(28, new Armor("Steel Gauntlets"));
             encyclopedia.Add(29, new Armor("Steel Boots"));
             encyclopedia.Add(30, new Armor("Steel Helmet"));
-            encyclopedia.Add(31, new Armor("Iron Boots"));
-            encyclopedia.Add(32, new Armor("Iron Boots"));
-            encyclopedia.Add(33, new Armor("Iron Boots"));
-            encyclopedia.Add(34, new Armor("Iron Boots"));
-            encyclopedia.Add(35, new Armor("Iron Boots"));
-            encyclopedia.Add(36, new Armor("Iron Boots"));
-            encyclopedia.Add(37, new Armor("Iron Boots"));
-            encyclopedia.Add(38, new Armor("Iron Boots"));
+            encyclopedia.Add(31, new Armor("Leather Body"));
+            encyclopedia.Add(32, new Armor("Leather Chaps"));
+            encyclopedia.Add(33, new Armor("Leather Gloves"));
+            encyclopedia.Add(34, new Armor("Leather Hood"));
+            encyclopedia.Add(35, new Armor("Wool Gown"));
+            encyclopedia.Add(36, new Armor("Wool Hood"));
+            encyclopedia.Add(37, new Armor("Wool Gloves"));
+            encyclopedia.Add(38, new Armor("Fancy Shoes"));
 
         }
 
