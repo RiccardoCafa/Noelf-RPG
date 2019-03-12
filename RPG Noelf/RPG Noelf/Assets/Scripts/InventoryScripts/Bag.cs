@@ -34,7 +34,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             }
             else
             {
-                return false
+                return false;
             }
 
 
@@ -68,7 +68,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             foreach(SlotInventory sl in slots)
             {
-                if (sl.itemID == itemID &&) return sl.itemAmount;
+                if (sl.itemID == itemID ) return sl.itemAmount;
             }
 
             return 0;
