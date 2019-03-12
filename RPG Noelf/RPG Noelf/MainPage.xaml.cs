@@ -25,6 +25,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
 using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
+using Windows.UI.Input;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -142,6 +143,7 @@ namespace RPG_Noelf
                 UpdatePlayerInfo();
                 UpdateSkillBar();
                 SetEventForSkillBar();
+                SetEventForSkillTree();
             });
         }
 
@@ -249,9 +251,28 @@ namespace RPG_Noelf
                 }
             }
         }
+
+        private void SetEventForSkillTree()
+        {
+            foreach(UIElement element in SkillsTree.Children)
+            {
+                if(element is Image)
+                {
+                    element.PointerEntered += ShowSkillTreeWindow;
+                    element.PointerExited += CloseSkillWindow;
+                }
+            }
+        }
         
         private void ShowSkillBarWindow(object sender, PointerRoutedEventArgs e)
         {
+            if(WindowSkill.Visibility == Visibility.Visible)
+            {
+                return;
+            }
+            
+            Point mousePosition = e.GetCurrentPoint(Tela).Position;
+            
             Image skillEnter = null;
             try
             {
@@ -262,6 +283,7 @@ namespace RPG_Noelf
                 Debug.WriteLine(ex.Message);
                 return;
             }
+
             if (skillEnter == null) return;
             int position = (int)skillEnter.GetValue(Grid.ColumnProperty);
             Skill skillInfo;
@@ -277,16 +299,76 @@ namespace RPG_Noelf
 
             if (skillInfo == null) return;
 
-            WindowSkill.Visibility = Visibility.Visible;
-            
+            RealocateWindow(WindowSkill, mousePosition);
 
+            UpdateSkillWindowText(skillInfo);
+        }
+
+        private void RealocateWindow(Canvas window, Point mousePosition)
+        {
+            window.Visibility = Visibility.Visible;
+
+            window.SetValue(Canvas.LeftProperty, mousePosition.X);
+
+            if (mousePosition.Y >= Tela.Height / 2)
+            {
+                window.SetValue(Canvas.TopProperty, mousePosition.Y);
+            }
+            else
+            {
+                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
+            }
+        }
+
+        private void UpdateSkillWindowText(Skill skillInfo)
+        {
             W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
             W_SkillName.Text = skillInfo.name;
             W_SkillType.Text = skillInfo.GetTypeString();
             W_SkillDescr.Text = skillInfo.description;
-            W_SkillLevel.Text = "Nv. " + skillInfo.Lvl.ToString();
-            
+            if(skillInfo.Unlocked == false)
+            {
+                W_SkillLevel.Text = "Unlock Nv. " + skillInfo.block;
+            } else
+            {
+                W_SkillLevel.Text = "Nv. " + skillInfo.Lvl.ToString();
+            }
+        }
 
+        private void ShowSkillTreeWindow(object sender, PointerRoutedEventArgs e)
+        {
+            if (WindowSkill.Visibility == Visibility.Visible)
+            {
+                return;
+            }
+
+            Point mousePosition = e.GetCurrentPoint(Tela).Position;
+
+            Image skillEnter = null;
+            try
+            {
+                skillEnter = sender as Image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+
+            if (skillEnter == null) return;
+            int positionColumn = (int)skillEnter.GetValue(Grid.ColumnProperty);
+            int positionRow = (int)skillEnter.GetValue(Grid.RowProperty);
+            Skill skillInfo;
+
+            int index = positionRow * 5 + positionColumn;
+
+            skillInfo = p1._SkillManager.SkillList.ElementAt(index);
+
+            if (skillInfo == null) return;
+
+            RealocateWindow(WindowSkill, mousePosition);
+
+            UpdateSkillWindowText(skillInfo);
         }
 
         private void CloseSkillWindow(object sender, PointerRoutedEventArgs e)

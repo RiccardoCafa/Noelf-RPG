@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
 
-        public enum Category//definição de raridade do item
-        {
-            Normal,Magical,Epic, Legendary
-        }
+    public enum Category//definição de raridade do item
+    {
+        Normal, Magical, Epic, Legendary
+    }
 
   
     class Item

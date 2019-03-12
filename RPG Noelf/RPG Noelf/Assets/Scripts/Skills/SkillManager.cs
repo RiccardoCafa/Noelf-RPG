@@ -28,6 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             Passive = new Skill(0, 0, 1, BonusMultiplier, SkillType.passive, atrib, pathImage, name);
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
+            Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
 
