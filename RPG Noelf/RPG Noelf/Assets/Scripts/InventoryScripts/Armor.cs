@@ -19,6 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                             base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
         {
             //tpWeapon = tWeapon;
+            itemType = "Armor";
         }
 
         public int defense //armaduraTotal /armaduratotal + 100 

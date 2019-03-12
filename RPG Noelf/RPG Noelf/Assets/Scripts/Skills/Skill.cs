@@ -7,60 +7,101 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-
     public enum SkillType
     {
         passive,
-        active
+        habilite,
+        ultimate
+    }
+    public enum SkillAtribute
+    {
+        buff,
+        debuff,
+        damage
+
+    }
+    public enum AtributBonus
+    {
+        For,
+        Int,
+        dex
     }
 
     class Skill
     {
-        public double Damage { get; }
-        private int manaCost;
+
+
+        public float Damage { get; }
+        
+        private float BonusMultiplier;
+        private float DamageBonus;
+        
         public int Lvl { get; set; } = 1;
         public int block { get; }
-        private double BonusMultiplier;
-        private double DamageBonus;
-        public char Type { get; }
+
+        private int manaCost;
+
+        public bool Unlocked { get; set; } = false;
+        
         private bool area;
-        private char atrib;
+
         public string pathImage { get; set; }
         public string name { get; set; }
-        
-        public double UseSkill(Player player, Player Enemy)
-        {
-            if (manaCost <= player.Mp)
-            {
-                double Damagetotal;
-                player.Mp -= manaCost;
-                CalcBonus(player);
-                //Enemy.ArmoCalc();
-                Damagetotal = (Damage + DamageBonus) - (Damage + DamageBonus) * Enemy.Armor;
-                Enemy.Hp -= Damagetotal;
-                return Damagetotal;
-            }
-            return 0f;
-        }
+        public string description { get; set; } = "";
 
-        public Skill(double damage, int manaCost, int blockLevel, double BonusMultiplier, char Type,char atrib, string pathImage, string name)
+        public SkillType tipo;
+        private AtributBonus atrib;
+
+        public Skill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
         {
             this.pathImage = pathImage;
             this.Damage = damage;
             this.manaCost = manaCost;
             this.block = blockLevel;
             this.BonusMultiplier = BonusMultiplier;
-            this.Type = Type;
+            this.tipo = tipoSkill;
             this.atrib = atrib;
             this.name = name;
         }
 
+        public string GetTypeString()
+        {
+            switch(tipo)
+            {
+                case SkillType.habilite:
+                    return "Ativa";
+                case SkillType.passive:
+                    return "Passiva";
+                case SkillType.ultimate:
+                    return "Ultimate";
+            }
+            return "";
+        }
+
+        public float UseSkill(Player player, Player Enemy)
+
+        {
+            if (manaCost <= player.Mp)
+            {
+                double Damagetotal;
+                player.Mp -= manaCost;
+                CalcBonus(player);
+
+                Damagetotal = (Damage + DamageBonus) - (Damage + DamageBonus) * Enemy.ArmoCalc();
+
+                Enemy.Hp -= Damagetotal;
+                return Damagetotal;
+            }
+            return 0f;
+        }
+
+
         public void CalcBonus(Player calcP)
         {
-            if(atrib == 'F')
+            if(atrib == AtributBonus.For)
             {
                 DamageBonus = calcP.Str * BonusMultiplier; 
-            }else if(atrib == 'I'){
+            }else if(atrib == AtributBonus.Int){
                 DamageBonus = calcP.Mnd * BonusMultiplier;
             }else{
                 DamageBonus = calcP.Dex * BonusMultiplier;

@@ -88,8 +88,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = Race.Dex + _Class.Dex;
             Con = Race.Con + _Class.Con;
             Mnd = Race.Mnd + _Class.Mnd;
-            XpLim = Level * 100;
             Level = 1;
+            XpLim = Level * 100;
             LevelUpdate(0, 0, 0, 0, 0);
             /*
             SkeletonData skeletonData = new SkeletonData();
@@ -154,7 +154,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Hp += HP;
             }
         }
-
+        
         public double Hit()//golpeia
         {
             Random random = new Random();
