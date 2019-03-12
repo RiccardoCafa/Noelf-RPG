@@ -15,15 +15,15 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     }
     class Weapon:Item
     {
-        public int bonusDamage { get; set; }
-        public int bonusDefense { get; set; }
+        public float bonusDamage { get; set; }
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura
         //public Recipe weaponRecipe;
+        public string pathImage { get; set; }
         public TypeWeapon tpWeapon { get; }
-        public Weapon(TypeWeapon tWeapon) :
-                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
+        public Weapon(string name) :
+        base(name)                 
         {
-            tpWeapon = tWeapon;
+            
         }
 
 

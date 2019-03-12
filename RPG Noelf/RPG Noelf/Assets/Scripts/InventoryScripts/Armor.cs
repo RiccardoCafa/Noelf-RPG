@@ -15,10 +15,10 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public TypeArmor tpArmor;
         public float defense;
-        public Armor(TypeArmor tp, float def)               
+        public Armor(string name):
+        base(name)
         {
-            tpArmor = tp;
-            def = defense;
+            
 
         }
  

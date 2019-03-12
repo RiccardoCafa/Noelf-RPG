@@ -51,6 +51,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public bool stackableID(uint id)
         {
 
+
         }
 
     }
