@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Shapes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -25,7 +26,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Con { get; set; }
         public int Mnd { get; set; }
 
-        public float Hp { get; set; }
+        public double Hp { get; set; }
         public int HpMax { get; set; }
 
         public int Xp { get; private set; }
@@ -34,8 +35,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Mp { get; set; }
         public int MpMax { get; set; }
 
-        public float Armor { get; set; }
-        public int Damage { get; set; }
+        public double Armor { get; set; }
+        public double Damage { get; set; }
         public double AtkSpd { get; set; }
 
         public Player(string id, IRaces race, IClasses _class)
@@ -90,6 +91,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             XpLim = Level * 100;
             Level = 1;
             LevelUpdate(0, 0, 0, 0, 0);
+            /*
+            SkeletonData skeletonData = new SkeletonData();
+            Skeleton skeleton = new Skeleton(skeletonData);
+            Bone spine = new Bone(new BoneData(0, "c", null), skeleton, null);
+            Rectangle rectangle = new Rectangle();
+            ExposedList<Timeline> timelines = new ExposedList<Timeline>;
+            timelines.Add
+            Spine.Animation animation = new Animation("rotate", )
+            skeleton.Bones.Add();*/
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
@@ -145,14 +155,18 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        public void Hit()
+        public double Hit()//golpeia
         {
-
+            Random random = new Random();
+            double dmg100 = random.NextDouble() * 100;
+            if (dmg100 < 1 / Dex * 0.05) return 0;//errou
+            else if (dmg100 < Dex * 0.1) return Damage * dmg100;//acertou
+            else return Damage * dmg100 * 2;//critico
         }
 
-        public void BeHit(float damage)
+        public void BeHit(double damage)//tratamento do dano levado
         {
-            Hp -= damage / (1 + Con * 0.02f + Armor);
+            Hp -= damage / (1 + Con * 0.02 + Armor);
         }
     }
 }

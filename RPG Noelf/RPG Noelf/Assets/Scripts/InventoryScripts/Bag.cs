@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public Bag()// precisa de construtor?
         {
             slots = new List<Item>();
-            this.freeSlots = 30;
+            freeSlots = 30;
             possibleCrafting = new Recipe();
         }
         // atribuir o item para null é o suficiente para remove-lo, pois o GB ira eventualmente limpar
@@ -87,7 +87,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         public bool CanAddMore()
         {
-            if (this.freeSlots > 0) return true;
+            if (freeSlots > 0) return true;
             else return false;
         }
         //resolvido o problema de adição na mochila com a criação de 3 funções extras

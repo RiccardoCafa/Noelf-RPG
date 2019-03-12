@@ -16,26 +16,26 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
     class Skill
     {
-        public float Damage { get; }
+        public double Damage { get; }
         private int manaCost;
         public int Lvl { get; set; } = 1;
         public int block { get; }
-        private float BonusMultiplier;
-        private float DamageBonus;
+        private double BonusMultiplier;
+        private double DamageBonus;
         public char Type { get; }
         private bool area;
         private char atrib;
         public string pathImage { get; set; }
         public string name { get; set; }
         
-        public float UseSkill(Player player, Player Enemy)
+        public double UseSkill(Player player, Player Enemy)
         {
             if (manaCost <= player.Mp)
             {
-                float Damagetotal;
+                double Damagetotal;
                 player.Mp -= manaCost;
                 CalcBonus(player);
-                Enemy.ArmoCalc();
+                //Enemy.ArmoCalc();
                 Damagetotal = (Damage + DamageBonus) - (Damage + DamageBonus) * Enemy.Armor;
                 Enemy.Hp -= Damagetotal;
                 return Damagetotal;
@@ -43,7 +43,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return 0f;
         }
 
-        public Skill(float damage, int manaCost, int blockLevel, float BonusMultiplier, char Type,char atrib, string pathImage, string name)
+        public Skill(double damage, int manaCost, int blockLevel, double BonusMultiplier, char Type,char atrib, string pathImage, string name)
         {
             this.pathImage = pathImage;
             this.Damage = damage;

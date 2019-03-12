@@ -9,7 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
     class Consumable:Item 
     {
-        public float giveBonus { get; set; }
+        public double giveBonus { get; set; }
 
         public Consumable(int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage) :
                             base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         }
 
 
-        public float returnBonus()//retorna o valor do bonus com base na quantidade
+        public double returnBonus()//retorna o valor do bonus com base na quantidade
         {
             if(amount == 0)
             {
