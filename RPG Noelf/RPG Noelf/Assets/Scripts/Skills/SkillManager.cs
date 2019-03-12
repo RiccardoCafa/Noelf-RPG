@@ -10,6 +10,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     class SkillManager
     {
         public List<Skill> SkillList { get; set; }
+        public Skill[] SkillBar { get; set; }
+        public Skill Passive { get; set; }
         public Player myPlayer;
 
         public int SkillPoints { get; set; }
@@ -19,14 +21,27 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillPoints = 0;
             this.myPlayer = myPlayer;
             SkillList = new List<Skill>();
+            SkillBar = new Skill[4];
+        }
+
+        public void SetPassive(float BonusMultiplier, AtributBonus atrib, string pathImage, string name)
+        {
+            Passive = new Skill(0, 0, 1, BonusMultiplier, SkillType.passive, atrib, pathImage, name);
+            Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
+            SkillList.Add(Passive);
         }
 
         public void MakeSkill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType Type, AtributBonus atrib, string pathImage, string name)
         {
             SkillList.Add(new Skill(damage, manaCost, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
         }
+
+        public void AddSkillToBar(Skill s, int index)
+        {
+            SkillBar[index] = s;
+        }
         
-        private bool TestLevelUp(Skill skill)
+        private bool TestLevelBlock(Skill skill)
         {
             if (myPlayer.Level > skill.block)
             {
@@ -40,11 +55,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             int MinimiumLevel = 0;
 
-            if (SkillPoints <= 0 || !TestLevelUp(skill))
+            if (SkillPoints <= 0 || !TestLevelBlock(skill))
             {
                 return false;
             }
-            else if (skill.tipo == SkillType.ultimate)
 
             if (skill.tipo == SkillType.ultimate)
             {
@@ -54,7 +68,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 MinimiumLevel = 15;
             }
-            else
+            else if(skill.tipo == SkillType.habilite)
             {
                 MinimiumLevel = 25;
             }
@@ -63,27 +77,12 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 skill.Lvl++;
                 SkillPoints--;
+                skill.Unlocked = true;
                 return true;
             } else
             {
                 return false;
             }
-        }
-
-        public void ChangeSkill(Skill velha, Skill nova){
-	        if(velha.tipo == SkillType.passive){
-	            //n pode
-	            }else{
-	                int indexnew, indexold;
-                    Skill olds, news;
-                    indexold = SkillList.IndexOf(velha);
-	                indexnew = SkillList.IndexOf(nova);
-                    olds = velha;
-	                news = nova;
-                    SkillList.Insert(indexold, news);
-                    SkillList.Insert(indexnew, olds);
-	            }
-
         }
 	}
 }

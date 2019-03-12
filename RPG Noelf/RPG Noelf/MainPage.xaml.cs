@@ -33,7 +33,7 @@ namespace RPG_Noelf
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public partial class MainPage : Page
     {
         Thread Start;
         Character player;
@@ -59,24 +59,21 @@ namespace RPG_Noelf
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
+                Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 // Settando o player
                 player = new Character(Player, PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
                 player.ResetPosition(320, 40);
-                //player.textBlock = Texticulu;
                 player.rotation = Rotation;
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior);
-            //p1.MpMax = 5000;
-            //p1.Mp += 500;
             p2 = new Player("2", IRaces.Human, IClasses.Wizard);
 
             p2.Armor = 0;
 
-            p1._SkillManager.MakeSkill(10, 2, 1, 0.5f, 'P', 'F', "/Assets/Images/Item1.jpg", "jorrada");
-            p1._SkillManager.MakeSkill(15, 1, 1, 0.2f, 'H', 'F', "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
+            //p1._SkillManager.MakeSkill(10, 2, 1, 0.5f, SkillType.passive, AtributBonus.For, "/Assets/Images/Item1.jpg", "jorrada");
+            //p1._SkillManager.MakeSkill(15, 1, 1, 0.2f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
 
             Item banana = new Item(5, 1, "Banana", true, Category.Legendary, 1, "/Assets/Images/Item1.jpg");
             Item jorro = new Item(500000, 1, "Jorro", true, Category.Magical, 2, "/Assets/Images/Item2.jpg");
@@ -143,6 +140,8 @@ namespace RPG_Noelf
                 UpdateBag();
                 LoadSkillTree();
                 UpdatePlayerInfo();
+                UpdateSkillBar();
+                SetEventForSkillBar();
             });
         }
 
@@ -211,18 +210,88 @@ namespace RPG_Noelf
 
         public void LoadSkillTree()
         {
-            for (int i = 0; i < p1._SkillManager.SkillList.Count; i++)
+            int cont = 0;
+            foreach(UIElement element in SkillsTree.Children)
             {
-                var slotTemp = from element in BarraSkill.Children
-                               where (int)element.GetValue(Grid.ColumnProperty) == i
-                               select element;
-                if (slotTemp != null)
-                {
-                    Image slot = (Image)slotTemp.ElementAt(0);
-                    slot.Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.SkillList[i].pathImage));
-                }
-
+                Image img = element as Image;
+                if (cont < p1._SkillManager.SkillList.Count)
+                    img.Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.SkillList.ElementAt(cont).pathImage));
+                else break;
+                cont++;
             }
+        }
+
+        public void UpdateSkillBar()
+        {
+            int cont = 0;
+            foreach(UIElement element in BarraSkill.Children)
+            {
+                if(cont == 0)
+                {
+                    (element as Image ).Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.Passive.pathImage));
+                } else
+                {
+                    if(p1._SkillManager.SkillBar[cont - 1] != null)
+                        (element as Image).Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.SkillBar[cont - 1].pathImage));
+                }
+                cont++;
+            }
+        }
+
+        private void SetEventForSkillBar()
+        {
+            foreach(UIElement element in BarraSkill.Children)
+            {
+                if(element is Image)
+                {
+                    element.PointerEntered += ShowSkillBarWindow;
+                    element.PointerExited += CloseSkillWindow;
+                }
+            }
+        }
+        
+        private void ShowSkillBarWindow(object sender, PointerRoutedEventArgs e)
+        {
+            Image skillEnter = null;
+            try
+            {
+                skillEnter = sender as Image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+            if (skillEnter == null) return;
+            int position = (int)skillEnter.GetValue(Grid.ColumnProperty);
+            Skill skillInfo;
+
+            if (position == 0)
+            {
+                skillInfo = p1._SkillManager.Passive;
+            }
+            else
+            {
+                skillInfo = p1._SkillManager.SkillBar[position - 1];
+            }
+
+            if (skillInfo == null) return;
+
+            WindowSkill.Visibility = Visibility.Visible;
+            
+
+            W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
+            W_SkillName.Text = skillInfo.name;
+            W_SkillType.Text = skillInfo.GetTypeString();
+            W_SkillDescr.Text = skillInfo.description;
+            W_SkillLevel.Text = "Nv. " + skillInfo.Lvl.ToString();
+            
+
+        }
+
+        private void CloseSkillWindow(object sender, PointerRoutedEventArgs e)
+        {
+            WindowSkill.Visibility = Visibility.Collapsed;
         }
 
         private void XPPlus(object sender, RoutedEventArgs e)
@@ -317,6 +386,7 @@ namespace RPG_Noelf
                 GeralSubStat();
             }
         }
+
 
         private void MSPD(object sender, RoutedEventArgs e)
         {
