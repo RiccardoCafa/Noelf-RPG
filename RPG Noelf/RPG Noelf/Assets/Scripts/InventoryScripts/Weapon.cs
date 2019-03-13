@@ -23,7 +23,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public Weapon(string name) :
         base(name)                 
         {
-            
+
+            tpWeapon = tWeapon;
+            itemType = "Weapon";
         }
 
 

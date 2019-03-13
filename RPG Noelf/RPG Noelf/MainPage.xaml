@@ -9,8 +9,9 @@
 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
-    <Canvas Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="550" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+    <Canvas Name="Tela"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        
+        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="420" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <Grid Name="InventarioGrid" ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
 
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
@@ -60,7 +61,7 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
-
+        
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="0"/>
@@ -111,18 +112,18 @@
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="840" Canvas.Top="200"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="900" Canvas.Top="140"/>
             <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Stretch="Fill" Canvas.Left="960" Canvas.Top="140"/>
-            <TextBlock Name="Texticulu" Canvas.Left="13" Canvas.Top="408" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock Name="Texticulu" Canvas.Left="7" Canvas.Top="15" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0"/>
             <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="679" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
+            <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="580" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
         </Canvas>
 
-        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="520" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
+        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="430" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
             <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
             <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
             <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
         </StackPanel>
 
-        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="520">
+        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="410">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="70"/>
@@ -153,14 +154,15 @@
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
         </Grid>
-        <ScrollViewer Width="150" Height="232" Canvas.Left="518" Canvas.Top="514" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
-            <TextBlock Name="PlayerInfo" Canvas.Left="518" Canvas.Top="514" Text="TextBlock" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
+        
+        <ScrollViewer Width="150" Height="232" Canvas.Left="500" Canvas.Top="400" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
+            <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
         </ScrollViewer>
 
-        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="700" VerticalAlignment="Stretch" Width="300">
+        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="570" VerticalAlignment="Stretch" Width="300">
             <Image Width="300" Height="50" Source="/Assets/Images/UI Elements/UIAtivo 13-0.png" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="Fill"/>
             <Grid Name="BarraSkill" ColumnSpacing="0" RowSpacing="0"  Height="50" Width="300" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <Image Grid.Column="0" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Grid.Column="0" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg" ></Image>
                 <Image Grid.Column="1" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg"></Image>
                 <Image Grid.Column="2" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg"></Image>
                 <Image Grid.Column="3" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg"></Image>
@@ -178,9 +180,24 @@
             </Grid>
         </Canvas>
 
-        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="510" VerticalAlignment="Stretch" Width="250">
-            <Image Width="250" Height="150"  VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
-            <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0"  Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="400" VerticalAlignment="Stretch" Width="250">
+            <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
+            <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
+                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="50"/>
@@ -205,52 +222,80 @@
             <Rectangle Name="Player" HorizontalAlignment="Stretch" Height="120" Canvas.Left="0" Canvas.Top="2" VerticalAlignment="Stretch" Width="60" Fill="#FF00FF5B"/>
         </Canvas>
 
-        <!-- Button that begins animation. -->
-        <!-- <Button Click="Animation_Begin"
-         Margin="391,604,0,0" Content="Begin" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-         Button that pauses Animation. 
-        <Button Click="Animation_Pause"
-         Margin="694,604,0,0" Content="Pause" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-         Button that resumes Animation. 
-        <Button Click="Animation_Resume"
-         Margin="582,604,0,0" Content="Resume" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-         Button that stops Animation. Stopping the animation 
-         returns the ellipse to its original location. 
-        <Button Click="Animation_Stop"
-         Margin="488,604,0,0" Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-        <Rectangle Fill="Blue" Width="200" Height="30">
-            <Rectangle.RenderTransform>
-                <ScaleTransform x:Name="rectScaleTransform" />
-            </Rectangle.RenderTransform>
-        </Rectangle> -->
-
-        <!--<Rectangle x:Name="MyRectangle"
-                   PointerPressed="MyRectangle_PointerPressed"
-                   HorizontalAlignment="Left" VerticalAlignment="Top"
-                   Height="100" Width="100"
-                   Margin="430,230,0,0"
-                   Fill="#FFFF4109"/>-->
+        <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
+            <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
+            <Grid Width="200" Height="250">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Image Name="W_ItemImage" Grid.Column="0" Grid.Row="0" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"></Image>
+                <TextBlock Name="W_ItemName" Grid.Row="1" Text="Item Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Name="W_ItemType" Text="Item Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Name="W_ItemQntd" Text="Item Quantity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <TextBlock Grid.Row="3" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
+                <Grid Grid.Row="4" Width="200" Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="W_ItemValue" Text="ItemValue" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Name="W_ItemRarity" Grid.Column="1" Text="Item Rarity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+        </Canvas>
+        
+        <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed" AllowFocusOnInteraction="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" AutomationProperties.Level="-2" >
+            <Image Margin="-5,0,0,0"  Width="205" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"/>
+            <Grid  Width="200" Height="250" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Image Name="W_SkillImage" Grid.Column="0" Grid.Row="0" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"/>
+                <TextBlock Name="W_SkillName" Grid.Row="1" Text="Skill Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Name="W_SkillType" Text="Skill Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <TextBlock Grid.Row="3" Name="W_SkillDescr" TextWrapping="Wrap" Text="Descrição da skill" FontSize="10" FontStyle="Italic" TextAlignment="Left" TextDecorations="None">
+                    
+                </TextBlock>
+                <Grid Grid.Row="4" Width="200" Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="W_SkillLevel" Text="Skill Level" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Name="W_SkillCD" Grid.Column="1" Text="Skill Cooldown" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+        </Canvas>
+        
 
     </Canvas>
 </Page>
 
-<!--<Page>
-                <Storyboard x:Name="myStoryboard">
-                <DoubleAnimation From="1" To="6" Duration="00:00:6" 
-                Storyboard.TargetName="rectScaleTransform" 
-                Storyboard.TargetProperty="ScaleY">
-                    <DoubleAnimation.EasingFunction>
-                        <BounceEase Bounces="2" EasingMode="EaseOut" 
-                                Bounciness="2" />
-                    </DoubleAnimation.EasingFunction>
-                       <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectScaleTransform"
-                                                Storyboard.TargetProperty="(RenderTransform).(SkewTransform.AngleX)">
-                    <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0"/>
-                    <LinearDoubleKeyFrame Value="45" KeyTime="0:0:4"/>
-                </DoubleAnimation>
-            </Storyboard>
-            </Page> -->

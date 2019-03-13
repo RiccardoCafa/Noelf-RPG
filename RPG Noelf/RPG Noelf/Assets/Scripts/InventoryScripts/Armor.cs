@@ -18,7 +18,10 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public Armor(string name):
         base(name)
         {
-            
+
+            //tpWeapon = tWeapon;
+            itemType = "Armor";
+        }
 
         }
  
