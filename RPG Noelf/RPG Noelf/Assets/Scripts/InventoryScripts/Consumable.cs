@@ -7,59 +7,41 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
-    class Consumable:Item 
-    {
-        public float giveBonus { get; set; }
 
-        public Consumable(int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage) :
-                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
-        {
-            itemType = "Consumable";
+    class Consumable : Item
+    {
+        public float Bonus { get; set; }
+
+        public Consumable(string name) :
+                            base(name)
+        { 
             isStackable = true;
+
         }
 
 
-        public float returnBonus()//retorna o valor do bonus com base na quantidade
+        public double returnBonus()//retorna o valor do bonus com base na quantidade
         {
-            if(amount == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return giveBonus*amount;
-            }
-
+            //TODO
+            return 0;
         }
 
         public bool canUse()//retorna se pode usar ou não
         {
-            if(amount == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
+            //TODO
+            return true;
         }
-       
+
         public void afterUsed(int nTimes)//decrementa quando usado um numero n de vezes
         {
-            if (nTimes > amount)
-            {
-                nTimes = amount;
-                amount = amount - amount;
-            }
-            else
-            {
-               amount =  amount - nTimes;
-               
-            }
+            //TODO
         }
-
 
 
     }
+
+    
+
+
 }
+    

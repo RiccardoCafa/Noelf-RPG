@@ -39,7 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = 4;
             Mnd = 6;
 
-            nameRace = "Humano";
+            nameRace = "Human";
         }
     }
 
