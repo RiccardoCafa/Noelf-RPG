@@ -126,13 +126,13 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\SlotInventory.cs" />
-    <Compile Include="Assets\Scripts\Player\IAtributes.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerFolder\IAtributes.cs" />
     <Compile Include="Assets\Scripts\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\PlayerFolder\Class.cs" />
