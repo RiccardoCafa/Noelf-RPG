@@ -18,10 +18,10 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public Armor(string name) :
         base(name)
         {
-            isStackable = false;
-            
+            IsStackable = false;
+
         }
-        
+
         public string GetTypeArmor()
         {
             switch (tpArmor)
@@ -32,7 +32,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                     return "Light Armor";
                 case TypeArmor.Medium:
                     return "Medium Armor";
-                
+
             }
 
             return "";
@@ -41,12 +41,5 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
 
     }
- 
-       
-
-
-    }
-       
-
-    }
+}
 

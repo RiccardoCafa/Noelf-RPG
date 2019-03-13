@@ -123,11 +123,14 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Crafter.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\SlotInventory.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag\MobBag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag\MobSlot.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag\PlayerBag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag\PlayerSlot.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag\Bag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
@@ -137,7 +140,7 @@
     <Compile Include="Assets\Scripts\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\PlayerFolder\Class.cs" />
     <Compile Include="Assets\Scripts\PlayerFolder\Character.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
     <Compile Include="Assets\Scripts\Runes\RunaNode.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
     <Compile Include="MainPage.xaml.cs">

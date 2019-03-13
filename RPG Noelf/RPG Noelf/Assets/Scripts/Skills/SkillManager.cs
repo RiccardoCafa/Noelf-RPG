@@ -52,6 +52,17 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return false;
         }
 
+        public bool UnlockSkill(int index)
+        {
+            if(myPlayer.Level >= SkillList.ElementAt(index).block)
+            {
+                SkillList.ElementAt(index).Unlocked = true;
+                SkillPoints--;
+                return true;
+            }
+            return false;
+        }
+
         public bool UpSkill(Skill skill)
         {
             int MinimiumLevel = 0;

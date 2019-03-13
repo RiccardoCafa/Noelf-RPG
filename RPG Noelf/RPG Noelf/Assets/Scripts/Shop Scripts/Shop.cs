@@ -23,14 +23,14 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         // função para vender itens ao jogador
         public bool sellItem(int soldID, Bag player)
         {
-           
+            return false;
         }
 
 
         //função para comprar itens do jogador
         public bool BuyItem(int purchasedID, Bag player)
         {
-
+            /*
             if(item != null && player != null)
             {
                 player.RemoveFromBag(item);
@@ -42,7 +42,8 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
             {
                 return false;
             }
-
+            */
+            return false;
         }
     }
 
