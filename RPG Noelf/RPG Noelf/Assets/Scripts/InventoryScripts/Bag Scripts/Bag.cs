@@ -44,6 +44,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             Slots = new List<Slot>();
             MaxSlots = 30;
+            FreeSlots = MaxSlots;
         }
 
         /// <summary>
@@ -100,7 +101,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public virtual bool AddToBag(uint itemID, uint amount)
         {
             Slot playerSlot = Slots.Find(x => x.ItemID == itemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
-            if (!CanAddMore() && playerSlot == null) return false;
             if (playerSlot != null)
             {
                 if (playerSlot.ItemAmount + amount > MaxStack)
@@ -126,11 +126,12 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     return true;
                 }
             }
-            else
+            else if(CanAddMore())
             {
                 Slots.Add(new Slot(itemID, amount));
                 return true;
-            }
+            } else
+            return false;
         }
 
         /// <summary>

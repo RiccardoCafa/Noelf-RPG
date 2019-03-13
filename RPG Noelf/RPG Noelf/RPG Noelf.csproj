@@ -130,7 +130,6 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\MobBag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\MobSlot.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\PlayerBag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Bag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />

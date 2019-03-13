@@ -25,6 +25,7 @@ using System.Diagnostics;
 using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using Windows.UI.Input;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -143,8 +144,10 @@ namespace RPG_Noelf
             p1._Inventory.RemoveFromBag(potion, 1);
 
             p1._Inventory.RemoveFromBag(banana, 1);
-                    
+
             #endregion
+
+            Debug.WriteLine(p1._Inventory.Slots.Count);
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                 UpdateBag();
@@ -418,20 +421,19 @@ namespace RPG_Noelf
             int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
             int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
             int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
-            // TODO showitemwindow
-            /*
-            SlotInventory itemInfo = null;
+            
+            Slot itemInfo = null;
 
-            if(position < p1._Inventory.slots.Count)
+            if(position < p1._Inventory.Slots.Count)
             {
-                itemInfo = p1._Inventory.slots[position];
+                itemInfo = p1._Inventory.Slots[position];
             }
             if (itemInfo == null) return;
 
             RealocateWindow(WindowBag, mousePosition);
 
             UpdateItemWindowText(itemInfo);
-            */
+            
         }
         
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
@@ -439,7 +441,7 @@ namespace RPG_Noelf
             WindowBag.Visibility = Visibility.Collapsed;
         }
 
-        private void UpdateItemWindowText(PlayerBag slot)
+        private void UpdateItemWindowText(Slot slot)
         {
             Item item = Encyclopedia.encyclopedia[slot.ItemID];
             W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
@@ -703,9 +705,8 @@ namespace RPG_Noelf
 
         public void UpdateBag()
         {
-            // TODO UpdateBag
-            /*
-            for (int i = 0; i < p1._Inventory.slots.Count; i++)
+            
+            for (int i = 0; i < p1._Inventory.Slots.Count; i++)
             {
                 int column = i, row = i;
                 row = i / 6;
@@ -717,10 +718,10 @@ namespace RPG_Noelf
                 if(slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    // TODO slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[p1._Inventory.slots[i].itemID].PathImage));
+                    slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[p1._Inventory.Slots[i].ItemID].PathImage));
                 }
                 
-            }*/
+            }
         }
     }
 }
