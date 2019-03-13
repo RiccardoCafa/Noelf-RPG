@@ -1,6 +1,7 @@
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
+using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using Windows.UI.Xaml.Shapes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class Player : IAtributes
+    class Player : Ent, IAtributes
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
