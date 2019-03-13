@@ -15,7 +15,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public Consumable(string name) :
                             base(name)
         { 
-            isStackable = true;
+            IsStackable = true;
 
         }
 

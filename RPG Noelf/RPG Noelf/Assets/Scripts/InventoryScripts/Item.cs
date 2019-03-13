@@ -15,21 +15,21 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
   
     class Item
     {
-        public int goldValue { get; set; } // valor em ouro do item
-        public string name { get; set; } // nome do item;
-        public bool isStackable;//se é possivel acumular ou não
-        public Category itemCategory { get; set; }//raridade do item
-        public uint itemID { get; set; }// ID de indentificação dos itens
-        public string pathImage { get; set; }
+        public int GoldValue { get; set; } // valor em ouro do item
+        public string Name { get; set; } // nome do item;
+        public bool IsStackable;//se é possivel acumular ou não
+        public Category ItemCategory { get; set; }//raridade do item
+        public uint ItemID { get; set; }// ID de indentificação dos itens
+        public string PathImage { get; set; }
 
         public Item(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
         public string GetTypeString()
         {
-            switch(itemCategory)
+            switch(ItemCategory)
             {
                 case Category.Normal:
                     return "Normal";

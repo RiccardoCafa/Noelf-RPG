@@ -54,7 +54,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 skillManager.SetPassive(0.05f, AtributBonus.For, "/Assets/Images/Item2.jpg", "Fúria do guerreiro");
             
 skillManager.MakeSkill(0, 0, 2, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "Endurance");
-skillManager.MakeSkill(0, 0, 4, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Duro Duro");
+skillManager.MakeSkill(10, 0, 4, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Duro Duro");
 skillManager.MakeSkill(0, 0, 6, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Mole Mole");
 skillManager.MakeSkill(0, 0, 33, 0.02f, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Chao.jpg", "Raio solar");
 
