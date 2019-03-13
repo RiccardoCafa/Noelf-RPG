@@ -13,46 +13,33 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         habilite,
         ultimate
     }
-    public enum SkillAtribute
-    {
-        buff,
-        debuff,
-        damage
-
-    }
     public enum AtributBonus
     {
         For,
         Int,
-        dex
+        dex,
+        cons
     }
 
-    class Skill
+    class Skill : SkillGenerics
     {
 
 
-        public float Damage { get; }
+        public double Damage { get; set; }
         
-        private float BonusMultiplier;
-        private float DamageBonus;
+        private double BonusMultiplier;
+        private double DamageBonus;
         
-        public int Lvl { get; set; } = 1;
-        public int block { get; }
 
-        private int manaCost;
-
-        public bool Unlocked { get; set; } = false;
+       
         
         private bool area;
 
-        public string pathImage { get; set; }
-        public string name { get; set; }
-        public string description { get; set; } = "";
 
         public SkillType tipo;
         private AtributBonus atrib;
 
-        public Skill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
+        public Skill(double damage, double manaCost, double cooldown, double Amplificator, int blockLevel, double BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
         {
             this.pathImage = pathImage;
             this.Damage = damage;
@@ -62,6 +49,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.tipo = tipoSkill;
             this.atrib = atrib;
             this.name = name;
+            this.cooldown = cooldown;
+            this.Amplificator = Amplificator;
         }
 
         public string GetTypeString()
@@ -83,6 +72,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             if (manaCost <= player.Mp)
             {
                 CalcBonus(player);
+                Damage = Damage + Amplificator * Lvl;
                 Enemy.BeHit(player.Hit(DamageBonus));
                 return true;
             }

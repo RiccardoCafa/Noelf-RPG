@@ -9,9 +9,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 {
     class SkillManager
     {
-        public List<Skill> SkillList { get; set; }
-        public Skill[] SkillBar { get; set; }
-        public Skill Passive { get; set; }
+        public List<SkillGenerics> SkillList { get; set; }
+        public SkillGenerics[] SkillBar { get; set; }
+        public SkillGenerics Passive { get; set; }
         public Player myPlayer;
 
         public int SkillPoints { get; set; }
@@ -20,23 +20,40 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             SkillPoints = 0;
             this.myPlayer = myPlayer;
-            SkillList = new List<Skill>();
+            SkillList = new List<SkillGenerics>();
             SkillBar = new Skill[4];
         }
 
-        public void SetPassive(float BonusMultiplier, AtributBonus atrib, string pathImage, string name)
+        public void SetWarriorPassive(string pathImage, string name)
         {
-            Passive = new Skill(0, 0, 1, BonusMultiplier, SkillType.passive, atrib, pathImage, name);
+            Passive = new SkillBuff(1.05,0,0,0,0,1,SkillTypeBuff.buff,BuffDebuffTypes.dmg,name, pathImage);
+            Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
+            Passive.Unlocked = true;
+            SkillList.Add(Passive);
+        }
+        public void SetArcherPassive(string pathImage, string name)//ainda tem que mexer
+        {
+            Passive = new SkillBuff(1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, name, pathImage);
+            Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
+            Passive.Unlocked = true;
+            SkillList.Add(Passive);
+        }
+        public void SetMagePassive(string pathImage, string name)//aqui tb
+        {
+            Passive = new SkillBuff(1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, name, pathImage);
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
 
-        public void MakeSkill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType Type, AtributBonus atrib, string pathImage, string name)
+        public void MakeSkillType1(double damage, double manaCost, double cooldown, double Amplificator, int blockLevel, double BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
         {
-            SkillList.Add(new Skill(damage, manaCost, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
+            SkillList.Add(new Skill(damage, manaCost, cooldown,Amplificator, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
         }
-
+        public void MakeSkillType2(double buff, double amplificador, double customana, double cooldown, double timer, int blocklvl, SkillTypeBuff tipobuff, BuffDebuffTypes buffer, string name, string pathImage)
+        {
+            SkillList.Add(new SkillBuff(buff, amplificador, customana, cooldown, timer, blocklvl, tipobuff, buffer, name, pathImage));
+        }
         public void AddSkillToBar(Skill s, int index)
         {
             SkillBar[index] = s;

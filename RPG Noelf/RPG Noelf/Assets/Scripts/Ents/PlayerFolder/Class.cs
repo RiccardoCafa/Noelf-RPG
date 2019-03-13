@@ -51,25 +51,26 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = 5;
             Mnd = 0;
 
-skillManager.SetPassive(0.05f, AtributBonus.For, "/Assets/Images/Item2.jpg", "Fúria do guerreiro");
+skillManager.SetWarriorPassive("/Assets/Images/Item2.jpg", "Fúria do guerreiro");
             
-skillManager.MakeSkill(0, 0, 2, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "Endurance");
-skillManager.MakeSkill(10, 0, 4, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Duro Duro");
-skillManager.MakeSkill(0, 0, 6, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Mole Mole");
-skillManager.MakeSkill(0, 0, 33, 0.02f, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Chao.jpg", "Raio solar");
+skillManager.MakeSkill(0,0,20, 2, 0.25, SkillType.habilite, AtributBonus.cons, "/Assets/Images/Chao.jpg", "Endurance");
+skillManager.MakeSkill(80, 0, 7,4, 0.10, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Esfolar");
+skillManager.MakeSkill(25, 0, 5, 6, 0, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Cabeçada");
+skillManager.MakeSkill(0, 0,35, 33, 0, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Chao.jpg", "Até a morte");
 
-skillManager.MakeSkill(0, 0, 11, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Coco de macaco");
-skillManager.MakeSkill(0, 0, 22, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Banana adormecida");
-skillManager.MakeSkill(0, 0, 33, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "Rezende");
-skillManager.MakeSkill(0, 0, 45, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Caique");
-skillManager.MakeSkill(0, 0, 66, 0.02f, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Item2.jpg", "Comunista");
+skillManager.MakeSkill(50, 0,20, 11, 0.20, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "triunfar");
+skillManager.MakeSkill(0, 0,12, 22, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "grito de guerra");
+skillManager.MakeSkill(0, 0,0, 33, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "provocar");
+skillManager.MakeSkill(0, 0,0, 45, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "bloqueio perfeito");
+skillManager.MakeSkill(0, 0,0, 66, 0.02f, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Item2.jpg", "Armadura Santa");
 
-skillManager.MakeSkill(0, 0, 56, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "Felipe");
-skillManager.MakeSkill(0, 0, 67, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Coms");
-skillManager.MakeSkill(0, 0, 78, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Sua formiga");
-skillManager.MakeSkill(0, 0, 90, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "acontece");
-skillManager.MakeSkill(0, 0, 99, 0.02f, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Chao.jpg", "tem dessas");
-            
+skillManager.MakeSkill(0, 0,0, 56, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "doble hit");
+skillManager.MakeSkill(0, 0,0, 67, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "a marca do duel");
+skillManager.MakeSkill(0, 0,0, 78, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "berserk");
+skillManager.MakeSkill(0, 0,0, 90, 0.02f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Chao.jpg", "afastar");
+skillManager.MakeSkill(0, 0,0, 99, 0.02f, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Chao.jpg", "Sede de sangue");
+
+
 
             className = "Guerreiro";
         }
