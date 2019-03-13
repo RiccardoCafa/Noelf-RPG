@@ -136,14 +136,14 @@ namespace RPG_Noelf
             p1._Inventory.AddToBag(espadona, 1);
             p1._Inventory.AddToBag(espadona, 1);
             p1._Inventory.AddToBag(espadona, 1);
-            /*
+            
             p1._Inventory.RemoveFromBag(espadona, 1);
             p1._Inventory.RemoveFromBag(espadona, 1);
 
             p1._Inventory.RemoveFromBag(potion, 1);
 
             p1._Inventory.RemoveFromBag(banana, 1);
-            */        
+                    
             #endregion
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {

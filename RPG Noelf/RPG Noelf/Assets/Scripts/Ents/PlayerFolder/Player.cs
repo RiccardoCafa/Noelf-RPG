@@ -50,7 +50,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Id = id;
 
             _SkillManager = new SkillManager(this);
-            _Inventory = new PlayerBag();
+            _Inventory = new Bag();
 
             switch (Id.Substring(0, 1))
             {
