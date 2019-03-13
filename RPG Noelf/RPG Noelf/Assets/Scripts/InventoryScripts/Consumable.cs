@@ -20,7 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         }
 
 
-        public float returnBonus()//retorna o valor do bonus com base na quantidade
+        public double returnBonus()//retorna o valor do bonus com base na quantidade
         {
             //TODO
             return 0;

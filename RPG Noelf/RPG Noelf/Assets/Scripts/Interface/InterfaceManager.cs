@@ -21,13 +21,14 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         private void ManageKey(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            if(e.VirtualKey == Windows.System.VirtualKey.I)
+            if (e.VirtualKey == Windows.System.VirtualKey.I)
             {
                 if (InventarioOpen)
                 {
                     Inventario.Visibility = Visibility.Visible;
                     InventarioOpen = false;
-                } else
+                }
+                else
                 {
                     Inventario.Visibility = Visibility.Collapsed;
                     InventarioOpen = true;

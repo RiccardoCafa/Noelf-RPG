@@ -87,7 +87,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
        
         public bool CanAddMore()
         {
-            if (this.freeSlots > 0) return true;
+            if (freeSlots > 0) return true;
             else return false;
         }
 

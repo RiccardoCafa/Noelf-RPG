@@ -20,7 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public string pathImage { get; set; }
         public TypeWeapon tpWeapon { get; set; }
         public Weapon(string name) :
-        base(name)                 
+        base(name)
         {
             isStackable = false;
     
