@@ -451,7 +451,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public static float SearchConsumableBonus(uint key)
         {
             Consumable it = (Consumable) encyclopedia[key];
-            return it.giveBonus;
+            return it.Bonus;
 
         }
 
