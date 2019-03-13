@@ -15,18 +15,31 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     }
     class Weapon:Item
     {
-        public int bonusDamage { get; set; }
-        public int bonusDefense { get; set; }
+        public float bonusDamage { get; set; }
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura
-        //public Recipe weaponRecipe;
-        public TypeWeapon tpWeapon { get; }
-        public Weapon(TypeWeapon tWeapon, int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage) :
-                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
+        public string pathImage { get; set; }
+        public TypeWeapon tpWeapon { get; set; }
+        public Weapon(string name) :
+        base(name)                 
         {
-            tpWeapon = tWeapon;
-            itemType = "Weapon";
+            isStackable = false;
+    
         }
 
+        public string GetTypeWeapon()
+        {
+            switch (tpWeapon)
+            {
+
+                case TypeWeapon.Magical:
+                    return "Magical";
+                case TypeWeapon.Melee:
+                    return "Melee";
+                case TypeWeapon.Ranged;
+                    return "Ranged";
+            }
+            return "";
+        }
 
 
 
