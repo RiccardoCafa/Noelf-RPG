@@ -14,43 +14,35 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     class Armor : Item
     {
         public TypeArmor tpArmor;
-
-        public Armor(int goldValue, int amount, string name, bool isStackable, Category categoria, int itemID, string pathImage) :
-                            base(goldValue, amount, name, isStackable, categoria, itemID, pathImage)
+        public float defense;
+        public Armor(string name) :
+        base(name)
         {
-            //tpWeapon = tWeapon;
-            itemType = "Armor";
+            isStackable = false;
+            
+        }
+        
+        public string GetTypeArmor()
+        {
+            switch (tpArmor)
+            {
+                case TypeArmor.Heavy:
+                    return "Heavy Armor";
+                case TypeArmor.Light:
+                    return "Light Armor";
+                case TypeArmor.Medium:
+                    return "Medium Armor";
+                
+            }
+
+            return "";
         }
 
-        public int defense //armaduraTotal /armaduratotal + 100 
-        {
-            get
-            {
-                return defense;
-            }
-            set
-            {
-                if (defense > 500)
-                {
-                    defense = 500;
-                }
-                else
-                {
-                    defense = value;
-                }
-                if (defense >= 300 && defense <= 500)
-                {
-                    tpArmor = TypeArmor.Heavy;
-                } else if (defense >= 150 && defense <= 300)
-                {
-                    tpArmor = TypeArmor.Medium;
-                }
-                else
-                {
-                    tpArmor = TypeArmor.Light;
-                }
-            }
-        }
+
+
+    }
+ 
+       
 
 
     }
