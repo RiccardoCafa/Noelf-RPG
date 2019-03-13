@@ -41,5 +41,5 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
 
     }
-}
 
+}
