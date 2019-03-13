@@ -17,7 +17,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public float bonusDamage { get; set; }
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura
-        public string pathImage { get; set; }
+        //public string pathImage { get; set; }
         public TypeWeapon tpWeapon { get; set; }
         public Weapon(string name) :
         base(name)
@@ -35,7 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                     return "Magical";
                 case TypeWeapon.Melee:
                     return "Melee";
-                case TypeWeapon.Ranged;
+                case TypeWeapon.Ranged:
                     return "Ranged";
             }
             return "";

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.PlayerFolder
+namespace RPG_Noelf.Assets.Scripts
 {
     interface IAtributes
     {
