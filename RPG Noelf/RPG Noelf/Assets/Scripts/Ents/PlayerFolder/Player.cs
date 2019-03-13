@@ -1,14 +1,17 @@
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-﻿using RPG_Noelf.Assets.Scripts.Skills;
+using RPG_Noelf.Assets.Scripts.InventoryScripts;
+using RPG_Noelf.Assets.Scripts.Skills;
+using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Shapes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class Player : IAtributes
+    class Player : Ent, IAtributes
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
@@ -25,7 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Con { get; set; }
         public int Mnd { get; set; }
 
-        public float Hp { get; set; }
+        public double Hp { get; set; }
         public int HpMax { get; set; }
 
         public int Xp { get; private set; }
@@ -34,13 +37,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Mp { get; set; }
         public int MpMax { get; set; }
 
-        public float Armor { get; set; }
-        public int Damage { get; set; }
+        public double Armor { get; set; }
+        public double Damage { get; set; }
         public double AtkSpd { get; set; }
 
         public Player(string id, IRaces race, IClasses _class)
         {
-            /* ID: rc_x.kysh
+            /* ID: rc_x kysh
              *  r -> raça  0-2
              *  c -> classe  0-2
              *  x -> sexo  0,1
@@ -50,18 +53,20 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
              *  h -> cor de cabelo  0-2
              */
 
-            _SkillManager = new SkillManager(this);
-            _Inventory = new Bag();
+            Id = id;
 
-            switch (race)
+            _SkillManager = new SkillManager(this);
+            _Inventory = new PlayerBag();
+
+            switch (Id.Substring(0, 1))
             {
-                case IRaces.Human:
+                case "0":
                     Race = new Human();
                     break;
-                case IRaces.Orc:
+                case "1":
                     Race = new Orc();
                     break;
-                case IRaces.Elf:
+                case "2":
                     Race = new Elf();
                     break;
             }
@@ -88,6 +93,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Level = 1;
             XpLim = Level * 100;
             LevelUpdate(0, 0, 0, 0, 0);
+            /*
+            SkeletonData skeletonData = new SkeletonData();
+            Skeleton skeleton = new Skeleton(skeletonData);
+            Bone spine = new Bone(new BoneData(0, "c", null), skeleton, null);
+            Rectangle rectangle = new Rectangle();
+            ExposedList<Timeline> timelines = new ExposedList<Timeline>;
+            timelines.Add
+            Spine.Animation animation = new Animation("rotate", )
+            skeleton.Bones.Add();*/
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
@@ -106,7 +120,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
 
         public void LevelUpdate(int str, int spd, int dex, int con, int mnd)//atualiza os atributos ao upar
-        { 
+        {
             Str += str;
             Spd += spd;
             Dex += dex;
@@ -121,10 +135,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void AddMP(int MP)
         {
-            if(Mp + MP >= MpMax)
+            if (Mp + MP >= MpMax)
             {
                 Mp = MpMax;
-            } else
+            }
+            else
             {
                 Mp += MP;
             }
@@ -141,11 +156,19 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Hp += HP;
             }
         }
-
-        public float ArmoCalc()
+        
+        public double Hit(double bonusDamage)//golpeia
         {
-            Armor = Armor / (100 + Armor);
-            return Armor;
+            Random random = new Random();
+            double dmg100 = random.NextDouble() * 100;
+            if (dmg100 < 1 / Dex * 0.05) return 0;//errou
+            else if (dmg100 < Dex * 0.1) return bonusDamage + Damage * dmg100;//acertou
+            else return bonusDamage + Damage * dmg100 * 2;//critico
+        }
+
+        public void BeHit(double damage)//tratamento do dano levado
+        {
+            Hp -= damage / (1 + Con * 0.02 + Armor);
         }
     }
 }

@@ -57,6 +57,8 @@ namespace RPG_Noelf
             // Settando Janelas de Interface
             interfaceManager.Inventario = InventarioWindow;
 
+            Encyclopedia.LoadItens();
+
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
@@ -67,73 +69,82 @@ namespace RPG_Noelf
                 player.rotation = Rotation;
             });
 
-            p1 = new Player("1", IRaces.Orc, IClasses.Warrior);
-            p2 = new Player("2", IRaces.Human, IClasses.Wizard);
-
-            p2.Armor = 0;
+            p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
+            {
+                Armor = 5
+            };
+            p2 = new Player("2", IRaces.Human, IClasses.Wizard)
+            {
+                Armor = 2
+            };
 
             //p1._SkillManager.MakeSkill(10, 2, 1, 0.5f, SkillType.passive, AtributBonus.For, "/Assets/Images/Item1.jpg", "jorrada");
             //p1._SkillManager.MakeSkill(15, 1, 1, 0.2f, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Trovao do Comunismo");
 
-            Item banana = new Item("Banana", true, Category.Legendary,"/Assets/Images/Item1.jpg", 5000);
+            /*Item banana = new Item("Banana", true, Category.Legendary,"/Assets/Images/Item1.jpg", 5000);
             Item jorro = new Item("Jorro", true, Category.Uncommon,"/Assets/Images/Item2.jpg", 30);
             Item espadona = new Item("Espadona", false, Category.Normal,"/Assets/Images/Item1.jpg", 30);
-            Consumable potion = new Consumable("Health Potion", true, Category.Normal,"pathquericcardocolocou", 5);
+            Consumable potion = new Consumable("Health Potion", true, Category.Normal,"pathquericcardocolocou", 5);*/
+            uint banana = 1;
+            uint jorro = 2;
+            uint espadona = 3;
+            uint potion = 4;
 
             #region InvTest
 
             p1._Inventory.AddGold(50);
             
-            p1._Inventory.AddToBag(banana);
-            p1._Inventory.AddToBag(jorro);
-            p1._Inventory.AddToBag(banana);
-            p1._Inventory.AddToBag(jorro);
-            p1._Inventory.AddToBag(banana);
-            p1._Inventory.AddToBag(jorro);
-            p1._Inventory.AddToBag(banana);
-            p1._Inventory.AddToBag(jorro);
+            p1._Inventory.AddToBag(banana, 1);
+            p1._Inventory.AddToBag(jorro, 1);
+            p1._Inventory.AddToBag(banana, 1);
+            p1._Inventory.AddToBag(jorro, 1);
+            p1._Inventory.AddToBag(banana, 1);
+            p1._Inventory.AddToBag(jorro, 1);
+            p1._Inventory.AddToBag(banana, 1);
+            p1._Inventory.AddToBag(jorro, 1);
+            /*
+            p1._Inventory.RemoveFromBag(jorro, 1);
+            p1._Inventory.RemoveFromBag(jorro, 1);
+            p1._Inventory.RemoveFromBag(jorro, 1);
+            p1._Inventory.RemoveFromBag(jorro, 1);
+            */
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
 
-            p1._Inventory.RemoveFromBag(jorro);
-            p1._Inventory.RemoveFromBag(jorro);
-            p1._Inventory.RemoveFromBag(jorro);
-            p1._Inventory.RemoveFromBag(jorro);
+            p1._Inventory.AddToBag(potion, 1);
+            p1._Inventory.AddToBag(potion, 1);
+            p1._Inventory.AddToBag(potion, 1);
 
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            p1._Inventory.AddToBag(espadona, 1);
+            /*
+            p1._Inventory.RemoveFromBag(espadona, 1);
+            p1._Inventory.RemoveFromBag(espadona, 1);
 
-            p1._Inventory.AddToBag(potion);
-            p1._Inventory.AddToBag(potion);
-            p1._Inventory.AddToBag(potion);
+            p1._Inventory.RemoveFromBag(potion, 1);
 
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-            p1._Inventory.AddToBag(espadona);
-
-            p1._Inventory.RemoveFromBag(espadona);
-            p1._Inventory.RemoveFromBag(espadona);
-
-            p1._Inventory.RemoveFromBag(potion);
-
-            p1._Inventory.RemoveFromBag(banana);
+            p1._Inventory.RemoveFromBag(banana, 1);
+            */        
             #endregion
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
@@ -147,12 +158,138 @@ namespace RPG_Noelf
             });
         }
 
+
+        public void UpdatePlayerInfo()
+        {
+            PlayerInfo.Text = p1.Race.NameRace + " " + p1._Class.ClassName + "\n";
+            PlayerInfo.Text += "Atributos: ( " + p1._Class.StatsPoints + " pontos)\n" +
+                                "Força: " + p1.Str + " + " + _str + "\n" +
+                                "Mente: " + p1.Mnd + " + " + _mnd + "\n" +
+                                "Velocidade: " + p1.Spd + " + " + _spd + "\n" +
+                                "Destreza: " + p1.Dex + " + " + _dex + "\n" +
+                                "Constituição: " + p1.Con + " + " + _con + "\n\n" +
+                                "HP: " + p1.Hp + "/" + p1.HpMax + "\n" +
+                                "MP: " + p1.Mp + "/" + p1.MpMax + "\n" +
+                                "Damage: " + p1.Damage + "\n" +
+                                "Atack Speed: " + p1.AtkSpd + "\n" +
+                                "Armor: " + p1.Armor + "\n\n" +
+                                "Level: " + p1.Level + "\n" +
+                                "Experience: " + p1.Xp + "/" + p1.XpLim + "\n" +
+                                "Pontos de skill disponivel: " + p1._SkillManager.SkillPoints;
+        }
+
+
+
+        #region Events
+
+        public void RemoveSkillFromBar(object sender, PointerRoutedEventArgs e)
+        {
+            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if(prop.IsRightButtonPressed)
+                {
+                    Image skillEnter = sender as Image;
+
+                    int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+                    int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    p1._SkillManager.SkillBar[position - 1] = null;
+                    UpdateSkillWindowText(null);
+                    UpdateSkillBar();
+                }
+            }
+        }
+
+        public void SkillTreePointerEvent(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
+                {
+                    Image skillEnter = sender as Image;
+                    Skill skillClicked;
+
+                    int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+                    int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    skillClicked = p1._SkillManager.SkillList[position];
+
+                    if (p1._SkillManager.SkillPoints > 0)
+                    {
+                        if (skillClicked.Unlocked)
+                        {
+                            p1._SkillManager.UpSkill(skillClicked); // returns true if sucessfully up
+                        }
+                        else if (skillClicked.block <= p1.Level)
+                        {
+                            p1._SkillManager.UnlockSkill(position);
+                            for (int i = 0; i < 3; i++)
+                            {
+                                if (p1._SkillManager.SkillBar[i] == null)
+                                {
+                                    p1._SkillManager.AddSkillToBar(skillClicked, i);
+                                    break;
+                                }
+                            }
+                        }
+                        UpdateSkillWindowText(skillClicked);
+                        UpdatePlayerInfo();
+                        UpdateSkillBar();
+                    }
+                }
+                else if (prop.IsRightButtonPressed)
+                {
+                    Image skillEnter = sender as Image;
+                    Skill skillClicked;
+
+                    int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+                    int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+
+                    skillClicked = p1._SkillManager.SkillList[position];
+                    if (skillClicked.Unlocked == false) return;
+                    if (skillClicked.tipo == SkillType.habilite)
+                    {
+                        foreach(Skill s in p1._SkillManager.SkillBar)
+                        {
+                            if(s != null)
+                            {
+                                if(s.Equals(skillClicked))
+                                {
+                                    return;
+                                }
+                            }
+                        }
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (p1._SkillManager.SkillBar[i] == null )
+                            {
+                                p1._SkillManager.SkillBar[i] = skillClicked;
+                                UpdateSkillBar();
+                                break;
+                            }
+                        }
+                    }
+                    else if (skillClicked.tipo == SkillType.ultimate)
+                    {
+                        if (p1._SkillManager.SkillBar[3] == null)
+                        {
+                            p1._SkillManager.SkillBar[3] = skillClicked;
+                            UpdateSkillBar();
+                        }
+                    }
+                }
+            } 
+        }
+
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
             int indicadorzao = 0;
             if (e.VirtualKey == Windows.System.VirtualKey.Number1)
             {
-                if(p1._SkillManager.SkillList.Count >= 1)
+                if (p1._SkillManager.SkillList.Count >= 1)
                 {
                     indicadorzao = 0;
                 }
@@ -178,36 +315,13 @@ namespace RPG_Noelf
                     indicadorzao = 3;
                 }
             }
-            if (e.VirtualKey == Windows.System.VirtualKey.Number5)
+            string s;
+            if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
-                if (p1._SkillManager.SkillList.Count >= 5)
-                {
-                    indicadorzao = 4;
-                }
+                s = p1._SkillManager.SkillBar[indicadorzao].UseSkill(p1, p2).ToString();
+                Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
             }
 
-            string s = p1._SkillManager.SkillList[indicadorzao].UseSkill(p1, p2).ToString();
-            Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
-
-        }
-
-        public void UpdatePlayerInfo()
-        {
-            PlayerInfo.Text = p1.Race.NameRace + " " + p1._Class.ClassName + "\n";
-            PlayerInfo.Text += "Atributos: ( " + p1._Class.StatsPoints + " pontos)\n" +
-                                "Força: " + p1.Str + " + " + _str + "\n" +
-                                "Mente: " + p1.Mnd + " + " + _mnd + "\n" +
-                                "Velocidade: " + p1.Spd + " + " + _spd + "\n" +
-                                "Destreza: " + p1.Dex + " + " + _dex + "\n" +
-                                "Constituição: " + p1.Con + " + " + _con + "\n\n" +
-                                "HP: " + p1.Hp + "/" + p1.HpMax + "\n" +
-                                "MP: " + p1.Mp + "/" + p1.MpMax + "\n" +
-                                "Damage: " + p1.Damage + "\n" +
-                                "Atack Speed: " + p1.AtkSpd + "\n" +
-                                "Armor: " + p1.Armor + "\n\n" +
-                                "Level: " + p1.Level + "\n" +
-                                "Experience: " + p1.Xp + "/" + p1.XpLim + "\n" +
-                                "Pontos de skill disponivel: " + p1._SkillManager.SkillPoints;
         }
 
         public void LoadSkillTree()
@@ -233,8 +347,10 @@ namespace RPG_Noelf
                     (element as Image ).Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.Passive.pathImage));
                 } else
                 {
-                    if(p1._SkillManager.SkillBar[cont - 1] != null)
+                    if (p1._SkillManager.SkillBar[cont - 1] != null)
                         (element as Image).Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.SkillBar[cont - 1].pathImage));
+                    else
+                        (element as Image).Source = new BitmapImage();
                 }
                 cont++;
             }
@@ -248,6 +364,7 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowSkillBarWindow;
                     element.PointerExited += CloseSkillWindow;
+                    element.PointerPressed += RemoveSkillFromBar;
                 }
             }
         }
@@ -260,6 +377,7 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowSkillTreeWindow;
                     element.PointerExited += CloseSkillWindow;
+                    element.PointerPressed += SkillTreePointerEvent;
                 }
             }
         }
@@ -297,20 +415,24 @@ namespace RPG_Noelf
             }
 
             if (itemEnter == null) return;
+
             int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
             int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
             int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
-            Item itemInfo = null;
+            // TODO showitemwindow
+            /*
+            SlotInventory itemInfo = null;
+
             if(position < p1._Inventory.slots.Count)
             {
                 itemInfo = p1._Inventory.slots[position];
             }
-
             if (itemInfo == null) return;
 
             RealocateWindow(WindowBag, mousePosition);
 
             UpdateItemWindowText(itemInfo);
+            */
         }
         
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
@@ -318,14 +440,15 @@ namespace RPG_Noelf
             WindowBag.Visibility = Visibility.Collapsed;
         }
 
-        private void UpdateItemWindowText(Item item)
+        private void UpdateItemWindowText(PlayerBag slot)
         {
-            W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.pathImage));
-            W_ItemName.Text = item.name;
-            W_ItemQntd.Text = item.amount.ToString() + "x";
+            Item item = Encyclopedia.encyclopedia[slot.itemID];
+            W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
+            W_ItemName.Text = item.Name;
+            W_ItemQntd.Text = slot.itemAmount + "x";
             W_ItemRarity.Text = item.GetTypeString();
             //W_ItemType.Text = item.itemType;
-            W_ItemValue.Text = item.goldValue + " gold";
+            W_ItemValue.Text = item.GoldValue + " gold";
         }
 
         private void ShowSkillBarWindow(object sender, PointerRoutedEventArgs e)
@@ -386,17 +509,26 @@ namespace RPG_Noelf
 
         private void UpdateSkillWindowText(Skill skillInfo)
         {
-            W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
-            W_SkillName.Text = skillInfo.name;
-            W_SkillType.Text = skillInfo.GetTypeString();
-            W_SkillDescr.Text = skillInfo.description;
-            if(skillInfo.Unlocked == false)
+            try
             {
-                W_SkillLevel.Text = "Unlock Nv. " + skillInfo.block;
-            } else
+                W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
+                W_SkillName.Text = skillInfo.name;
+                W_SkillType.Text = skillInfo.GetTypeString();
+                W_SkillDescr.Text = skillInfo.description;
+                if (skillInfo.Unlocked == false)
+                {
+                    W_SkillLevel.Text = "Unlock Lv. " + skillInfo.block;
+                }
+                else
+                {
+                    W_SkillLevel.Text = "Lv. " + skillInfo.Lvl.ToString();
+                }
+            } catch(NullReferenceException e)
             {
-                W_SkillLevel.Text = "Nv. " + skillInfo.Lvl.ToString();
+                WindowSkill.Visibility = Visibility.Collapsed;
+                return;
             }
+            
         }
 
         private void ShowSkillTreeWindow(object sender, PointerRoutedEventArgs e)
@@ -439,7 +571,9 @@ namespace RPG_Noelf
         {
             WindowSkill.Visibility = Visibility.Collapsed;
         }
+        #endregion
 
+        #region ButtonEvents
         private void XPPlus(object sender, RoutedEventArgs e)
         {
             p1.XpLevel(50);
@@ -566,9 +700,12 @@ namespace RPG_Noelf
             _str = _spd = _dex = _con = _mnd = 0;
             UpdatePlayerInfo();
         }
+        #endregion
 
         public void UpdateBag()
         {
+            // TODO UpdateBag
+            /*
             for (int i = 0; i < p1._Inventory.slots.Count; i++)
             {
                 int column = i, row = i;
@@ -581,10 +718,10 @@ namespace RPG_Noelf
                 if(slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    slot.Source = new BitmapImage(new Uri(this.BaseUri, p1._Inventory.slots[i].pathImage));
+                    // TODO slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[p1._Inventory.slots[i].itemID].PathImage));
                 }
                 
-            }
+            }*/
         }
     }
 }

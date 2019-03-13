@@ -29,7 +29,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public TextBlock textBlock { get; set; }
         public Canvas blocoLeftx, blocoRightx, blocoBottomx;
 
-        public double diferenca= 0;
+        public double diferenca = 0;
         public double xPlayerVal = 0, yPlayerVal = 0;
 
         public const double GravityMultiplier = 0.8;
@@ -47,7 +47,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         private List<Canvas> collisionBlocks = new List<Canvas>();
 
-        private enum EDirection {
+        private enum EDirection
+        {
             top,
             left
         }
@@ -81,9 +82,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         private async void Update()
         {
-            while(alive)
+            while (alive)
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     CheckGround();
                     // Calcula a gravidade
                     if (isFalling)
@@ -95,18 +97,18 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     else
                     {
                         time = DateTime.Now;
-                        if(prepLeft)
+                        if (prepLeft)
                         {
                             moveLeft = true;
                             prepLeft = false;
                         }
-                        if(prepRight)
+                        if (prepRight)
                         {
                             prepRight = false;
                             moveRight = true;
                         }
                     }
-                    
+
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, EDirection.left);
@@ -118,7 +120,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         //rotation.Angle += 0.5;
                     }
 
-                    if(jumping)
+                    if (jumping)
                     {
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
@@ -144,27 +146,30 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         + (GetCanvasTop(blocoBottomx) + blocoBottomx.Height) + "\n";
 
                     textBlock.Text += "\n Diferenca: " + diferenca + "\n";*/
-                }); 
+                });
             }
         }
 
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            if(!isFalling)
+            if (!isFalling)
             {
-                if(e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
+                if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
                 {
                     moveLeft = true;
-                } else if(e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
+                }
+                else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
                 {
                     moveRight = true;
-                } else if(e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
+                }
+                else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
                 {
                     //MoveCharac(-vspeed, EDirection.top);
                     jumping = true;
                     Jump();
                 }
-            } else
+            }
+            else
             {
                 if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
                 {
@@ -181,19 +186,20 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
 
             if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
-            {   
+            {
                 moveLeft = false;
-                if(isFalling) prepLeft = false;
+                if (isFalling) prepLeft = false;
             }
             else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
             {
                 moveRight = false;
                 if (isFalling) prepRight = false;
-            } else if(e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
+            }
+            else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
             {
                 jumping = false;
             }
-            
+
         }
 
         private void MoveCharac(double hspeed, double vspeed)
@@ -206,7 +212,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         private void MoveCharac(double speed, EDirection dir)
         {
-            switch(dir)
+            switch (dir)
             {
                 case EDirection.left:
                     characT.SetValue(Canvas.LeftProperty,
@@ -245,9 +251,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
             collisionBlocks.Clear();
             //collisionBlocks.Add(blockCanvas);
-            foreach(UIElement block in blockCanvas.Children)
+            foreach (UIElement block in blockCanvas.Children)
             {
-                if(block is Canvas)
+                if (block is Canvas)
                 {
                     collisionBlocks.Add((Canvas)block);
                 }
@@ -280,7 +286,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 // Get the distant
                 double dif = actualBlockX - (xPlayer + charac.Width);
                 double dif02 = xPlayer - (actualBlockX + bloco.Width);
-                if(dif > 0 && dif < 10) diferenca = dif;
+                if (dif > 0 && dif < 10) diferenca = dif;
                 // Pegar os blocos a direita e esquerda mais proximos do player
                 if (bloco != LastBlock)
                 {
@@ -308,12 +314,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     isFalling = true;
                 }
 
-                if(blocoLeftx != null)
+                if (blocoLeftx != null)
                 {
                     //yvalue = actualBlockY - yPlayer;
                     freeLeft = (yPlayer + charac.Height >= GetCanvasTop(blocoLeftx) &&
                                     yPlayer <= GetCanvasTop(blocoLeftx) + blocoLeftx.Height) ? false : true;
-                } else
+                }
+                else
                 {
                     freeLeft = true;
                 }
@@ -323,7 +330,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     //yvalue = actualBlockY - yPlayer;
                     freeRight = (yPlayer + charac.Height >= GetCanvasTop(blocoRightx) &&
                                     yPlayer <= GetCanvasTop(blocoRightx) + blocoRightx.Height) ? false : true;
-                } else
+                }
+                else
                 {
                     freeRight = true;
                 }
