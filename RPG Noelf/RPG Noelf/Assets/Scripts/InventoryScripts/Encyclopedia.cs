@@ -420,23 +420,21 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         // procura um item especifico
         public static Item SearchFor(uint key)
         {
-            Item generic;
-            generic = encyclopedia[key];
-            return generic;
+            if (encyclopedia.ContainsKey(key))
+            {
+                return encyclopedia[key];
+            }
+            else throw new ArgumentOutOfRangeException();
         }
 
         //procura se o ID é estacavel com boleana
         public static bool SearchStackID(uint key)
         {
-            Item item = encyclopedia[key];
-            if(item.isStackable == true)
+            if(encyclopedia.ContainsKey(key))
             {
-                return true;
+                return encyclopedia[key].isStackable;
             }
-            else
-            {
-                return false;
-            }
+            else throw new ArgumentOutOfRangeException();
         }
 
         //procura a defesa do items
@@ -450,17 +448,25 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o bonus do Consumivel
         public static float SearchConsumableBonus(uint key)
         {
-            Consumable it = (Consumable) encyclopedia[key];
-            return it.giveBonus;
+            if(encyclopedia.ContainsKey(key))
+            {
+                Consumable it = (Consumable) encyclopedia[key];
+                return 0f;//it.giveBonus;
+            }
+            return 0f;
 
         }
 
         //procura o dano da Arma
         public static float SearchDamageWeapon(uint key)
         {
-            Weapon wep;
-            wep = (Weapon) encyclopedia[key];
-            return wep.bonusDamage;
+            if (encyclopedia.ContainsKey(key))
+            {
+                Weapon wep;
+                wep = (Weapon)encyclopedia[key];
+                return wep.bonusDamage;
+            }
+            else throw new ArgumentOutOfRangeException();
         }
         
     }

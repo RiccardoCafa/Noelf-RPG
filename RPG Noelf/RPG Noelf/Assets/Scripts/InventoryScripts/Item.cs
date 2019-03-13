@@ -35,7 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     return "Normal";
                 case Category.Legendary:
                     return "Legendary";
-                case Category.Uncommon;
+                case Category.Uncommon:
                     return "Uncommon";
                 case Category.Epic:
                     return "Epic";
