@@ -17,17 +17,29 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public float bonusDamage { get; set; }
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura
-        //public Recipe weaponRecipe;
         public string pathImage { get; set; }
-        public TypeWeapon tpWeapon { get; }
+        public TypeWeapon tpWeapon { get; set; }
         public Weapon(string name) :
         base(name)                 
         {
-
-            tpWeapon = tWeapon;
-            itemType = "Weapon";
+            isStackable = false;
+    
         }
 
+        public string GetTypeWeapon()
+        {
+            switch (tpWeapon)
+            {
+
+                case TypeWeapon.Magical:
+                    return "Magical";
+                case TypeWeapon.Melee:
+                    return "Melee";
+                case TypeWeapon.Ranged;
+                    return "Ranged";
+            }
+            return "";
+        }
 
 
 

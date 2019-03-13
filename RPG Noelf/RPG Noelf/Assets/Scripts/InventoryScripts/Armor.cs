@@ -15,15 +15,32 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
     {
         public TypeArmor tpArmor;
         public float defense;
-        public Armor(string name):
+        public Armor(string name) :
         base(name)
         {
+            isStackable = false;
+            
+        }
+        
+        public string GetTypeArmor()
+        {
+            switch (tpArmor)
+            {
+                case TypeArmor.Heavy:
+                    return "Heavy Armor";
+                case TypeArmor.Light:
+                    return "Light Armor";
+                case TypeArmor.Medium:
+                    return "Medium Armor";
+                
+            }
 
-            //tpWeapon = tWeapon;
-            itemType = "Armor";
+            return "";
         }
 
-        }
+
+
+    }
  
        
 
