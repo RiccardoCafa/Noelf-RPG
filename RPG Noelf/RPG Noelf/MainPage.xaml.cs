@@ -171,36 +171,106 @@ namespace RPG_Noelf
 
         #region Events
 
-        public void UpSkill(object sender, PointerRoutedEventArgs e)
+        public void RemoveSkillFromBar(object sender, PointerRoutedEventArgs e)
         {
-            Image skillEnter = sender as Image;
-            Skill skillClicked;
-
-            int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
-            int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
-            int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
-            skillClicked = p1._SkillManager.SkillList[position];
-            if(p1._SkillManager.SkillPoints > 0)
+            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                if(skillClicked.Unlocked)
+                var prop = e.GetCurrentPoint(this).Properties;
+                if(prop.IsRightButtonPressed)
                 {
-                    p1._SkillManager.UpSkill(skillClicked); // returns true if sucessfully up
-                } else if(skillClicked.block <= p1.Level)
+                    Image skillEnter = sender as Image;
+
+                    int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+                    int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    p1._SkillManager.SkillBar[position - 1] = null;
+                    UpdateSkillWindowText(null);
+                    UpdateSkillBar();
+                }
+            }
+        }
+
+        public void SkillTreePointerEvent(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
                 {
-                    p1._SkillManager.UnlockSkill(position);
-                    for(int i = 0; i < 3; i++)
+                    Image skillEnter = sender as Image;
+                    Skill skillClicked;
+
+                    int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+                    int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    skillClicked = p1._SkillManager.SkillList[position];
+
+                    if (p1._SkillManager.SkillPoints > 0)
                     {
-                        if(p1._SkillManager.SkillBar[i] == null)
+                        if (skillClicked.Unlocked)
                         {
-                            p1._SkillManager.AddSkillToBar(skillClicked, i);
-                            break;
+                            p1._SkillManager.UpSkill(skillClicked); // returns true if sucessfully up
+                        }
+                        else if (skillClicked.block <= p1.Level)
+                        {
+                            p1._SkillManager.UnlockSkill(position);
+                            for (int i = 0; i < 3; i++)
+                            {
+                                if (p1._SkillManager.SkillBar[i] == null)
+                                {
+                                    p1._SkillManager.AddSkillToBar(skillClicked, i);
+                                    break;
+                                }
+                            }
+                        }
+                        UpdateSkillWindowText(skillClicked);
+                        UpdatePlayerInfo();
+                        UpdateSkillBar();
+                    }
+                }
+                else if (prop.IsRightButtonPressed)
+                {
+                    Image skillEnter = sender as Image;
+                    Skill skillClicked;
+
+                    int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
+                    int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
+                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+
+                    skillClicked = p1._SkillManager.SkillList[position];
+                    if (skillClicked.Unlocked == false) return;
+                    if (skillClicked.tipo == SkillType.habilite)
+                    {
+                        foreach(Skill s in p1._SkillManager.SkillBar)
+                        {
+                            if(s != null)
+                            {
+                                if(s.Equals(skillClicked))
+                                {
+                                    return;
+                                }
+                            }
+                        }
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (p1._SkillManager.SkillBar[i] == null )
+                            {
+                                p1._SkillManager.SkillBar[i] = skillClicked;
+                                UpdateSkillBar();
+                                break;
+                            }
+                        }
+                    }
+                    else if (skillClicked.tipo == SkillType.ultimate)
+                    {
+                        if (p1._SkillManager.SkillBar[3] == null)
+                        {
+                            p1._SkillManager.SkillBar[3] = skillClicked;
+                            UpdateSkillBar();
                         }
                     }
                 }
-                UpdateSkillWindowText(skillClicked);
-                UpdatePlayerInfo();
-                UpdateSkillBar();
-            }
+            } 
         }
 
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
@@ -266,8 +336,10 @@ namespace RPG_Noelf
                     (element as Image ).Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.Passive.pathImage));
                 } else
                 {
-                    if(p1._SkillManager.SkillBar[cont - 1] != null)
+                    if (p1._SkillManager.SkillBar[cont - 1] != null)
                         (element as Image).Source = new BitmapImage(new Uri(this.BaseUri, p1._SkillManager.SkillBar[cont - 1].pathImage));
+                    else
+                        (element as Image).Source = new BitmapImage();
                 }
                 cont++;
             }
@@ -281,6 +353,7 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowSkillBarWindow;
                     element.PointerExited += CloseSkillWindow;
+                    element.PointerPressed += RemoveSkillFromBar;
                 }
             }
         }
@@ -293,7 +366,7 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowSkillTreeWindow;
                     element.PointerExited += CloseSkillWindow;
-                    element.PointerReleased += UpSkill;
+                    element.PointerPressed += SkillTreePointerEvent;
                 }
             }
         }
@@ -423,17 +496,26 @@ namespace RPG_Noelf
 
         private void UpdateSkillWindowText(Skill skillInfo)
         {
-            W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
-            W_SkillName.Text = skillInfo.name;
-            W_SkillType.Text = skillInfo.GetTypeString();
-            W_SkillDescr.Text = skillInfo.description;
-            if(skillInfo.Unlocked == false)
+            try
             {
-                W_SkillLevel.Text = "Unlock Nv. " + skillInfo.block;
-            } else
+                W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
+                W_SkillName.Text = skillInfo.name;
+                W_SkillType.Text = skillInfo.GetTypeString();
+                W_SkillDescr.Text = skillInfo.description;
+                if (skillInfo.Unlocked == false)
+                {
+                    W_SkillLevel.Text = "Unlock Lv. " + skillInfo.block;
+                }
+                else
+                {
+                    W_SkillLevel.Text = "Lv. " + skillInfo.Lvl.ToString();
+                }
+            } catch(NullReferenceException e)
             {
-                W_SkillLevel.Text = "Nv. " + skillInfo.Lvl.ToString();
+                WindowSkill.Visibility = Visibility.Collapsed;
+                return;
             }
+            
         }
 
         private void ShowSkillTreeWindow(object sender, PointerRoutedEventArgs e)
