@@ -19,8 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item1 = new Item("Iron Nugget")
             {
                 isStackable = true,
-                itemCategory = Category.Normal,
-             
+                itemCategory = Category.Normal,            
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 1
             };
@@ -28,8 +27,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item2 = new Item("Coal")
             {
                 isStackable = true,
-                itemCategory = Category.Normal,
-            
+                itemCategory = Category.Normal,          
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 1
             };
@@ -37,8 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item3 = new Item("Wood")
             {
                 isStackable = true,
-                itemCategory = Category.Normal,
-             
+                itemCategory = Category.Normal,            
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 1
             };
@@ -47,7 +44,6 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             {
                 isStackable = true,
                 itemCategory = Category.Normal,
-
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 2
             };
@@ -55,8 +51,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item5 = new Item("Wool")
             {
                 isStackable = true,
-                itemCategory = Category.Normal,
-                
+                itemCategory = Category.Normal,             
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 1
             };
@@ -64,8 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item6 = new Item("Line")
             {
                 isStackable = true,
-                itemCategory = Category.Normal,
-              
+                itemCategory = Category.Normal,             
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 2
             };
@@ -73,8 +67,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item7 = new Item("Magical Stone")
             {
                 isStackable = true,
-                itemCategory = Category.Normal,
-                
+                itemCategory = Category.Normal,               
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 3
             };
@@ -82,8 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item8 = new Item("Steel")
             {
                 isStackable = true,
-                itemCategory = Category.Uncommon,
-           
+                itemCategory = Category.Uncommon,          
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 5
             };
@@ -95,14 +87,12 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 4
-
             };
             encyclopedia.Add(9, item9);
             Item item10 = new Item("Hardened Line")
             {
                 isStackable = true,
-                itemCategory = Category.Uncommon,
-              
+                itemCategory = Category.Uncommon,             
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 4
             };
@@ -110,8 +100,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item11 = new Item("Magic Wool")
             {
                 isStackable = true,
-                itemCategory = Category.Uncommon,
-                
+                itemCategory = Category.Uncommon,               
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 4
 
@@ -120,8 +109,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             Item item12 = new Item("Improved Magical Stone")
             {
                 isStackable = true,
-                itemCategory = Category.Uncommon,
-                
+                itemCategory = Category.Uncommon,              
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 5
 
@@ -132,8 +120,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Melee,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-                
+                itemCategory = Category.Normal,              
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 20
 
@@ -144,11 +131,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Melee,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-                
+                itemCategory = Category.Normal,               
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 25
-
             };
             encyclopedia.Add(14, item14);
             Weapon item15 = new Weapon("Long Bow")
@@ -156,8 +141,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Ranged,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-                
+                itemCategory = Category.Normal,                
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 20
 
@@ -168,8 +152,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Magical,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-               
+                itemCategory = Category.Normal,             
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 25
 
@@ -180,8 +163,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Melee,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-            
+                itemCategory = Category.Normal,          
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 40
 
@@ -192,8 +174,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Melee,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-             
+                itemCategory = Category.Normal,            
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 45
 
@@ -204,8 +185,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Ranged,
                 bonusDamage = 10,
                 armorPenetration = 3,
-                itemCategory = Category.Normal,
-             
+                itemCategory = Category.Normal,           
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 45
 
@@ -216,8 +196,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 tpWeapon = TypeWeapon.Magical,
                 bonusDamage = 10,
                 armorPenetration = 1,
-                itemCategory = Category.Normal,
-              
+                itemCategory = Category.Normal,        
                 pathImage = "/Assets/Images/Chao.jpg",
                 goldValue = 50
 
@@ -394,7 +373,6 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 pathImage = "/Assets/Images/Chao.jpg"
             };
             encyclopedia.Add(39, item39);
-
             Consumable item40 = new Consumable("Minor Health Potion")
             {
                 goldValue = 20,

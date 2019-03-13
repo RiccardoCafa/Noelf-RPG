@@ -125,6 +125,9 @@
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\MobBag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\MobSlot.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\PlayerBag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\SlotInventory.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Consumable.cs" />

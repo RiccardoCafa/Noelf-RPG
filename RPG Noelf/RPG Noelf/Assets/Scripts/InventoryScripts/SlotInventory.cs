@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         }
 
         // incrementar o monte e retornar o que sobrou
-       public uint increaseAmount(uint ex)
+       public uint IncreaseAmount(uint ex)
         {
             if((itemAmount+ex) >= maxStack)
             {
@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         }
 
         //retorna a quantidade final apos decrescer
-        public uint decreaseAmount(uint amt)
+        public uint DecreaseAmount(uint amt)
         {
             if((itemAmount - amt)<= 0)
             {
@@ -48,7 +48,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
             }
         }
 
-        public bool stackableID(uint id)
+        public bool StackableID(uint id)
         {
             if(Encyclopedia.SearchStackID(id) == true)
             {
