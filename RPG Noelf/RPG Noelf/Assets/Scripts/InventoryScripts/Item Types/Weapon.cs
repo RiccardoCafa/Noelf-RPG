@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public Weapon(string name) :
         base(name)
         {
-            isStackable = false;
+            IsStackable = false;
     
         }
 

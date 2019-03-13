@@ -57,7 +57,7 @@ namespace RPG_Noelf
             // Settando Janelas de Interface
             interfaceManager.Inventario = InventarioWindow;
 
-            Encyclopedia.loadItens();
+            Encyclopedia.LoadItens();
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -102,12 +102,12 @@ namespace RPG_Noelf
             p1._Inventory.AddToBag(jorro, 1);
             p1._Inventory.AddToBag(banana, 1);
             p1._Inventory.AddToBag(jorro, 1);
-
+            /*
             p1._Inventory.RemoveFromBag(jorro, 1);
             p1._Inventory.RemoveFromBag(jorro, 1);
             p1._Inventory.RemoveFromBag(jorro, 1);
             p1._Inventory.RemoveFromBag(jorro, 1);
-
+            */
             p1._Inventory.AddToBag(espadona, 1);
             p1._Inventory.AddToBag(espadona, 1);
             p1._Inventory.AddToBag(espadona, 1);
@@ -137,13 +137,14 @@ namespace RPG_Noelf
             p1._Inventory.AddToBag(espadona, 1);
             p1._Inventory.AddToBag(espadona, 1);
             p1._Inventory.AddToBag(espadona, 1);
-
+            /*
             p1._Inventory.RemoveFromBag(espadona, 1);
             p1._Inventory.RemoveFromBag(espadona, 1);
 
             p1._Inventory.RemoveFromBag(potion, 1);
 
             p1._Inventory.RemoveFromBag(banana, 1);
+            */        
             #endregion
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
@@ -418,19 +419,20 @@ namespace RPG_Noelf
             int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
             int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
             int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
-
+            // TODO showitemwindow
+            /*
             SlotInventory itemInfo = null;
 
             if(position < p1._Inventory.slots.Count)
             {
                 itemInfo = p1._Inventory.slots[position];
             }
-
             if (itemInfo == null) return;
 
             RealocateWindow(WindowBag, mousePosition);
 
             UpdateItemWindowText(itemInfo);
+            */
         }
         
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
@@ -438,15 +440,15 @@ namespace RPG_Noelf
             WindowBag.Visibility = Visibility.Collapsed;
         }
 
-        private void UpdateItemWindowText(SlotInventory slot)
+        private void UpdateItemWindowText(PlayerBag slot)
         {
             Item item = Encyclopedia.encyclopedia[slot.itemID];
-            W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.pathImage));
-            W_ItemName.Text = item.name;
+            W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
+            W_ItemName.Text = item.Name;
             W_ItemQntd.Text = slot.itemAmount + "x";
             W_ItemRarity.Text = item.GetTypeString();
             //W_ItemType.Text = item.itemType;
-            W_ItemValue.Text = item.goldValue + " gold";
+            W_ItemValue.Text = item.GoldValue + " gold";
         }
 
         private void ShowSkillBarWindow(object sender, PointerRoutedEventArgs e)
@@ -702,6 +704,8 @@ namespace RPG_Noelf
 
         public void UpdateBag()
         {
+            // TODO UpdateBag
+            /*
             for (int i = 0; i < p1._Inventory.slots.Count; i++)
             {
                 int column = i, row = i;
@@ -714,10 +718,10 @@ namespace RPG_Noelf
                 if(slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[p1._Inventory.slots[i].itemID].pathImage));
+                    // TODO slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[p1._Inventory.slots[i].itemID].PathImage));
                 }
                 
-            }
+            }*/
         }
     }
 }

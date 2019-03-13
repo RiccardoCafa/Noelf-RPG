@@ -1,4 +1,5 @@
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Id = id;
 
             _SkillManager = new SkillManager(this);
-            _Inventory = new Bag();
+            _Inventory = new PlayerBag();
 
             switch (Id.Substring(0, 1))
             {

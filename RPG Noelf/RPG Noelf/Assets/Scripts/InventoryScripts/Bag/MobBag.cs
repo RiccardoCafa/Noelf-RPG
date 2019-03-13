@@ -20,9 +20,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         {
             throw new NotImplementedException();
         }
-        public override SlotInventory DropFromBag(uint itemID, uint amount)
+        public override PlayerBag DropFromBag(uint itemID, uint amount)
         {
-            SlotInventory saquinho;
+            PlayerBag saquinho;
             foreach(MobSlot slots in itens)
             {
                 if(slots.itemID == itemID && slots.itemAmount >= amount && slots.Dropou() == true)
@@ -33,7 +33,8 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                     }
                 }
             }
-            
+
+            return null;
 
         }
     }
