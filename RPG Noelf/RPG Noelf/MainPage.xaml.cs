@@ -20,7 +20,6 @@ using Windows.UI;
 using Windows.UI.Xaml.Media;
 using RPG_Noelf.Assets.Scripts.Interface;
 using System.Threading;
-using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
 using RPG_Noelf.Assets.Scripts.InventoryScripts;
@@ -442,10 +441,10 @@ namespace RPG_Noelf
 
         private void UpdateItemWindowText(PlayerBag slot)
         {
-            Item item = Encyclopedia.encyclopedia[slot.itemID];
+            Item item = Encyclopedia.encyclopedia[slot.ItemID];
             W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
             W_ItemName.Text = item.Name;
-            W_ItemQntd.Text = slot.itemAmount + "x";
+            W_ItemQntd.Text = slot.ItemAmount + "x";
             W_ItemRarity.Text = item.GetTypeString();
             //W_ItemType.Text = item.itemType;
             W_ItemValue.Text = item.GoldValue + " gold";
