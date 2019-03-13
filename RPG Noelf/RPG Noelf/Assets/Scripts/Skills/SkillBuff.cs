@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         dex,
         dmg,
         slow,
-        dmgsec,
+        broken,
         prison,
         silence
     }
@@ -35,8 +35,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public BuffDebuffTypes buffer;
 
 
-        public SkillBuff(double buff,double amplificador,double customana,double cooldown,double timer,int blocklvl,SkillTypeBuff tipobuff, BuffDebuffTypes buffer, string name,string pathImage)
+        public SkillBuff(double damage,double buff,double amplificador,double customana,double cooldown,double timer,int blocklvl,SkillTypeBuff tipobuff, BuffDebuffTypes buffer, SkillType tipoSkill, AtributBonus atrib, string name,string pathImage)
         {
+            this.Damage = damage;
             this.pathImage = pathImage;
             this.manaCost = customana;
             this.block = blocklvl;
@@ -47,6 +48,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.buffer = buffer;
             this.cooldown = cooldown;
             this.timer = timer;
+            this.tipo = tipoSkill;
+            this.atrib = atrib;
         }
         public bool UseBuff(Player player,Player Enemy,SkillBuff buff)
         {
@@ -54,15 +57,15 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 if(buff.buffer == BuffDebuffTypes.dex)
                 {
-                    player.Dex = (int)(player.Dex * buff.buff);
+                    player.Dex = (int)(player.Dex * (buff.buff + Amplificator * Lvl));
                     return true;
                 }else if(buffer == BuffDebuffTypes.dmg)
                 {
-                    player.Damage = player.Damage * buff.buff;
+                    player.Damage = player.Damage * (buff.buff + Amplificator * Lvl);
                     return true;
                 }else if(buffer == BuffDebuffTypes.res)
                 {
-                    player.Armor = player.Armor * buff.buff;
+                    player.Armor = player.Armor * (buff.buff + Amplificator*Lvl);
                     return true;
                 }else
                 {
@@ -73,14 +76,22 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 if(buff.buffer == BuffDebuffTypes.slow)
                 {
-                    Enemy.Spd = (int)(Enemy.Spd * buff.buff);
+                    CalcBonus(player);
+                    Enemy.BeHit(player.Hit(DamageBonus));
+                    Enemy.Spd = (int)(Enemy.Spd * (buff.buff + Amplificator * Lvl));
                     return true;
                 }else if (buff.buffer == BuffDebuffTypes.silence)
                 {
+                    timer = timer + Amplificator * Lvl;
+                    CalcBonus(player);
+                    Enemy.BeHit(player.Hit(DamageBonus));
                     Enemy.Damage = 0;
                     return true;
                 }else if (buff.buffer == BuffDebuffTypes.prison)
                 {
+                    timer = timer + Amplificator * Lvl;
+                    CalcBonus(player);
+                    Enemy.BeHit(player.Hit(DamageBonus));
                     Enemy.Spd = 0;
                     return true;
                 }

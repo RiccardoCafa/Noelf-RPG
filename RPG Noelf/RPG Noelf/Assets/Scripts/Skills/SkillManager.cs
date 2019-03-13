@@ -26,21 +26,21 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public void SetWarriorPassive(string pathImage, string name)
         {
-            Passive = new SkillBuff(1.05,0,0,0,0,1,SkillTypeBuff.buff,BuffDebuffTypes.dmg,name, pathImage);
+            Passive = new SkillBuff(0, 1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, SkillType.passive, AtributBonus.For, name, pathImage);
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
         public void SetArcherPassive(string pathImage, string name)//ainda tem que mexer
         {
-            Passive = new SkillBuff(1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, name, pathImage);
+            Passive = new SkillBuff(0, 1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, SkillType.passive, AtributBonus.For, name, pathImage);
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
         public void SetMagePassive(string pathImage, string name)//aqui tb
         {
-            Passive = new SkillBuff(1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, name, pathImage);
+            Passive = new SkillBuff(0,1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg,SkillType.passive,AtributBonus.For, name, pathImage);
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
@@ -48,11 +48,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public void MakeSkillType1(double damage, double manaCost, double cooldown, double Amplificator, int blockLevel, double BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
         {
-            SkillList.Add(new Skill(damage, manaCost, cooldown,Amplificator, blockLevel, BonusMultiplier, Type, atrib, pathImage, name));
+            SkillList.Add(new Skill(damage, manaCost, cooldown,Amplificator, blockLevel, BonusMultiplier, tipoSkill, atrib, pathImage, name));
         }
-        public void MakeSkillType2(double buff, double amplificador, double customana, double cooldown, double timer, int blocklvl, SkillTypeBuff tipobuff, BuffDebuffTypes buffer, string name, string pathImage)
+        public void MakeSkillType2(double damage, double buff, double amplificador, double customana, double cooldown, double timer, int blocklvl, SkillTypeBuff tipobuff, BuffDebuffTypes buffer, SkillType tipoSkill, AtributBonus atrib, string name, string pathImage)
         {
-            SkillList.Add(new SkillBuff(buff, amplificador, customana, cooldown, timer, blocklvl, tipobuff, buffer, name, pathImage));
+            SkillList.Add(new SkillBuff(damage,buff, amplificador, customana, cooldown, timer, blocklvl, tipobuff, buffer,tipoSkill,atrib, name, pathImage));
         }
         public void AddSkillToBar(Skill s, int index)
         {

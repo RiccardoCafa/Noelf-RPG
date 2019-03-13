@@ -18,26 +18,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         For,
         Int,
         dex,
-        cons
     }
 
     class Skill : SkillGenerics
     {
-
-
-        public double Damage { get; set; }
-        
-        private double BonusMultiplier;
-        private double DamageBonus;
-        
-
        
-        
-        private bool area;
-
-
-        public SkillType tipo;
-        private AtributBonus atrib;
 
         public Skill(double damage, double manaCost, double cooldown, double Amplificator, int blockLevel, double BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
         {
@@ -80,17 +65,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
 
 
-        public void CalcBonus(Player calcP)
-        {
-            if(atrib == AtributBonus.For)
-            {
-                DamageBonus = calcP.Str * BonusMultiplier; 
-            }else if(atrib == AtributBonus.Int){
-                DamageBonus = calcP.Mnd * BonusMultiplier;
-            }else{
-                DamageBonus = calcP.Dex * BonusMultiplier;
-            }
-        }
+        
 
     }
 }
