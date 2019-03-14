@@ -10,8 +10,60 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
     <Canvas Name="Tela"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+
         
-        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="420" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        
+        <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1200" Canvas.Top="400">
+            <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
+            <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
+
+                <Image Width="25" Height="25" Grid.Column="0" Grid.Row="0"  Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="1" Grid.Row="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="2" Grid.Row="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="3" Grid.Row="0" Source="/Assets/Images/Chao.jpg"/>
+
+                <Image Width="25" Height="25" Grid.Column="0" Grid.Row="1"  Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="1" Grid.Row="1" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="2" Grid.Row="1" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="3" Grid.Row="1" Source="/Assets/Images/Chao.jpg"/>
+
+                <Image Width="25" Height="25" Grid.Column="0" Grid.Row="2"  Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="1" Grid.Row="2" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="2" Grid.Row="2" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="3" Grid.Row="2" Source="/Assets/Images/Chao.jpg"/>
+
+                <Image Width="25" Height="25" Grid.Column="0" Grid.Row="3"  Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="1" Grid.Row="3" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="2" Grid.Row="3" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="25" Height="25" Grid.Column="3" Grid.Row="3" Source="/Assets/Images/Chao.jpg"/>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <Grid Height="40" Width="120" Canvas.Top="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <Button Name="Buy" Content="Sell"  Width="45" Height="32" Click="SellButton"></Button>
+                <TextBlock Name="ShopValue" Grid.Column="1" Width="75" Height="15" Text="Total = 0" TextAlignment="Center"  TextWrapping="Wrap" FontSize="7"/>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="75"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Canvas>
+        
+        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="400" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <TextBlock Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"></TextBlock>
             <Grid Name="InventarioGrid" ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
 
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
@@ -61,7 +113,11 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
-        
+
+        <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="1100" Canvas.Top="400" >
+            <Image Width="110" Height="155" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"  ></Image>
+        </Canvas>
+
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="60" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/Chao.jpg" Stretch="Fill" Canvas.Left="0"/>
@@ -160,6 +216,7 @@
         </ScrollViewer>
 
         <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="570" VerticalAlignment="Stretch" Width="300">
+            <TextBlock Text="Barra de Habilidades" Width="300" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="300" Height="50" Source="/Assets/Images/UI Elements/UIAtivo 13-0.png" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="Fill"/>
             <Grid Name="BarraSkill" ColumnSpacing="0" RowSpacing="0"  Height="50" Width="300" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <Image Grid.Column="0" Grid.Row="0" Width="40" Height="40" Source="/Assets/Images/Chao.jpg" ></Image>
@@ -181,6 +238,7 @@
         </Canvas>
 
         <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="400" VerticalAlignment="Stretch" Width="250">
+            <TextBlock Text="Árvore de Habilidades" Width="250" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
             <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <Image Width="40" Height="40" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg" ></Image>

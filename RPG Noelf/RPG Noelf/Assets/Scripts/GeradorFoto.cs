@@ -23,7 +23,7 @@ namespace RPG_Noelf.Assets
 
         public static async void SaveFrame(RenderTargetBitmap _bitmap)
         {
-            /* TODO
+            /* TODO Save Frame
              * Mudar essa parte de salvamento para ser interno em alguma pasta e tentar fazer algum jeito de criptografia.
              * Descriptografar depois para conseguir obter a imagem.
              */ 

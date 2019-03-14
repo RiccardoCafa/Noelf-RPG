@@ -122,7 +122,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 armorPenetration = 1,
                 ItemCategory = Category.Normal,              
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 20
+                GoldValue = 20,
+                description = "A simple Iron Sword, sharp and reliable"
+
 
             };
             encyclopedia.Add(13, item13);
@@ -378,7 +380,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
                 Bonus = 20,
-                PathImage = "/Assets/Images/Chao.jpg"
+                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Adventurer's best Friend, i think you must carry lots of this"
+                
 
             };
             encyclopedia.Add(40, item40);
@@ -418,8 +422,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         {
             if (encyclopedia.ContainsKey(key))
             {
-                Armor armor = (Armor)encyclopedia[key];
-                return armor.defense;
+                return ((Armor)encyclopedia[key]).defense;
             }
             else throw new ArgumentOutOfRangeException();
         }
@@ -427,10 +430,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o bonus do Consumivel
         public static float SearchConsumableBonus(uint key)
         {
-            if(encyclopedia.ContainsKey(key))
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
             {
-                Consumable it = (Consumable) encyclopedia[key];
-                return 0f;//it.giveBonus;
+                return ((Consumable)encyclopedia[key]).Bonus;//it.giveBonus;
             }
             return 0f;
         }
@@ -438,11 +440,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o dano da Arma
         public static float SearchDamageWeapon(uint key)
         {
-            if (encyclopedia.ContainsKey(key))
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
             {
-                Weapon wep;
-                wep = (Weapon)encyclopedia[key];
-                return wep.bonusDamage;
+                return ((Weapon)encyclopedia[key]).bonusDamage;
             }
             else throw new ArgumentOutOfRangeException();
         }
