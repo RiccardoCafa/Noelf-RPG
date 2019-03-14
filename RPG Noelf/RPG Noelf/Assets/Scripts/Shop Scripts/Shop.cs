@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,41 +10,43 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
     class Shop
     {
-        public List<int> selled;
-        public List<int> purchased;
+        public List<int> TradingItems = new List<int>();
+        public Bag BuyingItems = new Bag();
 
-
-        public Shop()
-        {
-            selled = new List<int>();
-            purchased = new List<int>();
-        } 
-        
+        public const int MaxBuyingItems = 16;
 
         // função para vender itens ao jogador
-        public bool sellItem(int soldID, Bag player)
+        public void SellItem(uint soldID, Bag playerBag)
         {
-            return false;
+            
         }
 
 
         //função para comprar itens do jogador
-        public bool BuyItem(int purchasedID, Bag player)
+        public void BuyItem(Bag playerBag)
         {
-            /*
-            if(item != null && player != null)
+            foreach(Slot sack in BuyingItems.Slots)
             {
-                player.RemoveFromBag(item);
-                purchased.Add(item);
-                player.AddGold(item.goldValue);
-                return true;
+                long valor = Encyclopedia.SearchFor(sack.ItemID).GoldValue;
+                valor = valor * sack.ItemAmount;
+                playerBag.AddGold((int)valor);
             }
-            else
-            {
-                return false;
-            }
-            */
-            return false;
+            
+        }
+        
+        public void AddToBuyingItems(Slot slot)
+        {
+            BuyingItems.AddToBag(slot.ItemID, slot.ItemAmount);
+        }
+
+        public void RemoveFromBuyingItems(Slot slot)
+        {
+            BuyingItems.RemoveFromBag(slot);
+        }
+
+        public void RemoveFromBuyingItems(uint index, uint amount)
+        {
+            BuyingItems.RemoveFromBag(index, amount);
         }
     }
 
