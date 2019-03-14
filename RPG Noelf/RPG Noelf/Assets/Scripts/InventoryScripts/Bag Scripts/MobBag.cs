@@ -7,24 +7,20 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 {
-    class PlayerBag : Bag
+    class MobBag : Bag
     {
-        public override bool AddGold(int coins)
+
+        public override void AddGold(int coins)
         {
-            return false;
             //throw new NotImplementedException();
         }
 
         public override bool AddToBag(uint itemID, uint amount)
         {
-            return false;
             //throw new NotImplementedException();
+            return false;
         }
 
-        public override PlayerBag DropFromBag(uint itemID, uint amount)
-        {
-            return null;
-            //throw new NotImplementedException();
-        }
+        
     }
 }

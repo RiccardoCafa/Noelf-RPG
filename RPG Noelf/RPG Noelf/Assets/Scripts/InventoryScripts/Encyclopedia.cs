@@ -418,8 +418,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         {
             if (encyclopedia.ContainsKey(key))
             {
-                Armor armor = (Armor)encyclopedia[key];
-                return armor.defense;
+                return ((Armor)encyclopedia[key]).defense;
             }
             else throw new ArgumentOutOfRangeException();
         }
@@ -427,10 +426,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o bonus do Consumivel
         public static float SearchConsumableBonus(uint key)
         {
-            if(encyclopedia.ContainsKey(key))
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
             {
-                Consumable it = (Consumable) encyclopedia[key];
-                return 0f;//it.giveBonus;
+                return ((Consumable)encyclopedia[key]).Bonus;//it.giveBonus;
             }
             return 0f;
         }
@@ -438,11 +436,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o dano da Arma
         public static float SearchDamageWeapon(uint key)
         {
-            if (encyclopedia.ContainsKey(key))
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
             {
-                Weapon wep;
-                wep = (Weapon)encyclopedia[key];
-                return wep.bonusDamage;
+                return ((Weapon)encyclopedia[key]).bonusDamage;
             }
             else throw new ArgumentOutOfRangeException();
         }

@@ -131,13 +131,12 @@
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag\MobBag.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag\MobSlot.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag\PlayerBag.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag\PlayerSlot.cs" />
-    <Compile Include="Assets\Scripts\InventoryScripts\Bag\Bag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\MobBag.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\MobSlot.cs" />
+    <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Bag.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
