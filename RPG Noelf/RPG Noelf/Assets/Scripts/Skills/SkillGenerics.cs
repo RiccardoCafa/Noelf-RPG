@@ -24,6 +24,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public string description { get; set; } = "";
         public double BonusMultiplier;
         public double DamageBonus;
+        public SkillTypeBuff tipobuff;
 
 
         public void CalcBonus(Player calcP)
@@ -41,5 +42,19 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 DamageBonus = calcP.Dex * BonusMultiplier;
             }
         }
+        public string GetTypeString()
+        {
+            switch (tipo)
+            {
+                case SkillType.habilite:
+                    return "Ativa";
+                case SkillType.passive:
+                    return "Passiva";
+                case SkillType.ultimate:
+                    return "Ultimate";
+            }
+            return "";
+        }
+        public abstract bool UseSkill(Player player, Player Enemy);
     }
 }

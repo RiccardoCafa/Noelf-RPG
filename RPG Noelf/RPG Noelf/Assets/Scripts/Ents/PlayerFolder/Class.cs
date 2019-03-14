@@ -53,7 +53,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
 skillManager.SetWarriorPassive("/Assets/Images/Item2.jpg", "Fúria do guerreiro");
             
-skillManager.MakeSkillType2(0,1.24,0.01,0,0,0,1,SkillTypeBuff.buff,BuffDebuffTypes.dmg,SkillType.habilite,AtributBonus.For, "Endurance", "/Assets/Images/Chao.jpg");
+skillManager.MakeSkillType2(0,1.24,0.01,0,0,0,1,SkillTypeBuff.buff,BuffDebuffTypes.dmg,SkillType.habilite,AtributBonus.For, "/Assets/Images/Chao.jpg", "Endurance");
 skillManager.MakeSkillType1(80, 0, 7,5,4, 0.10, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item1.jpg", "Esfolar");
 skillManager.MakeSkillType2(25, 0, 5, 0, 5,5,6,SkillTypeBuff.debuff,BuffDebuffTypes.prison, SkillType.habilite, AtributBonus.For, "/Assets/Images/Item2.jpg", "Cabeçada");
 skillManager.MakeSkillType2(0, 1.39,0.01,0,35,6, 33, SkillTypeBuff.buff,BuffDebuffTypes.dmg, SkillType.ultimate, AtributBonus.For, "/Assets/Images/Chao.jpg", "Até a morte");

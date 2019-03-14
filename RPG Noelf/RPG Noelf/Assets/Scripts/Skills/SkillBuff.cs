@@ -10,7 +10,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     enum SkillTypeBuff
     {
         debuff,
-        buff
+        buff,
+        normal
     }
     enum BuffDebuffTypes
     {
@@ -31,7 +32,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         private double timer;
 
-        public SkillTypeBuff tipobuff;
         public BuffDebuffTypes buffer;
 
 
@@ -51,43 +51,42 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.tipo = tipoSkill;
             this.atrib = atrib;
         }
-        public bool UseBuff(Player player,Player Enemy,SkillBuff buff)
+        public override bool UseSkill(Player player,Player Enemy)
         {
-            if(buff.tipobuff == SkillTypeBuff.buff)
+            if(tipobuff == SkillTypeBuff.buff)
             {
-                if(buff.buffer == BuffDebuffTypes.dex)
+                if(buffer == BuffDebuffTypes.dex)
                 {
-                    player.Dex = (int)(player.Dex * (buff.buff + Amplificator * Lvl));
+                    player.Dex = (int)(player.Dex * (buff + Amplificator * Lvl));
                     return true;
                 }else if(buffer == BuffDebuffTypes.dmg)
                 {
-                    player.Damage = player.Damage * (buff.buff + Amplificator * Lvl);
+                    player.Damage = player.Damage * (buff + Amplificator * Lvl);
                     return true;
                 }else if(buffer == BuffDebuffTypes.res)
                 {
-                    player.Armor = player.Armor * (buff.buff + Amplificator*Lvl);
+                    player.Armor = player.Armor * (buff + Amplificator*Lvl);
                     return true;
                 }else
                 {
-
                     return false;
                 }
-            }else if(buff.tipobuff == SkillTypeBuff.debuff)
+            }else if(tipobuff == SkillTypeBuff.debuff)
             {
-                if(buff.buffer == BuffDebuffTypes.slow)
+                if(buffer == BuffDebuffTypes.slow)
                 {
                     CalcBonus(player);
                     Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Spd = (int)(Enemy.Spd * (buff.buff + Amplificator * Lvl));
+                    Enemy.Spd = (int)(Enemy.Spd * (buff + Amplificator * Lvl));
                     return true;
-                }else if (buff.buffer == BuffDebuffTypes.silence)
+                }else if (buffer == BuffDebuffTypes.silence)
                 {
                     timer = timer + Amplificator * Lvl;
                     CalcBonus(player);
                     Enemy.BeHit(player.Hit(DamageBonus));
                     Enemy.Damage = 0;
                     return true;
-                }else if (buff.buffer == BuffDebuffTypes.prison)
+                }else if (buffer == BuffDebuffTypes.prison)
                 {
                     timer = timer + Amplificator * Lvl;
                     CalcBonus(player);

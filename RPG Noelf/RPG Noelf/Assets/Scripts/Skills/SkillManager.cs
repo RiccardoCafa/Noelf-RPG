@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillPoints = 0;
             this.myPlayer = myPlayer;
             SkillList = new List<SkillGenerics>();
-            SkillBar = new Skill[4];
+            SkillBar = new SkillGenerics[4];
         }
 
         public void SetWarriorPassive(string pathImage, string name)
@@ -50,16 +50,26 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             SkillList.Add(new Skill(damage, manaCost, cooldown,Amplificator, blockLevel, BonusMultiplier, tipoSkill, atrib, pathImage, name));
         }
-        public void MakeSkillType2(double damage, double buff, double amplificador, double customana, double cooldown, double timer, int blocklvl, SkillTypeBuff tipobuff, BuffDebuffTypes buffer, SkillType tipoSkill, AtributBonus atrib, string name, string pathImage)
+        public void MakeSkillType2(double damage, double buff, double amplificador, double customana, double cooldown, double timer, int blocklvl, SkillTypeBuff tipobuff, BuffDebuffTypes buffer, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
         {
-            SkillList.Add(new SkillBuff(damage,buff, amplificador, customana, cooldown, timer, blocklvl, tipobuff, buffer,tipoSkill,atrib, name, pathImage));
+            SkillList.Add(new SkillBuff(damage,buff, amplificador, customana, cooldown, timer, blocklvl, tipobuff, buffer,tipoSkill,atrib,name, pathImage));
         }
-        public void AddSkillToBar(Skill s, int index)
+        public void AddSkillToBar(SkillGenerics s, int index)
         {
-            SkillBar[index] = s;
+            if (s.tipobuff == SkillTypeBuff.normal)
+            {
+                SkillBar[index] = s as Skill;
+            }
+            else
+            {
+             
+                 SkillBar[index] = s as SkillBuff;
+                
+            }
+            
         }
         
-        private bool TestLevelBlock(Skill skill)
+        private bool TestLevelBlock(SkillGenerics skill)
         {
             if (myPlayer.Level > skill.block)
             {
@@ -80,7 +90,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return false;
         }
 
-        public bool UpSkill(Skill skill)
+        public bool UpSkill(SkillGenerics skill)
         {
             int MinimiumLevel = 0;
 

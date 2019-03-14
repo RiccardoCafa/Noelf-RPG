@@ -36,23 +36,12 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
             this.cooldown = cooldown;
             this.Amplificator = Amplificator;
+            this.tipobuff = SkillTypeBuff.normal;
         }
 
-        public string GetTypeString()
-        {
-            switch(tipo)
-            {
-                case SkillType.habilite:
-                    return "Ativa";
-                case SkillType.passive:
-                    return "Passiva";
-                case SkillType.ultimate:
-                    return "Ultimate";
-            }
-            return "";
-        }
+        
 
-        public bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Player player, Player Enemy)
         {
             if (manaCost <= player.Mp)
             {
