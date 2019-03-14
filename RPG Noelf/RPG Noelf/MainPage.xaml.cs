@@ -26,6 +26,7 @@ using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using Windows.UI.Input;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,8 +39,11 @@ namespace RPG_Noelf
     {
         Thread Start;
         Character player;
+        Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+
+        public bool shopOpen = true;
 
         int _str, _spd, _dex, _con, _mnd;
 
@@ -58,6 +62,7 @@ namespace RPG_Noelf
             interfaceManager.Inventario = InventarioWindow;
 
             Encyclopedia.LoadItens();
+
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -183,6 +188,20 @@ namespace RPG_Noelf
 
 
         #region Events
+        public void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
+        {
+            if(shopOpen)
+            {
+                if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+                {
+                    var prop = e.GetCurrentPoint(this).Properties;
+                    if(prop.IsLeftButtonPressed)
+                    {
+                        
+                    }
+                }
+            }
+        }
 
         public void RemoveSkillFromBar(object sender, PointerRoutedEventArgs e)
         {
@@ -575,6 +594,11 @@ namespace RPG_Noelf
         #endregion
 
         #region ButtonEvents
+        private void SellButton(object sender, RoutedEventArgs e)
+        {
+            shopper.BuyItem(p1._Inventory);
+        }
+
         private void XPPlus(object sender, RoutedEventArgs e)
         {
             p1.XpLevel(50);
