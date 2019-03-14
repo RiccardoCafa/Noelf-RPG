@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,42 +10,53 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
     class Shop
     {
-        public List<int> selled;
-        public List<int> purchased;
-
-
-        public Shop()
-        {
-            selled = new List<int>();
-            purchased = new List<int>();
-        } 
-        
-
+        public List<int> TradingItems = new List<int>();
+        public List<Slot> BuyingItems = new List<Slot>();
+        public const int MaxBuyingItems = 16;
         // função para vender itens ao jogador
-        public bool sellItem(int soldID, Bag player)
+        public void SellItem(uint soldID, Bag playerBag, uint amount)
         {
-            return false;
+            
+            if (playerBag.Gold >= Encyclopedia.SearchFor(soldID).GoldValue * (int)amount)
+            {
+                if (playerBag.AddToBag(soldID, amount))
+                {
+                    int valor = Encyclopedia.SearchFor(soldID).GoldValue * (int)amount;
+                    playerBag.Gold = playerBag.Gold - valor;
+                }    
+            }
+
+            
         }
 
 
         //função para comprar itens do jogador
-        public bool BuyItem(int purchasedID, Bag player)
+        public void BuyItem(Bag playerBag, Slot sack)
         {
-            /*
-            if(item != null && player != null)
+            long valor = Encyclopedia.SearchFor(sack.ItemID).GoldValue;
+            valor = valor * sack.ItemAmount;
+            playerBag.AddGold((int)valor);
+        }
+        public void AddToBuyingItems(Slot slot)
+        {
+            if (BuyingItems.Count < MaxBuyingItems)
             {
-                player.RemoveFromBag(item);
-                purchased.Add(item);
-                player.AddGold(item.goldValue);
-                return true;
+                BuyingItems.Add(slot);
             }
-            else
+        }
+
+        public void RemoveFromBuyingItems(Slot slot)
+        {
+            if (BuyingItems.Contains(slot))
             {
-                return false;
+                BuyingItems.Remove(slot);
             }
-            */
-            return false;
+        }
+        public void RemoveFromBuyingItems(int index)
+        {
+            if (BuyingItems.Count < index)
+            {
+                BuyingItems.RemoveAt(index);
+            }
         }
     }
-
-}
