@@ -15,6 +15,8 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
   
     class Item
     {
+        public string description { get; set; }
+        public double dropRating { get; set; }
         public int GoldValue { get; set; } // valor em ouro do item
         public string Name { get; set; } // nome do item;
         public bool IsStackable;//se é possivel acumular ou não
