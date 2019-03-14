@@ -11,7 +11,7 @@
     <AssemblyName>RPG Noelf</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -123,7 +123,13 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Crafter.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
+    <Compile Include="Assets\Scripts\Ents\IAtributes.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
+    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Atributes.cs" />
+    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Character.cs" />
+    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
+    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
+    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Armor.cs" />
@@ -135,12 +141,9 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
+    <Compile Include="Assets\Scripts\Skills\SkillBuff.cs" />
+    <Compile Include="Assets\Scripts\Skills\SkillGenerics.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillManager.cs" />
-    <Compile Include="Assets\Scripts\Ents\IAtributes.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Character.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
     <Compile Include="Assets\Scripts\Runes\RunaNode.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />

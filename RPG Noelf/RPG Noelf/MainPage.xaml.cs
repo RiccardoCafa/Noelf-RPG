@@ -211,12 +211,12 @@ namespace RPG_Noelf
                 if (prop.IsLeftButtonPressed)
                 {
                     Image skillEnter = sender as Image;
-                    Skill skillClicked;
+                    SkillGenerics skillClicked;
 
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
                     int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
-                    skillClicked = p1._SkillManager.SkillList[position];
+                    skillClicked =  p1._SkillManager.SkillList[position];
 
                     if (p1._SkillManager.SkillPoints > 0)
                     {
@@ -244,7 +244,7 @@ namespace RPG_Noelf
                 else if (prop.IsRightButtonPressed)
                 {
                     Image skillEnter = sender as Image;
-                    Skill skillClicked;
+                    SkillGenerics skillClicked;
 
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
@@ -254,7 +254,7 @@ namespace RPG_Noelf
                     if (skillClicked.Unlocked == false) return;
                     if (skillClicked.tipo == SkillType.habilite)
                     {
-                        foreach(Skill s in p1._SkillManager.SkillBar)
+                        foreach(SkillGenerics s in p1._SkillManager.SkillBar)
                         {
                             if(s != null)
                             {
@@ -320,7 +320,7 @@ namespace RPG_Noelf
             string s;
             if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
-                s = p1._SkillManager.SkillBar[indicadorzao].UseSkill(p1, p2).ToString();
+                s = (p1._SkillManager.SkillBar[indicadorzao]).UseSkill(p1, p2).ToString();
                 Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
             }
 
@@ -474,7 +474,7 @@ namespace RPG_Noelf
 
             if (skillEnter == null) return;
             int position = (int)skillEnter.GetValue(Grid.ColumnProperty);
-            Skill skillInfo;
+            SkillGenerics skillInfo;
 
             if (position == 0)
             {
@@ -508,7 +508,7 @@ namespace RPG_Noelf
             }
         }
 
-        private void UpdateSkillWindowText(Skill skillInfo)
+        private void UpdateSkillWindowText(SkillGenerics skillInfo)
         {
             try
             {
@@ -555,7 +555,7 @@ namespace RPG_Noelf
             if (skillEnter == null) return;
             int positionColumn = (int)skillEnter.GetValue(Grid.ColumnProperty);
             int positionRow = (int)skillEnter.GetValue(Grid.RowProperty);
-            Skill skillInfo;
+            SkillGenerics skillInfo;
 
             int index = positionRow * 5 + positionColumn;
 
