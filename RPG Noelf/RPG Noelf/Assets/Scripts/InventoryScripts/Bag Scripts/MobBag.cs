@@ -21,14 +21,26 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         public override bool AddToBag(uint itemID, uint amount)
         {
             Slot addedSlot = new Slot(itemID, amount);
+            bool exists;
+            foreach(Slot sl in Slots)
+            {
+                if(sl.ItemID == itemID)
+                {
+                    exists = true;
+                }
+                else
+                {
+                    exists = false;
+                }
+            }
             if(addedSlot != null)
             {
-                if(Slots.Count() < mobCarry && Encyclopedia.SearchStackID(itemID) == false && Slots.Contains(addedSlot) == false)
+                if(Slots.Count() < mobCarry && Encyclopedia.SearchStackID(itemID) == false && exists == false)
                 {
                     Slots.Add(addedSlot);
                     FreeSlots--;
                     return true;
-                }else if (Slots.Count()<mobCarry && Encyclopedia.SearchStackID(itemID) == true && Slots.Contains(addedSlot) == true) 
+                }else if (Slots.Count()<mobCarry && Encyclopedia.SearchStackID(itemID) == true) 
                 {
                     
 
