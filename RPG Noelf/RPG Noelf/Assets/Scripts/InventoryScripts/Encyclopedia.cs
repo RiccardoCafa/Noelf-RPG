@@ -21,7 +21,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 IsStackable = true,
                 ItemCategory = Category.Normal,            
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 1
+                GoldValue = 1,
+                description =  "It's just a small piece of iron"
+               
             };
             encyclopedia.Add(1,item1);
             Item item2 = new Item("Coal")
@@ -69,7 +71,8 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 IsStackable = true,
                 ItemCategory = Category.Normal,               
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 3
+                GoldValue = 3,
+                description = "A funny glowing stone, it seems like have powerful inside"
             };
             encyclopedia.Add(7, item7);
             Item item8 = new Item("Steel")
