@@ -11,8 +11,8 @@
 
     <Canvas Name="Tela"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 
-        
-        
+
+
         <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1200" Canvas.Top="400">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
             <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
@@ -36,7 +36,7 @@
                 <Image Width="25" Height="25" Grid.Column="1" Grid.Row="3" Source="/Assets/Images/Chao.jpg"/>
                 <Image Width="25" Height="25" Grid.Column="2" Grid.Row="3" Source="/Assets/Images/Chao.jpg"/>
                 <Image Width="25" Height="25" Grid.Column="3" Grid.Row="3" Source="/Assets/Images/Chao.jpg"/>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
@@ -61,7 +61,7 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </Canvas>
-        
+
         <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="400" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <TextBlock Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"></TextBlock>
             <Grid Name="InventarioGrid" ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
@@ -114,8 +114,36 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="1100" Canvas.Top="400" >
+        <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="1100" Canvas.Top="400" Visibility="Collapsed">
             <Image Width="110" Height="155" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"  ></Image>
+            <Grid Width="110" Height="155">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Image Name="ItemBuyingImage" Source="/Assets/Images/Chao.jpg" Width="25" Height="25"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <TextBlock Name="ItemBuyingName" Text="Item Name" Grid.Column="0" TextWrapping="Wrap"  Height="20"  Grid.Row="1" FontSize="8" Grid.ColumnSpan="3" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Name="ItemBuyingValue" Text="Item Value each" Grid.Column="0" TextWrapping="Wrap"  Height="20"  Grid.Row="2" FontSize="8" Grid.ColumnSpan="3" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                <Button Grid.Row="3" Grid.Column="0" Width="20" Height="20" FontSize="9" Content="-" HorizontalAlignment="Center" Margin="0,0,-2,0" VerticalAlignment="Center" Click="DecrementOfferAmount"/>
+                <Button Grid.Row="3" Grid.Column="2" Width="20" Height="20" FontSize="9" Content="+" HorizontalAlignment="Center" Margin="0,0,2,0" VerticalAlignment="Center" Click="IncrementOfferAmount"/>
+                <TextBox Name="ItemBuyingQuantity" TextChanged="ItemBuyingQuantity_TextChanged" Grid.Row="3" Width="56" Height="20" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Text="9999" FontSize="9" TextAlignment="Center" Margin="0,0,0,0" Grid.Column="1" IsDoubleTapEnabled="False" InputScope="Number"/>
+                <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="55"/>
+                    </Grid.ColumnDefinitions>
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="45" Height="30" Margin="2,-2,0,0" Content="Offer" FontSize="8" Click="OfferItemButton" ></Button>
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="45" Height="30" Margin="0,-2,0,0" Content="Cancel" FontSize="8" Grid.Column="1" Click="CancelSellingButton"></Button>
+                </Grid>
+            </Grid>
         </Canvas>
 
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
@@ -210,7 +238,7 @@
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
         </Grid>
-        
+
         <ScrollViewer Width="150" Height="232" Canvas.Left="500" Canvas.Top="400" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
             <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
         </ScrollViewer>
@@ -315,7 +343,7 @@
                 </Grid>
             </Grid>
         </Canvas>
-        
+
         <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed" AllowFocusOnInteraction="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" AutomationProperties.Level="-2" >
             <Image Margin="-5,0,0,0"  Width="205" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"/>
             <Grid  Width="200" Height="250" >
@@ -340,7 +368,7 @@
                     <TextBlock Grid.Column="0" Name="W_SkillType" Text="Skill Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
                 <TextBlock Grid.Row="3" Name="W_SkillDescr" TextWrapping="Wrap" Text="Descrição da skill" FontSize="10" FontStyle="Italic" TextAlignment="Left" TextDecorations="None">
-                    
+
                 </TextBlock>
                 <Grid Grid.Row="4" Width="200" Height="30">
                     <Grid.ColumnDefinitions>
@@ -352,7 +380,7 @@
                 </Grid>
             </Grid>
         </Canvas>
-        
+
 
     </Canvas>
 </Page>

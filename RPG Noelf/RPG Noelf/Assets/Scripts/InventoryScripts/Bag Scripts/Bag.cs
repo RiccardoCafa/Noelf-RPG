@@ -177,16 +177,27 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// </summary>
         /// <param name="s">The slot to be removed</param>
         /// <param name="amount">How many of them</param>
-        private void RemoveNonStackableItem(Slot s, uint amount)
+        private bool RemoveNonStackableItem(Slot s, uint amount)
         {
-            if (Encyclopedia.SearchStackID(s.ItemID) == false) return;
-            Slots.Remove(s);
-            FreeSlots--;
-            if (amount > 1)
+            var slotFound = from slot in Slots
+                       where slot.ItemID == s.ItemID
+                       select slot;
+            if(slotFound != null)
             {
-                s = Slots.Find(x => x.ItemID == s.ItemID);
-                if (s != null) RemoveFromBag(s, --amount);
+                if(slotFound.Count() >= amount)
+                {
+                    Slots.Remove(s);
+                    FreeSlots--;
+                    if (amount > 1)
+                    {
+                        s = Slots.Find(x => x.ItemID == s.ItemID);
+                        if (s != null) return RemoveNonStackableItem(s, --amount);
+                    }
+                    return true;
+                } 
             }
+            return false;
+            
         }
 
         /// <summary>
@@ -194,11 +205,12 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// </summary>
         /// <param name="itemID">The item ID to look for and remove</param>
         /// <param name="amount">How many to be removed</param>
-        public void RemoveFromBag(uint itemID, uint amount)
+        public bool RemoveFromBag(uint itemID, uint amount)
         {
             Slot s = Slots.Find(x => x.ItemID == itemID);
             if(s != null)
             {
+                if (s.ItemAmount < amount) return false;
                 if(Encyclopedia.SearchStackID(s.ItemID))
                 {
                     s.ItemAmount -= amount;
@@ -207,11 +219,13 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                         Slots.Remove(s);
                         FreeSlots++;
                     }
+                    return true;
                 } else
                 {
-                    RemoveNonStackableItem(s, amount);
+                    return RemoveNonStackableItem(s, amount);
                 }
             }
+            return false;
         }
 
         /// <summary>
