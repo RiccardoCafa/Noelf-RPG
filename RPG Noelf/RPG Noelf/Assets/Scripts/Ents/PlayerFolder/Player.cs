@@ -32,6 +32,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double Damage { get; set; }
         public double AtkSpd { get; set; }
 
+        public double DamageBuff { get; set; }
+        public double ArmorBuff { get; set; }
+        public double AtkSpeedBuff { get; set; }
+
         public Player(string id, IRaces race, IClasses _class)
         {
             /* ID: rc_x kysh
