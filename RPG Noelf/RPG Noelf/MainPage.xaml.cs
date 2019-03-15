@@ -25,6 +25,7 @@ using RPG_Noelf.Assets.Scripts.Skills;
 using Windows.UI.Input;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Shop_Scripts;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -40,6 +41,9 @@ namespace RPG_Noelf
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+
+        public static TextBlock texticulus;
+        public static int i;
 
         public bool shopOpen = true;
 
@@ -156,8 +160,15 @@ namespace RPG_Noelf
                 SetEventForBagItem();
                 SetEventForShopItem();
             });
+            texticulus = Texticulu;
         }
 
+        public static async void UpdateTexti()
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                texticulus.Text = (i/2).ToString();
+            });
+        }
 
         public void UpdatePlayerInfo()
         {
@@ -373,7 +384,7 @@ namespace RPG_Noelf
             if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
                 s = (p1._SkillManager.SkillBar[indicadorzao]).UseSkill(p1, p2).ToString();
-                Texticulu.Text = p1._SkillManager.SkillList[indicadorzao].name + " tirou " + s + " de dano";
+                Texticulu.Text = p1._SkillManager.SkillBar[indicadorzao].name + " tirou " + s + " de dano";
             }
 
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
@@ -13,8 +14,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public SkillGenerics[] SkillBar { get; set; }
         public SkillGenerics Passive { get; set; }
         public Player myPlayer;
+        public Thread ManageSkill;
 
         public int SkillPoints { get; set; }
+        public uint i = 0;
 
         public SkillManager(Player myPlayer)
         {
@@ -22,6 +25,18 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.myPlayer = myPlayer;
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
+            ManageSkill = new Thread(ManageSkillThread);
+            //ManageSkill.Start();
+        }
+        
+        public void ManageSkillThread()
+        {
+            while(true)
+            {
+                Thread.Sleep(1000);
+                MainPage.i++;
+                MainPage.UpdateTexti();
+            }
         }
 
         public void SetWarriorPassive(string pathImage, string name)
