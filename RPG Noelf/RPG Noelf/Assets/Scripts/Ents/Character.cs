@@ -17,35 +17,31 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     /// <summary>
     /// The Character class that will manage gravity, movement, jump, animations...
     /// </summary>
-    class Character
+    abstract class Character
     {
-        Rectangle charac;
         Canvas characT;
         Canvas LastBlock;
         DateTime time;
-        public RotateTransform rotation { get; set; }
-
-        // Apagar depois
-        public TextBlock textBlock { get; set; }
+        
         public Canvas blocoLeftx, blocoRightx, blocoBottomx;
 
         public double diferenca = 0;
-        public double xPlayerVal = 0, yPlayerVal = 0;
+        public double xCharacVal = 0, yCharacVal = 0;
 
         public const double GravityMultiplier = 0.8;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
 
-        private bool alive = true;
-        private bool isFalling = false;
-        private bool freeRight = true, freeLeft = true;
-        private bool moveRight, moveLeft, jumping;
-        private bool prepRight, prepLeft;
+        protected bool alive = true;
+        protected bool isFalling = false;
+        protected bool freeRight = true, freeLeft = true;
+        protected bool moveRight, moveLeft, jumping;
+        protected bool prepRight, prepLeft;
+
+        protected List<Canvas> collisionBlocks = new List<Canvas>();
 
         private Thread update;
-
-        private List<Canvas> collisionBlocks = new List<Canvas>();
 
         private enum EDirection
         {
@@ -53,19 +49,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             left
         }
 
-        public Character(Rectangle character, Canvas T)
+        public Character(Canvas T)
         {
             // Getting character image and Canvas for control
-            charac = character;
             characT = T;
 
             // Setting horizontal and vertical speed
             Hspeed = 0.1;
             Vspeed = 80;
-
-            // Setting Key events
-            Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
-            Window.Current.CoreWindow.KeyUp += Charac_KeyUp;
 
             // Initialize Class
             Start();
@@ -125,81 +116,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
                     }
-                    /*
-                    textBlock.Text = "Player [X1,X2,Y1,Y2]: [" + string.Format("{0:N2}", xPlayerVal) 
-                    + "," + string.Format("{0:N2}", (xPlayerVal + charac.Width)) + "," +
-                    string.Format("{0:N2}", yPlayerVal) + "," + string.Format("{0:N2}", (yPlayerVal + charac.Height)) + "]\n";
-
-                    if (blocoLeftx != null)
-                        textBlock.Text += "Bloco LeftX: [" + GetCanvasLeft(blocoLeftx) + "," +
-                        (GetCanvasLeft(blocoLeftx) + blocoLeftx.Width) + "," + GetCanvasTop(blocoLeftx) + ","
-                        + (GetCanvasTop(blocoLeftx) + blocoLeftx.Height) + "]\n";
-
-                    if (blocoRightx != null)
-                        textBlock.Text += "Bloco RightX: [" + GetCanvasLeft(blocoRightx) + "," +
-                        (GetCanvasLeft(blocoRightx) + blocoRightx.Width) + "," + GetCanvasTop(blocoRightx) + ","
-                        + (GetCanvasTop(blocoRightx) + blocoRightx.Height) + "]\n";
-
-                    if(blocoBottomx != null)
-                        textBlock.Text += "Bloco BottomX: [" + GetCanvasLeft(blocoBottomx) + "," +
-                        (GetCanvasLeft(blocoBottomx) + blocoBottomx.Width) + "," + GetCanvasTop(blocoBottomx) + ","
-                        + (GetCanvasTop(blocoBottomx) + blocoBottomx.Height) + "\n";
-
-                    textBlock.Text += "\n Diferenca: " + diferenca + "\n";*/
                 });
             }
-        }
-
-        private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
-        {
-            if (!isFalling)
-            {
-                if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
-                {
-                    moveLeft = true;
-                }
-                else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
-                {
-                    moveRight = true;
-                }
-                else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
-                {
-                    //MoveCharac(-vspeed, EDirection.top);
-                    jumping = true;
-                    Jump();
-                }
-            }
-            else
-            {
-                if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
-                {
-                    prepLeft = true;
-                }
-                else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
-                {
-                    prepRight = true;
-                }
-            }
-        }
-
-        private void Charac_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
-        {
-
-            if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
-            {
-                moveLeft = false;
-                if (isFalling) prepLeft = false;
-            }
-            else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
-            {
-                moveRight = false;
-                if (isFalling) prepRight = false;
-            }
-            else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
-            {
-                jumping = false;
-            }
-
         }
 
         private void MoveCharac(double hspeed, double vspeed)
@@ -268,8 +186,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             blocoRightx = null;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
-            xPlayerVal = xPlayer;
-            yPlayerVal = yPlayer;
+            xCharacVal = xPlayer;
+            yCharacVal = yPlayer;
             foreach (Canvas bloco in collisionBlocks)
             {
 
@@ -277,14 +195,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 double actualBlockY = GetCanvasTop(bloco);
 
                 // Get the nearest block on the bottom
-                if (xPlayer + charac.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
-                    && actualBlockY - (yPlayer + charac.Height) <= 0 && actualBlockY - (yPlayer + charac.Height) > -2)
+                if (xPlayer + characT.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
+                    && actualBlockY - (yPlayer + characT.Height) <= 0 && actualBlockY - (yPlayer + characT.Height) > -2)
                 {
                     bottomBlock = bloco;
                 }
 
                 // Get the distant
-                double dif = actualBlockX - (xPlayer + charac.Width);
+                double dif = actualBlockX - (xPlayer + characT.Width);
                 double dif02 = xPlayer - (actualBlockX + bloco.Width);
                 if (dif > 0 && dif < 10) diferenca = dif;
                 // Pegar os blocos a direita e esquerda mais proximos do player
@@ -295,7 +213,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         blocoLeftx = bloco;
                     }
 
-                    if (xPlayer + charac.Width <= actualBlockX && dif <= 2 && dif > 0)
+                    if (xPlayer + characT.Width <= actualBlockX && dif <= 2 && dif > 0)
                     {
                         blocoRightx = bloco;
                     }
@@ -307,7 +225,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     //lastY = GetCanvasTop(bottomBlock);
                     LastBlock = bottomBlock;
                     blocoBottomx = bottomBlock;
-                    isFalling = ydist <= charac.Height ? isFalling = false : isFalling = true;
+                    isFalling = ydist <= characT.Height ? isFalling = false : isFalling = true;
                 }
                 else
                 {
@@ -317,7 +235,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 if (blocoLeftx != null)
                 {
                     //yvalue = actualBlockY - yPlayer;
-                    freeLeft = (yPlayer + charac.Height >= GetCanvasTop(blocoLeftx) &&
+                    freeLeft = (yPlayer + characT.Height >= GetCanvasTop(blocoLeftx) &&
                                     yPlayer <= GetCanvasTop(blocoLeftx) + blocoLeftx.Height) ? false : true;
                 }
                 else
@@ -328,7 +246,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 if (blocoRightx != null)
                 {
                     //yvalue = actualBlockY - yPlayer;
-                    freeRight = (yPlayer + charac.Height >= GetCanvasTop(blocoRightx) &&
+                    freeRight = (yPlayer + characT.Height >= GetCanvasTop(blocoRightx) &&
                                     yPlayer <= GetCanvasTop(blocoRightx) + blocoRightx.Height) ? false : true;
                 }
                 else

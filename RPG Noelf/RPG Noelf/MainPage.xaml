@@ -299,13 +299,14 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="PlayerCanvas" Canvas.Left="360" Canvas.Top="60" HorizontalAlignment="Left" Height="120" Width="60
-                " VerticalAlignment="Top" Background="#FF00FF5B">
+        <Canvas Name="PlayerCanvas" Canvas.Left="360" Canvas.Top="60" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="#FF00FF5B">
             <Canvas.RenderTransform>
                 <RotateTransform x:Name="Rotation" CenterX="25" CenterY="25">
                 </RotateTransform>
             </Canvas.RenderTransform>
-            <Rectangle Name="Player" HorizontalAlignment="Stretch" Height="120" Canvas.Left="0" Canvas.Top="2" VerticalAlignment="Stretch" Width="60" Fill="#FF00FF5B"/>
+        </Canvas>
+
+        <Canvas Name="MobCanvas" Canvas.Left="660" Canvas.Top="60" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="Red">
         </Canvas>
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
@@ -332,7 +333,7 @@
                     <TextBlock Grid.Column="0" Name="W_ItemType" Text="Item Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="1" Name="W_ItemQntd" Text="Item Quantity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
-                <TextBlock Grid.Row="3" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
+                <TextBlock Name="W_ItemDescr"  Grid.Row="3" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
                 <Grid Grid.Row="4" Width="200" Height="30">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
