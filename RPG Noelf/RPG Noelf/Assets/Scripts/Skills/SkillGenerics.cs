@@ -25,7 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public double BonusMultiplier { get; set; }
         public double DamageBonus { get; set; }
         public SkillTypeBuff tipobuff { get; set; }
-        public Atributo tipoatributo { get; set; }
+        public Element tipoatributo { get; set; }
 
         public void CalcBonus(Player calcP)
         {

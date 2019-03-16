@@ -53,7 +53,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
-                tipoatributo = Atributo.none
+                tipoatributo = Element.none
             };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
@@ -73,7 +73,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     timer = 0,
                     tipo = SkillType.passive,
                     atrib = AtributBonus.dex,
-                    tipoatributo = Atributo.none
+                    tipoatributo = Element.none
             };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
@@ -93,7 +93,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
-                tipoatributo = Atributo.none
+                tipoatributo = Element.none
             };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
