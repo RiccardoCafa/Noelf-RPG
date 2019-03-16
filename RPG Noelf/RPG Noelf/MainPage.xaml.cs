@@ -26,6 +26,7 @@ using Windows.UI.Input;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Mobs;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -37,7 +38,9 @@ namespace RPG_Noelf
     public partial class MainPage : Page
     {
         Thread Start;
-        Character player;
+        List<CharacterPlayer> players = new List<CharacterPlayer>();
+        CharacterPlayer player;
+        CharacterMob mob;
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
@@ -70,10 +73,14 @@ namespace RPG_Noelf
             {
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 // Settando o player
-                player = new Character(Player, PlayerCanvas);
+                player = new CharacterPlayer(PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
                 player.ResetPosition(320, 40);
-                player.rotation = Rotation;
+                players.Add(player);
+
+                mob = new CharacterMob(MobCanvas, players);
+                mob.UpdateBlocks(Chunck01);
+                mob.ResetPosition(920, 40);
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
@@ -572,6 +579,7 @@ namespace RPG_Noelf
             W_ItemQntd.Text = slot.ItemAmount + "x";
             W_ItemRarity.Text = item.GetTypeString();
             //W_ItemType.Text = item.itemType;
+            if(item.description != null) W_ItemDescr.Text = item.description;
             W_ItemValue.Text = item.GoldValue + " gold";
         }
 

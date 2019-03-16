@@ -21,11 +21,12 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         dragon, kong, lizard, bison, cat
     }
-
+    
     class MobCore : Mob
     {
         public MobCore() { }
 
         override public void Make() { }
+
     }
 }
