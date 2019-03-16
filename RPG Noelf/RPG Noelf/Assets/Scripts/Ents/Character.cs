@@ -19,16 +19,16 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     /// </summary>
     abstract class Character
     {
-        Canvas characT;
-        Canvas LastBlock;
-        DateTime time;
-        
-        public Canvas blocoLeftx, blocoRightx, blocoBottomx;
+        public Canvas characT;
+        protected Canvas LastBlock;
+        protected DateTime time;
 
-        public double diferenca = 0;
+        protected Canvas blocoLeftx, blocoRightx, blocoBottomx;
+
+        protected double diferenca = 0;
         public double xCharacVal = 0, yCharacVal = 0;
 
-        public const double GravityMultiplier = 0.8;
+        protected const double GravityMultiplier = 0.8;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
@@ -43,7 +43,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         private Thread update;
 
-        private enum EDirection
+        protected enum EDirection
         {
             top,
             left
@@ -55,8 +55,12 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             characT = T;
 
             // Setting horizontal and vertical speed
-            Hspeed = 0.1;
+            Hspeed = 0.2;
             Vspeed = 80;
+
+            // Getting first instance of x and y
+            xCharacVal = GetCanvasLeft(characT);
+            yCharacVal = GetCanvasTop(characT);
 
             // Initialize Class
             Start();
@@ -83,6 +87,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     {
                         TimeSpan secs = time - DateTime.Now;
                         MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
+                        blocoLeftx = blocoRightx = null;
                         //rotation.Angle += 2;
                     }
                     else
@@ -111,7 +116,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         //rotation.Angle += 0.5;
                     }
 
-                    if (jumping)
+                    if (jumping && !isFalling)
                     {
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
@@ -120,7 +125,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        private void MoveCharac(double hspeed, double vspeed)
+        protected void MoveCharac(double hspeed, double vspeed)
         {
             characT.SetValue(Canvas.LeftProperty,
                               (double)characT.GetValue(Canvas.LeftProperty) + hspeed);
@@ -128,7 +133,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                               (double)characT.GetValue(Canvas.TopProperty) + vspeed);
         }
 
-        private void MoveCharac(double speed, EDirection dir)
+        protected void MoveCharac(double speed, EDirection dir)
         {
             switch (dir)
             {
@@ -254,6 +259,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     freeRight = true;
                 }
             }
+        }
+
+        public static double GetDistance(double x1, double y1, double x2, double y2)
+        {
+            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
         }
     }
 }

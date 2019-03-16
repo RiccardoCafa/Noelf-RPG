@@ -306,7 +306,7 @@
             </Canvas.RenderTransform>
         </Canvas>
 
-        <Canvas Name="MobCanvas" Canvas.Left="660" Canvas.Top="60" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="Red">
+        <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="80" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="Red">
         </Canvas>
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">

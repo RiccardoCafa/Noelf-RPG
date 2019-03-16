@@ -13,39 +13,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     class CharacterPlayer : Character
     {
-        Rectangle charac;
-        Canvas characT;
-        Canvas LastBlock;
-        DateTime time;
-        public RotateTransform rotation { get; set; }
-
-        private enum EDirection
-        {
-            top,
-            left
-        }
 
         public CharacterPlayer(Canvas T) : base(T)
         {
             // Getting character image and Canvas for control
             characT = T;
 
-            // Setting horizontal and vertical speed
-            Hspeed = 0.1;
-            Vspeed = 80;
-
             // Setting Key events
             Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
             Window.Current.CoreWindow.KeyUp += Charac_KeyUp;
-
-            // Initialize Class
-            Start();
-        }
-
-        private void Start()
-        {
-            // Get the actual time
-            time = DateTime.Now;
         }
 
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)

@@ -38,6 +38,7 @@ namespace RPG_Noelf
     public partial class MainPage : Page
     {
         Thread Start;
+        List<CharacterPlayer> players = new List<CharacterPlayer>();
         CharacterPlayer player;
         CharacterMob mob;
         Shop shopper = new Shop();
@@ -75,9 +76,11 @@ namespace RPG_Noelf
                 player = new CharacterPlayer(PlayerCanvas);
                 player.UpdateBlocks(Chunck01);
                 player.ResetPosition(320, 40);
+                players.Add(player);
 
-                mob = new CharacterMob(MobCanvas);
+                mob = new CharacterMob(MobCanvas, players);
                 mob.UpdateBlocks(Chunck01);
+                mob.ResetPosition(920, 40);
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
@@ -576,7 +579,7 @@ namespace RPG_Noelf
             W_ItemQntd.Text = slot.ItemAmount + "x";
             W_ItemRarity.Text = item.GetTypeString();
             //W_ItemType.Text = item.itemType;
-            W_ItemDescr.Text = item.description;
+            if(item.description != null) W_ItemDescr.Text = item.description;
             W_ItemValue.Text = item.GoldValue + " gold";
         }
 

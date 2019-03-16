@@ -14,7 +14,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     class Mob : Ent, IMob
     {
 
-
         public Mob(string code)// code = 0123 ou 4321 ou 0322...
         {
             /* fbtp = face braço tronco perna
