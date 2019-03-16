@@ -41,33 +41,63 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public void SetWarriorPassive(string pathImage, string name)
         {
-            Passive = new SkillBuff(0, 1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, SkillType.passive, AtributBonus.For, name, pathImage);
+            Passive = new SkillBuff(name, pathImage)
+            {
+                Damage = 0,
+                manaCost = 0,
+                block = 1,
+                Amplificator = 0.01,
+                buff = 1.04,
+                buffer = BuffDebuffTypes.dmg,
+                cooldown = 0,
+                timer = 0,
+                tipo = SkillType.passive,
+                atrib = AtributBonus.For,
+                tipoatributo = Atributo.none
+            };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
         public void SetArcherPassive(string pathImage, string name)//ainda tem que mexer
         {
-            Passive = new SkillBuff(0, 1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg, SkillType.passive, AtributBonus.For, name, pathImage);
+            Passive = new SkillBuff(name, pathImage)
+            {
+                    Damage = 0,
+                    manaCost = 0,
+                    block = 1,
+                    Amplificator = 0.01,
+                    buff = 1.04,
+                    buffer = BuffDebuffTypes.dex,
+                    cooldown = 0,
+                    timer = 0,
+                    tipo = SkillType.passive,
+                    atrib = AtributBonus.dex,
+                    tipoatributo = Atributo.none
+            };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
         public void SetMagePassive(string pathImage, string name)//aqui tb
         {
-            Passive = new SkillBuff(0,1.05, 0, 0, 0, 0, 1, SkillTypeBuff.buff, BuffDebuffTypes.dmg,SkillType.passive,AtributBonus.For, name, pathImage);
+            Passive = new SkillBuff(name, pathImage)
+            {
+                Damage = 0,
+                manaCost = 0,
+                block = 1,
+                Amplificator = 0.01,
+                buff = 1.04,
+                buffer = BuffDebuffTypes.dmg,
+                cooldown = 0,
+                timer = 0,
+                tipo = SkillType.passive,
+                atrib = AtributBonus.For,
+                tipoatributo = Atributo.none
+            };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
             SkillList.Add(Passive);
-        }
-
-        public void MakeSkillType1(double damage, double manaCost, double cooldown, double Amplificator, int blockLevel, double BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
-        {
-            SkillList.Add(new Skill(damage, manaCost, cooldown,Amplificator, blockLevel, BonusMultiplier, tipoSkill, atrib, pathImage, name));
-        }
-        public void MakeSkillType2(double damage, double buff, double amplificador, double customana, double cooldown, double timer, int blocklvl, SkillTypeBuff tipobuff, BuffDebuffTypes buffer, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
-        {
-            SkillList.Add(new SkillBuff(damage,buff, amplificador, customana, cooldown, timer, blocklvl, tipobuff, buffer,tipoSkill,atrib,name, pathImage));
         }
         public void AddSkillToBar(SkillGenerics s, int index)
         {

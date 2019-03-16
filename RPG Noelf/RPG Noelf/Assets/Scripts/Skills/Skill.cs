@@ -18,25 +18,17 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         For,
         Int,
         dex,
+        agl
     }
 
     class Skill : SkillGenerics
     {
        
 
-        public Skill(double damage, double manaCost, double cooldown, double Amplificator, int blockLevel, double BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
+        public Skill(string pathImage, string name)
         {
             this.pathImage = pathImage;
-            this.Damage = damage;
-            this.manaCost = manaCost;
-            this.block = blockLevel;
-            this.BonusMultiplier = BonusMultiplier;
-            this.tipo = tipoSkill;
-            this.atrib = atrib;
             this.name = name;
-            this.cooldown = cooldown;
-            this.Amplificator = Amplificator;
-            this.tipobuff = SkillTypeBuff.normal;
         }
 
         
