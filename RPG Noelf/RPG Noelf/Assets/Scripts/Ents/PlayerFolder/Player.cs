@@ -88,15 +88,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Level = 1;
             XpLim = Level * 100;
             LevelUpdate(0, 0, 0, 0, 0);
-            /*
-            SkeletonData skeletonData = new SkeletonData();
-            Skeleton skeleton = new Skeleton(skeletonData);
-            Bone spine = new Bone(new BoneData(0, "c", null), skeleton, null);
-            Rectangle rectangle = new Rectangle();
-            ExposedList<Timeline> timelines = new ExposedList<Timeline>;
-            timelines.Add
-            Spine.Animation animation = new Animation("rotate", )
-            skeleton.Bones.Add();*/
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)

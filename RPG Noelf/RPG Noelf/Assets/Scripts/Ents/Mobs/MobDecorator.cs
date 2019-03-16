@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class MobDecorator : IMob
+    abstract class MobDecorator : Mob
     {
-        public Mob mob;
+        public Mob Mob { get; set; }
 
-        public MobDecorator(Mob mob)
+        protected MobDecorator(Mob mob)
         {
-            this.mob = mob;
+            Mob = mob;
         }
 
-        public void Make()
+        override public void Make()
         {
-            mob.Make();
+            Mob.Make();
         }
     }
 }

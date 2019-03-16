@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Skills;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,46 +16,51 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class DragonBody : Body
     {
-        /* > Tronco
-         *   - Mnd +2
-         *   - armor +Fire
-         */
-        public DragonBody(Mob mob) : base(mob) { }
+        public DragonBody(Mob mob) : base(mob)
+        {
+            mob.Str += 2;
+            mob.resistance.Add(Element.fire);
+        }
     }
 
     class KongBody : Body
     {
-        /* > Tronco
-         *   - For +2
-         *   - armor -Fire
-         */
-        public KongBody(Mob mob) : base(mob) { }
+        public KongBody(Mob mob) : base(mob)
+        {
+            mob.Spd += 2;
+            mob.vulnerable.Add(Element.fire);
+        }
     }
 
     class LizardBody : Body
     {
-        /* > Tronco
-         *   - Spd +2
-         *   - armor +Poison
-         */
-        public LizardBody(Mob mob) : base(mob) { }
+        public LizardBody(Mob mob) : base(mob)
+        {
+            mob.Mnd += 2;
+            mob.resistance.Add(Element.poison);
+        }
     }
 
     class BisonBody : Body
     {
-        /* > Tronco
-         *   - Con +2
-         *   - armor +Common
-         */
-        public BisonBody(Mob mob) : base(mob) { }
+        public BisonBody(Mob mob) : base(mob)
+        {
+            mob.Con += 2;
+            mob.resistance.Add(Element.common);
+        }
     }
 
     class CatBody : Body
     {
-        /* > Tronco
-         *   - Dex +2
-         *   - behavior +Camouflage
-         */
-        public CatBody(Mob mob) : base(mob) { }
+        public CatBody(Mob mob) : base(mob)
+        {
+            mob.Dex += 2;
+            mob.attacks.Add(Camouflage);
+        }
+
+        public void Camouflage()//camuflagem
+        {
+
+        }
     }
 }
