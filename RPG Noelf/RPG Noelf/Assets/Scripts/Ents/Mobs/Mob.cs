@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Skills;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,26 +7,25 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    interface IMob
+    abstract class Mob : Ent
     {
-        void Make();
+        public List<Action> attacks;
+        public List<Element> resistance;
+        public List<Element> vulnerable;
+        public bool meek = false;
+
+        abstract public void Make();
     }
 
-    class Mob : Ent, IMob
+    enum Animal
     {
+        dragon, kong, lizard, bison, cat
+    }
 
+    class MobCore : Mob
+    {
+        public MobCore() { }
 
-        public Mob(string code)// code = 0123 ou 4321 ou 0322...
-        {
-            /* fbtp = face braço tronco perna
-             * 0 -> dragão
-             * 1 -> gorila
-             * 2 -> lagarto
-             * 3 -> bisão
-             * 4 -> gato
-             */
-        }
-
-        public void Make() { }
+        override public void Make() { }
     }
 }

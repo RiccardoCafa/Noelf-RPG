@@ -21,6 +21,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         agl
     }
 
+    public enum Element
+    {
+        common, fire, poison, ice
+    }
+
     class Skill : SkillGenerics
     {
        

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Skills;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,46 +16,46 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class DragonLegs : Legs
     {
-        /* > Pernas
-         *   - Mnd +1
-         *   - armor -Ice
-         */
-        public DragonLegs(Mob mob) : base(mob) { }
+        public DragonLegs(Mob mob) : base(mob)
+        {
+            mob.Str += 1;
+            mob.vulnerable.Add(Element.ice);
+        }
     }
 
     class KongLegs : Legs
     {
-        /* > Pernas
-         *   - For +1
-         *   - Spd +6
-         */
-        public KongLegs(Mob mob) : base(mob) { }
+        public KongLegs(Mob mob) : base(mob)
+        {
+            mob.Spd += 10;
+        }
     }
 
     class LizardLegs : Legs
     {
-        /* > Pernas
-         *   - Spd =0
-         */
-        public LizardLegs(Mob mob) : base(mob) { }
+        public LizardLegs(Mob mob) : base(mob)
+        {
+            mob.Mnd += 1;
+            mob.Spd = 1;
+        }
     }
 
     class BisonLegs : Legs
     {
-        /* > Pernas
-         *   - Con +1
-         *   - behavior +Meek
-         */
-        public BisonLegs(Mob mob) : base(mob) { }
+        public BisonLegs(Mob mob) : base(mob)
+        {
+            mob.Con += 1;
+            mob.meek = true;
+        }
     }
 
     class CatLegs : Legs
     {
-        /* > Pernas
-         *   - Dex +1
-         *   - armor -Common
-         */
-        public CatLegs(Mob mob) : base(mob) { }
+        public CatLegs(Mob mob) : base(mob)
+        {
+            mob.Dex += 1;
+            mob.vulnerable.Add(Element.common);
+        }
     }
 }
 
