@@ -21,10 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Level { get; private set; }
 
         public string Id { get; set; }
-
-        public double Hp { get; set; }
-        public int HpMax { get; set; }
-
+        
         public int Xp { get; private set; }
         public int XpLim { get; private set; }
 
@@ -34,6 +31,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double Armor { get; set; }
         public double Damage { get; set; }
         public double AtkSpd { get; set; }
+
+        public double DamageBuff { get; set; }
+        public double ArmorBuff { get; set; }
+        public double AtkSpeedBuff { get; set; }
 
         public Player(string id, IRaces race, IClasses _class)
         {

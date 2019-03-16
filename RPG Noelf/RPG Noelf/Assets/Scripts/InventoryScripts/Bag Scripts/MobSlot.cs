@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.InventoryScripts
+namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
     class MobSlot : Slot
     {
@@ -16,5 +16,20 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         {
             this.ChanceDrop = chanceDrop;
         }
+
+        // função para checar se o item pode ser dropado
+
+        public bool CanDrop()
+        {
+            if(ChanceDrop <= DropRate.NextDouble())
+            {
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
     }
 }

@@ -1,11 +1,10 @@
-﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.InventoryScripts
+namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
      class Encyclopedia
     {
@@ -122,7 +121,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 armorPenetration = 1,
                 ItemCategory = Category.Normal,              
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 20
+                GoldValue = 20,
+                description = "A simple Iron Sword, sharp and reliable"
+
 
             };
             encyclopedia.Add(13, item13);
@@ -378,7 +379,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
                 Bonus = 20,
-                PathImage = "/Assets/Images/Chao.jpg"
+                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Adventurer's best Friend, i think you must carry lots of this"
+                
 
             };
             encyclopedia.Add(40, item40);
