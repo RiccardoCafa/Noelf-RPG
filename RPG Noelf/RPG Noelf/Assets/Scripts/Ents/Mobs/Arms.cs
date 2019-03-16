@@ -15,43 +15,53 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class DragonArms : Arms
     {
-        /* > Braços
-         *   - Mnd +1
-         */
-        public DragonArms(Mob mob) : base(mob) { }
+        public DragonArms(Mob mob) : base(mob)
+        {
+            mob.Str += 1;
+        }
     }
 
     class KongArms : Arms
     {
-        /* > Braços
-         *   - For +1
-         *   - attack +Poopoo()
-         */
-        public KongArms(Mob mob) : base(mob) { }
+        public KongArms(Mob mob) : base(mob)
+        {
+            mob.Spd += 1;
+            mob.attacks.Add(Poopoo);
+        }
+
+        public void Poopoo()
+        {
+
+        }
     }
 
     class LizardArms : Arms
     {
-        /* > Braços
-         *   - Spd +1
-         */
-        public LizardArms(Mob mob) : base(mob) { }
+        public LizardArms(Mob mob) : base(mob)
+        {
+            mob.Mnd += 1;
+        }
     }
 
     class BisonArms : Arms
     {
-        /* > Braços
-         *   - Con +1
-         */
-        public BisonArms(Mob mob) : base(mob) { }
+        public BisonArms(Mob mob) : base(mob)
+        {
+            mob.Con += 1;
+        }
     }
 
     class CatArms : Arms
     {
-        /* > Braços
-         *   - Dex +1
-         *   - attack +Scratch()
-         */
-        public CatArms(Mob mob) : base(mob) { }
+        public CatArms(Mob mob) : base(mob)
+        {
+            mob.Dex += 1;
+            mob.attacks.Add(Camouflage);
+        }
+
+        public void Camouflage()
+        {
+
+        }
     }
 }

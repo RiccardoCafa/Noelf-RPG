@@ -9,9 +9,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 {
     abstract class SkillGenerics
     {
-        public SkillType tipo;
-        private bool area;
-        public AtributBonus atrib;
+        public SkillType tipo { get; set; }
+        public bool area;
+        public AtributBonus atrib { get; set; }
         public int Lvl { get; set; } = 1;
         public double Damage { get; set; }
         public int block { get; set; }
@@ -22,10 +22,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public string pathImage { get; set; }
         public string name { get; set; }
         public string description { get; set; } = "";
-        public double BonusMultiplier;
-        public double DamageBonus;
-        public SkillTypeBuff tipobuff;
-
+        public double BonusMultiplier { get; set; }
+        public double DamageBonus { get; set; }
+        public SkillTypeBuff tipobuff { get; set; }
+        public Element tipoatributo { get; set; }
 
         public void CalcBonus(Player calcP)
         {

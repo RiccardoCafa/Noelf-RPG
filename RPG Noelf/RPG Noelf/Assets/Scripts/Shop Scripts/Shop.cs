@@ -23,11 +23,13 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 
         public Slot SlotInOffer
         {
-            get {
+            get
+            {
                 return slotInOffer;
             }
-            set {
-                if(BuyingItems.FreeSlots > 0)
+            set
+            {
+                if (BuyingItems.FreeSlots > 0)
                 {
                     slotInOffer = value;
                 }
@@ -37,26 +39,26 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         // função para vender itens ao jogador
         public void SellItem(uint soldID, Bag playerBag)
         {
-            
+
         }
 
 
         //função para comprar itens do jogador
         public void BuyItem(Bag playerBag)
         {
-            foreach(Slot sack in BuyingItems.Slots)
+            foreach (Slot sack in BuyingItems.Slots)
             {
                 long valor = Encyclopedia.SearchFor(sack.ItemID).GoldValue;
                 valor = valor * sack.ItemAmount;
                 playerBag.AddGold((int)valor);
             }
             BuyingItems.Slots.Clear();
-            
+
         }
-        
+
         public bool AddToBuyingItems(Slot slot)
         {
-            if(BuyingItems.CanAddMore())
+            if (BuyingItems.CanAddMore())
             {
                 return BuyingItems.AddToBag(slot.ItemID, slot.ItemAmount);
             }
@@ -73,5 +75,4 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
             BuyingItems.RemoveFromBag(index, amount);
         }
     }
-
 }

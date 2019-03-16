@@ -6,53 +6,70 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Face : MobDecorator
+    abstract class Face : MobDecorator
     {
-        public Face(Mob mob) : base(mob) { }
+        public Face(Mob mob) : base(mob)
+        {
+        }
 
         public new void Make() { base.Make(); }
     }
 
     class DragonFace : Face
     {
-        /* > Face
-         *   - Mnd +2
-         *   - attack +Fireball()
-         */
-        public DragonFace(Mob mob) : base(mob) { }
+        public DragonFace(Mob mob) : base(mob)
+        {
+            mob.Str += 2;
+            mob.attacks.Add(Fireball);
+        }
+
+        public void Fireball()//bola de fogo
+        {
+
+        }
     }
 
     class KongFace : Face
     {
-        /* > Face
-         *   - For +2
-         */
-        public KongFace(Mob mob) : base(mob) { }
+        public KongFace(Mob mob) : base(mob)
+        {
+            mob.Spd += 2;
+        }
     }
 
     class LizardFace : Face
     {
-        /* > Face
-         *   - Spd +2
-         *   - attack +Lick()
-         */
-        public LizardFace(Mob mob) : base(mob) { }
+        public LizardFace(Mob mob) : base(mob)
+        {
+            mob.Mnd += 2;
+            mob.attacks.Add(Lick);
+        }
+
+        public void Lick()//linguada
+        {
+
+        }
     }
 
     class BisonFace : Face
     {
-        /* > Face
-         *   - Con +2
-         *   - attack +Headache()
-         */
-        public BisonFace(Mob mob) : base(mob) { }
+        public BisonFace(Mob mob) : base(mob)
+        {
+            mob.Con += 2;
+            mob.attacks.Add(Headache);
+        }
+
+        public void Headache()//cabeçada
+        {
+
+        }
     }
 
     class CatFace : Face
     {
-        /* > Face
-         *   - Dex +2
-         */
-        public CatFace(Mob mob) : base(mob) { }
+        public CatFace(Mob mob) : base(mob)
+        {
+            mob.Dex += 2;
+        }
     }
 }
