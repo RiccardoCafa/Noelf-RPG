@@ -13,7 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         buff,
         normal
     }
-    enum BuffDebuffTypes
+    enum BuffDebuffTypes//todos os tipos possiveis de efeitos
     {
         str,
         res,
@@ -37,7 +37,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         poison
     }
 
-    class SkillBuff : SkillGenerics
+    class SkillBuff : SkillGenerics //skills com efeitos
     {
         public double buff { get; set; }
 
