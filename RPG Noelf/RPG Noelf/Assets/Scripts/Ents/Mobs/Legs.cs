@@ -9,7 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     class Legs : MobDecorator
     {
-        public Legs(Mob mob) : base(mob) { }
+        protected Legs(Mob mob) : base(mob) { }
 
         public new void Make() { base.Make(); }
     }
