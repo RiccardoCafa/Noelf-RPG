@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 ItemCategory = Category.Normal,            
                 PathImage = "/Assets/Images/Chao.jpg",
                 GoldValue = 1,
-                description =  "It's just a small piece of iron"
+                description =  "It's just a small piece of iron, don't eat it"
                
             };
             encyclopedia.Add(1,item1);
