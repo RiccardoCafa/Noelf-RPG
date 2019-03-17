@@ -54,7 +54,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public CatLegs(Mob mob) : base(mob)
         {
             mob.Dex += 1;
-            mob.vulnerable.Add(Element.common);
+            mob.vulnerable.Add(Element.none);
         }
     }
 }
