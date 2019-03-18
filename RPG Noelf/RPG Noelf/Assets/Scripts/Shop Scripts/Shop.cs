@@ -39,6 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         // função para vender itens ao jogador
         public void SellItem(uint soldID,uint amount, Bag playerBag)
         {
+
             if (playerBag.CanAddMore())
             {
                 playerBag.AddToBag(soldID,amount);
