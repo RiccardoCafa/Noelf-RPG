@@ -23,26 +23,26 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         Prison,//ok
         Silence,//ok
         Throw,//classe a parte...
-        Critical,//ainda para ser feita
+        Critical,//ok
         Dash,//classe a parte
         Hidden,//classe a parte
         Double//ok
     }
     enum Element
     {
-        fire,
-        ice,
-        none,
-        poison
+        Fire,
+        Ice,
+        Common,
+        Poison
     }
 
     class SkillBuff : SkillGenerics //skills com efeitos
     {
-        public double buff { get; set; }
+        public double Buff { get; set; }
 
-        public double timer { get; set; }
+        public double Timer { get; set; }
 
-        public BuffDebuffTypes buffer { get; set; }
+        public BuffDebuffTypes Buffer { get; set; }
 
 
         public SkillBuff(string name, string pathImage)
@@ -54,54 +54,55 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             if (player.Mp >= manaCost)
             {
-                if (buffer == BuffDebuffTypes.Dex)
+                if (Buffer == BuffDebuffTypes.Dex)
                 {
-                    player.Dex = (int)(player.Dex * (buff + Amplificator * Lvl));
+                    player.Dex = (int)(player.Dex * (Buff + Amplificator * Lvl));
                     return true;
                 }
-                else if (buffer == BuffDebuffTypes.Dmg)
+                else if (Buffer == BuffDebuffTypes.Dmg)
                 {
-                    player.Damage = player.Damage * (buff + Amplificator * Lvl);
+                    player.Damage = player.Damage * (Buff + Amplificator * Lvl);
                     return true;
                 }
-                else if (buffer == BuffDebuffTypes.Res)
+                else if (Buffer == BuffDebuffTypes.Res)
                 {
-                    player.Armor = player.Armor * (buff + Amplificator * Lvl);
+                    player.Armor = player.Armor * (Buff + Amplificator * Lvl);
                     return true;
                 }
-                if (buffer == BuffDebuffTypes.Slow)
+                if (Buffer == BuffDebuffTypes.Slow)
                 {
                     CalcBonus(player);
                     Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Spd = (int)(Enemy.Spd * (buff + Amplificator * Lvl));
+                    Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
                     return true;
                 }
-                else if (buffer == BuffDebuffTypes.Silence)
+                else if (Buffer == BuffDebuffTypes.Silence)
                 {
-                    timer = timer + Amplificator * Lvl;
+                    Timer = Timer + Amplificator * Lvl;
                     CalcBonus(player);
                     Enemy.BeHit(player.Hit(DamageBonus));
                     Enemy.Damage = 0;
                     return true;
                 }
-                else if (buffer == BuffDebuffTypes.Prison)
+                else if (Buffer == BuffDebuffTypes.Prison)
                 {
-                    timer = timer + Amplificator * Lvl;
+                    Timer = Timer + Amplificator * Lvl;
                     CalcBonus(player);
                     Enemy.BeHit(player.Hit(DamageBonus));
                     Enemy.Spd = 0;
                     return true;
-                }else if(buffer == BuffDebuffTypes.Double)
+                }else if(Buffer == BuffDebuffTypes.Double)
                 {
                     Enemy.BeHit(player.Hit(DamageBonus));
                     Enemy.BeHit(player.Hit(DamageBonus));
                     return true;
-                }else if(buffer == BuffDebuffTypes.Critical)
+                }else if(Buffer == BuffDebuffTypes.Critical)
                 {
+                    player.BonusChanceCrit = Buff + Amplificator * Lvl;
                     return true;
-                }else if (buffer == BuffDebuffTypes.Broken)
+                }else if (Buffer == BuffDebuffTypes.Broken)
                 {
-                    Enemy.ArmorBuff = (buff + Amplificator * Lvl) * -1;
+                    Enemy.ArmorBuff = (Buff + Amplificator * Lvl) * -1;
                     return true;
                 }
                 else

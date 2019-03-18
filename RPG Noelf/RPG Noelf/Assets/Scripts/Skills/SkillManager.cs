@@ -47,13 +47,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
-                buff = 1.04,
-                buffer = BuffDebuffTypes.Dmg,
+                Buff = 1.04,
+                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 0,
-                timer = 0,
+                Timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.none
+                tipoatributo = Element.Common
             };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
@@ -67,13 +67,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     manaCost = 0,
                     block = 1,
                     Amplificator = 0.01,
-                    buff = 1.04,
-                    buffer = BuffDebuffTypes.Dex,
+                    Buff = 1.04,
+                    Buffer = BuffDebuffTypes.Dex,
                     cooldown = 0,
-                    timer = 0,
+                    Timer = 0,
                     tipo = SkillType.passive,
                     atrib = AtributBonus.dex,
-                    tipoatributo = Element.none
+                    tipoatributo = Element.Common
             };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
@@ -87,13 +87,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
-                buff = 1.04,
-                buffer = BuffDebuffTypes.Dmg,
+                Buff = 1.04,
+                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 0,
-                timer = 0,
+                Timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.none
+                tipoatributo = Element.Common
             };
             Passive.description = "Skill Passiva que faz coisas de skill passiva. Essa é uma descrição POG e XGH";
             Passive.Unlocked = true;
