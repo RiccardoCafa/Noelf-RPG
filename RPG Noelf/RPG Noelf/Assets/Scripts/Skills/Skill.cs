@@ -24,7 +24,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
     class Skill : SkillGenerics
     {
-       
+       //Skill que apenas causam dano
 
         public Skill(string pathImage, string name)
         {
