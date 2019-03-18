@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     {
         fire,
         ice,
-        none,
+        common,
         poison
     }
 
