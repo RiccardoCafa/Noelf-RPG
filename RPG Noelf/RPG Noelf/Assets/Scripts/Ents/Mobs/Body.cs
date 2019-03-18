@@ -46,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public BisonBody(Mob mob) : base(mob)
         {
             mob.Con += 2;
-            mob.resistance.Add(Element.common);
+            mob.resistance.Add(Element.none);
         }
     }
 

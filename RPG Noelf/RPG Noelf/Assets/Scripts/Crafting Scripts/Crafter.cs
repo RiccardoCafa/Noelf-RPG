@@ -10,7 +10,10 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
     class Crafter
     {
-       
+       public bool CanCraft(Bag bag, Recipe recipe)
+        {
+            return true;
+        }
         
         
 

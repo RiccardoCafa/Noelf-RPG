@@ -13,7 +13,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 
         public static void LoadCrafting()
         {
-            
+            crafting = new Dictionary<uint, Recipe>();
+
             Recipe rec1 = new Recipe("Blueprint: Iron Sword")
             {
                 generatedID = 13,              
@@ -30,13 +31,10 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             crafting.Add(rec2.generatedID,rec2);//adicionada no crafting
 
 
-
-
-
-
-
         }
 
+
+        
      
                     
 
