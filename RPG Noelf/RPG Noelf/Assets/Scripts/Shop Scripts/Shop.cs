@@ -10,7 +10,7 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
     class Shop
     {
-        public List<int> TradingItems = new List<int>();
+        public List<Slot> TradingItems = new List<Slot>();
         public Bag BuyingItems = new Bag();
         private Slot slotInOffer;
 
@@ -49,7 +49,11 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
             }
 
         }
-
+        public void CreateIventory(uint ItemID,uint amount)
+        {
+            Slot Newitem = new Slot(ItemID,amount);
+            TradingItems.Add(Newitem);
+        }
 
         //função para comprar itens do jogador
         public void BuyItem(Bag playerBag)

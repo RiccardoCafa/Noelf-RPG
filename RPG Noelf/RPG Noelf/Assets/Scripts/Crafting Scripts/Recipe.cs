@@ -13,10 +13,10 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
         public uint generatedID { get; set; }
         public string RecipeName { get; set; }
 
-        public Recipe(string name)
+        public Recipe(string name, List<Slot> materiais)
         {
             RecipeName = name;
-            itens = new List<Slot>();
+            itens = materiais;
         }
 
 

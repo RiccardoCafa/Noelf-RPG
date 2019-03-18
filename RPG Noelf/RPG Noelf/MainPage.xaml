@@ -54,7 +54,15 @@
 
                 <Button Name="Buy" Content="Sell"  Width="45" Height="32" Click="SellButton"></Button>
                 <TextBlock Name="ShopValue" Grid.Column="1" Width="75" Height="15" Text="Total = 0" TextAlignment="Center"  TextWrapping="Wrap" FontSize="7"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="75"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Height="40" Width="120" Canvas.Top="160" HorizontalAlignment="Center" VerticalAlignment="Center">
 
+                <Button Name="Sell" Content="Buy"  Width="45" Height="32" Click="BuyButton"></Button>
+                <TextBlock Name="Price" Grid.Column="1" Width="75" Height="15" Text="Total = 0" TextAlignment="Center"  TextWrapping="Wrap" FontSize="7"/>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="45"/>
                     <ColumnDefinition Width="75"/>

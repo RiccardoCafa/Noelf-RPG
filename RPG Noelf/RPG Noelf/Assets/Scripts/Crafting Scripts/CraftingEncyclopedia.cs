@@ -14,20 +14,22 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
         public static void LoadCrafting()
         {
             crafting = new Dictionary<uint, Recipe>();
+            List<Slot> materiais = new List<Slot>();
 
-            Recipe rec1 = new Recipe("Blueprint: Iron Sword")
+            materiais.Add(new Slot(42, 2));
+            materiais.Add(new Slot(3, 2));
+            Recipe rec1 = new Recipe("Blueprint: Iron Sword", materiais)
             {
-                generatedID = 13,              
+                generatedID = 13
             };
-            rec1.itens.Add(new Slot(42, 2));//duas barras de ferro
-            rec1.itens.Add(new Slot(3, 2));//um galho de madeira
             crafting.Add(rec1.generatedID, rec1);//receita adicionada no crafting
 
-            Recipe rec2 = new Recipe("Recipe: Iron Ingot")
+            materiais = new List<Slot>();
+            materiais.Add(new Slot(1, 5));
+            Recipe rec2 = new Recipe("Recipe: Iron Ingot", materiais)
             {
                 generatedID = 42
             };
-            rec2.itens.Add(new Slot(1, 5));//5 pepitas de ferro
             crafting.Add(rec2.generatedID,rec2);//adicionada no crafting
 
 
