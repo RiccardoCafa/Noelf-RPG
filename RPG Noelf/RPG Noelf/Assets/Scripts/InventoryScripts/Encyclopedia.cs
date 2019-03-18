@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         public static void LoadItens()
         {
+            CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
 
             // loaded Itens
@@ -397,6 +399,18 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             };
             encyclopedia.Add(41, item41);
+            Item item42 = new Item("Iron Ingot")
+            {
+                IsStackable = true,
+                ItemCategory = Category.Normal,
+                PathImage = "/Assets/Images/Chao.jpg",
+                GoldValue = 1,
+                description = "It is not useful like this, but is cheap than gold"
+
+            };
+            encyclopedia.Add(42, item42);
+
+
         }
 
         // procura um item especifico

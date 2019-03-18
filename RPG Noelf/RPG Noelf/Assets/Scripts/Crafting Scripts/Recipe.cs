@@ -9,14 +9,14 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
     class Recipe
     {
-        public Slot[] Itens { get; set; }
+        public List<Slot> itens { get; set; }
         public uint generatedID { get; set; }
         public string RecipeName { get; set; }
 
-        public Recipe(string name, int qtd)
+        public Recipe(string name)
         {
             RecipeName = name;
-            Itens = new Slot[qtd];
+            itens = new List<Slot>();
         }
 
 
