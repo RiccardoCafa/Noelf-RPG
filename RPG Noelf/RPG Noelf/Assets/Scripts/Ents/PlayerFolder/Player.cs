@@ -35,6 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double DamageBuff { get; set; }
         public double ArmorBuff { get; set; }
         public double AtkSpeedBuff { get; set; }
+        public double BonusChanceCrit { get; set; } = 1;
 
         public Player(string id, IRaces race, IClasses _class)
         {
@@ -148,7 +149,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Random random = new Random();
             double dmg100 = random.NextDouble() * 100;
             if (dmg100 < 1 / Dex * 0.05) return 0;//errou
-            else if (dmg100 < Dex * 0.1) return bonusDamage + Damage * dmg100;//acertou
+            else if (dmg100 < Dex * BonusChanceCrit * 0.1) return bonusDamage + Damage * dmg100;//acertou
             else return bonusDamage + Damage * dmg100 * 2;//critico
         }
 

@@ -9,7 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     class Body : MobDecorator
     {
-        public Body(Mob mob) : base(mob) { }
+        protected Body(Mob mob) : base(mob) { }
 
         public new void Make() { base.Make(); }
     }
@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public DragonBody(Mob mob) : base(mob)
         {
             mob.Str += 2;
-            mob.resistance.Add(Element.fire);
+            mob.resistance.Add(Element.Fire);
         }
     }
 
@@ -28,7 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public KongBody(Mob mob) : base(mob)
         {
             mob.Spd += 2;
-            mob.vulnerable.Add(Element.fire);
+            mob.vulnerable.Add(Element.Fire);
         }
     }
 
@@ -37,7 +37,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public LizardBody(Mob mob) : base(mob)
         {
             mob.Mnd += 2;
-            mob.resistance.Add(Element.poison);
+            mob.resistance.Add(Element.Poison);
         }
     }
 
@@ -46,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public BisonBody(Mob mob) : base(mob)
         {
             mob.Con += 2;
-            mob.resistance.Add(Element.common);
+            mob.resistance.Add(Element.Common);
         }
     }
 

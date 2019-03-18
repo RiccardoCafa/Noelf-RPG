@@ -9,7 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     class Legs : MobDecorator
     {
-        public Legs(Mob mob) : base(mob) { }
+        protected Legs(Mob mob) : base(mob) { }
 
         public new void Make() { base.Make(); }
     }
@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public DragonLegs(Mob mob) : base(mob)
         {
             mob.Str += 1;
-            mob.vulnerable.Add(Element.ice);
+            mob.vulnerable.Add(Element.Ice);
         }
     }
 
@@ -54,7 +54,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public CatLegs(Mob mob) : base(mob)
         {
             mob.Dex += 1;
-            mob.vulnerable.Add(Element.common);
+            mob.vulnerable.Add(Element.Common);
         }
     }
 }

@@ -874,6 +874,10 @@ namespace RPG_Noelf
             }
         }
 
+        private void BuyButton(object sender, RoutedEventArgs e)
+        {
+            //fazer
+        }
 
         private void MSPD(object sender, RoutedEventArgs e)
         {

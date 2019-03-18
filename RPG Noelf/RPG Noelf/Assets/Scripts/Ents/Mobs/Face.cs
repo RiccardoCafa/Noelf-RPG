@@ -8,7 +8,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     abstract class Face : MobDecorator
     {
-        public Face(Mob mob) : base(mob)
+        protected Face(Mob mob) : base(mob)
         {
         }
 
