@@ -12,11 +12,13 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
         public List<Slot> itens { get; set; }
         public uint generatedID { get; set; }
         public string RecipeName { get; set; }
+        public int numItens { get; set; }
 
         public Recipe(string name, List<Slot> materiais)
         {
             RecipeName = name;
             itens = materiais;
+            numItens = materiais.Count;
         }
 
 
