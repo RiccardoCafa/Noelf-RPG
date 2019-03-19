@@ -34,6 +34,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double Vspeed { get; set; }
 
         protected bool alive = true;
+        protected bool loaded = false;
         protected bool isFalling = false;
         protected bool freeRight = true, freeLeft = true;
         protected bool moveRight, moveLeft, jumping;
@@ -79,6 +80,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
             while (alive)
             {
+                //if (!loaded) continue;
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     CheckGround();
@@ -173,21 +175,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public void UpdateBlocks(Canvas blockCanvas)
         {
             collisionBlocks.Clear();
-            //collisionBlocks.Add(blockCanvas);
+            
             foreach (UIElement block in blockCanvas.Children)
             {
                 if (block is Canvas)
                 {
-                //    foreach(UIElement b in ((Canvas)block).Children)
-                //    {
-                //        if(b is Canvas)
-                //        {
-                            collisionBlocks.Add((Canvas)block);
-                //            break;
-                //        }
-                //    }
+                    collisionBlocks.Add((Canvas)block);
                 }
             }
+            loaded = true;
         }
 
         public void CheckGround()
