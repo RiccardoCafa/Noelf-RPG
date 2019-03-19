@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
+    
     abstract class MobDecorator : Mob
     {
         public Mob Mob { get; set; }
+        public static Animal[] animalCode = { Animal.dragon, Animal.kong, Animal.lizard, Animal.bison, Animal.cat };
 
         protected MobDecorator(Mob mob)
         {
             Mob = mob;
         }
 
-        override public void Make()
-        {
-            Mob.Make();
-        }
+        //override public void Make(Image face, Image body, Image[,] arms, Image[,] legs)
+        //{
+        //    Mob.Make(face, body, arms, legs);
+        //}
     }
 }

@@ -132,6 +132,7 @@
     <Compile Include="Assets\Scripts\Ents\Mobs\Legs.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\MobDecorator.cs" />
+    <Compile Include="Assets\Scripts\Ents\Mobs\Skin.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Spawn.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Atributes.cs" />
     <Compile Include="Assets\Scripts\Ents\Character.cs" />
