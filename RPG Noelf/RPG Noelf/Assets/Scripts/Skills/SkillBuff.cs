@@ -113,4 +113,29 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return false;
         }
     }
+    class SkillDash : SkillGenerics
+    {
+        public override bool UseSkill(Player player, Player Enemy)
+        {
+
+            return false;
+        }
+    }
+    class SkillHidden : SkillGenerics
+    {
+        public override bool UseSkill(Player player, Player Enemy)
+        {
+            return false;
+        }
+    }
+    class SkillThrow : SkillGenerics
+    {
+        public override bool UseSkill(Player player, Player Enemy)
+        {
+            return false;
+        }
+    }
+
 }
+
+
