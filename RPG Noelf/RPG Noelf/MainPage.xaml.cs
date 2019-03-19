@@ -167,7 +167,6 @@ namespace RPG_Noelf
                 SetEventForBagItem();
                 SetEventForShopItem();
             });
-            texticulus = Texticulu;
         }
 
         public static async void UpdateTexti()
