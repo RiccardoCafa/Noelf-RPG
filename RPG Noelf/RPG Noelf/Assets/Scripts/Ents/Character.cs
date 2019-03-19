@@ -25,13 +25,16 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         protected Canvas blocoLeftx, blocoRightx, blocoBottomx;
 
-        protected double diferenca = 0;
         public double xCharacVal = 0, yCharacVal = 0;
+        public double CameraXOffSet, CameraYOffSet;
+        protected double diferenca = 0;
 
         protected const double GravityMultiplier = 0.8;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
+
+        public bool isWalking { get; set; } = false;
 
         protected bool alive = true;
         protected bool loaded = false;
@@ -44,7 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         private Thread update;
 
-        protected enum EDirection
+        public enum EDirection
         {
             top,
             left
@@ -110,14 +113,19 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, EDirection.left);
+                        isWalking = true;
                         //rotation.Angle -= 0.5;
                     }
                     if (freeRight && moveRight)
                     {
                         MoveCharac(Hspeed, EDirection.left);
+                        isWalking = true;
                         //rotation.Angle += 0.5;
                     }
-
+                    if(!moveRight && !moveLeft && !freeLeft && !freeRight)
+                    {
+                        isWalking = false;
+                    }
                     if (jumping && !isFalling)
                     {
                         MoveCharac(-Vspeed, EDirection.top);
@@ -127,7 +135,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        protected void MoveCharac(double hspeed, double vspeed)
+        public void MoveCharac(double hspeed, double vspeed)
         {
             characT.SetValue(Canvas.LeftProperty,
                               (double)characT.GetValue(Canvas.LeftProperty) + hspeed);
@@ -135,7 +143,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                               (double)characT.GetValue(Canvas.TopProperty) + vspeed);
         }
 
-        protected void MoveCharac(double speed, EDirection dir)
+        public void MoveCharac(double speed, EDirection dir)
         {
             switch (dir)
             {
@@ -199,8 +207,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             foreach (Canvas bloco in collisionBlocks)
             {
 
-                double actualBlockX = GetCanvasLeft(bloco);
-                double actualBlockY = GetCanvasTop(bloco);
+                double actualBlockX = GetCanvasLeft(bloco) + CameraXOffSet;
+                double actualBlockY = GetCanvasTop(bloco) + CameraYOffSet;
 
                 // Get the nearest block on the bottom
                 if (xPlayer + characT.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width

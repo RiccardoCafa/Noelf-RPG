@@ -41,9 +41,12 @@ namespace RPG_Noelf
         List<CharacterPlayer> players = new List<CharacterPlayer>();
         CharacterPlayer player;
         CharacterMob mob;
+        MainCamera mainCamera;
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+
+        public static Canvas Telona;
 
         public static TextBlock texticulus;
         public static int i;
@@ -55,11 +58,15 @@ namespace RPG_Noelf
         public MainPage()
         {
             this.InitializeComponent();
-            
+
+            Telona = Tela;
+
+            Application.Current.DebugSettings.EnableFrameRateCounter = true;
+
             Start = new Thread(start);
             Start.Start();
         }
-
+        
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -67,7 +74,6 @@ namespace RPG_Noelf
             interfaceManager.Inventario = InventarioWindow;
 
             Encyclopedia.LoadItens();
-
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -91,6 +97,8 @@ namespace RPG_Noelf
             {
                 Armor = 2
             };
+
+            mainCamera = new MainCamera(player, Camera, Chunck01);
 
             uint banana = 1;
             uint jorro = 2;
@@ -153,8 +161,7 @@ namespace RPG_Noelf
             p1._Inventory.RemoveFromBag(banana, 1);
 
             #endregion
-
-            Debug.WriteLine(p1._Inventory.Slots.Count);
+            
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                 UpdateBag();
