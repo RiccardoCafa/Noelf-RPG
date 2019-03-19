@@ -178,14 +178,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 if (block is Canvas)
                 {
-                    foreach(UIElement b in ((Canvas)block).Children)
-                    {
-                        if(b is Canvas)
-                        {
-                            collisionBlocks.Add((Canvas)b);
-                            break;
-                        }
-                    }
+                //    foreach(UIElement b in ((Canvas)block).Children)
+                //    {
+                //        if(b is Canvas)
+                //        {
+                            collisionBlocks.Add((Canvas)block);
+                //            break;
+                //        }
+                //    }
                 }
             }
         }
