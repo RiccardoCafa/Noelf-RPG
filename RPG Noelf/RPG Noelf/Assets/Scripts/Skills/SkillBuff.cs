@@ -31,10 +31,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     }
     enum Element
     {
-        fire,
-        ice,
-        common,
-        poison
+        Fire,
+        Ice,
+        Common,
+        Poison
     }
 
     class SkillBuff : SkillGenerics
