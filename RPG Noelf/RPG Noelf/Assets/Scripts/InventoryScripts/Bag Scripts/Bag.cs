@@ -293,5 +293,22 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 RemoveNonStackableItem(slot, 1);
             }
         }
+
+
+
+        public void IncreaseSizeOfBag(int size)
+        {
+
+            if (size > 0)
+            {
+                this.FreeSlots = FreeSlots + size;
+            }
+
+
+
+        }
+
+
+
     }
 }

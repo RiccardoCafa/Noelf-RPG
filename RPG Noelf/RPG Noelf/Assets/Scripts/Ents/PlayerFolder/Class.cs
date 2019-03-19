@@ -59,9 +59,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 1.01,
                 cooldown = 20,
-                buff = 1.24,
+                Buff = 1.24,
                 tipo = SkillType.habilite,
-                buffer = BuffDebuffTypes.res,
+                Buffer = BuffDebuffTypes.Res,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "Esfolar")
@@ -83,8 +83,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 5,
-                timer = 2.9,
-                buffer = BuffDebuffTypes.broken,
+                Timer = 2.9,
+                Buffer = BuffDebuffTypes.Broken,
                 tipo = SkillType.habilite,
                 tipoatributo = Element.Common
             });
@@ -95,10 +95,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 1.01,
                 cooldown = 35,
-                timer = 6,
-                buff = 1.39,
+                Timer = 6,
+                Buff = 1.39,
                 tipo = SkillType.ultimate,
-                buffer = BuffDebuffTypes.dmg,
+                Buffer = BuffDebuffTypes.Dmg,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "triunfar")
@@ -120,8 +120,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.02,
                 cooldown = 12,
-                buffer = BuffDebuffTypes.dmg,
-                buff = 1.15,
+                Buffer = BuffDebuffTypes.Dmg,
+                Buff = 1.15,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
@@ -134,8 +134,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 1.02,
                 cooldown = 20,
                 tipo = SkillType.habilite,
-                buff = 1.08,
-                buffer = BuffDebuffTypes.broken,
+                Buff = 1.08,
+                Buffer = BuffDebuffTypes.Broken,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "bloqueio perfeito")
@@ -146,7 +146,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.4,
                 cooldown = 15,
                 tipo = SkillType.habilite,
-                buffer = BuffDebuffTypes.silence, 
+                Buffer = BuffDebuffTypes.Silence, 
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "Armadura Santa")
@@ -156,10 +156,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 1.01,
                 cooldown = 35,
-                timer = 3,
-                buff = 1.89,
+                Timer = 3,
+                Buff = 1.89,
                 tipo = SkillType.ultimate,
-                buffer = BuffDebuffTypes.res,
+                Buffer = BuffDebuffTypes.Res,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "doble hit")
@@ -170,7 +170,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.4,
                 cooldown = 15,
                 tipo = SkillType.passive,
-                buffer = BuffDebuffTypes.doble,
+                Buffer = BuffDebuffTypes.Double,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "a marca do duel")//***//
@@ -202,9 +202,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 1.02,
                 cooldown = 15,
-                buff = 1.18,
+                Buff = 1.18,
                 tipo = SkillType.habilite,
-                buffer = BuffDebuffTypes.lancar,
+                Buffer = BuffDebuffTypes.Throw,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -215,7 +215,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                timer = 6,
+                Timer = 6,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
@@ -240,10 +240,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 0.02,
-                buff = 1.23,
-                buffer = BuffDebuffTypes.dex,
+                Buff = 1.23,
+                Buffer = BuffDebuffTypes.Dex,
                 cooldown = 30,
-                timer = 15,
+                Timer = 15,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
@@ -254,10 +254,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 0.01,
-                buff = 1.09,
-                buffer = BuffDebuffTypes.dmg,
+                Buff = 1.09,
+                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 7,
-                timer = 6,
+                Timer = 6,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
                 tipoatributo = Element.Fire
@@ -268,10 +268,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 1.02,
-                buff = 1.18,
-                buffer = BuffDebuffTypes.prison,
+                Buff = 1.18,
+                Buffer = BuffDebuffTypes.Prison,
                 cooldown = 7,
-                timer = 2,
+                Timer = 2,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
@@ -282,10 +282,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 0.05,
-                buff = 0,
-                buffer = BuffDebuffTypes.lancar,
+                Buff = 0,
+                Buffer = BuffDebuffTypes.Throw,
                 cooldown = 7,
-                timer = 0.25,
+                Timer = 0.25,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
@@ -296,10 +296,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 1.025,
-                buff = 1.075,
-                buffer = BuffDebuffTypes.slow,
+                Buff = 1.075,
+                Buffer = BuffDebuffTypes.Slow,
                 cooldown = 4,
-                timer = 1.5,
+                Timer = 1.5,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
                 tipoatributo = Element.Ice
@@ -322,10 +322,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 1.01,
-                buff = 1.14,
-                buffer = BuffDebuffTypes.critico,
+                Buff = 1.14,
+                Buffer = BuffDebuffTypes.Critical,
                 cooldown = 60,
-                timer = 30,
+                Timer = 30,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
                 tipoatributo = Element.Common
@@ -348,9 +348,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 0.28,
-                buffer = BuffDebuffTypes.dash,
+                Buffer = BuffDebuffTypes.Dash,
                 cooldown = 10,
-                timer = 0,
+                Timer = 0,
                 tipo = SkillType.habilite,
                 tipoatributo = Element.Common
             });
@@ -359,10 +359,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 1.01,
-                buff = 1.09,
-                buffer = BuffDebuffTypes.hidden,
+                Buff = 1.09,
+                Buffer = BuffDebuffTypes.Hidden,
                 cooldown = 10,
-                timer = 3,
+                Timer = 3,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.agl,
                 tipoatributo = Element.Common
@@ -373,10 +373,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 1.04,
-                buff = 1.085,
-                buffer = BuffDebuffTypes.broken,
+                Buff = 1.085,
+                Buffer = BuffDebuffTypes.Broken,
                 cooldown = 10,
-                timer = 5,
+                Timer = 5,
                 tipo = SkillType.habilite,
                 tipoatributo = Element.Common
             });
