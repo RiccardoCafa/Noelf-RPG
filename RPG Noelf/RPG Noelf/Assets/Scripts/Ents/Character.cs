@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Shapes;
 using System.Diagnostics;
+using RPG_Noelf.Assets.Scripts.Interface;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -143,6 +144,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     {
                         MoveCharac(Hspeed, EDirection.left);
                     }
+                    if(CameraMovingUp)
+                    {
+                        MoveCharac(MainCamera.CameraSpeed, EDirection.top);
+                    } else if(CameraMovingDown)
+                    {
+                        MoveCharac(-MainCamera.CameraSpeed, EDirection.top);
+                    }
                 });
             }
         }
@@ -220,7 +228,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
 
                 double actualBlockX = GetCanvasLeft(bloco) + CameraXOffSet;
-                double actualBlockY = GetCanvasTop(bloco) + CameraYOffSet;
+                double actualBlockY = GetCanvasTop(bloco) + CameraYOffSet*-1;
 
                 // Get the nearest block on the bottom
                 if (xPlayer + characT.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width

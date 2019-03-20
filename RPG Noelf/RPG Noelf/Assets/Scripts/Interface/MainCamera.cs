@@ -14,13 +14,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         CharacterPlayer PlayerToFollow;
         Canvas Camera;
         Canvas Chunck;
-        Canvas MobChunck;
         Canvas Tela;
         Thread UpdateThread;
 
         double xCamera;
         double yCamera;
-        double CameraSpeed;
+        public static double CameraSpeed = 0.2;
 
         public MainCamera(CharacterPlayer playerToFollow, Canvas Camera, Canvas Chunck)
         {
@@ -28,7 +27,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             this.Camera = Camera;
             this.Chunck = Chunck;
             this.Tela = MainPage.Telona;
-            CameraSpeed = 0.2;
             UpdateThread = new Thread(Update);
 
             UpdateThread.Start();
@@ -44,12 +42,17 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     {
                         if (PlayerToFollow.xCharacVal >= xCamera + Camera.Width)
                         {
-                            if ((Chunck.Width - Tela.Width) >= 0/*(double)Chunck.GetValue(Canvas.LeftProperty) * -1*/)
+                            if ((Chunck.Width - Tela.Width) >= (double)Chunck.GetValue(Canvas.LeftProperty) * -1)
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) - CameraSpeed);
                                 Character.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
                                 Character.CameraMovingLeft = true;
+                            }
+                            else
+                            {
+                                Character.CameraMovingLeft = false;
+                                Character.CameraMovingRight = false;
                             }
                         }
                         else if (PlayerToFollow.xCharacVal <= xCamera)
@@ -61,6 +64,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                                 Character.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
                                 Character.CameraMovingRight = true;
                             }
+                            else
+                            {
+                                Character.CameraMovingLeft = false;
+                                Character.CameraMovingRight = false;
+                            }
                         }
                     } else
                     {
@@ -68,9 +76,33 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                         Character.CameraMovingRight = false;
                     }
 
-                    if (PlayerInsideHeightCamera())
+                    if (!PlayerInsideHeightCamera())
                     {
-
+                        /*if (PlayerToFollow.yCharacVal + PlayerToFollow.characT.Height >= yCamera)
+                        {
+                            if ((Chunck.Height - Tela.Height) >= 0TODO (double)Chunck.GetValue(Canvas.LeftProperty) * -1)
+                            {
+                                Chunck.SetValue(Canvas.TopProperty,
+                                                (double)Chunck.GetValue(Canvas.TopProperty) - CameraSpeed);
+                                Character.CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
+                                Character.CameraMovingUp = true;
+                            }
+                        }
+                        else if (PlayerToFollow.yCharacVal <= yCamera + Camera.Height)
+                        {
+                            if ((double)Chunck.GetValue(Canvas.TopProperty) <= 0)
+                            {
+                                Chunck.SetValue(Canvas.TopProperty,
+                                                (double)Chunck.GetValue(Canvas.TopProperty) + CameraSpeed);
+                                Character.CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
+                                Character.CameraMovingDown = true;
+                            }
+                        }
+                    } else
+                    {
+                        Character.CameraMovingUp = false;
+                        Character.CameraMovingDown = false;
+                    */
                     }
                 });
             }
