@@ -47,6 +47,7 @@ namespace RPG_Noelf
         Player p1, p2;
         public static MainPage instance;
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
+        public string MobText;
 
         public static TextBlock texticulus;
         public static int i;
@@ -92,8 +93,6 @@ namespace RPG_Noelf
                     images[leg_e0.Name] = leg_e0;
                     images[leg_e1.Name] = leg_e1;
                 }
-                //Image[,] arms = { { images["arm_d0"], images["arm_d1"] }, { images["arm_e0"], images["arm_e1"] } };
-                //Image[,] legs = { { images["leg_d0"], images["leg_d1"] }, { images["leg_e0"], images["leg_e1"] } };
                 mob = new CharacterMob(MobCanvas, players, Spawn.CreateMob());
                 mob.UpdateBlocks(Chunck01);
                 mob.ResetPosition(920, 40);

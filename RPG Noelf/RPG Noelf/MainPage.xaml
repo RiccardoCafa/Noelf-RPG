@@ -303,16 +303,16 @@
         <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="80" Width="120" Height="120">
             <Image Name="arm_d0" Canvas.Left="4" Canvas.Top="18" Width="60" Height="65"/>
             <Image Name="arm_d1" Canvas.Left="-21" Canvas.Top="49" Width="70" Height="80"/>
-            <Image Name="leg_d0" Canvas.Left="20" Canvas.Top="45" Width="65" Height="70"/>
             <Image Name="leg_d1" Canvas.Left="32" Canvas.Top="76" Width="75" Height="55"/>
+            <Image Name="leg_d0" Canvas.Left="20" Canvas.Top="45" Width="65" Height="70"/>
             <Image Name="body" Canvas.Left="8" Canvas.Top="-10" Width="160" Height="135"/>
             <Image Name="face" Canvas.Left="-16" Canvas.Top="-34" Width="100" Height="100"/>
-            <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
             <Image Name="leg_e1" Canvas.Left="64" Canvas.Top="75" Width="75" Height="55"/>
+            <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
             <Image Name="arm_e0" Canvas.Left="33" Canvas.Top="18" Width="60" Height="70"/>
             <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
-            <Border BorderThickness="2" BorderBrush="Gray" Background="LightGray" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80">
-                <TextBlock Name="MobStatus" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80"/>
+            <Border BorderThickness="1" BorderBrush="Gray" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80">
+                <TextBlock Name="MobStatus" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
             </Border>
         </Canvas>
 
