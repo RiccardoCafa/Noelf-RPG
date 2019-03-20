@@ -35,6 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     mob = new CatFace();
                     break;
             }
+            Update(mob);
         }
     }
 

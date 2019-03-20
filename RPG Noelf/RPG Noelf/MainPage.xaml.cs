@@ -93,7 +93,9 @@ namespace RPG_Noelf
                     images[leg_e0.Name] = leg_e0;
                     images[leg_e1.Name] = leg_e1;
                 }
+                MobText = MobStatus.Text;
                 mob = new CharacterMob(MobCanvas, players, Spawn.CreateMob());
+                MobStatus.Text = mob.Mob.Status();
                 mob.UpdateBlocks(Chunck01);
                 mob.ResetPosition(920, 40);
             });

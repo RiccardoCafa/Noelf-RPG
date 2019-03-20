@@ -35,6 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     mob = new CatArms(mob);
                     break;
             }
+            Update(mob);
         }
     }
 
@@ -42,8 +43,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public DragonLegs(Mob mob) : base(mob)
         {
-            mob.Str += 1;
-            mob.Vulnerable.Add(Element.Ice);
+            Str = mob.Str + 1;
+            Vulnerable.Add(Element.Ice);
+            Vulnerable.Union(mob.Vulnerable);
             MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/0.png"));
             MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/0.png"));
             MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/0.png"));
@@ -55,7 +57,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public KongLegs(Mob mob) : base(mob)
         {
-            mob.Spd += 10;
+            Spd = mob.Spd + 10;
             MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/1.png"));
             MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/1.png"));
             MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/1.png"));
@@ -67,8 +69,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public LizardLegs(Mob mob) : base(mob)
         {
-            mob.Mnd += 1;
-            mob.Spd = 1;
+            Mnd = mob.Mnd + 1;
+            Spd = 0;
             MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/2.png"));
             MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/2.png"));
             MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/2.png"));
@@ -80,8 +82,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public BisonLegs(Mob mob) : base(mob)
         {
-            mob.Con += 1;
-            mob.Meek = true;
+            Con = mob.Con + 1;
+            Meek = true;
             MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/3.png"));
             MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/3.png"));
             MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/3.png"));
@@ -93,8 +95,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public CatLegs(Mob mob) : base(mob)
         {
-            mob.Dex += 1;
-            mob.Vulnerable.Add(Element.Common);
+            Dex = mob.Dex + 1;
+            Vulnerable.Add(Element.Common);
+            Vulnerable.Union(mob.Vulnerable);
             MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/4.png"));
             MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/4.png"));
             MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/4.png"));

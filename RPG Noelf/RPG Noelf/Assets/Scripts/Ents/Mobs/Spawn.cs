@@ -19,19 +19,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 switch (i)
                 {
                     case 1:
-                        mob = new Body(mob, code);
+                        mob = new Body(mob, 0);
                         break;
                     case 2:
-                        mob = new Arms(mob, code);
+                        mob = new Arms(mob, 1);
                         break;
                     case 3:
-                        mob = new Legs(mob, code);
+                        mob = new Legs(mob, 2);
                         break;
                     case 4:
-                        mob = new Skin(mob, code);
+                        mob = new Skin(mob, 3);
                         break;
                 }
             }
+            mob.Status();
             return mob;
         }
     }
