@@ -84,7 +84,7 @@ namespace RPG_Noelf
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas);
-                player.UpdateBlocks(Chunck01);
+                player.UpdateBlocks(PlatChunck);
                 player.ResetPosition(320, 40);
                 players.Add(player);
                 {
@@ -100,7 +100,7 @@ namespace RPG_Noelf
                     images[leg_e1.Name] = leg_e1;
                 }
                 mob = new CharacterMob(MobCanvas, players, Spawn.CreateMob());
-                mob.UpdateBlocks(Chunck01);
+                mob.UpdateBlocks(PlatChunck);
                 mob.ResetPosition(920, 40);
             });
 

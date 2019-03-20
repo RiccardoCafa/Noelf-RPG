@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         double xCamera;
         double yCamera;
-        public static double CameraSpeed = 0.2;
+        public static double CameraSpeed;
 
         public MainCamera(CharacterPlayer playerToFollow, Canvas Camera, Canvas Chunck)
         {
@@ -27,6 +27,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             this.Camera = Camera;
             this.Chunck = Chunck;
             this.Tela = MainPage.Telona;
+            CameraSpeed = playerToFollow.MaxHSpeed;
             UpdateThread = new Thread(Update);
 
             UpdateThread.Start();
@@ -40,41 +41,29 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                              
                     if (PlayerToFollow.IsWalking && !PlayerInsideWidthCamera())
                     {
-                        if (PlayerToFollow.xCharacVal >= xCamera + Camera.Width)
+                        if (PlayerToFollow.xCharacVal >= xCamera + Camera.Width && PlayerToFollow.moveRight)
                         {
                             if ((Chunck.Width - Tela.Width) >= (double)Chunck.GetValue(Canvas.LeftProperty) * -1)
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) - CameraSpeed);
-                                Character.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
-                                Character.CameraMovingLeft = true;
+                                PlayerToFollow.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
+                                PlayerToFollow.CameraMovingLeft = true;
                             }
-                            else
-                            {
-                                Character.CameraMovingLeft = false;
-                                Character.CameraMovingRight = false;
-                            }
+                            else Stop();
                         }
-                        else if (PlayerToFollow.xCharacVal <= xCamera)
+                        else if (PlayerToFollow.xCharacVal <= xCamera && PlayerToFollow.moveLeft)
                         {
                             if ((double)Chunck.GetValue(Canvas.LeftProperty) <= 0)
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) + CameraSpeed);
-                                Character.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
-                                Character.CameraMovingRight = true;
+                                PlayerToFollow.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
+                                PlayerToFollow.CameraMovingRight = true;
                             }
-                            else
-                            {
-                                Character.CameraMovingLeft = false;
-                                Character.CameraMovingRight = false;
-                            }
+                            else Stop();
                         }
-                    } else
-                    {
-                        Character.CameraMovingLeft = false;
-                        Character.CameraMovingRight = false;
-                    }
+                    } else Stop();
 
                     if (!PlayerInsideHeightCamera())
                     {
@@ -106,6 +95,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     }
                 });
             }
+        }
+
+        private void Stop()
+        {
+            PlayerToFollow.CameraMovingLeft = false;
+            PlayerToFollow.CameraMovingRight = false;
         }
 
         public bool PlayerInsideHeightCamera()

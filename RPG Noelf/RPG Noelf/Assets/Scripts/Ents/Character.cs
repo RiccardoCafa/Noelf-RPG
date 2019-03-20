@@ -26,26 +26,27 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         protected Canvas blocoLeftx, blocoRightx, blocoBottomx;
 
-        public static double CameraXOffSet, CameraYOffSet;
+        public double CameraXOffSet, CameraYOffSet;
         public double xCharacVal = 0, yCharacVal = 0;
         protected double diferenca = 0;
 
-        protected const double GravityMultiplier = 0.8;
+        protected const double GravityMultiplier = 1.1;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
 
-        public static bool CameraMovingLeft = false;
-        public static bool CameraMovingRight = false;
-        public static bool CameraMovingUp = false;
-        public static bool CameraMovingDown = false;
+        public double MaxHSpeed { get; set; }
+        public double MaxVSpeed { get; set; }
+
         public bool IsWalking { get; set; } = false;
+        public bool moveRight { get; set; }
+        public bool moveLeft { get; set; }
+        public bool jumping { get; set; }
 
         protected bool alive = true;
         protected bool loaded = false;
         protected bool isFalling = false;
         protected bool freeRight = true, freeLeft = true;
-        protected bool moveRight, moveLeft, jumping;
         protected bool prepRight, prepLeft;
 
         protected List<Canvas> collisionBlocks = new List<Canvas>();
@@ -64,8 +65,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             characT = T;
 
             // Setting horizontal and vertical speed
-            Hspeed = 0.2;
-            Vspeed = 80;
+            MaxHSpeed = 0.4;
+            MaxVSpeed = 80;
+            Hspeed = MaxHSpeed;
+            Vspeed = MaxVSpeed;
 
             // Getting first instance of x and y
             xCharacVal = GetCanvasLeft(characT);
@@ -120,37 +123,26 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         MoveCharac(-Hspeed, EDirection.left);
                         IsWalking = true;
                         //rotation.Angle -= 0.5;
+                    } else if (moveLeft && !freeLeft)
+                    {
+                        IsWalking = false;
                     }
                     if (freeRight && moveRight)
                     {
                         MoveCharac(Hspeed, EDirection.left);
                         IsWalking = true;
                         //rotation.Angle += 0.5;
-                    }
-                    if(!moveRight && !moveLeft && !freeLeft && !freeRight)
+                    } else if(moveRight && !freeRight)
                     {
                         IsWalking = false;
                     }
+                    
                     if (jumping && !isFalling)
                     {
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
                     }
-                    if(CameraMovingLeft)
-                    {
-                        MoveCharac(-Hspeed, EDirection.left);
-                    }
-                    else if(CameraMovingRight)
-                    {
-                        MoveCharac(Hspeed, EDirection.left);
-                    }
-                    if(CameraMovingUp)
-                    {
-                        MoveCharac(MainCamera.CameraSpeed, EDirection.top);
-                    } else if(CameraMovingDown)
-                    {
-                        MoveCharac(-MainCamera.CameraSpeed, EDirection.top);
-                    }
+
                 });
             }
         }

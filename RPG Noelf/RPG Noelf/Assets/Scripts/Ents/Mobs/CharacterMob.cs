@@ -39,8 +39,8 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
             this.players = players;
             UpdateThread = new Thread(Update);
 
-            FirstX = xCharacVal;
-            FirstY = yCharacVal;
+            FirstX = xCharacVal + CameraXOffSet;
+            FirstY = yCharacVal + CameraYOffSet;
 
             UpdateThread.Start();
         }
