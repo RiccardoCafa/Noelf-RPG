@@ -21,20 +21,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public Image[,] Legs { get; set; } = new Image[2, 2];
 
         public int code;
-
-        //abstract public void Make(Image face, Image body, Image[,] arms, Image[,] legs);
     }
 
     enum Animal
     {
         dragon, kong, lizard, bison, cat
     }
-    /*
-    class MobCore : Mob
-    {
-        public MobCore() { }
-
-        override public void Make() { }
-
-    }*/
 }

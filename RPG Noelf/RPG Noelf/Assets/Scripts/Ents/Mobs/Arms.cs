@@ -35,8 +35,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     break;
             }
         }
-
-        //public new void Make(Image face, Image body, Image[,] arms, Image[,] legs) { base.Make(face, body, arms, legs); }
     }
 
     class DragonArms : MobDecorator
@@ -44,10 +42,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public DragonArms(Mob mob) : base(mob)
         {
             mob.Str += 1;
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/__0_xd0.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/__0_xd1.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/__0_xe0.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/__0_xe1.png"));
+            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/0.png"));
+            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/0.png"));
+            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/0.png"));
+            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/0.png"));
         }
     }
 
@@ -57,10 +55,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             mob.Spd += 1;
             mob.Attacks.Add(Poopoo);
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/__1_xd0.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/__1_xd1.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/__1_xe0.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/__1_xe1.png"));
+            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/1.png"));
+            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/1.png"));
+            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/1.png"));
+            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/1.png"));
         }
 
         public void Poopoo()
@@ -74,10 +72,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public LizardArms(Mob mob) : base(mob)
         {
             mob.Mnd += 1;
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/__2_xd0.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/__2_xd1.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/__2_xe0.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/__2_xe1.png"));
+            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/2.png"));
+            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/2.png"));
+            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/2.png"));
+            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/2.png"));
         }
     }
 
@@ -86,10 +84,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public BisonArms(Mob mob) : base(mob)
         {
             mob.Con += 1;
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/__3_xd0.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/__3_xd1.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/__3_xe0.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/__3_xe1.png"));
+            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/3.png"));
+            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/3.png"));
+            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/3.png"));
+            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/3.png"));
         }
     }
 
@@ -99,10 +97,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             mob.Dex += 1;
             mob.Attacks.Add(Camouflage);
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/__4_xd0.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/__4_xd1.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/__4_xe0.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/__4_xe1.png"));
+            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/4.png"));
+            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/4.png"));
+            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/4.png"));
+            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/4.png"));
         }
 
         public void Camouflage()

@@ -34,7 +34,5 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     break;
             }
         }
-
-        //public new void Make(Image face, Image body, Image[,] arms, Image[,] legs) { base.Make(face, body, arms, legs); }
     }
 }

@@ -36,8 +36,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     break;
             }
         }
-
-        //public new void Make(Image face, Image body, Image[,] arms, Image[,] legs) { base.Make(face, body, arms, legs); }
     }
 
     class DragonLegs : MobDecorator
@@ -46,10 +44,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             mob.Str += 1;
             mob.Vulnerable.Add(Element.Ice);
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/___0xd0.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/___0xd1.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/___0xe0.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/___0xe1.png"));
+            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/0.png"));
+            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/0.png"));
+            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/0.png"));
+            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/0.png"));
         }
     }
 
@@ -58,10 +56,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public KongLegs(Mob mob) : base(mob)
         {
             mob.Spd += 10;
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/___1xd0.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/___1xd1.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/___1xe0.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/___1xe1.png"));
+            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/1.png"));
+            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/1.png"));
+            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/1.png"));
+            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/1.png"));
         }
     }
 
@@ -71,10 +69,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             mob.Mnd += 1;
             mob.Spd = 1;
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/___2xd0.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/___2xd1.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/___2xe0.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/___2xe1.png"));
+            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/2.png"));
+            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/2.png"));
+            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/2.png"));
+            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/2.png"));
         }
     }
 
@@ -84,10 +82,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             mob.Con += 1;
             mob.Meek = true;
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/___3xd0.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/___3xd1.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/___3xe0.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/___3xe1.png"));
+            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/3.png"));
+            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/3.png"));
+            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/3.png"));
+            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/3.png"));
         }
     }
 
@@ -97,10 +95,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             mob.Dex += 1;
             mob.Vulnerable.Add(Element.Common);
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/___4xd0.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/___4xd1.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/___4xe0.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/___4xe1.png"));
+            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/4.png"));
+            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/4.png"));
+            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/4.png"));
+            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/4.png"));
         }
     }
 }

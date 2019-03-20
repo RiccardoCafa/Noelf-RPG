@@ -17,10 +17,5 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             Mob = mob;
         }
-
-        //override public void Make(Image face, Image body, Image[,] arms, Image[,] legs)
-        //{
-        //    Mob.Make(face, body, arms, legs);
-        //}
     }
 }
