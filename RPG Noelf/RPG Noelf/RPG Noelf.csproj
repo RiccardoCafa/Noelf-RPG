@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\IAtributes.cs" />
+    <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\CharacterMob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Arms.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Body.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Assets\Scripts\Ents\Mobs\Legs.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\MobDecorator.cs" />
+    <Compile Include="Assets\Scripts\Ents\Mobs\Skin.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Spawn.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Atributes.cs" />
     <Compile Include="Assets\Scripts\Ents\Character.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
+    <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
@@ -155,7 +158,7 @@
     <Compile Include="Assets\Scripts\Skills\SkillGenerics.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
-    <Compile Include="Assets\Scripts\Runes\RunaNode.cs" />
+    <Compile Include="Assets\Scripts\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
