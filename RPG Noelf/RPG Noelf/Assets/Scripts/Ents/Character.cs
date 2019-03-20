@@ -25,8 +25,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         protected Canvas blocoLeftx, blocoRightx, blocoBottomx;
 
+        public static double CameraXOffSet, CameraYOffSet;
         public double xCharacVal = 0, yCharacVal = 0;
-        public double CameraXOffSet, CameraYOffSet;
         protected double diferenca = 0;
 
         protected const double GravityMultiplier = 0.8;
@@ -34,7 +34,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
 
-        public bool isWalking { get; set; } = false;
+        public static bool CameraMovingLeft = false;
+        public static bool CameraMovingRight = false;
+        public static bool CameraMovingUp = false;
+        public static bool CameraMovingDown = false;
+        public bool IsWalking { get; set; } = false;
 
         protected bool alive = true;
         protected bool loaded = false;
@@ -113,23 +117,31 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, EDirection.left);
-                        isWalking = true;
+                        IsWalking = true;
                         //rotation.Angle -= 0.5;
                     }
                     if (freeRight && moveRight)
                     {
                         MoveCharac(Hspeed, EDirection.left);
-                        isWalking = true;
+                        IsWalking = true;
                         //rotation.Angle += 0.5;
                     }
                     if(!moveRight && !moveLeft && !freeLeft && !freeRight)
                     {
-                        isWalking = false;
+                        IsWalking = false;
                     }
                     if (jumping && !isFalling)
                     {
                         MoveCharac(-Vspeed, EDirection.top);
                         jumping = false;
+                    }
+                    if(CameraMovingLeft)
+                    {
+                        MoveCharac(-Hspeed, EDirection.left);
+                    }
+                    else if(CameraMovingRight)
+                    {
+                        MoveCharac(Hspeed, EDirection.left);
                     }
                 });
             }

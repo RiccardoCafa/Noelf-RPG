@@ -223,7 +223,7 @@
             <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
         </StackPanel>
 
-        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="410">
+        <Grid Name="Atributes" HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="410">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="70"/>
@@ -336,8 +336,9 @@
             <Border BorderThickness="1" BorderBrush="Gray" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80">
                 <TextBlock Name="MobStatus" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
             </Border>
-    </Canvas>
-    <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
+        </Canvas>
+
+        <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
             <Grid Width="200" Height="250">
                 <Grid.ColumnDefinitions>

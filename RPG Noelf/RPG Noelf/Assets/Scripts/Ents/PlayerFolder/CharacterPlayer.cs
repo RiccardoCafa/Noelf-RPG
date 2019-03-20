@@ -38,7 +38,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 }
                 else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
                 {
-                    //MoveCharac(-vspeed, EDirection.top);
                     jumping = true;
                     Jump();
                 }
@@ -62,13 +61,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
             {
                 moveLeft = false;
-                isWalking = false;
+                IsWalking = false;
                 if (isFalling) prepLeft = false;
             }
             else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
             {
                 moveRight = false;
-                isWalking = false;
+                IsWalking = false;
                 if (isFalling) prepRight = false;
             }
             else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)

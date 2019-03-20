@@ -14,6 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         CharacterPlayer PlayerToFollow;
         Canvas Camera;
         Canvas Chunck;
+        Canvas MobChunck;
         Canvas Tela;
         Thread UpdateThread;
 
@@ -39,27 +40,32 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                              
-                    if (PlayerToFollow.isWalking && !PlayerInsideWidthCamera())
+                    if (PlayerToFollow.IsWalking && !PlayerInsideWidthCamera())
                     {
-                        if(PlayerToFollow.xCharacVal >= xCamera + Camera.Width)
+                        if (PlayerToFollow.xCharacVal >= xCamera + Camera.Width)
                         {
                             if ((Chunck.Width - Tela.Width) >= 0/*(double)Chunck.GetValue(Canvas.LeftProperty) * -1*/)
                             {
-                                Chunck.SetValue(Canvas.LeftProperty, 
+                                Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) - CameraSpeed);
-                                PlayerToFollow.CameraXOffSet = (double) Chunck.GetValue(Canvas.LeftProperty);
-                                PlayerToFollow.MoveCharac(-PlayerToFollow.Hspeed, Character.EDirection.left);
+                                Character.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
+                                Character.CameraMovingLeft = true;
                             }
-                        } else if(PlayerToFollow.xCharacVal <= xCamera)
+                        }
+                        else if (PlayerToFollow.xCharacVal <= xCamera)
                         {
                             if ((double)Chunck.GetValue(Canvas.LeftProperty) <= 0)
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) + CameraSpeed);
-                                PlayerToFollow.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
-                                PlayerToFollow.MoveCharac(PlayerToFollow.Hspeed, Character.EDirection.left);
+                                Character.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
+                                Character.CameraMovingRight = true;
                             }
                         }
+                    } else
+                    {
+                        Character.CameraMovingLeft = false;
+                        Character.CameraMovingRight = false;
                     }
 
                     if (PlayerInsideHeightCamera())
