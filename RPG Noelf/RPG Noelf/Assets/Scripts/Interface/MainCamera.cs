@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using static RPG_Noelf.Assets.Scripts.PlayerFolder.Character;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
@@ -49,16 +48,16 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                                 Chunck.SetValue(Canvas.LeftProperty, 
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) - CameraSpeed);
                                 PlayerToFollow.CameraXOffSet = (double) Chunck.GetValue(Canvas.LeftProperty);
-                                PlayerToFollow.MoveCharac(-PlayerToFollow.Hspeed, EDirection.left);
+                                PlayerToFollow.MoveCharac(-PlayerToFollow.Hspeed, Character.EDirection.left);
                             }
                         } else if(PlayerToFollow.xCharacVal <= xCamera)
                         {
-                            if ((double)Chunck.GetValue(Canvas.LeftProperty) >= 0)
+                            if ((double)Chunck.GetValue(Canvas.LeftProperty) <= 0)
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) + CameraSpeed);
                                 PlayerToFollow.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
-                                PlayerToFollow.MoveCharac(PlayerToFollow.Hspeed, EDirection.left);
+                                PlayerToFollow.MoveCharac(PlayerToFollow.Hspeed, Character.EDirection.left);
                             }
                         }
                     }

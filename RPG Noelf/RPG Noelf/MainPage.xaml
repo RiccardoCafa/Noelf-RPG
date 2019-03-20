@@ -209,11 +209,13 @@
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
             </Canvas>
-
-            <TextBlock Name="Texticulu" Canvas.Left="7" Canvas.Top="15" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0"/>
-            <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Canvas>
 
+        <Canvas Name="MobChunck" HorizontalAlignment="Left" Height="768" Width="2500" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="80" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="Red"/>
+        </Canvas>
+        <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        
         <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="580" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
         <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="430" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
             <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
@@ -319,8 +321,6 @@
                 </RotateTransform>
             </Canvas.RenderTransform>
         </Canvas>
-
-        <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="80" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="Red"/>
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>

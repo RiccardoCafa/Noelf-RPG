@@ -397,7 +397,6 @@ namespace RPG_Noelf
             if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
                 s = (p1._SkillManager.SkillBar[indicadorzao]).UseSkill(p1, p2).ToString();
-                Texticulu.Text = p1._SkillManager.SkillBar[indicadorzao].name + " tirou " + s + " de dano";
             }
 
         }
