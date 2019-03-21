@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -39,8 +40,8 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
             this.players = players;
             UpdateThread = new Thread(Update);
 
-            FirstX = xCharacVal + CameraXOffSet;
-            FirstY = yCharacVal + CameraYOffSet;
+            FirstX = xCharacVal + MainCamera.instance.CameraXOffSet;
+            FirstY = yCharacVal + MainCamera.instance.CameraYOffSet;
 
             UpdateThread.Start();
         }

@@ -25,15 +25,16 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         protected DateTime time;
 
         protected Canvas blocoLeftx, blocoRightx, blocoBottomx;
-
-        public double CameraXOffSet, CameraYOffSet;
+        
         public double xCharacVal = 0, yCharacVal = 0;
         protected double diferenca = 0;
 
-        protected const double GravityMultiplier = 1.1;
+        protected const double Gravity = 1.1;
+        protected double GravityMultiplier = 1;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
+        public double CameraVerticalSpeed { get; set; }
 
         public double MaxHSpeed { get; set; }
         public double MaxVSpeed { get; set; }
@@ -41,12 +42,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public bool IsWalking { get; set; } = false;
         public bool moveRight { get; set; }
         public bool moveLeft { get; set; }
+        public bool moveDown { get; set; }
         public bool jumping { get; set; }
+        public bool isFalling { get; set; } = false;
+        public bool freeRight { get; set; } = true;
+        public bool freeLeft { get; set; } = true;
+        public bool freeDown { get; set; } = true;
 
         protected bool alive = true;
         protected bool loaded = false;
-        protected bool isFalling = false;
-        protected bool freeRight = true, freeLeft = true;
         protected bool prepRight, prepLeft;
 
         protected List<Canvas> collisionBlocks = new List<Canvas>();
@@ -92,14 +96,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             while (alive)
             {
                 //if (!loaded) continue;
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (DispatchedHandler)(() =>
                 {
                     CheckGround();
                     // Calcula a gravidade
                     if (isFalling)
                     {
                         TimeSpan secs = time - DateTime.Now;
-                        MoveCharac(GravityMultiplier * Math.Pow(secs.TotalSeconds, 2), EDirection.top);
+                        MoveCharac((double)(GravityMultiplier * Character.Gravity * Math.Pow(secs.TotalSeconds, 2)), EDirection.top);
                         blocoLeftx = blocoRightx = null;
                         //rotation.Angle += 2;
                     }
@@ -136,6 +140,12 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     {
                         IsWalking = false;
                     }
+                    if(freeDown && moveDown)
+                    {
+                        isFalling = false;
+                        GravityMultiplier = 0;
+                        MoveCharac(-MainCamera.CameraJump, EDirection.top);
+                    }
                     
                     if (jumping && !isFalling)
                     {
@@ -143,7 +153,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         jumping = false;
                     }
 
-                });
+                }));
             }
         }
 
@@ -219,8 +229,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             foreach (Canvas bloco in collisionBlocks)
             {
 
-                double actualBlockX = GetCanvasLeft(bloco) + CameraXOffSet;
-                double actualBlockY = GetCanvasTop(bloco) + CameraYOffSet*-1;
+                double actualBlockX = GetCanvasLeft(bloco) + MainCamera.instance.CameraXOffSet;
+                double actualBlockY = GetCanvasTop(bloco) + MainCamera.instance.CameraYOffSet;
 
                 // Get the nearest block on the bottom
                 if (xPlayer + characT.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
@@ -259,6 +269,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 {
                     isFalling = true;
                 }
+
+                freeDown = bottomBlock == null ? true : false;
 
                 if (blocoLeftx != null)
                 {

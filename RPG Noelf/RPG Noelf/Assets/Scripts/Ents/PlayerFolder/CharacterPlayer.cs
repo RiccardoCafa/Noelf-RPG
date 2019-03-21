@@ -15,12 +15,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     class CharacterPlayer : Character
     {
-
-        public bool CameraMovingLeft = false;
-        public bool CameraMovingRight = false;
-        public bool CameraMovingUp = false;
-        public bool CameraMovingDown = false;
-
+        private MainCamera ActualCam = MainCamera.instance;
         private Thread updatePlayer;
 
         public CharacterPlayer(Canvas T) : base(T)
@@ -38,26 +33,39 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public async void UpdatePlayer()
         {
+            if (ActualCam == null) ActualCam = MainCamera.instance;
             while(alive)
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    if (CameraMovingLeft)
+                    if (ActualCam != null) 
                     {
-                        Hspeed = 0;//MoveCharac(-MainCamera.CameraSpeed, EDirection.left);
-                    }
-                    else if (CameraMovingRight)
+                        if (ActualCam.CameraMovingLeft)
+                        {
+                            Hspeed = 0;//MoveCharac(-MainCamera.CameraSpeed, EDirection.left);
+                        }
+                        else if (ActualCam.CameraMovingRight)
+                        {
+                            Hspeed = 0;//MoveCharac(MainCamera.CameraSpeed, EDirection.left);
+                        }
+                        else Hspeed = MaxHSpeed;
+
+                        if (ActualCam.CameraMovingUp)
+                        {
+                            GravityMultiplier = -1;
+                            //MoveCharac(MainCamera.CameraJump, EDirection.top);
+                        }
+                        else if (ActualCam.CameraMovingDown)
+                        {
+                            GravityMultiplier = -1;
+                            //MoveCharac(-MainCamera.CameraJump , EDirection.top);
+                        } else
+                        {
+                            GravityMultiplier = 1;
+                        }
+                    } else
                     {
-                        Hspeed = 0;//MoveCharac(MainCamera.CameraSpeed, EDirection.left);
-                    }
-                    else Hspeed = MaxHSpeed;
-                    if (CameraMovingUp)
-                    {
-                        MoveCharac(MainCamera.CameraSpeed, EDirection.top);
-                    }
-                    else if (CameraMovingDown)
-                    {
-                        MoveCharac(-MainCamera.CameraSpeed, EDirection.top);
+                        ActualCam = MainCamera.instance;
                     }
                 });
             }

@@ -11,23 +11,34 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 {
     class MainCamera
     {
+        public static MainCamera instance;
         CharacterPlayer PlayerToFollow;
         Canvas Camera;
         Canvas Chunck;
         Canvas Tela;
         Thread UpdateThread;
 
+        public bool CameraMovingLeft { get; set; } = false;
+        public bool CameraMovingRight { get; set; } = false;
+        public bool CameraMovingUp { get; set; } = false;
+        public bool CameraMovingDown { get; set; } = false;
+
+        public double CameraXOffSet = 0, CameraYOffSet = 0;
+
         double xCamera;
         double yCamera;
         public static double CameraSpeed;
+        public static double CameraJump;
 
         public MainCamera(CharacterPlayer playerToFollow, Canvas Camera, Canvas Chunck)
         {
+            instance = this;
             this.PlayerToFollow = playerToFollow;
             this.Camera = Camera;
             this.Chunck = Chunck;
             this.Tela = MainPage.Telona;
             CameraSpeed = playerToFollow.MaxHSpeed;
+            CameraJump = 0.2;
             UpdateThread = new Thread(Update);
 
             UpdateThread.Start();
@@ -37,8 +48,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             while(true)
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                             
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => 
+                {
+                    CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
                     if (PlayerToFollow.IsWalking && !PlayerInsideWidthCamera())
                     {
                         if (PlayerToFollow.xCharacVal >= xCamera + Camera.Width && PlayerToFollow.moveRight)
@@ -47,10 +59,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) - CameraSpeed);
-                                PlayerToFollow.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
-                                PlayerToFollow.CameraMovingLeft = true;
+                                CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
+                                CameraMovingLeft = true;
                             }
-                            else Stop();
+                            else StopLeft();
                         }
                         else if (PlayerToFollow.xCharacVal <= xCamera && PlayerToFollow.moveLeft)
                         {
@@ -58,49 +70,59 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                             {
                                 Chunck.SetValue(Canvas.LeftProperty,
                                                 (double)Chunck.GetValue(Canvas.LeftProperty) + CameraSpeed);
-                                PlayerToFollow.CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
-                                PlayerToFollow.CameraMovingRight = true;
+                                CameraXOffSet = (double)Chunck.GetValue(Canvas.LeftProperty);
+                                CameraMovingRight = true;
                             }
-                            else Stop();
+                            else StopLeft();
                         }
-                    } else Stop();
-
-                    if (!PlayerInsideHeightCamera())
+                    } else StopLeft();
+                    
+                    if(!PlayerInsideHeightCamera())
                     {
-                        /*if (PlayerToFollow.yCharacVal + PlayerToFollow.characT.Height >= yCamera)
+                        /*if (PlayerToFollow.yCharacVal + PlayerToFollow.characT.Height >= yCamera + Camera.Height)
                         {
-                            if ((Chunck.Height - Tela.Height) >= 0TODO (double)Chunck.GetValue(Canvas.LeftProperty) * -1)
-                            {
+                            // Ele está em cima
+                            if (Chunck.Height - Tela.Height >= (double)Chunck.GetValue(Canvas.TopProperty) * -1)
+                            { 
                                 Chunck.SetValue(Canvas.TopProperty,
-                                                (double)Chunck.GetValue(Canvas.TopProperty) - CameraSpeed);
-                                Character.CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
-                                Character.CameraMovingUp = true;
+                                                (double)Chunck.GetValue(Canvas.TopProperty) - CameraJump);
+                                PlayerToFollow.CheckGround();
+                                CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
+                                CameraMovingDown = true;
                             }
+                            else StopTop();
                         }
-                        else if (PlayerToFollow.yCharacVal <= yCamera + Camera.Height)
+                        else if (PlayerToFollow.yCharacVal + PlayerToFollow.characT.Height <= yCamera && !PlayerToFollow.isFalling)
                         {
-                            if ((double)Chunck.GetValue(Canvas.TopProperty) <= 0)
+                            // Ele está em baixo
+                            if ((double)Chunck.GetValue(Canvas.TopProperty) < 0 && PlayerToFollow.freeDown)
                             {
+                                PlayerToFollow.moveDown = true;
                                 Chunck.SetValue(Canvas.TopProperty,
-                                                (double)Chunck.GetValue(Canvas.TopProperty) + CameraSpeed);
-                                Character.CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
-                                Character.CameraMovingDown = true;
+                                                (double)Chunck.GetValue(Canvas.TopProperty) + CameraJump);
+                                CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
+                                CameraMovingUp = true;
                             }
+                            else StopTop();
                         }
-                    } else
-                    {
-                        Character.CameraMovingUp = false;
-                        Character.CameraMovingDown = false;
-                    */
+                        else StopTop();*/
                     }
+
                 });
             }
         }
 
-        private void Stop()
+        private void StopLeft()
         {
-            PlayerToFollow.CameraMovingLeft = false;
-            PlayerToFollow.CameraMovingRight = false;
+            CameraMovingLeft = false;
+            CameraMovingRight = false;
+        }
+
+        private void StopTop()
+        {
+            CameraMovingUp = false;
+            CameraMovingDown = false;
+            PlayerToFollow.moveDown = false;
         }
 
         public bool PlayerInsideHeightCamera()

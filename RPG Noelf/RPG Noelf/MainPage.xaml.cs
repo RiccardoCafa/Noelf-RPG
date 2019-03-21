@@ -86,6 +86,7 @@ namespace RPG_Noelf
                 player = new CharacterPlayer(PlayerCanvas);
                 player.UpdateBlocks(PlatChunck);
                 player.ResetPosition(320, 40);
+                mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
                 {
                     images[face.Name] = face;
@@ -112,8 +113,6 @@ namespace RPG_Noelf
             {
                 Armor = 2
             };
-
-            mainCamera = new MainCamera(player, Camera, Chunck01);
 
             uint banana = 1;
             uint jorro = 2;
