@@ -28,6 +28,7 @@ using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -46,6 +47,7 @@ namespace RPG_Noelf
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+        public TextBlock mobStatus;
         public static MainPage instance;
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
@@ -63,9 +65,8 @@ namespace RPG_Noelf
         {
             instance = this;
             this.InitializeComponent();
-
+            mobStatus = MobStatus;
             Telona = Tela;
-
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Start = new Thread(start);
             Start.Start();

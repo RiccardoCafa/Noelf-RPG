@@ -86,7 +86,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 }
                 else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
                 {
-                    jumping = true;
                     Jump();
                 }
             }

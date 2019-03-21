@@ -103,9 +103,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     if (isFalling)
                     {
                         TimeSpan secs = time - DateTime.Now;
-                        MoveCharac((double)(GravityMultiplier * Character.Gravity * Math.Pow(secs.TotalSeconds, 2)), EDirection.top);
+                        MoveCharac((GravityMultiplier * Character.Gravity * Math.Pow(secs.TotalSeconds, 2)), Canvas.TopProperty);
                         blocoLeftx = blocoRightx = null;
-                        //rotation.Angle += 2;
                     }
                     else
                     {
@@ -124,32 +123,31 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
                     if (freeLeft && moveLeft)
                     {
-                        MoveCharac(-Hspeed, EDirection.left);
+                        MoveCharac(-Hspeed, Canvas.LeftProperty);
                         IsWalking = true;
-                        //rotation.Angle -= 0.5;
                     } else if (moveLeft && !freeLeft)
                     {
                         IsWalking = false;
                     }
                     if (freeRight && moveRight)
                     {
-                        MoveCharac(Hspeed, EDirection.left);
+                        MoveCharac(Hspeed, Canvas.LeftProperty);
                         IsWalking = true;
                         //rotation.Angle += 0.5;
                     } else if(moveRight && !freeRight)
                     {
                         IsWalking = false;
                     }
-                    if(freeDown && moveDown)
+                    /*if(freeDown && moveDown)
                     {
                         isFalling = false;
                         GravityMultiplier = 0;
                         MoveCharac(-MainCamera.CameraJump, EDirection.top);
-                    }
+                    }*/
                     
                     if (jumping && !isFalling)
                     {
-                        MoveCharac(-Vspeed, EDirection.top);
+                        MoveCharac(-Vspeed, Canvas.TopProperty);
                         jumping = false;
                     }
 
@@ -165,19 +163,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                               (double)characT.GetValue(Canvas.TopProperty) + vspeed);
         }
 
-        public void MoveCharac(double speed, EDirection dir)
+        public void MoveCharac(double speed, DependencyProperty dir)
         {
-            switch (dir)
-            {
-                case EDirection.left:
-                    characT.SetValue(Canvas.LeftProperty,
-                              (double)characT.GetValue(Canvas.LeftProperty) + speed);
-                    break;
-                case EDirection.top:
-                    characT.SetValue(Canvas.TopProperty,
-                              (double)characT.GetValue(Canvas.TopProperty) + speed);
-                    break;
-            }
+            characT.SetValue(dir,
+                            (double)characT.GetValue(dir) + speed);
         }
 
         public void ResetPosition(int X, int Y)
@@ -198,6 +187,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void Jump()
         {
+            jumping = true;
             time = DateTime.Now;
             isFalling = true;
         }
@@ -216,6 +206,18 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             loaded = true;
         }
 
+        private void IntersectWith(Canvas left, Canvas right)
+        {
+            if(right != null && xCharacVal + characT.Width >= GetCanvasLeft(right) && xCharacVal + characT.Width <= GetCanvasLeft(right) + right.Width)
+            {
+                Jump();
+            }
+            if(left != null && xCharacVal <= GetCanvasLeft(left) + left.Width && xCharacVal >= GetCanvasLeft(left))
+            {
+                Jump();
+            }
+        }
+
         public void CheckGround()
         {
             double xPlayer, yPlayer;
@@ -224,34 +226,44 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             blocoRightx = null;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
+            double XPlayerW = xPlayer + characT.Width;
+            double YPlayerH = yPlayer + characT.Height;
             xCharacVal = xPlayer;
             yCharacVal = yPlayer;
             foreach (Canvas bloco in collisionBlocks)
             {
-
-                double actualBlockX = GetCanvasLeft(bloco) + MainCamera.instance.CameraXOffSet;
-                double actualBlockY = GetCanvasTop(bloco) + MainCamera.instance.CameraYOffSet;
+                double actualBlockX;
+                double actualBlockY;
+                if (this is CharacterPlayer)
+                {
+                    actualBlockX = GetCanvasLeft(bloco) + MainCamera.instance.CameraXOffSet;
+                    actualBlockY = GetCanvasTop(bloco) + MainCamera.instance.CameraYOffSet;
+                } else
+                {
+                    actualBlockX = GetCanvasLeft(bloco);
+                    actualBlockY = GetCanvasTop(bloco);
+                }
 
                 // Get the nearest block on the bottom
-                if (xPlayer + characT.Width >= actualBlockX && xPlayer < actualBlockX + bloco.Width
-                    && actualBlockY - (yPlayer + characT.Height) <= 0 && actualBlockY - (yPlayer + characT.Height) > -2)
+                if (XPlayerW >= actualBlockX && xPlayer < actualBlockX + bloco.Width
+                    && actualBlockY - YPlayerH <= 0 && actualBlockY - YPlayerH > -2)
                 {
                     bottomBlock = bloco;
                 }
 
                 // Get the distant
-                double dif = actualBlockX - (xPlayer + characT.Width);
+                double dif = actualBlockX - (XPlayerW);
                 double dif02 = xPlayer - (actualBlockX + bloco.Width);
-                if (dif > 0 && dif < 10) diferenca = dif;
+                //if (dif > 0 && dif < 10) diferenca = dif;
                 // Pegar os blocos a direita e esquerda mais proximos do player
                 if (bloco != LastBlock)
                 {
-                    if (xPlayer > actualBlockX + bloco.Width && dif02 <= 2 && dif02 > 0)
+                    if (xPlayer > actualBlockX + bloco.Width && dif02 <= 10 && dif02 > 0)
                     {
                         blocoLeftx = bloco;
                     }
 
-                    if (xPlayer + characT.Width <= actualBlockX && dif <= 2 && dif > 0)
+                    if (XPlayerW <= actualBlockX && dif <= 10 && dif > 0)
                     {
                         blocoRightx = bloco;
                     }
@@ -270,12 +282,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     isFalling = true;
                 }
 
-                freeDown = bottomBlock == null ? true : false;
-
                 if (blocoLeftx != null)
                 {
                     //yvalue = actualBlockY - yPlayer;
-                    freeLeft = (yPlayer + characT.Height >= GetCanvasTop(blocoLeftx) &&
+                    freeLeft = (YPlayerH >= GetCanvasTop(blocoLeftx) &&
                                     yPlayer <= GetCanvasTop(blocoLeftx) + blocoLeftx.Height) ? false : true;
                 }
                 else
@@ -286,13 +296,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 if (blocoRightx != null)
                 {
                     //yvalue = actualBlockY - yPlayer;
-                    freeRight = (yPlayer + characT.Height >= GetCanvasTop(blocoRightx) &&
+                    freeRight = (YPlayerH >= GetCanvasTop(blocoRightx) &&
                                     yPlayer <= GetCanvasTop(blocoRightx) + blocoRightx.Height) ? false : true;
                 }
                 else
                 {
                     freeRight = true;
                 }
+
+                if(!(this is CharacterPlayer)) IntersectWith(blocoLeftx, blocoRightx);
             }
         }
 

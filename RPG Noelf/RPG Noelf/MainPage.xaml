@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
     <Canvas Name="Tela" Width="1366" Height="768"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas Name="Camera" Visibility="Visible"  Width="500" Height="240" HorizontalAlignment="Left" Canvas.Left="333" Canvas.Top="220"  VerticalAlignment="Center" Background="#19000000" Margin="0,0,0,0"></Canvas>
+        <Canvas Name="Camera" Visibility="Collapsed"  Width="500" Height="240" HorizontalAlignment="Left" Canvas.Left="333" Canvas.Top="220"  VerticalAlignment="Center" Background="#19000000" Margin="0,0,0,0"></Canvas>
         <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1200" Canvas.Top="400">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
             <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
@@ -155,7 +155,7 @@
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="1350" Width="2626" VerticalAlignment="Center" Margin="0,0,0,0">
             <Canvas Name="PlatChunck" Width="2626" Height="1350" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="390" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas Name="Plat1" Canvas.Left="240" Canvas.Top="390" Height="60" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="60" Canvas.Top="20"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="120" Canvas.Top="20"/>
@@ -164,6 +164,7 @@
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="120" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="180" Canvas.Top="-40"/>
+                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="240" Canvas.Top="-40"/>
                 </Canvas>
                 <Canvas Name="Plat2" Canvas.Left="540" Canvas.Top="350" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
@@ -233,7 +234,7 @@
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
                 </Canvas>
             </Canvas>
-            <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="110" Width="120" Height="120">
+            <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="160" Width="120" Height="120">
                 <Image Name="arm_d0" Canvas.Left="4" Canvas.Top="18" Width="60" Height="65"/>
                 <Image Name="arm_d1" Canvas.Left="-21" Canvas.Top="49" Width="70" Height="80"/>
                 <Image Name="leg_d1" Canvas.Left="32" Canvas.Top="76" Width="75" Height="55"/>
@@ -244,8 +245,8 @@
                 <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
                 <Image Name="arm_e0" Canvas.Left="33" Canvas.Top="18" Width="60" Height="70"/>
                 <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
-                <Border BorderThickness="1" BorderBrush="Gray" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80">
-                    <TextBlock Name="MobStatus" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
+                <Border Visibility="Collapsed" BorderThickness="1" BorderBrush="Gray" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80">
+                    <TextBlock  Name="MobStatus" Width="100" Height="120" Canvas.Left="100" TextWrapping="Wrap" Canvas.Top="-80" FontFamily="Consolas" FontSize="8"/>
                 </Border>
             </Canvas>
 
