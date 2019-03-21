@@ -14,7 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         Wizard
     }
 
-    class Class : IAtributes
+    class Class// : IAtributes
     {
         public int Str { get; set; }
         public int Spd { get; set; }

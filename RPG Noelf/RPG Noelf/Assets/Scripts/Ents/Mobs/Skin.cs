@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
-{
+{/*
     class Skin : MobDecorator
     {
         private Animal TpAnimal { get; set; }
@@ -35,5 +35,5 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             }
             Update(mob);
         }
-    }
+    }*/
 }

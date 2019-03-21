@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     class Spawn
-    {
+    {/*
         public static Mob CreateMob()
         {
             Random random = new Random();
@@ -34,6 +34,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             }
             mob.Status();
             return mob;
-        }
+        }*/
     }
 }

@@ -8,59 +8,45 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Arms : MobDecorator
+    class Arms : IParts
     {
-        private Animal TpAnimal { get; set; }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public Arms(Mob mob, int code) : base(mob)
+        public IParts Choose(int code)
         {
-            TpAnimal = animalCode[code];
-            mob.code += code * 100;
-            switch (TpAnimal)
+            switch (code)
             {
-                case Animal.dragon:
-                    mob = new DragonBody(mob);
-                    break;
-                case Animal.kong:
-                    mob = new KongBody(mob);
-                    break;
-                case Animal.lizard:
-                    mob = new LizardBody(mob);
-                    break;
-                case Animal.bison:
-                    mob = new BisonBody(mob);
-                    break;
-                case Animal.cat:
-                    mob = new CatBody(mob);
-                    break;
+                case 0:
+                    return new DragonArms();
+                case 1:
+                    return new KongArms();
+                case 2:
+                    return new LizardArms();
+                case 3:
+                    return new BisonArms();
+                case 4:
+                    return new CatArms();
+                default:
+                    return null;
             }
-            Update(mob);
         }
     }
 
-    class DragonArms : MobDecorator
+    class DragonArms : Arms
     {
-        public DragonArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Str = mob.Str + 1;
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/0.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/0.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/0.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/0.png"));
+            mob.Str += 1;
         }
     }
 
-    class KongArms : MobDecorator
+    class KongArms : Arms
     {
-        public KongArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Spd = mob.Spd + 1;
-            Attacks.Add(Poopoo);
-            Attacks.Union(mob.Attacks);
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/1.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/1.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/1.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/1.png"));
+            mob.Spd += 1;
+            mob.Attacks.Add(Poopoo);
+            mob.attcks.Add("Poopoo");
         }
 
         public void Poopoo()
@@ -69,44 +55,32 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         }
     }
 
-    class LizardArms : MobDecorator
+    class LizardArms : Arms
     {
-        public LizardArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Mnd = mob.Mnd + 1;
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/2.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/2.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/2.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/2.png"));
+            mob.Mnd += 1;
         }
     }
 
-    class BisonArms : MobDecorator
+    class BisonArms : Arms
     {
-        public BisonArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Con = mob.Con + 1;
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/3.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/3.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/3.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/3.png"));
+            mob.Con += 1;
         }
     }
 
-    class CatArms : MobDecorator
+    class CatArms : Arms
     {
-        public CatArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Dex = mob.Dex + 1;
-            Attacks.Add(Camouflage);
-            Attacks.Union(mob.Attacks);
-            MainPage.instance.images["arm_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/0/4.png"));
-            MainPage.instance.images["arm_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/d/1/4.png"));
-            MainPage.instance.images["arm_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/0/4.png"));
-            MainPage.instance.images["arm_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/arms/e/1/4.png"));
+            mob.Dex += 1;
+            mob.Attacks.Add(Scratch);
+            mob.attcks.Add("Scratch");
         }
 
-        public void Camouflage()
+        public void Scratch()
         {
 
         }

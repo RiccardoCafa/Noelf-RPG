@@ -9,88 +9,73 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Body : MobDecorator
+    class Body : IParts
     {
-        private Animal TpAnimal { get; set; }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public Body(Mob mob, int code) : base(mob)
+        public IParts Choose(int code)
         {
-            TpAnimal = animalCode[code];
-            mob.code = code * 1000;
-            switch (TpAnimal)
+            switch (code)
             {
-                case Animal.dragon:
-                    mob = new DragonFace();
-                    break;
-                case Animal.kong:
-                    mob = new KongFace();
-                    break;
-                case Animal.lizard:
-                    mob = new LizardFace();
-                    break;
-                case Animal.bison:
-                    mob = new BisonFace();
-                    break;
-                case Animal.cat:
-                    mob = new CatFace();
-                    break;
+                case 0:
+                    return new DragonBody();
+                case 1:
+                    return new KongBody();
+                case 2:
+                    return new LizardBody();
+                case 3:
+                    return new BisonBody();
+                case 4:
+                    return new CatBody();
+                default:
+                    return null;
             }
-            Update(mob);
         }
     }
 
-    class DragonBody : MobDecorator
+    class DragonBody : Body
     {
-        public DragonBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Str = mob.Str + 2;
-            Resistance.Add(Element.Fire);
-            Resistance.Union(mob.Resistance);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/0.png"));
+            mob.Str += 2;
+            mob.Resistance.Add(Element.Fire);
         }
     }
 
-    class KongBody : MobDecorator
+    class KongBody : Body
     {
-        public KongBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Spd += mob.Spd + 2;
-            Vulnerable.Add(Element.Fire);
-            Vulnerable.Union(mob.Vulnerable);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/1.png"));
+            mob.Spd += 2;
+            mob.Vulnerable.Add(Element.Fire);
         }
     }
 
-    class LizardBody : MobDecorator
+    class LizardBody : Body
     {
-        public LizardBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Mnd = mob.Mnd + 2;
-            Resistance.Add(Element.Poison);
-            Resistance.Union(mob.Resistance);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/2.png"));
+            mob.Mnd += 2;
+            mob.Resistance.Add(Element.Poison);
         }
     }
 
-    class BisonBody : MobDecorator
+    class BisonBody : Body
     {
-        public BisonBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Con = mob.Con + 2;
-            Resistance.Add(Element.Common);
-            Resistance.Union(mob.Resistance);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/3.png"));
+            mob.Con += 2;
+            mob.Resistance.Add(Element.Common);
         }
     }
 
-    class CatBody : MobDecorator
+    class CatBody : Body
     {
-        public CatBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Dex = mob.Dex + 2;
-            Attacks.Add(Camouflage);
-            Attacks.Union(mob.Attacks);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/4.png"));
+            mob.Dex += 2;
+            mob.Attacks.Add(Camouflage);
+            mob.attcks.Add("Camouflage");
         }
 
         public void Camouflage()//camuflagem

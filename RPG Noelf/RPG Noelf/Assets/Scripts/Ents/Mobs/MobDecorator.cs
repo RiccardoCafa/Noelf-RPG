@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    
+    /*
     abstract class MobDecorator : Mob
     {
         public Mob Mob { get; set; }
@@ -29,5 +29,5 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         {
             Update(Mob);
         }
-    }
+    }*/
 }

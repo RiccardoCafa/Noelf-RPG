@@ -311,8 +311,8 @@
             <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
             <Image Name="arm_e0" Canvas.Left="33" Canvas.Top="18" Width="60" Height="70"/>
             <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
-            <Border BorderThickness="1" BorderBrush="Gray" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80">
-                <TextBlock Name="MobStatus" Width="100" Height="120" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
+            <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80">
+                <TextBlock Name="MobStatus" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
             </Border>
         </Canvas>
 

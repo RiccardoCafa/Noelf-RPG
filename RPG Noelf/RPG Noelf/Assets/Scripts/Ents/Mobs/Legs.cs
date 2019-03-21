@@ -9,99 +9,71 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Legs : MobDecorator
+    class Legs : IParts
     {
-        private Animal TpAnimal { get; set; }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public Legs(Mob mob, int code) : base(mob)
+        public IParts Choose(int code)
         {
-            TpAnimal = animalCode[code];
-            mob.code += code * 10;
-            switch (TpAnimal)
+            switch (code)
             {
-                case Animal.dragon:
-                    mob = new DragonArms(mob);
-                    break;
-                case Animal.kong:
-                    mob = new KongArms(mob);
-                    break;
-                case Animal.lizard:
-                    mob = new LizardArms(mob);
-                    break;
-                case Animal.bison:
-                    mob = new BisonArms(mob);
-                    break;
-                case Animal.cat:
-                    mob = new CatArms(mob);
-                    break;
+                case 0:
+                    return new DragonLegs();
+                case 1:
+                    return new KongLegs();
+                case 2:
+                    return new LizardLegs();
+                case 3:
+                    return new BisonLegs();
+                case 4:
+                    return new CatLegs();
+                default:
+                    return null;
             }
-            Update(mob);
         }
     }
 
-    class DragonLegs : MobDecorator
+    class DragonLegs : Legs
     {
-        public DragonLegs(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Str = mob.Str + 1;
-            Vulnerable.Add(Element.Ice);
-            Vulnerable.Union(mob.Vulnerable);
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/0.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/0.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/0.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/0.png"));
+            mob.Str += 1;
+            mob.Vulnerable.Add(Element.Ice);
         }
     }
 
-    class KongLegs : MobDecorator
+    class KongLegs : Legs
     {
-        public KongLegs(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Spd = mob.Spd + 10;
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/1.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/1.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/1.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/1.png"));
+            mob.Spd += 10;
         }
     }
 
-    class LizardLegs : MobDecorator
+    class LizardLegs : Legs
     {
-        public LizardLegs(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Mnd = mob.Mnd + 1;
-            Spd = 0;
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/2.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/2.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/2.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/2.png"));
+            mob.Mnd += 1;
+            mob.Spd = 0;
         }
     }
 
-    class BisonLegs : MobDecorator
+    class BisonLegs : Legs
     {
-        public BisonLegs(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Con = mob.Con + 1;
-            Meek = true;
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/3.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/3.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/3.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/3.png"));
+            mob.Con += 1;
+            mob.Meek = true;
         }
     }
 
-    class CatLegs : MobDecorator
+    class CatLegs : Legs
     {
-        public CatLegs(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            Dex = mob.Dex + 1;
-            Vulnerable.Add(Element.Common);
-            Vulnerable.Union(mob.Vulnerable);
-            MainPage.instance.images["leg_d0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/0/4.png"));
-            MainPage.instance.images["leg_d1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/d/1/4.png"));
-            MainPage.instance.images["leg_e0"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/0/4.png"));
-            MainPage.instance.images["leg_e1"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/legs/e/1/4.png"));
+            mob.Dex += 1;
+            mob.Vulnerable.Add(Element.Common);
         }
     }
 }
