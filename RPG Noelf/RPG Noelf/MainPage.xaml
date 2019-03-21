@@ -153,7 +153,7 @@
                 </Grid>
             </Grid>
         </Canvas>
-
+        <Canvas Name="Scene" Height="900" Width="6000" Canvas.Top="-134"/>
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
