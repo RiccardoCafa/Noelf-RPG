@@ -8,22 +8,37 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Face : Mob
+    class Face : IParts
     {
-        private Animal TpAnimal { get; set; }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public Face() { }
-
-        //public override void Make(Image face, Image body, Image[,] arms, Image[,] legs) { }
+        public IParts Choose(int code)
+        {
+            switch (code)
+            {
+                case 0:
+                    return new DragonFace();
+                case 1:
+                    return new KongFace();
+                case 2:
+                    return new LizardFace();
+                case 3:
+                    return new BisonFace();
+                case 4:
+                    return new CatFace();
+                default:
+                    return null;
+            }
+        }
     }
 
-    class DragonFace : MobDecorator
+    class DragonFace : Face
     {
-        public DragonFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Str += 2;
             mob.Attacks.Add(Fireball);
-            MainPage.instance.images["face"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/face/0___.png"));
+            mob.attcks.Add("Fireball");
         }
 
         public void Fireball()//bola de fogo
@@ -32,22 +47,21 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         }
     }
 
-    class KongFace : MobDecorator
+    class KongFace : Face
     {
-        public KongFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Spd += 2;
-            MainPage.instance.images["face"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/face/1___.png"));
         }
     }
 
-    class LizardFace : MobDecorator
+    class LizardFace : Face
     {
-        public LizardFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Mnd += 2;
             mob.Attacks.Add(Lick);
-            MainPage.instance.images["face"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/face/2___.png"));
+            mob.attcks.Add("Lick");
         }
 
         public void Lick()//linguada
@@ -56,13 +70,13 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         }
     }
 
-    class BisonFace : MobDecorator
+    class BisonFace : Face
     {
-        public BisonFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Con += 2;
             mob.Attacks.Add(Headache);
-            MainPage.instance.images["face"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/face/3___.png"));
+            mob.attcks.Add("Headache");
         }
 
         public void Headache()//cabeçada
@@ -71,12 +85,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         }
     }
 
-    class CatFace : MobDecorator
+    class CatFace : Face
     {
-        public CatFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Dex += 2;
-            MainPage.instance.images["face"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/face/4___.png"));
         }
     }
 }

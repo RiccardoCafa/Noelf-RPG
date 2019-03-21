@@ -49,6 +49,8 @@ namespace RPG_Noelf
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
 
+        public string test;
+
         public static TextBlock texticulus;
         public static int i;
 
@@ -82,18 +84,19 @@ namespace RPG_Noelf
                 player.ResetPosition(320, 40);
                 players.Add(player);
                 {
-                    images[face.Name] = face;
-                    images[body.Name] = body;
-                    images[arm_d0.Name] = arm_d0;
-                    images[arm_d1.Name] = arm_d1;
-                    images[arm_e0.Name] = arm_e0;
-                    images[arm_e1.Name] = arm_e1;
-                    images[leg_d0.Name] = leg_d0;
-                    images[leg_d1.Name] = leg_d1;
-                    images[leg_e0.Name] = leg_e0;
-                    images[leg_e1.Name] = leg_e1;
+                    images["face"] = face;
+                    images["body"] = body;
+                    images["armsd0"] = arm_d0;
+                    images["armsd1"] = arm_d1;
+                    images["armse0"] = arm_e0;
+                    images["armse1"] = arm_e1;
+                    images["legsd0"] = leg_d0;
+                    images["legsd1"] = leg_d1;
+                    images["legse0"] = leg_e0;
+                    images["legse1"] = leg_e1;
                 }
-                mob = new CharacterMob(MobCanvas, players, Spawn.CreateMob());
+                mob = new CharacterMob(MobCanvas, players, new Mob());
+                MobStatus.Text = mob.Mob.Status();
                 mob.UpdateBlocks(Chunck01);
                 mob.ResetPosition(920, 40);
             });

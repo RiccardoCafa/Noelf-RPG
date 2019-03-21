@@ -9,84 +9,73 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Body : MobDecorator
+    class Body : IParts
     {
-        private Animal TpAnimal { get; set; }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public Body(Mob mob, int code) : base(mob)
+        public IParts Choose(int code)
         {
-            TpAnimal = animalCode[code];
-            mob.code = code * 1000;
-            switch (TpAnimal)
+            switch (code)
             {
-                case Animal.dragon:
-                    mob = new DragonFace(mob);
-                    break;
-                case Animal.kong:
-                    mob = new KongFace(mob);
-                    break;
-                case Animal.lizard:
-                    mob = new LizardFace(mob);
-                    break;
-                case Animal.bison:
-                    mob = new BisonFace(mob);
-                    break;
-                case Animal.cat:
-                    mob = new CatFace(mob);
-                    break;
+                case 0:
+                    return new DragonBody();
+                case 1:
+                    return new KongBody();
+                case 2:
+                    return new LizardBody();
+                case 3:
+                    return new BisonBody();
+                case 4:
+                    return new CatBody();
+                default:
+                    return null;
             }
         }
-
-        //public new void Make(Image face, Image body, Image[,] arms, Image[,] legs) { base.Make(face, body, arms, legs); }
     }
 
-    class DragonBody : MobDecorator
+    class DragonBody : Body
     {
-        public DragonBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Str += 2;
             mob.Resistance.Add(Element.Fire);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/_0__.png"));
         }
     }
 
-    class KongBody : MobDecorator
+    class KongBody : Body
     {
-        public KongBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Spd += 2;
             mob.Vulnerable.Add(Element.Fire);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/_1__.png"));
         }
     }
 
-    class LizardBody : MobDecorator
+    class LizardBody : Body
     {
-        public LizardBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Mnd += 2;
             mob.Resistance.Add(Element.Poison);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/_2__.png"));
         }
     }
 
-    class BisonBody : MobDecorator
+    class BisonBody : Body
     {
-        public BisonBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Con += 2;
             mob.Resistance.Add(Element.Common);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/_3__.png"));
         }
     }
 
-    class CatBody : MobDecorator
+    class CatBody : Body
     {
-        public CatBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Dex += 2;
             mob.Attacks.Add(Camouflage);
-            MainPage.instance.images["body"].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, "/Assets/Images/mob/body/_4__.png"));
+            mob.attcks.Add("Camouflage");
         }
 
         public void Camouflage()//camuflagem

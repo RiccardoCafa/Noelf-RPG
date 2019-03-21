@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
-{
+{/*
     class Skin : MobDecorator
     {
         private Animal TpAnimal { get; set; }
@@ -33,8 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     mob = new CatLegs(mob);
                     break;
             }
+            Update(mob);
         }
-
-        //public new void Make(Image face, Image body, Image[,] arms, Image[,] legs) { base.Make(face, body, arms, legs); }
-    }
+    }*/
 }

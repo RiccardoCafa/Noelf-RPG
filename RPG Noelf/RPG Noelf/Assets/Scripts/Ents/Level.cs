@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             actualEXP = 0;
             actuallevel = init_level;
             bonusXP = 0;
-            if(init_level < MaxLevel)
+            if (init_level < MaxLevel)
             {
                 ableToUp = true;
             }
@@ -34,23 +34,23 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         //função pra upar o level
         public bool UpLevel()
-        { 
-           actualEXP = 0;
-           if(actuallevel + 1< MaxLevel)
-           {
-            actuallevel = actuallevel + 1;
-           }
-                return true;
-            
+        {
+            actualEXP = 0;
+            if (actuallevel + 1 < MaxLevel)
+            {
+                actuallevel = actuallevel + 1;
+            }
+            return true;
+
         }
 
         //função pra ganhar XP
         public bool GainEXP(int qtdExp)
         {
             int left;
-            if(qtdExp >= EXPlim)
+            if (qtdExp >= EXPlim)
             {
-                left = qtdExp - EXPlim;          
+                left = qtdExp - EXPlim;
                 UpLevel();
                 EXPlim = actuallevel * 100;
                 GainEXP(left);
