@@ -49,20 +49,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                             Hspeed = 0;//MoveCharac(MainCamera.CameraSpeed, EDirection.left);
                         }
                         else Hspeed = MaxHSpeed;
-
-                        if (ActualCam.CameraMovingUp)
-                        {
-                            GravityMultiplier = -1;
-                            //MoveCharac(MainCamera.CameraJump, EDirection.top);
-                        }
-                        else if (ActualCam.CameraMovingDown)
-                        {
-                            GravityMultiplier = -1;
-                            //MoveCharac(-MainCamera.CameraJump , EDirection.top);
-                        } else
-                        {
-                            GravityMultiplier = 1;
-                        }
+                        
                     } else
                     {
                         ActualCam = MainCamera.instance;

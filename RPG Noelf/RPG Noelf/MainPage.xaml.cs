@@ -662,11 +662,11 @@ namespace RPG_Noelf
 
             if (mousePosition.Y >= Tela.Height / 2)
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
             }
             else
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y );
             }
         }
 

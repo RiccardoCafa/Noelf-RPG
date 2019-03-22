@@ -30,7 +30,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         protected double diferenca = 0;
 
         protected const double Gravity = 1.1;
-        protected double GravityMultiplier = 1;
 
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
@@ -103,7 +102,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     if (isFalling)
                     {
                         TimeSpan secs = time - DateTime.Now;
-                        MoveCharac((GravityMultiplier * Character.Gravity * Math.Pow(secs.TotalSeconds, 2)), Canvas.TopProperty);
+                        MoveCharac((Character.Gravity * Math.Pow(secs.TotalSeconds, 2)), Canvas.TopProperty);
                         blocoLeftx = blocoRightx = null;
                     }
                     else
@@ -187,6 +186,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void Jump()
         {
+            if (isFalling) return;
             jumping = true;
             time = DateTime.Now;
             isFalling = true;
@@ -204,18 +204,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 }
             }
             loaded = true;
-        }
-
-        private void IntersectWith(Canvas left, Canvas right)
-        {
-            if(right != null && xCharacVal + characT.Width >= GetCanvasLeft(right) && xCharacVal + characT.Width <= GetCanvasLeft(right) + right.Width)
-            {
-                Jump();
-            }
-            if(left != null && xCharacVal <= GetCanvasLeft(left) + left.Width && xCharacVal >= GetCanvasLeft(left))
-            {
-                Jump();
-            }
         }
 
         public void CheckGround()
@@ -258,12 +246,12 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 // Pegar os blocos a direita e esquerda mais proximos do player
                 if (bloco != LastBlock)
                 {
-                    if (xPlayer > actualBlockX + bloco.Width && dif02 <= 10 && dif02 > 0)
+                    if (xPlayer > actualBlockX + bloco.Width && dif02 <= 3 && dif02 > 0)
                     {
                         blocoLeftx = bloco;
                     }
 
-                    if (XPlayerW <= actualBlockX && dif <= 10 && dif > 0)
+                    if (XPlayerW <= actualBlockX && dif <= 3 && dif > 0)
                     {
                         blocoRightx = bloco;
                     }
@@ -303,8 +291,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 {
                     freeRight = true;
                 }
-
-                if(!(this is CharacterPlayer)) IntersectWith(blocoLeftx, blocoRightx);
             }
         }
 
