@@ -1,5 +1,4 @@
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using RPG_Noelf.Assets.Scripts.Ents;
 using System;

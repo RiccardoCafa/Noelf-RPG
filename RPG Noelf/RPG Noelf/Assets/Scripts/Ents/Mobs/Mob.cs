@@ -24,7 +24,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public string[] code = new string[4];
 
-        public Mob()
+        public Mob(Dictionary<string, Image> images)
         {
             Random random = new Random();
             for (int i = 0; i < 4; i++)
@@ -45,7 +45,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                         for (int k = 0; k < 2; k++)
                         {
                             string path3 = "/" + k + "/" + code[i] + ".png";
-                            MainPage.instance.images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
                         }
                     }
                 }
@@ -57,9 +57,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             }
         }
 
-        public string Status()
+        public void Status(TextBlock textBlock)
         {
-
             string text = "code " + code[0] + code[1] + code[2] + code[3]
                 + "\nHP: " + Hp + "/" + HpMax
                 + "\n str  " + Str
@@ -83,7 +82,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 text += word + "  ";
             }
             text += Meek ? "\n..passive" : "\n..agressive";
-            return text;
+            textBlock.Text = text;
         }
     }
 }
