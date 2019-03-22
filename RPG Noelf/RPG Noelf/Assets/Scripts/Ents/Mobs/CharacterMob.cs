@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -30,8 +31,11 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         public const double MinDistance = 250;
         public const double ChunckDistance = 1200;
 
-        public CharacterMob(Canvas characterCanvas, List<CharacterPlayer> players) : base(characterCanvas)
+        public Mob Mob;
+
+        public CharacterMob(Canvas characterCanvas, List<CharacterPlayer> players, Mob mob) : base(characterCanvas)
         {
+            Mob = mob;
             this.players = players;
             UpdateThread = new Thread(Update);
 

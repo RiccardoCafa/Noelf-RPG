@@ -4,58 +4,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Body : MobDecorator
+    class Body : IParts
     {
-        protected Body(Mob mob) : base(mob) { }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public new void Make() { base.Make(); }
+        public IParts Choose(int code)
+        {
+            switch (code)
+            {
+                case 0:
+                    return new DragonBody();
+                case 1:
+                    return new KongBody();
+                case 2:
+                    return new LizardBody();
+                case 3:
+                    return new BisonBody();
+                case 4:
+                    return new CatBody();
+                default:
+                    return null;
+            }
+        }
     }
 
     class DragonBody : Body
     {
-        public DragonBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Str += 2;
-            mob.resistance.Add(Element.Fire);
+            mob.Resistance.Add(Element.Fire);
         }
     }
 
     class KongBody : Body
     {
-        public KongBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Spd += 2;
-            mob.vulnerable.Add(Element.Fire);
+            mob.Vulnerable.Add(Element.Fire);
         }
     }
 
     class LizardBody : Body
     {
-        public LizardBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Mnd += 2;
-            mob.resistance.Add(Element.Poison);
+            mob.Resistance.Add(Element.Poison);
         }
     }
 
     class BisonBody : Body
     {
-        public BisonBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Con += 2;
-            mob.resistance.Add(Element.Common);
+            mob.Resistance.Add(Element.Common);
         }
     }
 
     class CatBody : Body
     {
-        public CatBody(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Dex += 2;
-            mob.attacks.Add(Camouflage);
+            mob.Attacks.Add(Camouflage);
+            mob.attcks.Add("Camouflage");
         }
 
         public void Camouflage()//camuflagem

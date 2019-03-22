@@ -3,19 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Arms : MobDecorator
+    class Arms : IParts
     {
-        protected Arms(Mob mob) : base(mob) { }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public new void Make() { base.Make(); }
+        public IParts Choose(int code)
+        {
+            switch (code)
+            {
+                case 0:
+                    return new DragonArms();
+                case 1:
+                    return new KongArms();
+                case 2:
+                    return new LizardArms();
+                case 3:
+                    return new BisonArms();
+                case 4:
+                    return new CatArms();
+                default:
+                    return null;
+            }
+        }
     }
 
     class DragonArms : Arms
     {
-        public DragonArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Str += 1;
         }
@@ -23,10 +42,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class KongArms : Arms
     {
-        public KongArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Spd += 1;
-            mob.attacks.Add(Poopoo);
+            mob.Attacks.Add(Poopoo);
+            mob.attcks.Add("Poopoo");
         }
 
         public void Poopoo()
@@ -37,7 +57,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class LizardArms : Arms
     {
-        public LizardArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Mnd += 1;
         }
@@ -45,7 +65,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class BisonArms : Arms
     {
-        public BisonArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Con += 1;
         }
@@ -53,13 +73,14 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class CatArms : Arms
     {
-        public CatArms(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
             mob.Dex += 1;
-            mob.attacks.Add(Camouflage);
+            mob.Attacks.Add(Scratch);
+            mob.attcks.Add("Scratch");
         }
 
-        public void Camouflage()
+        public void Scratch()
         {
 
         }

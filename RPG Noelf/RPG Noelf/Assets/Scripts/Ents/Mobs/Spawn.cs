@@ -3,87 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     class Spawn
-    {
-        public void CreateMob()
+    {/*
+        public static Mob CreateMob()
         {
             Random random = new Random();
-            Mob mob = new MobCore();
-            switch (random.Next(0, 5))
+            Mob mob = new Face();
+            for (int i = 1; i <= 4; i++)
             {
-                case 0:
-                    mob = new DragonFace(mob);
-                    break;
-                case 1:
-                    mob = new KongFace(mob);
-                    break;
-                case 2:
-                    mob = new LizardFace(mob);
-                    break;
-                case 3:
-                    mob = new BisonFace(mob);
-                    break;
-                case 4:
-                    mob = new CatFace(mob);
-                    break;
+                int code = random.Next(0, 5);
+                switch (i)
+                {
+                    case 1:
+                        mob = new Body(mob, 0);
+                        break;
+                    case 2:
+                        mob = new Arms(mob, 1);
+                        break;
+                    case 3:
+                        mob = new Legs(mob, 2);
+                        break;
+                    case 4:
+                        mob = new Skin(mob, 3);
+                        break;
+                }
             }
-            switch (random.Next(0, 5))
-            {
-                case 0:
-                    mob = new DragonBody(mob);
-                    break;
-                case 1:
-                    mob = new KongBody(mob);
-                    break;
-                case 2:
-                    mob = new LizardBody(mob);
-                    break;
-                case 3:
-                    mob = new BisonBody(mob);
-                    break;
-                case 4:
-                    mob = new CatBody(mob);
-                    break;
-            }
-            switch (random.Next(0, 5))
-            {
-                case 0:
-                    mob = new DragonArms(mob);
-                    break;
-                case 1:
-                    mob = new KongArms(mob);
-                    break;
-                case 2:
-                    mob = new LizardArms(mob);
-                    break;
-                case 3:
-                    mob = new BisonArms(mob);
-                    break;
-                case 4:
-                    mob = new CatArms(mob);
-                    break;
-            }
-            switch (random.Next(0, 5))
-            {
-                case 0:
-                    mob = new DragonLegs(mob);
-                    break;
-                case 1:
-                    mob = new KongLegs(mob);
-                    break;
-                case 2:
-                    mob = new LizardLegs(mob);
-                    break;
-                case 3:
-                    mob = new BisonLegs(mob);
-                    break;
-                case 4:
-                    mob = new CatLegs(mob);
-                    break;
-            }
-        }
+            mob.Status();
+            return mob;
+        }*/
     }
 }
