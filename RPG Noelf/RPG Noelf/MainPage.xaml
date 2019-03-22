@@ -157,11 +157,10 @@
                 </Grid>
             </Grid>
         </Canvas>
-
-        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="1350" Width="2626" VerticalAlignment="Center" Margin="0,0,0,0">
+        <Canvas Name="xScene" Height="900" Width="6000" Canvas.Top="-134"/>
+        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="PlatChunck" Width="2626" Height="1350" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
-                <Canvas Name="Plat1" Canvas.Left="240" Canvas.Top="390" Height="60" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="60" Canvas.Top="20"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="120" Canvas.Top="20"/>
@@ -170,15 +169,14 @@
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="120" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="180" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="240" Canvas.Top="-40"/>
                 </Canvas>
-                <Canvas Name="Plat2" Canvas.Left="540" Canvas.Top="350" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas Name="Plat2" Canvas.Left="540" Canvas.Top="300" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="120" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="180" Canvas.Top="-40"/>
                 </Canvas>
-                <Canvas Name="Plat3" Canvas.Left="900" Canvas.Top="270" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas Name="Plat3" Canvas.Left="900" Canvas.Top="180" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="80"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="60" Canvas.Top="80"/>
@@ -186,77 +184,22 @@
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
                     <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
                 </Canvas>
-                <Canvas Name="Plat4" Canvas.Left="780" Canvas.Top="310" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="60" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
-                <Canvas Name="Plat6" Canvas.Left="1015" Canvas.Top="240" Height="60" Width="600" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="60" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="120" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="180" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="240" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="300" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="360" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="420" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="480" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="540" Canvas.Top="20"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="120" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="180" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="240" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="300" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="360" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="420" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="480" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="540" Canvas.Top="-40"/>
-                </Canvas>
-
-                <Canvas Name="Plat5" Canvas.Left="1615" Canvas.Top="270" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
-                <Canvas Name="Plat7" Canvas.Left="1735" Canvas.Top="315" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
-                <Canvas Name="Plat8" Canvas.Left="1855" Canvas.Top="352" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
-                <Canvas Canvas.Left="1975" Canvas.Top="378" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
-                <Canvas Canvas.Left="2095" Canvas.Top="423" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
-                <Canvas Canvas.Left="2215" Canvas.Top="464" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
-                    <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-                </Canvas>
             </Canvas>
-            <Canvas Name="MobCanvas" Canvas.Left="593" Canvas.Top="207" Width="120" Height="120" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Image Stretch="Fill" Width="120" Height="120" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
+            <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="80" Width="120" Height="120">
                 <Image Name="arm_d0" Canvas.Left="4" Canvas.Top="18" Width="60" Height="65"/>
                 <Image Name="arm_d1" Canvas.Left="-21" Canvas.Top="49" Width="70" Height="80"/>
                 <Image Name="leg_d1" Canvas.Left="32" Canvas.Top="76" Width="75" Height="55"/>
                 <Image Name="leg_d0" Canvas.Left="20" Canvas.Top="45" Width="65" Height="70"/>
                 <Image Name="body" Canvas.Left="8" Canvas.Top="-10" Width="160" Height="135"/>
                 <Image Name="face" Canvas.Left="-16" Canvas.Top="-34" Width="100" Height="100"/>
-                <Image Name="leg_e1" Canvas.Left="0" Canvas.Top="0" Width="75" Height="55"/><!--64 75-->
+                <Image Name="leg_e1" Canvas.Left="64" Canvas.Top="75" Width="75" Height="55"/>
                 <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
                 <Image Name="arm_e0" Canvas.Left="33" Canvas.Top="18" Width="60" Height="70"/>
                 <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
-                <Border Visibility="Visible" BorderThickness="1" BorderBrush="Gray" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80">
-                    <TextBlock Name="MobStatus" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"/>
+                <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80">
+                    <TextBlock Name="xMobStatus" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
                 </Border>
             </Canvas>
-
         </Canvas>
 
         <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
@@ -361,13 +304,12 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="PlayerCanvas" Canvas.Left="432" Canvas.Top="241" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="#FF00FF5B">
+        <Canvas Name="PlayerCanvas" Canvas.Left="382" Canvas.Top="78" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="#FF00FF5B">
             <Canvas.RenderTransform>
                 <RotateTransform x:Name="Rotation" CenterX="25" CenterY="25">
                 </RotateTransform>
             </Canvas.RenderTransform>
         </Canvas>
-
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
             <Grid Width="200" Height="250">

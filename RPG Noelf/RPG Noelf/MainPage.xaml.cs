@@ -28,7 +28,7 @@ using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
-using RPG_Noelf.Assets;
+using RPG_Noelf.Assets.Scripts.Scenes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -51,7 +51,7 @@ namespace RPG_Noelf
         public static MainPage instance;
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
-        
+
         public static Canvas Telona;
         public string test;
 
@@ -66,7 +66,6 @@ namespace RPG_Noelf
         {
             instance = this;
             this.InitializeComponent();
-            mobStatus = MobStatus;
             Telona = Tela;
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Start = new Thread(start);
@@ -102,9 +101,12 @@ namespace RPG_Noelf
                     images["legse0"] = leg_e0;
                     images["legse1"] = leg_e1;
                 }
-                mob = new CharacterMob(MobCanvas, players, new Mob());
+
+                mob = new CharacterMob(MobCanvas, players, new Mob(images));//criaçao do mob
+                mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
+                Scene elel = new Scene(xScene);
                 mob.UpdateBlocks(PlatChunck);
-                MobStatus.Text = mob.Mob.Status();
+
                 mob.ResetPosition(920, 40);
             });
 

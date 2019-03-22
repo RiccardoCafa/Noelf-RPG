@@ -1,5 +1,4 @@
 ﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
