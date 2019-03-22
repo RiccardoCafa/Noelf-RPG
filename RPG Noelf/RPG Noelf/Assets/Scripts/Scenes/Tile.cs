@@ -22,15 +22,17 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         public TypeTile tpTile;
         public double[] vetor = new double[2];
         public string Path { get; private set; }
-        public double[] Size { get; } = { 60, 60 };
-        public double[] VirtualSize { get; } = { 60, 115 };
-        public double[] VirtualPosition { get; private set; }
+        public readonly double[] Size;
+        public readonly double[] VirtualSize;
+        public double[] VirtualPosition { get; private set; } = new double[2];
 
         public Tile(TypeTile tpTile, double x, double y)
         {
+            Size = new double[] { 60, 60 };
+            VirtualSize = new double[] { 60, 115 };
             this.tpTile = tpTile;
-            vetor[0] = x * 60;
-            vetor[1] = y * 60;
+            vetor[0] = x * Size[0];
+            vetor[1] = y * Size[1];
             Path = "/Assets/Images/" + tpTile + ".png";
             VirtualPosition[0] = vetor[0];
             VirtualPosition[1] = vetor[1] - 40;
