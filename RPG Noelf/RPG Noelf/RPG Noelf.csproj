@@ -132,10 +132,6 @@
     <Compile Include="Assets\Scripts\Ents\Mobs\IParts.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Legs.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
-    <Compile Include="Assets\Scripts\Ents\Mobs\MobDecorator.cs" />
-    <Compile Include="Assets\Scripts\Ents\Mobs\Skin.cs" />
-    <Compile Include="Assets\Scripts\Ents\Mobs\Spawn.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerFolder\Atributes.cs" />
     <Compile Include="Assets\Scripts\Ents\Character.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\CharacterPlayer.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
@@ -153,6 +149,8 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
     <Compile Include="Assets\Scripts\Runes\RuneSlot.cs" />
+    <Compile Include="Assets\Scripts\Scenes\Scene.cs" />
+    <Compile Include="Assets\Scripts\Scenes\Tile.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillBuff.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillGenerics.cs" />
