@@ -1,5 +1,4 @@
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using RPG_Noelf.Assets.Scripts.Ents;
 using System;
@@ -11,7 +10,7 @@ using Windows.UI.Xaml.Shapes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class Player : Ent, IAtributes
+    class Player : Ent
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
@@ -21,16 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Level { get; private set; }
 
         public string Id { get; set; }
-
-        public int Str { get; set; }
-        public int Spd { get; set; }
-        public int Dex { get; set; }
-        public int Con { get; set; }
-        public int Mnd { get; set; }
-
-        public double Hp { get; set; }
-        public int HpMax { get; set; }
-
+        
         public int Xp { get; private set; }
         public int XpLim { get; private set; }
 
@@ -40,6 +30,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double Armor { get; set; }
         public double Damage { get; set; }
         public double AtkSpd { get; set; }
+
+        public double DamageBuff { get; set; }
+        public double ArmorBuff { get; set; }
+        public double AtkSpeedBuff { get; set; }
+        public double BonusChanceCrit { get; set; } = 1;
 
         public Player(string id, IRaces race, IClasses _class)
         {
@@ -56,7 +51,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Id = id;
 
             _SkillManager = new SkillManager(this);
-            _Inventory = new PlayerBag();
+            _Inventory = new Bag();
 
             switch (Id.Substring(0, 1))
             {
@@ -93,15 +88,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Level = 1;
             XpLim = Level * 100;
             LevelUpdate(0, 0, 0, 0, 0);
-            /*
-            SkeletonData skeletonData = new SkeletonData();
-            Skeleton skeleton = new Skeleton(skeletonData);
-            Bone spine = new Bone(new BoneData(0, "c", null), skeleton, null);
-            Rectangle rectangle = new Rectangle();
-            ExposedList<Timeline> timelines = new ExposedList<Timeline>;
-            timelines.Add
-            Spine.Animation animation = new Animation("rotate", )
-            skeleton.Bones.Add();*/
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
@@ -162,7 +148,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Random random = new Random();
             double dmg100 = random.NextDouble() * 100;
             if (dmg100 < 1 / Dex * 0.05) return 0;//errou
-            else if (dmg100 < Dex * 0.1) return bonusDamage + Damage * dmg100;//acertou
+            else if (dmg100 < Dex * BonusChanceCrit * 0.1) return bonusDamage + Damage * dmg100;//acertou
             else return bonusDamage + Damage * dmg100 * 2;//critico
         }
 

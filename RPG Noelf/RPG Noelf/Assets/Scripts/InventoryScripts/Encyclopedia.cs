@@ -1,11 +1,11 @@
-﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.InventoryScripts
+namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
      class Encyclopedia
     {
@@ -13,6 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
         public static void LoadItens()
         {
+            CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
 
             // loaded Itens
@@ -21,7 +22,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 IsStackable = true,
                 ItemCategory = Category.Normal,            
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 1
+                GoldValue = 1,
+                description =  "It's just a small piece of iron, don't eat it"
+               
             };
             encyclopedia.Add(1,item1);
             Item item2 = new Item("Coal")
@@ -69,7 +72,8 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 IsStackable = true,
                 ItemCategory = Category.Normal,               
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 3
+                GoldValue = 3,
+                description = "A funny glowing stone, it seems like have powerful inside"
             };
             encyclopedia.Add(7, item7);
             Item item8 = new Item("Steel")
@@ -122,7 +126,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 armorPenetration = 1,
                 ItemCategory = Category.Normal,              
                 PathImage = "/Assets/Images/Chao.jpg",
-                GoldValue = 20
+                GoldValue = 20,
+                description = "A simple Iron Sword, sharp and reliable"
+
 
             };
             encyclopedia.Add(13, item13);
@@ -378,7 +384,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
                 Bonus = 20,
-                PathImage = "/Assets/Images/Chao.jpg"
+                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Adventurer's best Friend, i think you must carry lots of this"
+                
 
             };
             encyclopedia.Add(40, item40);
@@ -391,6 +399,18 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
 
             };
             encyclopedia.Add(41, item41);
+            Item item42 = new Item("Iron Ingot")
+            {
+                IsStackable = true,
+                ItemCategory = Category.Normal,
+                PathImage = "/Assets/Images/Chao.jpg",
+                GoldValue = 1,
+                description = "It is not useful like this, but is cheap than gold"
+
+            };
+            encyclopedia.Add(42, item42);
+
+
         }
 
         // procura um item especifico
@@ -418,8 +438,7 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         {
             if (encyclopedia.ContainsKey(key))
             {
-                Armor armor = (Armor)encyclopedia[key];
-                return armor.defense;
+                return ((Armor)encyclopedia[key]).defense;
             }
             else throw new ArgumentOutOfRangeException();
         }
@@ -427,10 +446,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o bonus do Consumivel
         public static float SearchConsumableBonus(uint key)
         {
-            if(encyclopedia.ContainsKey(key))
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
             {
-                Consumable it = (Consumable) encyclopedia[key];
-                return 0f;//it.giveBonus;
+                return ((Consumable)encyclopedia[key]).Bonus;//it.giveBonus;
             }
             return 0f;
         }
@@ -438,11 +456,9 @@ namespace RPG_Noelf.Assets.Scripts.InventoryScripts
         //procura o dano da Arma
         public static float SearchDamageWeapon(uint key)
         {
-            if (encyclopedia.ContainsKey(key))
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
             {
-                Weapon wep;
-                wep = (Weapon)encyclopedia[key];
-                return wep.bonusDamage;
+                return ((Weapon)encyclopedia[key]).bonusDamage;
             }
             else throw new ArgumentOutOfRangeException();
         }

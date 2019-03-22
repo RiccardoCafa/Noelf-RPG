@@ -13,76 +13,33 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         habilite,
         ultimate
     }
-    public enum SkillAtribute
-    {
-        buff,
-        debuff,
-        damage
-
-    }
     public enum AtributBonus
     {
         For,
         Int,
-        dex
+        dex,
+        agl
     }
 
-    class Skill
+
+    class Skill : SkillGenerics
     {
+       //Skill que apenas causam dano
 
-
-        public float Damage { get; }
-        
-        private float BonusMultiplier;
-        private float DamageBonus;
-        
-        public int Lvl { get; set; } = 1;
-        public int block { get; }
-
-        private int manaCost;
-
-        public bool Unlocked { get; set; } = false;
-        
-        private bool area;
-
-        public string pathImage { get; set; }
-        public string name { get; set; }
-        public string description { get; set; } = "";
-
-        public SkillType tipo;
-        private AtributBonus atrib;
-
-        public Skill(float damage, int manaCost, int blockLevel, float BonusMultiplier, SkillType tipoSkill, AtributBonus atrib, string pathImage, string name)
+        public Skill(string pathImage, string name)
         {
             this.pathImage = pathImage;
-            this.Damage = damage;
-            this.manaCost = manaCost;
-            this.block = blockLevel;
-            this.BonusMultiplier = BonusMultiplier;
-            this.tipo = tipoSkill;
-            this.atrib = atrib;
             this.name = name;
         }
 
-        public string GetTypeString()
-        {
-            switch(tipo)
-            {
-                case SkillType.habilite:
-                    return "Ativa";
-                case SkillType.passive:
-                    return "Passiva";
-                case SkillType.ultimate:
-                    return "Ultimate";
-            }
-            return "";
-        }
+        
 
-        public bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Player player, Player Enemy)
         {
             if (manaCost <= player.Mp)
             {
                 CalcBonus(player);
+                Damage = Damage + Amplificator * Lvl;
                 Enemy.BeHit(player.Hit(DamageBonus));
                 return true;
             }
@@ -90,17 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
 
 
-        public void CalcBonus(Player calcP)
-        {
-            if(atrib == AtributBonus.For)
-            {
-                DamageBonus = calcP.Str * BonusMultiplier; 
-            }else if(atrib == AtributBonus.Int){
-                DamageBonus = calcP.Mnd * BonusMultiplier;
-            }else{
-                DamageBonus = calcP.Dex * BonusMultiplier;
-            }
-        }
+        
 
     }
 }

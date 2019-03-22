@@ -9,42 +9,81 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
     class Shop
     {
-        public List<int> selled;
-        public List<int> purchased;
+        public List<Slot> TradingItems = new List<Slot>();
+        public Bag BuyingItems = new Bag();
+        private Slot slotInOffer;
 
+        public const int MaxBuyingItems = 16;
 
         public Shop()
         {
-            selled = new List<int>();
-            purchased = new List<int>();
-        } 
-        
+            BuyingItems.MaxSlots = MaxBuyingItems;
+        }
+
+        public Slot SlotInOffer
+        {
+            get
+            {
+                return slotInOffer;
+            }
+            set
+            {
+                if (BuyingItems.FreeSlots > 0)
+                {
+                    slotInOffer = value;
+                }
+            }
+        }
 
         // função para vender itens ao jogador
-        public bool sellItem(int soldID, Bag player)
+        public void SellItem(uint soldID,uint amount, Bag playerBag)
         {
-            return false;
-        }
 
+            if (playerBag.CanAddMore())
+            {
+                playerBag.AddToBag(soldID,amount);
+                int valor = Encyclopedia.SearchFor(soldID).GoldValue;
+                playerBag.Gold -= valor;
+                
+            }
+
+        }
+        public void CreateIventory(uint ItemID,uint amount)
+        {
+            Slot Newitem = new Slot(ItemID,amount);
+            TradingItems.Add(Newitem);
+        }
 
         //função para comprar itens do jogador
-        public bool BuyItem(int purchasedID, Bag player)
+        public void BuyItem(Bag playerBag)
         {
-            /*
-            if(item != null && player != null)
+            foreach (Slot sack in BuyingItems.Slots)
             {
-                player.RemoveFromBag(item);
-                purchased.Add(item);
-                player.AddGold(item.goldValue);
-                return true;
+                long valor = Encyclopedia.SearchFor(sack.ItemID).GoldValue;
+                valor = valor * sack.ItemAmount;
+                playerBag.AddGold((int)valor);
             }
-            else
+            BuyingItems.Slots.Clear();
+
+        }
+
+        public bool AddToBuyingItems(Slot slot)
+        {
+            if (BuyingItems.CanAddMore())
             {
-                return false;
+                return BuyingItems.AddToBag(slot.ItemID, slot.ItemAmount);
             }
-            */
             return false;
         }
-    }
 
+        public void RemoveFromBuyingItems(Slot slot)
+        {
+            BuyingItems.RemoveFromBag(slot);
+        }
+
+        public void RemoveFromBuyingItems(uint index, uint amount)
+        {
+            BuyingItems.RemoveFromBag(index, amount);
+        }
+    }
 }

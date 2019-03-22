@@ -7,75 +7,19 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
-    class Recipe//a receita na mochila mostra os possiveis craftings e materiais do player
+    class Recipe
     {
+        public List<Slot> itens { get; set; }
+        public uint generatedID { get; set; }
+        public string RecipeName { get; set; }
+        public int numItens { get; set; }
 
-        public List<string> IDsMateriais { get; set; }//materiais nescessarios
-        public int qtdItens { get; set; } //quantidade de itens
-
-
-
-        public Recipe()
+        public Recipe(string name, List<Slot> materiais)
         {
-            IDsMateriais = new List<string>();
-            qtdItens = IDsMateriais.Count;
+            RecipeName = name;
+            itens = materiais;
+            numItens = materiais.Count;
         }
-
-        public void addInRecipeList(string IDfound)//adiciona na lista o ID do item achado
-        {
-            if (IDsMateriais.Contains(IDfound) == false)
-            {
-                IDsMateriais.Add(IDfound);
-            }
-            else
-            {
-
-            }
-
-        }
-
-
-        public bool readyToCraft(Bag playerBag)
-        {
-
-            int count = 0;//contador de materiais
-            /*foreach (Item item in playerBag.slots)//buscando os IDs na mochila do player
-            {
-                // TODO COMUNISTA
-                if(IDsMateriais.Contains(item.itemID) == true)
-                {
-                    count++;//incrementa se achar
-                }
-            }*/
-
-
-            if (count == qtdItens)//se a qtd de itens estiver certa, retorna true
-            {
-                return true;
-            }
-            else//senão retorna falso
-            {
-                return false;
-            }
-
-        }
-
-        public int nMaterials(Bag playerBag)
-        {
-            int count = 0;
-            /*
-            foreach (Item item in playerBag.slots)
-            {
-                // TODO COMUNISTA
-                if(item.itemID.StartsWith("BM") == true || item.itemID.StartsWith("AM") == true)
-                {
-                    count++;
-                }
-            }
-        */
-            return count;
-        }
-
 
 
 
