@@ -16,6 +16,7 @@
                 <GradientStop Color="#FF2ED5E6" Offset="1"/>
             </LinearGradientBrush>
         </Canvas.Background>
+
         <Canvas Name="Camera" Visibility="Collapsed"  Width="500" Height="240" HorizontalAlignment="Left" Canvas.Left="333" Canvas.Top="220"  VerticalAlignment="Center" Background="#19000000" Margin="0,0,0,0"></Canvas>
         <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1010" Canvas.Top="40">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
@@ -156,9 +157,10 @@
                 </Grid>
             </Grid>
         </Canvas>
-        <Canvas Name="xScene" Height="780" Width="6000" Canvas.Top="0"/>
-        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
-            <Canvas Name="MobCanvas" Canvas.Left="630" Canvas.Top="80" Width="120" Height="120">
+
+        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="6000" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Canvas Name="xScene" Height="768" Width="6000" Canvas.Top="0"/>
+            <Canvas Name="MobCanvas" Canvas.Left="100" Canvas.Top="400" Width="120" Height="120">
                 <Image Name="arm_d0" Canvas.Left="4" Canvas.Top="18" Width="60" Height="65"/>
                 <Image Name="arm_d1" Canvas.Left="-21" Canvas.Top="49" Width="70" Height="80"/>
                 <Image Name="leg_d1" Canvas.Left="32" Canvas.Top="76" Width="75" Height="55"/>

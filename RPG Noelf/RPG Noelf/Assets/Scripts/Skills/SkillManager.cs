@@ -35,7 +35,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 Thread.Sleep(1000);
                 MainPage.i++;
-                MainPage.UpdateTexti();
             }
         }
 
