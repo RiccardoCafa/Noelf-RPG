@@ -12,27 +12,18 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 {
     class Scene
     {
-        public string[] Blueprint { get; private set; } = new string[15];
+        public List<string> Blueprint { get; private set; } = new List<string>();
 
         public Scene(Canvas xScene)//constroi o cenario, com os tiles e os canvas
         {
-            Blueprint[00] = "                                                                                                     ";
-            Blueprint[01] = "                                                                                                     ";
-            Blueprint[02] = "                                                                                                     ";
-            Blueprint[03] = "                                                                                                     ";
-            Blueprint[04] = "                                                                                                     ";
-            Blueprint[05] = "                                                  GGGGGGGGGGGGGGGGGG                                 ";
-            Blueprint[06] = "                                                                     G                               ";
-            Blueprint[07] = "                                                                       G                             ";
-            Blueprint[08] = "                                                                         GGGGG                 GGGGG ";
-            Blueprint[09] = "                                                                                GGGGG       GGGggggg ";
-            Blueprint[10] = "                                                                                          GGgggggggg ";
-            Blueprint[11] = "                                                                                         Ggggggggggg ";
-            Blueprint[12] = "               GGGGGGGGGGGGGGGGGGGG                                                    GGggggggggggg ";
-            Blueprint[13] = "GGGGGGGGGGGGGGGggggggggggggggggggggG                           GGGGGGGGGGGGGGGGGGGGGGGGggggggggggggg ";
-            Blueprint[14] = "ggggggggggggggggggggggggggggggggggggGGGGGGGGGGGGGGGGGGGGGGGGGGGggggggggggggggggggggggggggggggggggggg ";
-            int num = 1;
-            for (int y = Blueprint.Length - 1; y >= 0; y--)
+            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");
+            string bp;
+            while ((bp = file.ReadLine()) != null)
+            {
+                Blueprint.Add(bp);
+            }
+            file.Close();
+            for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
                 List<int> platX = new List<int>();
                 int x = 0;
@@ -56,14 +47,11 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                 Canvas canvas = new Canvas();
                                 xScene.Children.Add(canvas);
                                 canvas.Width = tile.Size[0] * (platX.Last() - platX.First() + 1);
-                                canvas.Height = tile.Size[1];
+                                canvas.Height = tile.Size[1] / 4;
                                 canvas.SetValue(Canvas.LeftProperty, tile.Size[0] * platX.First());
                                 canvas.SetValue(Canvas.TopProperty, tile.Size[1] * y - 1);
                                 canvas.Name = "plat" + platX.First() + y;
-                                canvas.Background = new SolidColorBrush(Colors.Blue);
-                                canvas.Opacity = 0.5;
                                 platX.Clear();
-                                num++;
                             }
                         }
                     }
