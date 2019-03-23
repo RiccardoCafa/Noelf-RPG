@@ -339,6 +339,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             Armor item35 = new Armor("Leather Boots")
             {
                 ItemCategory = Category.Normal,
+                PositArmor = PositionArmor.Boots,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Medium,
                 GoldValue = 4,

@@ -180,6 +180,7 @@ namespace RPG_Noelf
             p1._Inventory.RemoveFromBag(banana, 1);
 
             p1._Inventory.AddToBag(27, 1);
+            p1._Inventory.AddToBag(35, 1);
 
             #endregion
             
