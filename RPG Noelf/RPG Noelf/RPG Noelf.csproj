@@ -178,6 +178,9 @@
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />
+    <Content Include="Assets\Images\layer1.png" />
+    <Content Include="Assets\Images\layer2.png" />
+    <Content Include="Assets\Images\layer3.png" />
     <Content Include="Assets\Images\mob\arms\d\0\0.png" />
     <Content Include="Assets\Images\mob\arms\d\0\1.png" />
     <Content Include="Assets\Images\mob\arms\d\0\2.png" />
