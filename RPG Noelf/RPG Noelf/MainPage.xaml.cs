@@ -101,7 +101,8 @@ namespace RPG_Noelf
                     images["legse0"] = leg_e0;
                     images["legse1"] = leg_e1;
                 #endregion
-                mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 100));//criaçao do mob
+                
+                mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 1));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
                 mob.UpdateBlocks(xScene);
             });
