@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     class Mob : Ent
     {
         public List<Action> Attacks { get; set; } = new List<Action>();
-        public List<string> attcks { get; set; } = new List<string>();
+        public List<string> attcks { get; set; } = new List<string>();//(temporario)
         public List<Element> Resistance { get; set; } = new List<Element>();
         public List<Element> Vulnerable { get; set; } = new List<Element>();
         public bool Meek { get; set; } = false;
@@ -45,56 +45,56 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public Mob(Dictionary<string, Image> images, int level)
         {
+            #region montagem
+            Level = level;
+            Str = 2;
+            Spd = 2;
+            Dex = 2;
+            Con = 2;
+            Mnd = 2;
+            Random random = new Random();
+            for (int i = 0; i < 4; i++)
             {
-                Level = level;
-                Str = 2;
-                Spd = 2;
-                Dex = 2;
-                Con = 2;
-                Mnd = 2;
-                Random random = new Random();
-                for (int i = 0; i < 4; i++)
+                int c = random.Next(0, 5);
+                code[i] = "" + c;
+                Parts[i] = Parts[i].Choose(c);
+                Parts[i].UpdateMob(this);
+            }
+            #endregion
+            #region atributos derivados
+            HpMax = Con * 6 + Level * 2;
+            Hp = HpMax;
+            AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
+            Run = 1 + 0.075 * Spd;
+            TimeMgcDmg = 9.0 * Mnd / 10;
+            Damage = Str;
+            #endregion
+            #region imagens
+            for (int i = 0; i < 4; i++)
+            {
+                string path1 = "/Assets/Images/mob/" + I[i];
+                if (i == 2 || i == 3)
                 {
-                    int c = random.Next(0, 5);
-                    code[i] = "" + c;
-                    Parts[i] = Parts[i].Choose(c);
-                    Parts[i].UpdateMob(this);
-                }
-            }//monta o mob randomicamente
-            {
-                HpMax = Con * 6 + Level * 2;
-                Hp = HpMax;
-                AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
-                Run = 1 + 0.075 * Spd;
-                TimeMgcDmg = 9.0 * Mnd / 10;
-                Damage = Str;
-            }//calcula os atributos derivados
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    string path1 = "/Assets/Images/mob/" + I[i];
-                    if (i == 2 || i == 3)
+                    foreach (string j in J)
                     {
-                        foreach (string j in J)
+                        string path2 = "/" + j;
+                        for (int k = 0; k < 2; k++)
                         {
-                            string path2 = "/" + j;
-                            for (int k = 0; k < 2; k++)
-                            {
-                                string path3 = "/" + k + "/" + code[i] + ".png";
-                                images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
-                            }
+                            string path3 = "/" + k + "/" + code[i] + ".png";
+                            images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
                         }
                     }
-                    else
-                    {
-                        string path2 = "/" + code[i] + ".png";
-                        MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
-                    }
                 }
-            }//define e exibe as imagens
+                else
+                {
+                    string path2 = "/" + code[i] + ".png";
+                    MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                }
+            }
+            #endregion
         }
 
-        public void Status(TextBlock textBlock)
+        public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)
         {
             string text = "name: " + N[code[0]] + a[code[1]] + m[code[2]] + e[code[3]]
                 + "   (code " + code[0] + code[1] + code[2] + code[3] + ")"
