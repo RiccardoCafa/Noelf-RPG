@@ -179,6 +179,8 @@ namespace RPG_Noelf
 
             p1._Inventory.RemoveFromBag(banana, 1);
 
+            p1._Inventory.AddToBag(27, 1);
+
             #endregion
             
 
@@ -193,6 +195,7 @@ namespace RPG_Noelf
                 SetEventForSkillTree();
                 SetEventForBagItem();
                 SetEventForShopItem();
+                SetEventForEquip();
             });
         }
 
@@ -255,6 +258,33 @@ namespace RPG_Noelf
 
 
         #region Events
+        public void DesequiparEvent(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
+                {
+                    int index;
+                    int column, row;
+                    column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
+                    row = (int)(sender as Image).GetValue(Grid.RowProperty);
+                    index = column * row + column;
+                    Slot s = null;
+                    if(column == 0)
+                    {
+                        s = new Slot(p1.Equipamento.armor[row], 1);
+                    } else
+                    {
+                        s = new Slot(p1.Equipamento.weapon, 1);
+                    }
+                    if (s == null || s.ItemID == 0) return;
+                    p1.Equipamento.DesEquip(s.ItemID);
+                }
+            }
+        }
+
+
         public void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
@@ -268,6 +298,7 @@ namespace RPG_Noelf
                     row = (int)(sender as Image).GetValue(Grid.RowProperty);
                     index = column * row + column;
                     Slot s = p1._Inventory.GetSlot(index);
+                    if (s == null) return;
                     if (shopOpen)
                     {
                         shopper.SlotInOffer = s;
@@ -279,7 +310,8 @@ namespace RPG_Noelf
                         Item i = Encyclopedia.encyclopedia[s.ItemID];
                         if (i is Armor || i is Weapon)
                         {
-
+                            p1.Equipamento.UseEquip(s.ItemID);
+                            WindowBag.Visibility = Visibility.Collapsed;
                         }
                     }
                 }
@@ -511,6 +543,61 @@ namespace RPG_Noelf
             }
         }
 
+        private void SetEventForEquip()
+        {
+            foreach(UIElement element in EquipWindow.Children)
+            {
+                if(element is Image)
+                {
+                    element.PointerEntered += ShowEquipWindow;
+                    element.PointerExited += CloseItemWindow;
+                    element.PointerPressed += DesequiparEvent;
+                }
+            }
+        }
+
+        private void ShowEquipWindow(object sender, PointerRoutedEventArgs e)
+        {
+            if (WindowBag.Visibility == Visibility.Visible)
+            {
+                return;
+            }
+
+            Point mousePosition = e.GetCurrentPoint(Tela).Position;
+
+            Image itemEnter = null;
+            try
+            {
+                itemEnter = sender as Image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+
+            if (itemEnter == null) return;
+
+            int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
+            int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
+
+            Slot itemInfo;
+
+            if (columnPosition == 0)
+            {
+                itemInfo = new Slot(p1.Equipamento.armor[rowPosition], 1);
+            } else
+            {
+                itemInfo = new Slot(p1.Equipamento.weapon, 1);
+            }
+            if (itemInfo.ItemID == 0) return;
+
+            RealocateWindow(WindowBag, mousePosition);
+
+            UpdateItemWindowText(itemInfo);
+
+        }
+
         private void ShowItemWindow(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -605,6 +692,7 @@ namespace RPG_Noelf
 
         private void UpdateItemWindowText(Slot slot)
         {
+            if (slot == null) return;
             Item item = Encyclopedia.encyclopedia[slot.ItemID];
             W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
             W_ItemName.Text = item.Name;

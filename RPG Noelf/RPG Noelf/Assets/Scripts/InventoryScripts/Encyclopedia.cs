@@ -247,6 +247,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             Armor item25 = new Armor("Iron Boots")
             {
                 ItemCategory = Category.Normal,
+                PositArmor = PositionArmor.Legs,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Heavy,
                 GoldValue = 10,
@@ -267,6 +268,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 ItemCategory = Category.Uncommon,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Heavy,
+                PositArmor = PositionArmor.Legs,
                 GoldValue = 45,
                 PathImage = "/Assets/Images/Chao.jpg",
             };

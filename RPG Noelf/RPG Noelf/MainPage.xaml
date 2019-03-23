@@ -128,7 +128,7 @@
 
         <Canvas Width="100" Height="200" Canvas.Left="1200" Canvas.Top="40">
             <TextBlock Width="100" Height="25" Text="Equipamento" Canvas.Top="-25"/>
-            <Grid Width="100" Height="200">
+            <Grid Name="EquipWindow" Width="100" Height="200">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
@@ -142,6 +142,7 @@
                 <Image Width="40" Height="40" Grid.Row="0" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
                 <Image Width="40" Height="40" Grid.Row="1" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
                 <Image Width="40" Height="40" Grid.Row="2" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="40" Height="40" Grid.Row="3" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
                 <Image Width="40" Height="40" Grid.Row="1" Grid.Column="1" Source="/Assets/Images/Chao.jpg"/>
             </Grid>
             
