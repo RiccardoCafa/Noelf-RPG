@@ -86,28 +86,24 @@ namespace RPG_Noelf
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas);
                 player.UpdateBlocks(PlatChunck);
-                player.ResetPosition(320, 40);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
-                {
-                    images["face"] = face;
-                    images["body"] = body;
-                    images["armsd0"] = arm_d0;
-                    images["armsd1"] = arm_d1;
-                    images["armse0"] = arm_e0;
-                    images["armse1"] = arm_e1;
-                    images["legsd0"] = leg_d0;
-                    images["legsd1"] = leg_d1;
-                    images["legse0"] = leg_e0;
-                    images["legse1"] = leg_e1;
-                }
+
+                images["face"] = face;
+                images["body"] = body;
+                images["armsd0"] = arm_d0;
+                images["armsd1"] = arm_d1;
+                images["armse0"] = arm_e0;
+                images["armse1"] = arm_e1;
+                images["legsd0"] = leg_d0;
+                images["legsd1"] = leg_d1;
+                images["legse0"] = leg_e0;
+                images["legse1"] = leg_e1;
 
                 mob = new CharacterMob(MobCanvas, players, new Mob(images));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
-                Scene elel = new Scene(xScene);
                 mob.UpdateBlocks(PlatChunck);
-
-                mob.ResetPosition(920, 40);
+                //Scene elel = new Scene(xScene);
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
@@ -194,14 +190,6 @@ namespace RPG_Noelf
                 SetEventForSkillTree();
                 SetEventForBagItem();
                 SetEventForShopItem();
-            });
-        }
-
-        public static async void UpdateTexti()
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                texticulus.Text = (i / 2).ToString();
             });
         }
 
