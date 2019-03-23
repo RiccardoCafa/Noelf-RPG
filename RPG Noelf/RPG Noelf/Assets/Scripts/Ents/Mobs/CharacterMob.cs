@@ -32,7 +32,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         public double FirstY;
 
         public const double MinDistance = 150;
-        public const double MaxDistance = 450;
+        public const double MaxDistance = 700;
         public const double ChunckDistance = 1200;
 
         public Mob Mob;
@@ -59,7 +59,6 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-
                     CharacterPlayer target = GetNearestPlayer();
                     if (target == null)
                     {
@@ -151,10 +150,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         {
             double xcharac;
             double ycharac;
-            /*if(CheckStuck())
-            {
-                return;
-            }*/
+
             if (characterFollowed is CharacterPlayer)
             {
                 xcharac = GetCanvasLeft(characterFollowed.characT) + MainCamera.instance.CameraXOffSet *-1;
