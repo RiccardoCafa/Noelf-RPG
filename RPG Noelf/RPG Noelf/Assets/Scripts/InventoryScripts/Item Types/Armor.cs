@@ -14,8 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         public TypeArmor tpArmor;
         public float defense;
-        public Armor(string name) :
-        base(name)
+        public Armor(string name) : base(name)
         {
             IsStackable = false;
 

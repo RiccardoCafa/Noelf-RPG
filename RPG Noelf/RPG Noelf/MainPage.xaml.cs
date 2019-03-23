@@ -58,7 +58,8 @@ namespace RPG_Noelf
         public static TextBlock texticulus;
         public static int i;
 
-        public bool shopOpen = true;
+        public bool shopOpen = false;
+        public bool equipOpen = true;
 
         int _str, _spd, _dex, _con, _mnd;
 
@@ -256,22 +257,30 @@ namespace RPG_Noelf
         #region Events
         public void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
         {
-            if (shopOpen)
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
                 {
-                    var prop = e.GetCurrentPoint(this).Properties;
-                    if (prop.IsLeftButtonPressed)
+                    int index;
+                    int column, row;
+                    column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
+                    row = (int)(sender as Image).GetValue(Grid.RowProperty);
+                    index = column * row + column;
+                    Slot s = p1._Inventory.GetSlot(index);
+                    if (shopOpen)
                     {
-                        int index;
-                        int column, row;
-                        column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
-                        row = (int)(sender as Image).GetValue(Grid.RowProperty);
-                        index = column * row + column;
-                        Slot s = p1._Inventory.GetSlot(index);
                         shopper.SlotInOffer = s;
                         ShowOfferItem(s);
                         UpdateShopInfo();
+                    }
+                    if(equipOpen)
+                    {
+                        Item i = Encyclopedia.encyclopedia[s.ItemID];
+                        if (i is Armor || i is Weapon)
+                        {
+
+                        }
                     }
                 }
             }
