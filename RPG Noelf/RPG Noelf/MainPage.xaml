@@ -13,7 +13,7 @@
 
 
 
-        <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1200" Canvas.Top="400">
+        <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1030" Canvas.Top="40">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
             <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
 
@@ -70,10 +70,9 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="1000" Canvas.Top="400" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="800" Canvas.Top="40" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <TextBlock Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"></TextBlock>
             <Grid Name="InventarioGrid" ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
-
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
                 <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/Chao.jpg"/>
@@ -153,9 +152,9 @@
                 </Grid>
             </Grid>
         </Canvas>
-        <Canvas Name="xScene" Height="900" Width="6000" Canvas.Top="-134"/>
+        <Canvas Name="xScene" Height="780" Width="6000" Canvas.Top="0"/>
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
-            <Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <!--<Canvas Name="Plat1" Canvas.Left="300" Canvas.Top="240" Height="60" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="0" Canvas.Top="20"/>
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="60" Canvas.Top="20"/>
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/ground.png" Canvas.Left="120" Canvas.Top="20"/>
@@ -188,20 +187,20 @@
             <Canvas Name="Plat5" Canvas.Left="60" Canvas.Top="180" Height="60" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="0" Canvas.Top="-40"/>
                 <Image HorizontalAlignment="Left" Height="115" Margin="0,0,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/Images/grass.png" Canvas.Left="60" Canvas.Top="-40"/>
-            </Canvas>
+            </Canvas>-->
 
-            <TextBlock Name="Texticulu" Canvas.Left="7" Canvas.Top="15" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0"/>
-            <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="819" Canvas.Top="580" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
+            <TextBlock Name="Texticulu" Canvas.Left="10" Canvas.Top="10" Text="TextBlock" TextWrapping="Wrap" Height="87" Width="813" Margin="0,0,0,0"/>
+            <TextBlock Canvas.Left="1240" Canvas.Top="20" Text="@ Noelf Team CopyRight" FontSize="9" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Content="Apply" FontSize="8" HorizontalAlignment="Left" Canvas.Left="650" Canvas.Top="200" VerticalAlignment="Top" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
         </Canvas>
 
-        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="700" Canvas.Top="430" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
+        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="540" Canvas.Top="40" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
             <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
             <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
             <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
         </StackPanel>
 
-        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="800" Canvas.Top="410">
+        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="630" Canvas.Top="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="70"/>
@@ -233,11 +232,11 @@
             <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
         </Grid>
 
-        <ScrollViewer Width="150" Height="232" Canvas.Left="500" Canvas.Top="400" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
+        <ScrollViewer Width="150" Height="232" Canvas.Left="350" Canvas.Top="40" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
             <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
         </ScrollViewer>
 
-        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="150" Canvas.Top="570" VerticalAlignment="Stretch" Width="300">
+        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="20" Canvas.Top="210" VerticalAlignment="Stretch" Width="300">
             <TextBlock Text="Barra de Habilidades" Width="300" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="300" Height="50" Source="/Assets/Images/UI Elements/UIAtivo 13-0.png" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="Fill"/>
             <Grid Name="BarraSkill" ColumnSpacing="0" RowSpacing="0"  Height="50" Width="300" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -259,7 +258,7 @@
             </Grid>
         </Canvas>
 
-        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="175" Canvas.Top="400" VerticalAlignment="Stretch" Width="250">
+        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="45" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
             <TextBlock Text="Árvore de Habilidades" Width="250" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
             <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -311,8 +310,8 @@
             <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
             <Image Name="arm_e0" Canvas.Left="33" Canvas.Top="18" Width="60" Height="70"/>
             <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
-            <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80">
-                <TextBlock Name="xMobStatus" Width="160" Height="140" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
+            <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80">
+                <TextBlock Name="xMobStatus" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
             </Border>
         </Canvas>
 
