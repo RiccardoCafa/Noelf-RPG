@@ -7,13 +7,11 @@ using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 
-namespace RPG_Noelf.Assets.Scripts.Equipment
-
-
+namespace RPG_Noelf.Assets.Scripts.Ents
 {
-    class Equipment
+    class Equips
     {
-        public Equipment(Player player)
+        public Equips(Player player)
         {
             this.player = player;
         }
