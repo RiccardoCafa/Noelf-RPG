@@ -128,6 +128,28 @@
             </Grid>
         </Canvas>
 
+        <Canvas Width="100" Height="200" Canvas.Left="1200" Canvas.Top="40">
+            <TextBlock Width="100" Height="25" Text="Equipamento" Canvas.Top="-25"/>
+            <Grid Name="EquipWindow" Width="100" Height="200">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Image Width="40" Height="40" Grid.Row="0" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="40" Height="40" Grid.Row="1" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="40" Height="40" Grid.Row="2" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="40" Height="40" Grid.Row="3" Grid.Column="0" Source="/Assets/Images/Chao.jpg"/>
+                <Image Width="40" Height="40" Grid.Row="1" Grid.Column="1" Source="/Assets/Images/Chao.jpg"/>
+            </Grid>
+            
+        </Canvas>
+
         <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="1100" Canvas.Top="400" Visibility="Collapsed">
             <Image Width="110" Height="155" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"  ></Image>
             <Grid Width="110" Height="155">

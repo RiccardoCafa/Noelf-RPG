@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public string Name { get; set; } // nome do item;
         public bool IsStackable;//se é possivel acumular ou não
         public Category ItemCategory { get; set; }//raridade do item
-        public uint ItemID { get; set; }// ID de indentificação dos itens
+        //public uint ItemID { get; set; }// ID de indentificação dos itens
         public string PathImage { get; set; }
 
         public Item(string name)
