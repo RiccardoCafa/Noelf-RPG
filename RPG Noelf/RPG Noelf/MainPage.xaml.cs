@@ -87,10 +87,9 @@ namespace RPG_Noelf
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas);
                 player.UpdateBlocks(xScene);
-                player.ResetPosition(320, 40);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
-                {
+                #region ImageDefinition
                     images["face"] = face;
                     images["body"] = body;
                     images["armsd0"] = arm_d0;
@@ -101,11 +100,11 @@ namespace RPG_Noelf
                     images["legsd1"] = leg_d1;
                     images["legse0"] = leg_e0;
                     images["legse1"] = leg_e1;
-                }
+                #endregion
+                
                 mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 1));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
                 mob.UpdateBlocks(xScene);
-                mob.ResetPosition(920, 40);
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
@@ -192,14 +191,6 @@ namespace RPG_Noelf
                 SetEventForSkillTree();
                 SetEventForBagItem();
                 SetEventForShopItem();
-            });
-        }
-
-        public static async void UpdateTexti()
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                texticulus.Text = (i / 2).ToString();
             });
         }
 
