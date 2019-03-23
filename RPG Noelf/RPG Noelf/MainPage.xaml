@@ -162,7 +162,7 @@
 
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="6000" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="xScene" Height="768" Width="6000" Canvas.Top="0"/>
-            <Canvas Name="MobCanvas" Canvas.Left="100" Canvas.Top="400" Width="120" Height="120">
+            <Canvas Name="MobCanvas" Canvas.Left="100" Canvas.Top="525" Width="120" Height="120">
                 <Image Name="arm_d0" Canvas.Left="4" Canvas.Top="18" Width="60" Height="65"/>
                 <Image Name="arm_d1" Canvas.Left="-21" Canvas.Top="49" Width="70" Height="80"/>
                 <Image Name="leg_d1" Canvas.Left="32" Canvas.Top="76" Width="75" Height="55"/>
@@ -175,7 +175,7 @@
                 <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
                 <Rectangle Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" Fill="#BFFFFFFF"/>
                 <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80">
-                    <TextBlock Name="xMobStatus" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" FontFamily="Consolas" FontSize="10"/>
+                    <TextBlock Name="xMobStatus" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"/>
                 </Border>
             </Canvas>
         </Canvas>
