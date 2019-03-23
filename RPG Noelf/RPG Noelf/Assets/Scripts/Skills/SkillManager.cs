@@ -39,7 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
         }
 
-        public void SetWarriorPassive(string pathImage, string name)
+        public void SetWarriorPassive(string name, string pathImage)
         {
             Passive = new SkillBuff(name, pathImage)
             {
@@ -59,7 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
-        public void SetArcherPassive(string pathImage, string name)//ainda tem que mexer
+        public void SetArcherPassive(string name, string pathImage)//ainda tem que mexer
         {
             Passive = new SkillBuff(name, pathImage)
             {
@@ -79,7 +79,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
-        public void SetMagePassive(string pathImage, string name)//aqui tb
+        public void SetMagePassive(string name, string pathImage)//aqui tb
         {
             Passive = new SkillBuff(name, pathImage)
             {

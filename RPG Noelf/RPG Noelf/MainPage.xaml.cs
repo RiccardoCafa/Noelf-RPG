@@ -43,12 +43,17 @@ namespace RPG_Noelf
         List<CharacterPlayer> players = new List<CharacterPlayer>();
         CharacterPlayer player;
         CharacterMob mob;
+        MainCamera mainCamera;
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+        public TextBlock mobStatus;
         public static MainPage instance;
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
+
+        public static Canvas Telona;
+        public string test;
 
         public static TextBlock texticulus;
         public static int i;
@@ -61,10 +66,12 @@ namespace RPG_Noelf
         {
             instance = this;
             this.InitializeComponent();
+            Telona = Tela;
+            Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Start = new Thread(start);
             Start.Start();
         }
-
+        
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -72,7 +79,6 @@ namespace RPG_Noelf
             interfaceManager.Inventario = InventarioWindow;
 
             Encyclopedia.LoadItens();
-
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -82,6 +88,7 @@ namespace RPG_Noelf
                 player = new CharacterPlayer(PlayerCanvas);
                 player.UpdateBlocks(xScene);
                 player.ResetPosition(320, 40);
+                mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
                 {
                     images["face"] = face;
@@ -172,8 +179,7 @@ namespace RPG_Noelf
             p1._Inventory.RemoveFromBag(banana, 1);
 
             #endregion
-
-            Debug.WriteLine(p1._Inventory.Slots.Count);
+            
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -187,7 +193,6 @@ namespace RPG_Noelf
                 SetEventForBagItem();
                 SetEventForShopItem();
             });
-            texticulus = Texticulu;
         }
 
         public static async void UpdateTexti()
@@ -417,7 +422,6 @@ namespace RPG_Noelf
             if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
                 s = (p1._SkillManager.SkillBar[indicadorzao]).UseSkill(p1, p2).ToString();
-                Texticulu.Text = p1._SkillManager.SkillBar[indicadorzao].name + " tirou " + s + " de dano";
             }
 
         }
@@ -658,11 +662,11 @@ namespace RPG_Noelf
 
             if (mousePosition.Y >= Tela.Height / 2)
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
             }
             else
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y );
             }
         }
 

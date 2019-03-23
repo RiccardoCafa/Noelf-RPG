@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -16,6 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         Following,
         Alert,
         Sleeping,
+        Stuck,
         Dead
     }
 
@@ -28,10 +31,15 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         public double FirstX;
         public double FirstY;
 
-        public const double MinDistance = 250;
+        public const double MinDistance = 150;
+        public const double MaxDistance = 450;
         public const double ChunckDistance = 1200;
 
         public Mob Mob;
+
+        private double distInitialToMob;
+        private double distPlayer;
+        private string stats;
 
         public CharacterMob(Canvas characterCanvas, List<CharacterPlayer> players, Mob mob) : base(characterCanvas)
         {
@@ -51,6 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
+
                     CharacterPlayer target = GetNearestPlayer();
                     if (target == null)
                     {
@@ -58,16 +67,11 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
                     }
                     else
                     {
-                        double distInitialToMob = GetDistance(FirstX, FirstY, xCharacVal, yCharacVal);
-                        double distPlayer = GetDistance(target.xCharacVal, target.yCharacVal, FirstX, FirstY);
+                        distInitialToMob = GetDistance(FirstX, FirstY, xCharacVal, yCharacVal);
+                        distPlayer = GetDistance(target.xCharacVal + MainCamera.instance.CameraXOffSet *-1, target.yCharacVal + MainCamera.instance.CameraYOffSet * -1,
+                                                xCharacVal + characT.Width/2, FirstY + characT.Height/2);
                         
-                        if (distInitialToMob > ChunckDistance)
-                        {
-                            moveLeft = false;
-                            moveRight = false;
-                            MyState = MobState.Sleeping;
-                        }
-                        else if (distInitialToMob >= MinDistance)
+                        if (distInitialToMob >= MaxDistance)
                         {
                             MyState = MobState.Alert;
                         }
@@ -75,14 +79,22 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
                         {
                             MyState = MobState.Following;
                         }
+                        else if (distInitialToMob > ChunckDistance)
+                        {
+                            moveLeft = false;
+                            moveRight = false;
+                            MyState = MobState.Sleeping;
+                        }
                     }
 
                     switch (MyState)
                     {
                         case MobState.Alert:
+                            stats = "Alerta";
                             AlertState();
                             break;
                         case MobState.Following:
+                            stats = "Seguindo";
                             FollowingState(target);
                             break;
                     }
@@ -92,61 +104,78 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
 
         public void AlertState()
         {
-            if(xCharacVal - FirstX > 0)
+            if(xCharacVal - FirstX > 5)
             {
-                //Precisa ir para a esquerda
+                MoveToLeft();
+            } else if(xCharacVal - FirstX < -5)
+            {
+                MoveToRight();
+            } else
+            {
+                Stop();
+            }
+        }
+
+        private void MoveToLeft()
+        {
+            if (!freeLeft || !freeRight)
+            {
+                Jump();
+            } else
+            {
                 moveRight = false;
                 moveLeft = true;
+            }
+        }
 
-                if(blocoLeftx != null)
-                {
-                    jumping = true;
-                    Jump();
-                }
-            } else
+        private void Stop()
+        {
+            moveRight = false;
+            moveLeft = false;
+        }
+
+        private void MoveToRight()
+        {
+            if (!freeRight || !freeLeft)
+            {
+                Jump();
+            }
+            else
             {
                 moveRight = true;
                 moveLeft = false;
-
-                if(blocoRightx != null)
-                {
-                    jumping = true;
-                    Jump();
-                }
             }
         }
 
         public void FollowingState(Character characterFollowed)
         {
-            double xcharac = GetCanvasLeft(characterFollowed.characT);
-            double ycharac = GetCanvasTop(characterFollowed.characT);
-            
+            double xcharac;
+            double ycharac;
+            /*if(CheckStuck())
+            {
+                return;
+            }*/
+            if (characterFollowed is CharacterPlayer)
+            {
+                xcharac = GetCanvasLeft(characterFollowed.characT) + MainCamera.instance.CameraXOffSet *-1;
+                ycharac = GetCanvasTop(characterFollowed.characT) + MainCamera.instance.CameraYOffSet *-1;
+            } else
+            {
+                xcharac = GetCanvasLeft(characterFollowed.characT);
+                ycharac = GetCanvasTop(characterFollowed.characT);
+            }
+
             double xDist = xCharacVal - xcharac;
             if (xDist > characT.Width + 10)
             {
-                moveRight = false;
-                moveLeft = true;
-
-                if (!freeLeft)
-                {
-                    jumping = true;
-                    Jump();
-                }
+                MoveToLeft();
             }
             else if (xDist < -characT.Width - 10)
             {
-                moveLeft = false;
-                moveRight = true;
-
-                if (!freeRight)
-                {
-                    jumping = true;
-                    Jump();
-                }
+                MoveToRight();
             } else
             {
-                moveLeft = false;
-                moveRight = false;
+                Stop();
             }
         }
 
@@ -154,7 +183,8 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         {
             return
                 (from player in players
-                 orderby GetDistance(player.xCharacVal, player.yCharacVal, xCharacVal, yCharacVal)
+                 orderby GetDistance(player.xCharacVal + MainCamera.instance.CameraXOffSet, player.yCharacVal + MainCamera.instance.CameraYOffSet,
+                                    xCharacVal, yCharacVal)
                 select player).ElementAt(0);
 
         }
