@@ -12,12 +12,12 @@ namespace RPG_Noelf.Assets
 {
     class GeradorFoto
     {
-        public static async void MergeImages(UIElement personagem, int width, int height, Image renderedImage)
+        public static async void MergeImages(UIElement personagem, int width, int height)
         {
 
             RenderTargetBitmap rTb = new RenderTargetBitmap();
             await rTb.RenderAsync(personagem, width, height);
-            renderedImage.Source = rTb;
+            //renderedImage.Source = rTb;
             SaveFrame(rTb);
         }
 

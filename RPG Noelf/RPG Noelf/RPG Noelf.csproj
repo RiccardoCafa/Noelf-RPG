@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipmentSlots.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
+    <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
@@ -232,6 +233,7 @@
     <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 33-0.png" />
+    <Content Include="Assets\Scripts\Scenes\scenario.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

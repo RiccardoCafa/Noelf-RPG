@@ -43,12 +43,17 @@ namespace RPG_Noelf
         List<CharacterPlayer> players = new List<CharacterPlayer>();
         CharacterPlayer player;
         CharacterMob mob;
+        MainCamera mainCamera;
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+        public TextBlock mobStatus;
         public static MainPage instance;
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
+
+        public static Canvas Telona;
+        public string test;
 
         public static TextBlock texticulus;
         public static int i;
@@ -61,10 +66,12 @@ namespace RPG_Noelf
         {
             instance = this;
             this.InitializeComponent();
+            Telona = Tela;
+            Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Start = new Thread(start);
             Start.Start();
         }
-
+        
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -73,16 +80,17 @@ namespace RPG_Noelf
 
             Encyclopedia.LoadItens();
 
-
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                mobStatus = xMobStatus;
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
+                Scene elel = new Scene(xScene);//criaçao do cenario
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas);
-                player.UpdateBlocks(Chunck01);
-                player.ResetPosition(320, 40);
+                player.UpdateBlocks(xScene);
+                mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
-                {
+                #region ImageDefinition
                     images["face"] = face;
                     images["body"] = body;
                     images["armsd0"] = arm_d0;
@@ -93,12 +101,11 @@ namespace RPG_Noelf
                     images["legsd1"] = leg_d1;
                     images["legse0"] = leg_e0;
                     images["legse1"] = leg_e1;
-                }
-                mob = new CharacterMob(MobCanvas, players, new Mob(images));//criaçao do mob
+                #endregion
+                
+                mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 1));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
-                Scene elel = new Scene(xScene);
-                mob.UpdateBlocks(Chunck01);
-                mob.ResetPosition(920, 40);
+                mob.UpdateBlocks(xScene);
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
@@ -172,8 +179,7 @@ namespace RPG_Noelf
             p1._Inventory.RemoveFromBag(banana, 1);
 
             #endregion
-
-            Debug.WriteLine(p1._Inventory.Slots.Count);
+            
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -186,15 +192,6 @@ namespace RPG_Noelf
                 SetEventForSkillTree();
                 SetEventForBagItem();
                 SetEventForShopItem();
-            });
-            texticulus = Texticulu;
-        }
-
-        public static async void UpdateTexti()
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                texticulus.Text = (i / 2).ToString();
             });
         }
 
@@ -417,7 +414,6 @@ namespace RPG_Noelf
             if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
                 s = (p1._SkillManager.SkillBar[indicadorzao]).UseSkill(p1, p2).ToString();
-                Texticulu.Text = p1._SkillManager.SkillBar[indicadorzao].name + " tirou " + s + " de dano";
             }
 
         }
@@ -658,11 +654,11 @@ namespace RPG_Noelf
 
             if (mousePosition.Y >= Tela.Height / 2)
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
             }
             else
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y );
             }
         }
 

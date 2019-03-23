@@ -29,7 +29,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public double Armor { get; set; }
         public double Damage { get; set; }
-        public double AtkSpd { get; set; }
 
         public double DamageBuff { get; set; }
         public double ArmorBuff { get; set; }
