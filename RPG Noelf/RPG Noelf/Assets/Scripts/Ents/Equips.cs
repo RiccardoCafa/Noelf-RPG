@@ -16,7 +16,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             this.player = player;
         }
 
-        public uint[] armor = new uint[3];//elm 0, armor 1, Legs 2.
+        public uint[] armor = new uint[4];//elm 0, armor 1, Legs 2.
         public uint weapon;
         private Player player;
 
@@ -41,6 +41,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         case PositionArmor.Legs:
                             armor[2] = ID;
                             player._Inventory.RemoveFromBag(ID, 1);//equip legs
+                            break;
+                        case PositionArmor.Boots:
+                            armor[3] = ID;
+                            player._Inventory.RemoveFromBag(ID, 1);//equip boots
                             break;
                     }
                 }
@@ -83,6 +87,13 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         if (player._Inventory.AddToBag(ID, 1))//unequip legs
                         {
                             armor[2] = 0;
+                        }
+                        break;
+                    case PositionArmor.Boots:
+
+                        if (player._Inventory.AddToBag(ID, 1))//unequip legs
+                        {
+                            armor[3] = 0;
                         }
                         break;
                 }

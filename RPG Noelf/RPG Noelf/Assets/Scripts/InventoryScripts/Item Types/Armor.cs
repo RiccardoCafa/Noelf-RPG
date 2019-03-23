@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     }
     public enum PositionArmor
     {
-        Elm, Armor, Legs
+        Elm, Armor, Legs, Boots
     }
     class Armor : Item
     {
