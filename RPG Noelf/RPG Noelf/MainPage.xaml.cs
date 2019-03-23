@@ -83,9 +83,10 @@ namespace RPG_Noelf
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
+                Scene elel = new Scene(xScene);//criaçao do cenario
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas);
-                player.UpdateBlocks(PlatChunck);
+                player.UpdateBlocks(xScene);
                 player.ResetPosition(320, 40);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
@@ -101,12 +102,9 @@ namespace RPG_Noelf
                     images["legse0"] = leg_e0;
                     images["legse1"] = leg_e1;
                 }
-
-                mob = new CharacterMob(MobCanvas, players, new Mob(images));//criaçao do mob
+                mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 100));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
-                Scene elel = new Scene(xScene);
-                mob.UpdateBlocks(PlatChunck);
-
+                mob.UpdateBlocks(xScene);
                 mob.ResetPosition(920, 40);
             });
 

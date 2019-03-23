@@ -36,7 +36,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Str += 1;
+            mob.Str += (int)(1 + mob.Level * 0.25);
         }
     }
 
@@ -44,7 +44,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Spd += 1;
+            mob.Spd += (int)(1 + mob.Level * 0.25);
             mob.Attacks.Add(Poopoo);
             mob.attcks.Add("Poopoo");
         }
@@ -59,7 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Mnd += 1;
+            mob.Mnd += (int)(1 + mob.Level * 0.25);
         }
     }
 
@@ -67,7 +67,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Con += 1;
+            mob.Con += 2;
         }
     }
 
@@ -75,7 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Dex += 1;
+            mob.Dex += (int)(1 + mob.Level * 0.25);
             mob.Attacks.Add(Scratch);
             mob.attcks.Add("Scratch");
         }
