@@ -729,8 +729,6 @@ namespace RPG_Noelf
                 if (itemInfo == null) return;
             }
 
-            
-
             RealocateWindow(WindowBag, mousePosition);
 
             UpdateItemWindowText(itemInfo);
@@ -903,7 +901,8 @@ namespace RPG_Noelf
             {
                     if (val <= Bag.MaxStack)
                     {
-                        shopper.SellItem(shopper.SlotInOffer,p1._Inventory);
+                        Slot newSlot = new Slot(shopper.SlotInOffer.ItemID, val);
+                        shopper.SellItem(newSlot, p1._Inventory);
                         CloseOfferItem();
                     }
                 }
