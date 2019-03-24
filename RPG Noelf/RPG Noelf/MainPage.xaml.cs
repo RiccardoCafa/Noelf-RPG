@@ -59,8 +59,8 @@ namespace RPG_Noelf
         public static int i;
 
         public bool Switch = false;
-        public bool shopOpen = false;
-        public bool equipOpen = true;
+        public bool shopOpen = true;
+        public bool equipOpen = false;
 
         int _str, _spd, _dex, _con, _mnd;
 
@@ -124,6 +124,9 @@ namespace RPG_Noelf
             uint espadona = 3;
             uint potion = 4;
 
+            shopper.TradingItems.AddToBag(1, Bag.MaxStack);
+            shopper.TradingItems.AddToBag(2, Bag.MaxStack);
+            shopper.TradingItems.AddToBag(3, Bag.MaxStack);
 
             #region InvTest
 
@@ -579,10 +582,6 @@ namespace RPG_Noelf
                     }
                 }
             }
-            else
-            {
-                return;
-            }
         }
 
         private void SetEventForEquip()
@@ -714,11 +713,23 @@ namespace RPG_Noelf
 
             Slot itemInfo = null;
 
-            if (position < shopper.BuyingItems.Slots.Count)
+            if(!Switch)
             {
-                itemInfo = shopper.BuyingItems.Slots[position];
+                if (position < shopper.BuyingItems.Slots.Count)
+                {
+                    itemInfo = shopper.BuyingItems.Slots[position];
+                }
+                if (itemInfo == null) return;
+            } else
+            {
+                if (position < shopper.TradingItems.Slots.Count)
+                {
+                    itemInfo = shopper.TradingItems.Slots[position];
+                }
+                if (itemInfo == null) return;
             }
-            if (itemInfo == null) return;
+
+            
 
             RealocateWindow(WindowBag, mousePosition);
 
@@ -892,9 +903,8 @@ namespace RPG_Noelf
             {
                     if (val <= Bag.MaxStack)
                     {
-                            shopper.SellItem(shopper.SlotInOffer,p1._Inventory);
-                            CloseOfferItem();
-                        
+                        shopper.SellItem(shopper.SlotInOffer,p1._Inventory);
+                        CloseOfferItem();
                     }
                 }
             
@@ -955,11 +965,6 @@ namespace RPG_Noelf
                 UpdateShopInfo();
                 UpdatePlayerInfo();
             }
-            else
-            {
-
-            }
-
         }
 
         private void CancelSellingButton(object sender, RoutedEventArgs e)
@@ -1063,18 +1068,9 @@ namespace RPG_Noelf
 
         private void TrocaButton(object sender, RoutedEventArgs e)
         {
-            if(Switch == false)
-            {
-                Buy.Content = new String("Buy");
-                UpdateShopInfo();
-                Switch = true;
-            }
-            else
-            {
-                Buy.Content = new String("Sell");
-                UpdateShopInfo();
-                Switch = false;
-            }
+            Switch = !Switch;
+            Buy.Content = Switch == true ? "Buy" : "Sell";
+            UpdateShopInfo();
         }
 
         private void MSPD(object sender, RoutedEventArgs e)
