@@ -58,8 +58,9 @@ namespace RPG_Noelf
         public static TextBlock texticulus;
         public static int i;
 
-        public bool shopOpen = false;
-        public bool equipOpen = true;
+        public bool Switch = false;
+        public bool shopOpen = true;
+        public bool equipOpen = false;
 
         int _str, _spd, _dex, _con, _mnd;
 
@@ -123,6 +124,9 @@ namespace RPG_Noelf
             uint espadona = 3;
             uint potion = 4;
 
+            shopper.TradingItems.AddToBag(1, Bag.MaxStack);
+            shopper.TradingItems.AddToBag(2, Bag.MaxStack);
+            shopper.TradingItems.AddToBag(3, Bag.MaxStack);
 
             #region InvTest
 
@@ -229,13 +233,26 @@ namespace RPG_Noelf
         {
             int count = 0;
             foreach (Image img in ShopGrid.Children)
-            {
-                if (count >= shopper.BuyingItems.Slots.Count) img.Source = new BitmapImage();
+            {   
+                if(Switch == false)
+                {
+                    if (count >= shopper.BuyingItems.Slots.Count) img.Source = new BitmapImage();
+                    else
+                    {
+                        Slot s = shopper.BuyingItems.GetSlot(count);
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    }
+                }
                 else
                 {
-                    Slot s = shopper.BuyingItems.GetSlot(count);
-                    img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    if (count >= shopper.TradingItems.Slots.Count) img.Source = new BitmapImage();
+                    else
+                    {
+                        Slot s = shopper.TradingItems.GetSlot(count);
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    }
                 }
+
                 count++;
             }
         }
@@ -540,6 +557,29 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowItemBuying;
                     element.PointerExited += CloseItemBuying;
+                    element.PointerPressed += ShopItemBuy;
+                }
+            }
+        }
+        private void ShopItemBuy(object sender, PointerRoutedEventArgs e)
+        {
+            if(Switch == true)
+            {
+                if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+                {
+                    var prop = e.GetCurrentPoint(this).Properties;
+                    if (prop.IsLeftButtonPressed)
+                    {
+                        int index;
+                        int column, row;
+                        column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
+                        row = (int)(sender as Image).GetValue(Grid.RowProperty);
+                        index = column * row + column;
+                        Slot s = shopper.TradingItems.GetSlot(index);
+                        shopper.SlotInOffer = s;
+                        if (s == null) return;
+                        ShowOfferItem(s);
+                    }
                 }
             }
         }
@@ -673,11 +713,21 @@ namespace RPG_Noelf
 
             Slot itemInfo = null;
 
-            if (position < shopper.BuyingItems.Slots.Count)
+            if(!Switch)
             {
-                itemInfo = shopper.BuyingItems.Slots[position];
+                if (position < shopper.BuyingItems.Slots.Count)
+                {
+                    itemInfo = shopper.BuyingItems.Slots[position];
+                }
+                if (itemInfo == null) return;
+            } else
+            {
+                if (position < shopper.TradingItems.Slots.Count)
+                {
+                    itemInfo = shopper.TradingItems.Slots[position];
+                }
+                if (itemInfo == null) return;
             }
-            if (itemInfo == null) return;
 
             RealocateWindow(WindowBag, mousePosition);
 
@@ -832,17 +882,31 @@ namespace RPG_Noelf
         {
             if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
             {
-                if (val <= Bag.MaxStack)
+                if (Switch == false)
                 {
-                    if (p1._Inventory.RemoveFromBag(shopper.SlotInOffer.ItemID, val))
+
+                    if (val <= Bag.MaxStack)
+                    {
+                        if (p1._Inventory.RemoveFromBag(shopper.SlotInOffer.ItemID, val))
+                        {
+                            Slot newSlot = new Slot(shopper.SlotInOffer.ItemID, val);
+                            shopper.AddToBuyingItems(newSlot);
+                            shopper.SlotInOffer = null;
+                            UpdateShopInfo();
+                            CloseOfferItem();
+                        }
+                    }
+                }
+                else
+            {
+                    if (val <= Bag.MaxStack)
                     {
                         Slot newSlot = new Slot(shopper.SlotInOffer.ItemID, val);
-                        shopper.AddToBuyingItems(newSlot);
-                        shopper.SlotInOffer = null;
-                        UpdateShopInfo();
+                        shopper.SellItem(newSlot, p1._Inventory);
                         CloseOfferItem();
                     }
                 }
+            
             }
         }
 
@@ -894,9 +958,12 @@ namespace RPG_Noelf
 
         private void SellButton(object sender, RoutedEventArgs e)
         {
-            shopper.BuyItem(p1._Inventory);
-            UpdateShopInfo();
-            UpdatePlayerInfo();
+            if(Switch == false)
+            {
+                shopper.BuyItem(p1._Inventory);
+                UpdateShopInfo();
+                UpdatePlayerInfo();
+            }
         }
 
         private void CancelSellingButton(object sender, RoutedEventArgs e)
@@ -997,9 +1064,12 @@ namespace RPG_Noelf
             }
         }
 
-        private void BuyButton(object sender, RoutedEventArgs e)
+
+        private void TrocaButton(object sender, RoutedEventArgs e)
         {
-            //fazer
+            Switch = !Switch;
+            Buy.Content = Switch == true ? "Buy" : "Sell";
+            UpdateShopInfo();
         }
 
         private void MSPD(object sender, RoutedEventArgs e)
