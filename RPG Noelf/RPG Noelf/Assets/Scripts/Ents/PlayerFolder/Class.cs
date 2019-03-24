@@ -57,7 +57,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
-                Amplificator = 1.01,
+                Amplificator = 0.01,
                 cooldown = 20,
                 Buff = 1.24,
                 tipo = SkillType.habilite,
