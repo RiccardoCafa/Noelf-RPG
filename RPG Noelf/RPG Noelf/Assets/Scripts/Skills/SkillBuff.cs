@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
+
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
     enum SkillTypeBuff
@@ -43,7 +44,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public double Timer { get; set; }
 
         public BuffDebuffTypes Buffer { get; set; }
-
+        
 
         public SkillBuff(string pathImage, string name)
         {
@@ -112,6 +113,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return false;
         }
+        
     }
     class SkillDash : SkillGenerics
     {
