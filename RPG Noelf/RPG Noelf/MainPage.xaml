@@ -148,7 +148,7 @@
             
         </Canvas>
 
-        <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="1100" Canvas.Top="400" Visibility="Collapsed">
+        <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="950" Canvas.Top="80" Visibility="Collapsed">
             <Image Width="110" Height="155" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"  ></Image>
             <Grid Width="110" Height="155">
                 <Grid.ColumnDefinitions>
