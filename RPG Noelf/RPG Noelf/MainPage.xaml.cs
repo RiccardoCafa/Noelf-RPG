@@ -59,7 +59,7 @@ namespace RPG_Noelf
         public static int i;
 
         public bool Switch = false;
-        public bool shopOpen = true;
+        public bool shopOpen = false;
         public bool equipOpen = false;
 
         int _str, _spd, _dex, _con, _mnd;
@@ -70,6 +70,7 @@ namespace RPG_Noelf
             this.InitializeComponent();
             Telona = Tela;
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
+            Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
             Start.Start();
         }
@@ -192,7 +193,7 @@ namespace RPG_Noelf
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 UpdateBag();
-                LoadSkillTree();
+                UpdateSkillTree();
                 UpdatePlayerInfo();
                 UpdateSkillBar();
                 UpdateShopInfo();
@@ -201,7 +202,80 @@ namespace RPG_Noelf
                 SetEventForBagItem();
                 SetEventForShopItem();
                 SetEventForEquip();
+
+                ShopWindow.Visibility = Visibility.Collapsed;
+                InventarioWindow.Visibility = Visibility.Collapsed;
+                Atributos.Visibility = Visibility.Collapsed;
+                WindowEquipamento.Visibility = Visibility.Collapsed;
+                WindowTreeSkill.Visibility = Visibility.Collapsed;
             });
+
+        }
+
+        private void WindowControl(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
+        {
+            switch(e.VirtualKey)
+            {
+                case Windows.System.VirtualKey.B:
+                    if (InventarioWindow.Visibility == Visibility.Collapsed)
+                    {
+                        UpdateBag();
+                        InventarioWindow.Visibility = Visibility.Visible;
+                    }
+                    else InventarioWindow.Visibility = Visibility.Collapsed;
+                    break;
+                case Windows.System.VirtualKey.P:
+                    if (Atributos.Visibility == Visibility.Collapsed)
+                    {
+                        UpdatePlayerInfo();
+                        Atributos.Visibility = Visibility.Visible;
+                    }
+                    else Atributos.Visibility = Visibility.Collapsed;
+                    break;
+                case Windows.System.VirtualKey.E:
+                    if (WindowEquipamento.Visibility == Visibility.Collapsed)
+                    {
+                        if (shopOpen)
+                        {
+                            shopOpen = false;
+                            ShopWindow.Visibility = Visibility.Collapsed;
+                        }
+                        WindowEquipamento.Visibility = Visibility.Visible;
+                        equipOpen = true;
+                    }
+                    else
+                    {
+                        equipOpen = false;
+                        WindowEquipamento.Visibility = Visibility.Collapsed;
+                    }
+                    break;
+                case Windows.System.VirtualKey.O:
+                    if (ShopWindow.Visibility == Visibility.Collapsed)
+                    {
+                        if (equipOpen)
+                        {
+                            equipOpen = false;
+                            WindowEquipamento.Visibility = Visibility.Collapsed;
+                        }
+                        UpdateShopInfo();
+                        ShopWindow.Visibility = Visibility.Visible;
+                        shopOpen = true;
+                    }
+                    else
+                    {
+                        shopOpen = false;
+                        ShopWindow.Visibility = Visibility.Collapsed;
+                    }
+                    break;
+                case Windows.System.VirtualKey.K:
+                    if (WindowTreeSkill.Visibility == Visibility.Collapsed)
+                    {
+                        UpdateSkillTree();
+                        WindowTreeSkill.Visibility = Visibility.Visible;
+                    }
+                    else WindowTreeSkill.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
 
         public static void SetImageSource(Image img, string path)
@@ -301,7 +375,6 @@ namespace RPG_Noelf
                 }
             }
         }
-
 
         public void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
         {
@@ -477,7 +550,7 @@ namespace RPG_Noelf
 
         }
 
-        public void LoadSkillTree()
+        public void UpdateSkillTree()
         {
             int cont = 0;
             foreach (UIElement element in SkillsTree.Children)
@@ -561,6 +634,20 @@ namespace RPG_Noelf
                 }
             }
         }
+
+        private void SetEventForEquip()
+        {
+            foreach(UIElement element in EquipWindow.Children)
+            {
+                if(element is Image)
+                {
+                    element.PointerEntered += ShowEquipWindow;
+                    element.PointerExited += CloseItemWindow;
+                    element.PointerPressed += DesequiparEvent;
+                }
+            }
+        }
+
         private void ShopItemBuy(object sender, PointerRoutedEventArgs e)
         {
             if(Switch == true)
@@ -583,20 +670,7 @@ namespace RPG_Noelf
                 }
             }
         }
-
-        private void SetEventForEquip()
-        {
-            foreach(UIElement element in EquipWindow.Children)
-            {
-                if(element is Image)
-                {
-                    element.PointerEntered += ShowEquipWindow;
-                    element.PointerExited += CloseItemWindow;
-                    element.PointerPressed += DesequiparEvent;
-                }
-            }
-        }
-
+        
         private void ShowEquipWindow(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -683,8 +757,7 @@ namespace RPG_Noelf
         {
             WindowBag.Visibility = Visibility.Collapsed;
         }
-
-
+        
         private void ShowItemBuying(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -734,8 +807,7 @@ namespace RPG_Noelf
             UpdateItemWindowText(itemInfo);
 
         }
-
-
+        
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
         {
             WindowBag.Visibility = Visibility.Collapsed;
@@ -943,7 +1015,13 @@ namespace RPG_Noelf
         {
             if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
             {
-                uint MaxValue = p1._Inventory.GetSlot(shopper.SlotInOffer.ItemID).ItemAmount;
+                uint MaxValue;
+                if (!Switch)
+                {
+                    MaxValue = p1._Inventory.GetSlot(shopper.SlotInOffer.ItemID).ItemAmount;
+                }
+                else MaxValue = shopper.TradingItems.GetSlot(shopper.SlotInOffer.ItemID).ItemAmount;
+
                 if (val <= 0)
                 {
                     val = 1;
