@@ -3,24 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    abstract class Face : MobDecorator
+    class Face : IParts
     {
-        protected Face(Mob mob) : base(mob)
-        {
-        }
+        virtual public void UpdateMob(Mob mob) { }
 
-        public new void Make() { base.Make(); }
+        public IParts Choose(int code)
+        {
+            switch (code)
+            {
+                case 0:
+                    return new DragonFace();
+                case 1:
+                    return new KongFace();
+                case 2:
+                    return new LizardFace();
+                case 3:
+                    return new BisonFace();
+                case 4:
+                    return new CatFace();
+                default:
+                    return null;
+            }
+        }
     }
 
     class DragonFace : Face
     {
-        public DragonFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            mob.Str += 2;
-            mob.attacks.Add(Fireball);
+            mob.Str += (int)(3 + mob.Level * 0.5);
+            mob.Attacks.Add(Fireball);
+            mob.attcks.Add("Fireball");
         }
 
         public void Fireball()//bola de fogo
@@ -31,18 +49,19 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class KongFace : Face
     {
-        public KongFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            mob.Spd += 2;
+            mob.Spd += (int)(3 + mob.Level * 0.5);
         }
     }
 
     class LizardFace : Face
     {
-        public LizardFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            mob.Mnd += 2;
-            mob.attacks.Add(Lick);
+            mob.Mnd += (int)(3 + mob.Level * 0.5);
+            mob.Attacks.Add(Lick);
+            mob.attcks.Add("Lick");
         }
 
         public void Lick()//linguada
@@ -53,10 +72,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class BisonFace : Face
     {
-        public BisonFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            mob.Con += 2;
-            mob.attacks.Add(Headache);
+            mob.Con += (int)(3 + mob.Level * 0.5);
+            mob.Attacks.Add(Headache);
+            mob.attcks.Add("Headache");
         }
 
         public void Headache()//cabeçada
@@ -67,9 +87,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class CatFace : Face
     {
-        public CatFace(Mob mob) : base(mob)
+        public override void UpdateMob(Mob mob)
         {
-            mob.Dex += 2;
+            mob.Dex += (int)( 3 + mob.Level * 0.5);
         }
     }
 }

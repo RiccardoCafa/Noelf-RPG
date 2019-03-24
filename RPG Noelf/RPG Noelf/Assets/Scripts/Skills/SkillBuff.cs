@@ -45,7 +45,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public BuffDebuffTypes Buffer { get; set; }
 
 
-        public SkillBuff(string name, string pathImage)
+        public SkillBuff(string pathImage, string name)
         {
             this.name = name;
             this.pathImage = pathImage;

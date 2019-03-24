@@ -1,5 +1,4 @@
 ﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
-using RPG_Noelf.Assets.Scripts.InventoryScripts;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -74,7 +73,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             }
             return total;
         }
-        
+        // (y) é tao legal mexer no pc dos outros kaopsdkoaskpdoakodkopaskop
         /// <summary>
         /// Increments a X amount of coins in the bag. With a maximium of 9.999.999
         /// </summary>

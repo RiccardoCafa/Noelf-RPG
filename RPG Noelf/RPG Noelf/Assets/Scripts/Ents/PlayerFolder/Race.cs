@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         Orc,
         Elf
     }
-    abstract class Race : IAtributes
+    abstract class Race// : IAtributes
     {
         public int Str { get; set; }
         public int Spd { get; set; }
