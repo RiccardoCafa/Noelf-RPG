@@ -13,15 +13,14 @@ namespace RPG_Noelf.Assets.Scripts.Runes
     class Rune
     {
       public string runename { get; set; }
-      public Level actualRuneLevel {get;set;}
       public double chanceEffect { get; set; }
       public Element typeRune { get; set; }
-      public double damage { get; set; }  
+      public Skill GenericSkill { get; set; }
     
         public Rune(Element tpRune, int runeLevel)
         {
             typeRune = tpRune;
-            actualRuneLevel = new Level(runeLevel);
+            
         }
 
 
