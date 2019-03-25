@@ -43,17 +43,24 @@ namespace RPG_Noelf
         List<CharacterPlayer> players = new List<CharacterPlayer>();
         CharacterPlayer player;
         CharacterMob mob;
+        MainCamera mainCamera;
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+        public TextBlock mobStatus;
         public static MainPage instance;
         public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
 
+        public static Canvas Telona;
+        public string test;
+
         public static TextBlock texticulus;
         public static int i;
 
-        public bool shopOpen = true;
+        public bool Switch = false;
+        public bool shopOpen = false;
+        public bool equipOpen = false;
 
         int _str, _spd, _dex, _con, _mnd;
 
@@ -61,10 +68,13 @@ namespace RPG_Noelf
         {
             instance = this;
             this.InitializeComponent();
+            Telona = Tela;
+            Application.Current.DebugSettings.EnableFrameRateCounter = true;
+            Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
             Start.Start();
         }
-
+        
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -73,16 +83,17 @@ namespace RPG_Noelf
 
             Encyclopedia.LoadItens();
 
-
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                mobStatus = xMobStatus;
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
+                Scene elel = new Scene(xScene);//criaçao do cenario
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas);
-                player.UpdateBlocks(Chunck01);
-                player.ResetPosition(320, 40);
+                player.UpdateBlocks(xScene);
+                mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
-                {
+                #region ImageDefinition
                     images["face"] = face;
                     images["body"] = body;
                     images["armsd0"] = arm_d0;
@@ -93,12 +104,11 @@ namespace RPG_Noelf
                     images["legsd1"] = leg_d1;
                     images["legse0"] = leg_e0;
                     images["legse1"] = leg_e1;
-                }
-                mob = new CharacterMob(MobCanvas, players, new Mob(images));//criaçao do mob
+                #endregion
+                
+                mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 1));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
-                Scene elel = new Scene(xScene);
-                mob.UpdateBlocks(Chunck01);
-                mob.ResetPosition(920, 40);
+                mob.UpdateBlocks(xScene);
             });
 
             p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
@@ -115,6 +125,9 @@ namespace RPG_Noelf
             uint espadona = 3;
             uint potion = 4;
 
+            shopper.TradingItems.AddToBag(1, Bag.MaxStack);
+            shopper.TradingItems.AddToBag(2, Bag.MaxStack);
+            shopper.TradingItems.AddToBag(3, Bag.MaxStack);
 
             #region InvTest
 
@@ -171,14 +184,16 @@ namespace RPG_Noelf
 
             p1._Inventory.RemoveFromBag(banana, 1);
 
-            #endregion
+            p1._Inventory.AddToBag(27, 1);
+            p1._Inventory.AddToBag(35, 1);
 
-            Debug.WriteLine(p1._Inventory.Slots.Count);
+            #endregion
+            
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 UpdateBag();
-                LoadSkillTree();
+                UpdateSkillTree();
                 UpdatePlayerInfo();
                 UpdateSkillBar();
                 UpdateShopInfo();
@@ -186,16 +201,81 @@ namespace RPG_Noelf
                 SetEventForSkillTree();
                 SetEventForBagItem();
                 SetEventForShopItem();
+                SetEventForEquip();
+
+                ShopWindow.Visibility = Visibility.Collapsed;
+                InventarioWindow.Visibility = Visibility.Collapsed;
+                Atributos.Visibility = Visibility.Collapsed;
+                WindowEquipamento.Visibility = Visibility.Collapsed;
+                WindowTreeSkill.Visibility = Visibility.Collapsed;
             });
-            texticulus = Texticulu;
+
         }
 
-        public static async void UpdateTexti()
+        private void WindowControl(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            switch(e.VirtualKey)
             {
-                texticulus.Text = (i / 2).ToString();
-            });
+                case Windows.System.VirtualKey.B:
+                    if (InventarioWindow.Visibility == Visibility.Collapsed)
+                    {
+                        UpdateBag();
+                        InventarioWindow.Visibility = Visibility.Visible;
+                    }
+                    else InventarioWindow.Visibility = Visibility.Collapsed;
+                    break;
+                case Windows.System.VirtualKey.P:
+                    if (Atributos.Visibility == Visibility.Collapsed)
+                    {
+                        UpdatePlayerInfo();
+                        Atributos.Visibility = Visibility.Visible;
+                    }
+                    else Atributos.Visibility = Visibility.Collapsed;
+                    break;
+                case Windows.System.VirtualKey.E:
+                    if (WindowEquipamento.Visibility == Visibility.Collapsed)
+                    {
+                        if (shopOpen)
+                        {
+                            shopOpen = false;
+                            ShopWindow.Visibility = Visibility.Collapsed;
+                        }
+                        WindowEquipamento.Visibility = Visibility.Visible;
+                        equipOpen = true;
+                    }
+                    else
+                    {
+                        equipOpen = false;
+                        WindowEquipamento.Visibility = Visibility.Collapsed;
+                    }
+                    break;
+                case Windows.System.VirtualKey.O:
+                    if (ShopWindow.Visibility == Visibility.Collapsed)
+                    {
+                        if (equipOpen)
+                        {
+                            equipOpen = false;
+                            WindowEquipamento.Visibility = Visibility.Collapsed;
+                        }
+                        UpdateShopInfo();
+                        ShopWindow.Visibility = Visibility.Visible;
+                        shopOpen = true;
+                    }
+                    else
+                    {
+                        shopOpen = false;
+                        ShopWindow.Visibility = Visibility.Collapsed;
+                    }
+                    break;
+                case Windows.System.VirtualKey.K:
+                    if (WindowTreeSkill.Visibility == Visibility.Collapsed)
+                    {
+                        UpdateSkillTree();
+                        WindowTreeSkill.Visibility = Visibility.Visible;
+                    }
+                    else WindowTreeSkill.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
 
         public static void SetImageSource(Image img, string path)
@@ -227,13 +307,26 @@ namespace RPG_Noelf
         {
             int count = 0;
             foreach (Image img in ShopGrid.Children)
-            {
-                if (count >= shopper.BuyingItems.Slots.Count) img.Source = new BitmapImage();
+            {   
+                if(Switch == false)
+                {
+                    if (count >= shopper.BuyingItems.Slots.Count) img.Source = new BitmapImage();
+                    else
+                    {
+                        Slot s = shopper.BuyingItems.GetSlot(count);
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    }
+                }
                 else
                 {
-                    Slot s = shopper.BuyingItems.GetSlot(count);
-                    img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    if (count >= shopper.TradingItems.Slots.Count) img.Source = new BitmapImage();
+                    else
+                    {
+                        Slot s = shopper.TradingItems.GetSlot(count);
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    }
                 }
+
                 count++;
             }
         }
@@ -257,24 +350,60 @@ namespace RPG_Noelf
 
 
         #region Events
+        public void DesequiparEvent(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
+                {
+                    int index;
+                    int column, row;
+                    column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
+                    row = (int)(sender as Image).GetValue(Grid.RowProperty);
+                    index = column * row + column;
+                    Slot s = null;
+                    if(column == 0)
+                    {
+                        s = new Slot(p1.Equipamento.armor[row], 1);
+                    } else
+                    {
+                        s = new Slot(p1.Equipamento.weapon, 1);
+                    }
+                    if (s == null || s.ItemID == 0) return;
+                    p1.Equipamento.DesEquip(s.ItemID);
+                }
+            }
+        }
+
         public void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
         {
-            if (shopOpen)
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
                 {
-                    var prop = e.GetCurrentPoint(this).Properties;
-                    if (prop.IsLeftButtonPressed)
+                    int index;
+                    int column, row;
+                    column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
+                    row = (int)(sender as Image).GetValue(Grid.RowProperty);
+                    index = column * row + column;
+                    Slot s = p1._Inventory.GetSlot(index);
+                    if (s == null) return;
+                    if (shopOpen)
                     {
-                        int index;
-                        int column, row;
-                        column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
-                        row = (int)(sender as Image).GetValue(Grid.RowProperty);
-                        index = column * row + column;
-                        Slot s = p1._Inventory.GetSlot(index);
                         shopper.SlotInOffer = s;
                         ShowOfferItem(s);
                         UpdateShopInfo();
+                    }
+                    if(equipOpen)
+                    {
+                        Item i = Encyclopedia.encyclopedia[s.ItemID];
+                        if (i is Armor || i is Weapon)
+                        {
+                            p1.Equipamento.UseEquip(s.ItemID);
+                            WindowBag.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
             }
@@ -417,12 +546,11 @@ namespace RPG_Noelf
             if (p1._SkillManager.SkillBar[indicadorzao] != null)
             {
                 s = (p1._SkillManager.SkillBar[indicadorzao]).UseSkill(p1, p2).ToString();
-                Texticulu.Text = p1._SkillManager.SkillBar[indicadorzao].name + " tirou " + s + " de dano";
             }
 
         }
 
-        public void LoadSkillTree()
+        public void UpdateSkillTree()
         {
             int cont = 0;
             foreach (UIElement element in SkillsTree.Children)
@@ -502,8 +630,87 @@ namespace RPG_Noelf
                 {
                     element.PointerEntered += ShowItemBuying;
                     element.PointerExited += CloseItemBuying;
+                    element.PointerPressed += ShopItemBuy;
                 }
             }
+        }
+
+        private void SetEventForEquip()
+        {
+            foreach(UIElement element in EquipWindow.Children)
+            {
+                if(element is Image)
+                {
+                    element.PointerEntered += ShowEquipWindow;
+                    element.PointerExited += CloseItemWindow;
+                    element.PointerPressed += DesequiparEvent;
+                }
+            }
+        }
+
+        private void ShopItemBuy(object sender, PointerRoutedEventArgs e)
+        {
+            if(Switch == true)
+            {
+                if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+                {
+                    var prop = e.GetCurrentPoint(this).Properties;
+                    if (prop.IsLeftButtonPressed)
+                    {
+                        int index;
+                        int column, row;
+                        column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
+                        row = (int)(sender as Image).GetValue(Grid.RowProperty);
+                        index = column * row + column;
+                        Slot s = shopper.TradingItems.GetSlot(index);
+                        shopper.SlotInOffer = s;
+                        if (s == null) return;
+                        ShowOfferItem(s);
+                    }
+                }
+            }
+        }
+        
+        private void ShowEquipWindow(object sender, PointerRoutedEventArgs e)
+        {
+            if (WindowBag.Visibility == Visibility.Visible)
+            {
+                return;
+            }
+
+            Point mousePosition = e.GetCurrentPoint(Tela).Position;
+
+            Image itemEnter = null;
+            try
+            {
+                itemEnter = sender as Image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+
+            if (itemEnter == null) return;
+
+            int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
+            int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
+
+            Slot itemInfo;
+
+            if (columnPosition == 0)
+            {
+                itemInfo = new Slot(p1.Equipamento.armor[rowPosition], 1);
+            } else
+            {
+                itemInfo = new Slot(p1.Equipamento.weapon, 1);
+            }
+            if (itemInfo.ItemID == 0) return;
+
+            RealocateWindow(WindowBag, mousePosition);
+
+            UpdateItemWindowText(itemInfo);
+
         }
 
         private void ShowItemWindow(object sender, PointerRoutedEventArgs e)
@@ -550,8 +757,7 @@ namespace RPG_Noelf
         {
             WindowBag.Visibility = Visibility.Collapsed;
         }
-
-
+        
         private void ShowItemBuying(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -580,19 +786,28 @@ namespace RPG_Noelf
 
             Slot itemInfo = null;
 
-            if (position < shopper.BuyingItems.Slots.Count)
+            if(!Switch)
             {
-                itemInfo = shopper.BuyingItems.Slots[position];
+                if (position < shopper.BuyingItems.Slots.Count)
+                {
+                    itemInfo = shopper.BuyingItems.Slots[position];
+                }
+                if (itemInfo == null) return;
+            } else
+            {
+                if (position < shopper.TradingItems.Slots.Count)
+                {
+                    itemInfo = shopper.TradingItems.Slots[position];
+                }
+                if (itemInfo == null) return;
             }
-            if (itemInfo == null) return;
 
             RealocateWindow(WindowBag, mousePosition);
 
             UpdateItemWindowText(itemInfo);
 
         }
-
-
+        
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
         {
             WindowBag.Visibility = Visibility.Collapsed;
@@ -600,6 +815,7 @@ namespace RPG_Noelf
 
         private void UpdateItemWindowText(Slot slot)
         {
+            if (slot == null) return;
             Item item = Encyclopedia.encyclopedia[slot.ItemID];
             W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
             W_ItemName.Text = item.Name;
@@ -658,11 +874,11 @@ namespace RPG_Noelf
 
             if (mousePosition.Y >= Tela.Height / 2)
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
             }
             else
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y - window.Height - 10);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y );
             }
         }
 
@@ -738,17 +954,31 @@ namespace RPG_Noelf
         {
             if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
             {
-                if (val <= Bag.MaxStack)
+                if (Switch == false)
                 {
-                    if (p1._Inventory.RemoveFromBag(shopper.SlotInOffer.ItemID, val))
+
+                    if (val <= Bag.MaxStack)
+                    {
+                        if (p1._Inventory.RemoveFromBag(shopper.SlotInOffer.ItemID, val))
+                        {
+                            Slot newSlot = new Slot(shopper.SlotInOffer.ItemID, val);
+                            shopper.AddToBuyingItems(newSlot);
+                            shopper.SlotInOffer = null;
+                            UpdateShopInfo();
+                            CloseOfferItem();
+                        }
+                    }
+                }
+                else
+            {
+                    if (val <= Bag.MaxStack)
                     {
                         Slot newSlot = new Slot(shopper.SlotInOffer.ItemID, val);
-                        shopper.AddToBuyingItems(newSlot);
-                        shopper.SlotInOffer = null;
-                        UpdateShopInfo();
+                        shopper.SellItem(newSlot, p1._Inventory);
                         CloseOfferItem();
                     }
                 }
+            
             }
         }
 
@@ -785,7 +1015,13 @@ namespace RPG_Noelf
         {
             if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
             {
-                uint MaxValue = p1._Inventory.GetSlot(shopper.SlotInOffer.ItemID).ItemAmount;
+                uint MaxValue;
+                if (!Switch)
+                {
+                    MaxValue = p1._Inventory.GetSlot(shopper.SlotInOffer.ItemID).ItemAmount;
+                }
+                else MaxValue = shopper.TradingItems.GetSlot(shopper.SlotInOffer.ItemID).ItemAmount;
+
                 if (val <= 0)
                 {
                     val = 1;
@@ -800,9 +1036,12 @@ namespace RPG_Noelf
 
         private void SellButton(object sender, RoutedEventArgs e)
         {
-            shopper.BuyItem(p1._Inventory);
-            UpdateShopInfo();
-            UpdatePlayerInfo();
+            if(Switch == false)
+            {
+                shopper.BuyItem(p1._Inventory);
+                UpdateShopInfo();
+                UpdatePlayerInfo();
+            }
         }
 
         private void CancelSellingButton(object sender, RoutedEventArgs e)
@@ -903,9 +1142,12 @@ namespace RPG_Noelf
             }
         }
 
-        private void BuyButton(object sender, RoutedEventArgs e)
+
+        private void TrocaButton(object sender, RoutedEventArgs e)
         {
-            //fazer
+            Switch = !Switch;
+            Buy.Content = Switch == true ? "Buy" : "Sell";
+            UpdateShopInfo();
         }
 
         private void MSPD(object sender, RoutedEventArgs e)

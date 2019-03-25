@@ -17,6 +17,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public List<Element> Vulnerable { get; set; } = new List<Element>();
         public bool Meek { get; set; } = false;
 
+        public int Level;
+
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
 
         private string[] I = { "face", "body", "arms", "legs" };
@@ -24,50 +26,83 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public string[] code = new string[4];
 
-        public Mob(Dictionary<string, Image> images)
+        public Dictionary<string, char> N = new Dictionary<string, char>()
         {
-            Random random = new Random();
-            for (int i = 0; i < 4; i++)
+            {"0", 'D' }, {"1", 'G' }, {"2", 'L' }, {"3", 'B' }, {"4", 'C' },
+        };
+        public Dictionary<string, string> a = new Dictionary<string, string>()
+        {
+            {"0", "ar" }, {"1", "e" }, {"2", "hi" }, {"3", "on" }, {"4", "uo" },
+        };
+        public Dictionary<string, char> m = new Dictionary<string, char>()
+        {
+            {"0", 'g' }, {"1", 'r' }, {"2", 'z' }, {"3", 'n' }, {"4", 't' },
+        };
+        public Dictionary<string, string> e = new Dictionary<string, string>()
+        {
+            {"0", "a" }, {"1", "eo" }, {"2", "il" }, {"3", "o" }, {"4", "u" },
+        };
+
+        public Mob(Dictionary<string, Image> images, int level)
+        {
             {
-                int c = random.Next(0, 5);
-                code[i] = "" + c;
-                Parts[i] = Parts[i].Choose(c);
-                Parts[i].UpdateMob(this);
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                string path1 = "/Assets/Images/mob/" + I[i];
-                if (i == 2 || i == 3)
+                Level = level;
+                Str = 2;
+                Spd = 2;
+                Dex = 2;
+                Con = 2;
+                Mnd = 2;
+                Random random = new Random();
+                for (int i = 0; i < 4; i++)
                 {
-                    foreach (string j in J)
+                    int c = random.Next(0, 5);
+                    code[i] = "" + c;
+                    Parts[i] = Parts[i].Choose(c);
+                    Parts[i].UpdateMob(this);
+                }
+            }//monta o mob randomicamente
+            {
+                HpMax = Con * 6 + Level * 2;
+                Hp = HpMax;
+                AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
+                Run = 1 + 0.075 * Spd;
+                TimeMgcDmg = 9.0 * Mnd / 10;
+                Damage = Str;
+            }//calcula os atributos derivados
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    string path1 = "/Assets/Images/mob/" + I[i];
+                    if (i == 2 || i == 3)
                     {
-                        string path2 = "/" + j;
-                        for (int k = 0; k < 2; k++)
+                        foreach (string j in J)
                         {
-                            string path3 = "/" + k + "/" + code[i] + ".png";
-                            images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            string path2 = "/" + j;
+                            for (int k = 0; k < 2; k++)
+                            {
+                                string path3 = "/" + k + "/" + code[i] + ".png";
+                                images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            }
                         }
                     }
+                    else
+                    {
+                        string path2 = "/" + code[i] + ".png";
+                        MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                    }
                 }
-                else
-                {
-                    string path2 = "/" + code[i] + ".png";
-                    MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
-                }
-            }
+            }//define e exibe as imagens
         }
 
         public void Status(TextBlock textBlock)
         {
-            string text = "code " + code[0] + code[1] + code[2] + code[3]
+            string text = "name: " + N[code[0]] + a[code[1]] + m[code[2]] + e[code[3]]
+                + "   (code " + code[0] + code[1] + code[2] + code[3] + ")"
                 + "\nHP: " + Hp + "/" + HpMax
-                + "\n str  " + Str
-                + "\n spd  " + Spd
-                + "\n dex  " + Dex
-                + "\n con  " + Con
-                + "\n mnd  " + Mnd
+                + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
+                + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]"
                 + "\nres.: ";
-            foreach(Element element in Resistance)
+            foreach (Element element in Resistance)
             {
                 text += element.ToString() + "  ";
             }
@@ -81,6 +116,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {
                 text += word + "  ";
             }
+            text += "\nattkSpd-> " + AtkSpd + " s"
+                  + "\nrun-> " + Run + " m/s"
+                  + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
+                  + "\ndmg-> " + Damage;
             text += Meek ? "\n..passive" : "\n..agressive";
             textBlock.Text = text;
         }

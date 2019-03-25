@@ -16,5 +16,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         public double Hp { get; set; }
         public int HpMax { get; set; }
+        public double AtkSpd { get; set; }
+        public double Run { get; set; }
+        public double TimeMgcDmg { get; set; }
+        public double Damage { get; set; }
     }
 }

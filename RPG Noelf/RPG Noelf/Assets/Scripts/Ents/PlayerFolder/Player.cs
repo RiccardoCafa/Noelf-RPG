@@ -16,6 +16,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public Class _Class { get; set; }
         public SkillManager _SkillManager { get; }
         public Bag _Inventory { get; }
+        public Equips Equipamento { get; }
 
         public int Level { get; private set; }
 
@@ -29,7 +30,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public double Armor { get; set; }
         public double Damage { get; set; }
-        public double AtkSpd { get; set; }
 
         public double DamageBuff { get; set; }
         public double ArmorBuff { get; set; }
@@ -52,6 +52,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
+            Equipamento = new Equips(this);
 
             switch (Id.Substring(0, 1))
             {
