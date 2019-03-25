@@ -128,7 +128,7 @@
             </Grid>
         </Canvas>
 
-        <Canvas Width="100" Height="200" Canvas.Left="1200" Canvas.Top="40">
+        <Canvas Name="WindowEquipamento" Width="100" Height="200" Canvas.Left="1200" Canvas.Top="40">
             <TextBlock Width="100" Height="25" Text="Equipamento" Canvas.Top="-25"/>
             <Grid Name="EquipWindow" Width="100" Height="200">
                 <Grid.RowDefinitions>
@@ -204,49 +204,52 @@
 
         <TextBlock Canvas.Left="1269" Canvas.Top="2" Text="@ XGH Noelf Team CopyRight" FontSize="7" TextWrapping="Wrap" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-        <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="550" Canvas.Top="55" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
-            <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
-            <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
-            <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
-        </StackPanel>
+        <Canvas Name="Atributos" Width="130" Height="180" Canvas.Left="630" Canvas.Top="40">
+            <ScrollViewer Width="150" Height="232" Canvas.Left="-250" Canvas.Top="00" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
+                <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
+            </ScrollViewer>
+            <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="-90" Canvas.Top="20" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
+                <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
+                <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
+                <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
+            </StackPanel>
+            <Grid HorizontalAlignment="Center" Height="180" Width="130" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Image Width="130" Height="150" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Grid.RowSpan="5" Grid.ColumnSpan="3" ></Image>
+                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="0" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="STRENGHT"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="1" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="SPEED"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="2" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="CONSTITUTION"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="3" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="DEXTERITY"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="4" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="MIND"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Button Content="Apply" FontSize="8" HorizontalAlignment="Center" Canvas.Left="650" Canvas.Top="210" VerticalAlignment="Center" Height="24" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
-        <Grid HorizontalAlignment="Center" Height="150" Width="130" Canvas.Left="630" Canvas.Top="40">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="30"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Image Width="130" Height="150" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Grid.RowSpan="5" Grid.ColumnSpan="3" ></Image>
-            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="0" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="STRENGHT"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="1" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="SPEED"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="2" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="CONSTITUTION"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="3" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="DEXTERITY"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="4" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="MIND"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSTR"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSPD"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MCON"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MDEX"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MMND"/>
 
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSTR"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSPD"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MCON"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MDEX"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MMND"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSTR"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSPD"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PCON"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
+                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
 
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSTR"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSPD"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PCON"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
-            <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
-        </Grid>
-
-        <ScrollViewer Width="150" Height="232" Canvas.Left="350" Canvas.Top="40" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
-            <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
-        </ScrollViewer>
+                <Button Content="Apply" FontSize="8" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" Canvas.Left="650" Canvas.Top="210" VerticalAlignment="Center" Height="25" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
+            </Grid>
+        </Canvas>
+        
 
         <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="20" Canvas.Top="210" VerticalAlignment="Stretch" Width="300">
             <TextBlock Text="Barra de Habilidades" Width="300" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
@@ -270,7 +273,7 @@
             </Grid>
         </Canvas>
 
-        <Canvas HorizontalAlignment="Stretch" Height="150" Canvas.Left="45" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
+        <Canvas Name="WindowTreeSkill" HorizontalAlignment="Stretch" Height="150" Canvas.Left="45" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
             <TextBlock Text="Árvore de Habilidades" Width="250" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
             <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
