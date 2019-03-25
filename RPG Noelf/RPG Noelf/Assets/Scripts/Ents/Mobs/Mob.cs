@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     class Mob : Ent
     {
         public List<Action> Attacks { get; set; } = new List<Action>();
-        public List<string> attcks { get; set; } = new List<string>();
+        public List<string> attcks { get; set; } = new List<string>();//(temporario)
         public List<Element> Resistance { get; set; } = new List<Element>();
         public List<Element> Vulnerable { get; set; } = new List<Element>();
         public bool Meek { get; set; } = false;
@@ -26,75 +26,75 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public string[] code = new string[4];
 
-        public Dictionary<string, char> N = new Dictionary<string, char>()
+        public Dictionary<string, string> N = new Dictionary<string, string>()
         {
-            {"0", 'D' }, {"1", 'G' }, {"2", 'L' }, {"3", 'B' }, {"4", 'C' },
+            {"0", "Dr" }, {"1", "M" }, {"2", "L" }, {"3", "B" }, {"4", "J" },
         };
         public Dictionary<string, string> a = new Dictionary<string, string>()
         {
-            {"0", "ar" }, {"1", "e" }, {"2", "hi" }, {"3", "on" }, {"4", "uo" },
+            {"0", "a" }, {"1", "on" }, {"2", "i" }, {"3", "u" }, {"4", "a" },
         };
-        public Dictionary<string, char> m = new Dictionary<string, char>()
+        public Dictionary<string, string> m = new Dictionary<string, string>()
         {
-            {"0", 'g' }, {"1", 'r' }, {"2", 'z' }, {"3", 'n' }, {"4", 't' },
+            {"0", "g" }, {"1", "k" }, {"2", "zar" }, {"3", "fall" }, {"4", "gu" },
         };
         public Dictionary<string, string> e = new Dictionary<string, string>()
         {
-            {"0", "a" }, {"1", "eo" }, {"2", "il" }, {"3", "o" }, {"4", "u" },
+            {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" },
         };
 
         public Mob(Dictionary<string, Image> images, int level)
         {
+            #region montagem
+            Level = level;
+            Str = 2;
+            Spd = 2;
+            Dex = 2;
+            Con = 2;
+            Mnd = 2;
+            Random random = new Random();
+            for (int i = 0; i < 4; i++)
             {
-                Level = level;
-                Str = 2;
-                Spd = 2;
-                Dex = 2;
-                Con = 2;
-                Mnd = 2;
-                Random random = new Random();
-                for (int i = 0; i < 4; i++)
+                int c = random.Next(0, 5);
+                code[i] = "" + c;
+                Parts[i] = Parts[i].Choose(c);
+                Parts[i].UpdateMob(this);
+            }
+            #endregion
+            #region atributos derivados
+            HpMax = Con * 6 + Level * 2;
+            Hp = HpMax;
+            AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
+            Run = 1 + 0.075 * Spd;
+            TimeMgcDmg = 0.45 * Mnd;
+            Damage = Str;
+            #endregion
+            #region imagens
+            for (int i = 0; i < 4; i++)
+            {
+                string path1 = "/Assets/Images/mob/" + I[i];
+                if (i == 2 || i == 3)
                 {
-                    int c = random.Next(0, 5);
-                    code[i] = "" + c;
-                    Parts[i] = Parts[i].Choose(c);
-                    Parts[i].UpdateMob(this);
-                }
-            }//monta o mob randomicamente
-            {
-                HpMax = Con * 6 + Level * 2;
-                Hp = HpMax;
-                AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
-                Run = 1 + 0.075 * Spd;
-                TimeMgcDmg = 9.0 * Mnd / 10;
-                Damage = Str;
-            }//calcula os atributos derivados
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    string path1 = "/Assets/Images/mob/" + I[i];
-                    if (i == 2 || i == 3)
+                    foreach (string j in J)
                     {
-                        foreach (string j in J)
+                        string path2 = "/" + j;
+                        for (int k = 0; k < 2; k++)
                         {
-                            string path2 = "/" + j;
-                            for (int k = 0; k < 2; k++)
-                            {
-                                string path3 = "/" + k + "/" + code[i] + ".png";
-                                images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
-                            }
+                            string path3 = "/" + k + "/" + code[i] + ".png";
+                            images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
                         }
                     }
-                    else
-                    {
-                        string path2 = "/" + code[i] + ".png";
-                        MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
-                    }
                 }
-            }//define e exibe as imagens
+                else
+                {
+                    string path2 = "/" + code[i] + ".png";
+                    MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                }
+            }
+            #endregion
         }
 
-        public void Status(TextBlock textBlock)
+        public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)
         {
             string text = "name: " + N[code[0]] + a[code[1]] + m[code[2]] + e[code[3]]
                 + "   (code " + code[0] + code[1] + code[2] + code[3] + ")"
