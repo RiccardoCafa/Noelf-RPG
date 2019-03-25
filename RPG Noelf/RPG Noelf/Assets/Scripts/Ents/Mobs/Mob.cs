@@ -26,21 +26,21 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public string[] code = new string[4];
 
-        public Dictionary<string, char> N = new Dictionary<string, char>()
+        public Dictionary<string, string> N = new Dictionary<string, string>()
         {
-            {"0", 'D' }, {"1", 'G' }, {"2", 'L' }, {"3", 'B' }, {"4", 'C' },
+            {"0", "Dr" }, {"1", "M" }, {"2", "L" }, {"3", "B" }, {"4", "J" },
         };
         public Dictionary<string, string> a = new Dictionary<string, string>()
         {
-            {"0", "ar" }, {"1", "e" }, {"2", "hi" }, {"3", "on" }, {"4", "uo" },
+            {"0", "a" }, {"1", "on" }, {"2", "i" }, {"3", "u" }, {"4", "a" },
         };
-        public Dictionary<string, char> m = new Dictionary<string, char>()
+        public Dictionary<string, string> m = new Dictionary<string, string>()
         {
-            {"0", 'g' }, {"1", 'r' }, {"2", 'z' }, {"3", 'n' }, {"4", 't' },
+            {"0", "g" }, {"1", "k" }, {"2", "zar" }, {"3", "fall" }, {"4", "gu" },
         };
         public Dictionary<string, string> e = new Dictionary<string, string>()
         {
-            {"0", "a" }, {"1", "eo" }, {"2", "il" }, {"3", "o" }, {"4", "u" },
+            {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" },
         };
 
         public Mob(Dictionary<string, Image> images, int level)
@@ -66,7 +66,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             Hp = HpMax;
             AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
             Run = 1 + 0.075 * Spd;
-            TimeMgcDmg = 9.0 * Mnd / 10;
+            TimeMgcDmg = 0.45 * Mnd;
             Damage = Str;
             #endregion
             #region imagens
