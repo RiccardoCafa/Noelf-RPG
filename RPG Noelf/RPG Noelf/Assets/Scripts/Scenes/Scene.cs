@@ -29,7 +29,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                 int x = 0;
                 foreach (char block in Blueprint[y])
                 {
-                    if (block != ' ')
+                    if (block != '-')
                     {
                         Tile tile = new Tile(Tile.TileCode[block], x, y);
                         Image image = new Image();
@@ -42,7 +42,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                         if (block == 'G')
                         {
                             platX.Add(x);
-                            if (Blueprint[y].ToArray()[x + 1] != 'G')
+                            if (/*x + 1 < Blueprint[y].Length || */Blueprint[y].ToArray()[x + 1] != 'G')
                             {
                                 Canvas canvas = new Canvas();
                                 xScene.Children.Add(canvas);
