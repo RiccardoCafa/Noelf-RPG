@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
 
     <Canvas Name="Tela" Width="1366" Height="768"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        
         <Canvas.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF1CB9D3"/>
@@ -195,6 +196,8 @@
                 <Image Name="leg_e0" Canvas.Left="55" Canvas.Top="47" Width="60" Height="65"/>
                 <Image Name="arm_e0" Canvas.Left="33" Canvas.Top="18" Width="60" Height="70"/>
                 <Image Name="arm_e1" Canvas.Left="12" Canvas.Top="50" Width="65" Height="80"/>
+                <TextBox Name="xLevelBox" Canvas.Left="-30" Canvas.Top="-75" Text="1" FontFamily="Consolas"/>
+                <Button Width="40" Height="40" Canvas.Left="45" Canvas.Top="-80" Content="*" FontSize="25" Click="ClickNewMob" Background="#FF65BF1A" Foreground="White" BorderBrush="White"/>
                 <Rectangle Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" Fill="#BFFFFFFF"/>
                 <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80">
                     <TextBlock Name="xMobStatus" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"/>
@@ -308,10 +311,6 @@
         </Canvas>
 
         <Canvas Name="PlayerCanvas" Canvas.Left="382" Canvas.Top="78" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="#FF00FF5B">
-            <Canvas.RenderTransform>
-                <RotateTransform x:Name="Rotation" CenterX="25" CenterY="25">
-                </RotateTransform>
-            </Canvas.RenderTransform>
         </Canvas>
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
@@ -385,8 +384,6 @@
                 </Grid>
             </Grid>
         </Canvas>
-
-
     </Canvas>
 </Page>
 
