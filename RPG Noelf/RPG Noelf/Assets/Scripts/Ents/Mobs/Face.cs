@@ -89,7 +89,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Dex += (int)( 3 + mob.Level * 0.5);
+            mob.Dex += (int)(3 + mob.Level * 0.5);
         }
     }
 }
