@@ -950,6 +950,13 @@ namespace RPG_Noelf
         #endregion
 
         #region ButtonEvents
+        private void ClickNewMob(object sender, RoutedEventArgs e)
+        {
+            int level;
+            int.TryParse(xLevelBox.Text, out level);
+            mob.Mob = new Mob(images, level);
+            mob.Mob.Status(xMobStatus);
+        }
         private void OfferItemButton(object sender, RoutedEventArgs e)
         {
             if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
