@@ -76,37 +76,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                             else StopLeft();
                         }
                     } else StopLeft();
-                    
-                    if(!PlayerInsideHeightCamera())
-                    {
-                        /*if (PlayerToFollow.yCharacVal + PlayerToFollow.characT.Height >= yCamera + Camera.Height)
-                        {
-                            // Ele está em cima
-                            if (Chunck.Height - Tela.Height >= (double)Chunck.GetValue(Canvas.TopProperty) * -1)
-                            { 
-                                Chunck.SetValue(Canvas.TopProperty,
-                                                (double)Chunck.GetValue(Canvas.TopProperty) - CameraJump);
-                                PlayerToFollow.CheckGround();
-                                CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
-                                CameraMovingDown = true;
-                            }
-                            else StopTop();
-                        }
-                        else if (PlayerToFollow.yCharacVal + PlayerToFollow.characT.Height <= yCamera && !PlayerToFollow.isFalling)
-                        {
-                            // Ele está em baixo
-                            if ((double)Chunck.GetValue(Canvas.TopProperty) < 0 && PlayerToFollow.freeDown)
-                            {
-                                PlayerToFollow.moveDown = true;
-                                Chunck.SetValue(Canvas.TopProperty,
-                                                (double)Chunck.GetValue(Canvas.TopProperty) + CameraJump);
-                                CameraYOffSet = (double)Chunck.GetValue(Canvas.TopProperty);
-                                CameraMovingUp = true;
-                            }
-                            else StopTop();
-                        }
-                        else StopTop();*/
-                    }
 
                 });
             }
