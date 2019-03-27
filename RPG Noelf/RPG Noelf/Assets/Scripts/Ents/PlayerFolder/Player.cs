@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Shapes;
+using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -21,7 +22,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Level { get; private set; }
 
         public string Id { get; set; }
-        
+
         public int Xp { get; private set; }
         public int XpLim { get; private set; }
 
@@ -36,16 +37,45 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double AtkSpeedBuff { get; set; }
         public double BonusChanceCrit { get; set; } = 1;
 
-        public Player(string id, IRaces race, IClasses _class)
+        private string Sex;
+        private string SkinTone;
+        private string EyeColor;
+        private string Haircut;
+        private string HairColor;
+
+        Dictionary<string, string> images = new Dictionary<string, string>()
         {
-            /* ID: rc_x kysh
-             *  r -> raça  0-2
-             *  c -> classe  0-2
-             *  x -> sexo  0,1
-             *  k -> cor de pele  0-2
-             *  y -> cor do olho  0-2
-             *  s -> tipo de cabelo  0-3
-             *  h -> cor de cabelo  0-2
+            { "0_ 0 ____", "man" }, { "1_ 0 ____", "orc male" }, { "2_ 0 ____", "elf male" },
+            { "0_ 1 ____", "woman" }, { "1_ 1 ____", "orc female" }, { "2_ 1 ____", "elf female" },
+
+            { "0_ _ 0___", "white" }, { "1_ _ 0___", "turquoise" }, { "2_ _ 0___", "albino" },
+            { "0_ _ 1___", "brown" }, { "1_ _ 1___", "green" }, { "2_ _ 1___", "white" },
+            { "0_ _ 2___", "black" }, { "1_ _ 2___", "emerald" }, { "2_ _ 2___", "bronze" },
+
+            { "0_ _ _0__", "green" }, { "1_ _ _0__", "cyan" }, { "2_ _ _0__", "sky blue" },
+            { "0_ _ _1__", "blue" }, { "1_ _ _1__", "yellow" }, { "2_ _ _1__", "green" },
+            { "0_ _ _2__", "brown" }, { "1_ _ _2__", "red" }, { "2_ _ _2__", "purple" },
+
+            { "0_ 0 __0_", "messy" }, { "1_ 0 __0_", "mohican" }, { "2_ 0 __0_", "samurai" },
+            { "0_ 0 __1_", "ponytail" }, { "1_ 0 __1_", "rabbit tail" }, { "2_ 0 __1_", "long" },
+            { "0_ 0 __2_", "soldier" }, { "1_ 0 __2_", "beard" }, { "2_ 0 __2_", "long samurai" },
+            { "0_ _ __3_", "grated" }, { "1_ _ __3_", "grated" }, { "2_ _ __3_", "grated" },
+
+            { "0_ 1 __0_", "messy" }, { "1_ 1 __0_", "mohican" }, { "2_ 1 __0_", "samurai" },
+            { "0_ 1 __1_", "ponytail" }, { "1_ 1 __1_", "rabbit tail" }, { "2_ 1 __1_", "long" },
+            { "0_ 1 __2_", "soldier" }, { "1_ 1 __2_", "beard" }, { "2_ 1 __2_", "long samurai" }
+        };
+
+        public Player(string id)
+        {
+            /* ID: rc x kysh
+             *  0 r -> raça  0-2
+             *  1 c -> classe  0-2
+             *  3 x -> sexo  0,1
+             *  5 k -> cor de pele  0-2
+             *  6 y -> cor do olho  0-2
+             *  7 s -> tipo de cabelo  0-3
+             *  8 h -> cor de cabelo  0-2
              */
 
             Id = id;
@@ -54,30 +84,38 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _Inventory = new Bag();
             Equipamento = new Equips(this);
 
-            switch (Id.Substring(0, 1))
+            switch (Id.ToCharArray()[0])
             {
-                case "0":
-                    Race = new Human();
-                    break;
-                case "1":
-                    Race = new Orc();
-                    break;
-                case "2":
-                    Race = new Elf();
-                    break;
+                case '0': Race = new Human(); break;
+                case '1': Race = new Orc(); break;
+                case '2': Race = new Elf(); break;
             }
 
-            switch (_class)
+            switch (Id.ToCharArray()[1])
             {
-                case IClasses.Warrior:
-                    _Class = new Warrior(_SkillManager);
-                    break;
-                case IClasses.Ranger:
-                    _Class = new Ranger(_SkillManager);
-                    break;
-                case IClasses.Wizard:
-                    _Class = new Wizard(_SkillManager);
-                    break;
+                case '0': _Class = new Warrior(_SkillManager); break;
+                case '1': _Class = new Ranger(_SkillManager); break;
+                case '2': _Class = new Wizard(_SkillManager); break;
+            }
+
+            switch (Id.ToCharArray()[3])
+            {
+                case '0': Sex = "male"; break;
+                case '1': Sex = "female"; break;
+            }
+
+            switch (Id.ToCharArray()[5])
+            {
+                case '0': SkinTone = "light"; break;
+                case '1': SkinTone = "medium"; break;
+                case '2': SkinTone = "dark"; break;
+            }
+
+            switch (Id.ToCharArray()[6])
+            {
+                case '0': EyeColor = ""; break;
+                case '1': SkinTone = "medium"; break;
+                case '2': SkinTone = "dark"; break;
             }
 
             Id = id;
@@ -89,6 +127,23 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Level = 1;
             XpLim = Level * 100;
             LevelUpdate(0, 0, 0, 0, 0);
+        }
+
+        public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)
+        {
+            string text = "\nHP: " + Hp + "/" + HpMax
+                        + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
+                        + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]";
+            text += "\nattkSpd-> " + AtkSpd + " s"
+                  + "\nrun-> " + Run + " m/s"
+                  + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
+                  + "\ndmg-> " + Damage;
+            text += "\nsex " + Sex
+                  + "\nskin tone " + SkinTone
+                  + "\neye color " + EyeColor
+                  + "\nhaircut " + Haircut
+                  + "\nhair color " + HairColor;
+            textBlock.Text = text;
         }
 
         public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
@@ -143,7 +198,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Hp += HP;
             }
         }
-        
+
         public double Hit(double bonusDamage)//golpeia
         {
             Random random = new Random();

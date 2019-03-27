@@ -89,7 +89,8 @@ namespace RPG_Noelf
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 Scene elel = new Scene(xScene);//criaçao do cenario
                 // Settando o player
-                player = new CharacterPlayer(PlayerCanvas);
+                player = new CharacterPlayer(PlayerCanvas, new Player("00_0 0000"));//criaçao do player
+                player.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
                 player.UpdateBlocks(xScene);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
@@ -111,14 +112,7 @@ namespace RPG_Noelf
                 mob.UpdateBlocks(xScene);
             });
 
-            p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
-            {
-                Armor = 5
-            };
-            p2 = new Player("2", IRaces.Human, IClasses.Wizard)
-            {
-                Armor = 2
-            };
+            p1 = player.Player;
 
             uint banana = 1;
             uint jorro = 2;

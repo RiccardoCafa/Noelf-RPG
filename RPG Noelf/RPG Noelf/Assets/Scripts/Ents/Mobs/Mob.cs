@@ -102,20 +102,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
                 + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]"
                 + "\nres.: ";
-            foreach (Element element in Resistance)
-            {
-                text += element.ToString() + "  ";
-            }
+            foreach (Element element in Resistance) { text += element.ToString() + "  "; }
             text += "\nvul.: ";
-            foreach (Element element in Vulnerable)
-            {
-                text += element.ToString() + "  ";
-            }
+            foreach (Element element in Vulnerable) { text += element.ToString() + "  "; }
             text += "\nattks.: ";
-            foreach (string word in attcks)
-            {
-                text += word + "  ";
-            }
+            foreach (string word in attcks) { text += word + "  "; }
             text += "\nattkSpd-> " + AtkSpd + " s"
                   + "\nrun-> " + Run + " m/s"
                   + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"

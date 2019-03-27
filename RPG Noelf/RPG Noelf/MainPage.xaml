@@ -311,6 +311,10 @@
         </Canvas>
 
         <Canvas Name="PlayerCanvas" Canvas.Left="382" Canvas.Top="78" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top" Background="#FF00FF5B">
+            <Rectangle Width="160" Height="150" Canvas.Left="70" Canvas.Top="-80" Fill="#BFFFFFFF"/>
+            <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="150" Canvas.Left="70" Canvas.Top="-80">
+                <TextBlock Name="xPlayerStatus" Width="160" Height="150" Canvas.Left="70" Canvas.Top="-80" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"/>
+            </Border>
         </Canvas>
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
