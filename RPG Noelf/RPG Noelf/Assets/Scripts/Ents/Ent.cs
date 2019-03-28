@@ -20,5 +20,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public double Run { get; set; }
         public double TimeMgcDmg { get; set; }
         public double Damage { get; set; }
+
+        protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
+        protected readonly string[] sides = { "d", "e" };
     }
 }
