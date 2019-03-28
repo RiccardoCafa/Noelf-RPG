@@ -331,7 +331,7 @@
             <Image Name="xPlayerArm_d0" Canvas.Left="-24" Canvas.Top="18" Width="60" Height="54"/>
             <Image Name="xClothArm_d0" Canvas.Left="-24" Canvas.Top="18" Width="60" Height="54"/>
             <Image Name="xPlayerArm_d1" Canvas.Left="-17" Canvas.Top="39" Width="45" Height="48"/>
-            <Image Name="xClothArm_d1" Canvas.Left="-17" Canvas.Top="39" Width="45" Height="48"/>
+            <Image Name="xClothArm_d1" Canvas.Left="-16" Canvas.Top="39" Width="45" Height="48"/>
             <Rectangle Width="160" Height="150" Canvas.Left="70" Canvas.Top="-80" Fill="#BFFFFFFF"/>
             <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="150" Canvas.Left="70" Canvas.Top="-80">
                 <TextBlock Name="xPlayerStatus" Width="160" Height="150" Canvas.Left="70" Canvas.Top="-80" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"/>

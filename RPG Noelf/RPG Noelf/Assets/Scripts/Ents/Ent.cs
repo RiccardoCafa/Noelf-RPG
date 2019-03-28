@@ -23,5 +23,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
         protected readonly string[] sides = { "d", "e" };
+
+        //public abstract double Hit(double bonusDamage);//golpeia
+
+        //public abstract void BeHit(double damage);//tratamento do dano levado
     }
 }

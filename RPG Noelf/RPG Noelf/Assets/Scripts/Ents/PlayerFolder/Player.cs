@@ -34,7 +34,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int MpMax { get; set; }
 
         public double Armor { get; set; }
-        public double Damage { get; set; }
 
         public double DamageBuff { get; set; }
         public double ArmorBuff { get; set; }
@@ -51,22 +50,26 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
              *  4 y -> cor do olho  0-2
              *  5 s -> tipo de cabelo  0-3
              *  6 h -> cor de cabelo  0-2
+             *  
+             *  clothes: xc.png
+             *  player/head,body,arms,legs: rxk___.png
+             *  player/eye: rx_y__.png
+             *  player/hair: rx__sh.png
              */
 
             Id = id;
-            //Id.ToCharArray(0, 1) = "1";
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
 
-            switch (Id.ToCharArray()[0])
+            switch (Id[0])
             {
                 case '0': Race = new Human(); break;
                 case '1': Race = new Orc(); break;
                 case '2': Race = new Elf(); break;
             }
 
-            switch (Id.ToCharArray()[1])
+            switch (Id[1])
             {
                 case '0': _Class = new Warrior(_SkillManager); break;
                 case '1': _Class = new Ranger(_SkillManager); break;
@@ -108,7 +111,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         }
                         break;
                     case "hair":
-                        if(Id[5] == '3') path2 = "/" + Id[0] + Id[2] + "__" + Id[5] + "_.png";
+                        if (Id[5] == '3') path2 = "/" + Id[0] + Id[2] + "__" + Id[5] + "_.png";
                         else path2 = "/" + Id[0] + Id[2] + "__" + Id.Substring(5, 2) + ".png";
                         playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
                         break;
@@ -123,6 +126,22 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 }
             }
         }
+
+        //private void SetPlayer(List<Image> playerImages)
+        //{
+        //    DirectoryInfo di = new DirectoryInfo("/Assets/Images/player/");
+        //    List<FileInfo> files = di.GetFiles("*.png").Where(file => (file.Name[0] == Id[0] || file.Name[0] == '_') &&
+        //                                                              (file.Name[1] == Id[2] || file.Name[1] == '_') &&
+        //                                                              (file.Name[2] == Id[3] || file.Name[2] == '_') &&
+        //                                                              (file.Name[3] == Id[4] || file.Name[3] == '_') &&
+        //                                                              (file.Name[4] == Id[5] || file.Name[4] == '_') &&
+        //                                                              (file.Name[5] == Id[6] || file.Name[5] == '_'))
+        //                                               .Select(file => file).ToList();
+        //    foreach (FileInfo file in files)
+        //    {
+        //        playerImages[0].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, file.FullName));
+        //    }
+        //}
 
         private void SetClothes(Dictionary<string, Image> clothesImages)
         {
@@ -188,7 +207,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Hp = HpMax;
             MpMax = Mnd * 5 + Level;
             Mp = MpMax;
-            AtkSpd = 2 - 1.75 * Spd / 100;
+            AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
+            Run = 1 + 0.075 * Spd;
+            TimeMgcDmg = 0.45 * Mnd;
+            Damage = Str;
         }
 
         public void AddMP(int MP)

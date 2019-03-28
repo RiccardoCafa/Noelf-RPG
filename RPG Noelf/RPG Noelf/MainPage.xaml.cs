@@ -53,6 +53,7 @@ namespace RPG_Noelf
 
         public Dictionary<string, Image> MobImages;
         public Dictionary<string, Image> PlayerImages;
+        public List<Image> PlayerImagesTest;
         public Dictionary<string, Image> ClothesImages;
 
         public static Canvas Telona;
@@ -76,6 +77,23 @@ namespace RPG_Noelf
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
             Start.Start();
+
+            PlayerImagesTest = new List<Image>()
+            {
+                xPlayerArm_d0,
+                xPlayerArm_d1,
+                xPlayerArm_e0,
+                xPlayerArm_e1,
+                xPlayerBody,
+                xPlayerHead,
+                xPlayerEye,
+                xPlayerHair,
+                xPlayerLeg_d0,
+                xPlayerLeg_d1,
+                xPlayerLeg_e0,
+                xPlayerLeg_e1
+            };//(temporario)
+
             PlayerImages = new Dictionary<string, Image>()
             {
                 {"armsd0", xPlayerArm_d0 },
@@ -131,12 +149,14 @@ namespace RPG_Noelf
                 mobStatus = xMobStatus;
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 Scene elel = new Scene(xScene);//criaçao do cenario
+
                 // Settando o player
                 player = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
                 player.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
                 player.UpdateBlocks(xScene);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
+
                 mob = new CharacterMob(MobCanvas, players, new Mob(MobImages, level: 100));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
                 mob.UpdateBlocks(xScene);
@@ -977,7 +997,7 @@ namespace RPG_Noelf
         #endregion
 
         #region ButtonEvents
-        private void ClickNewMob(object sender, RoutedEventArgs e)
+        private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
         {
             int level;
             int.TryParse(xLevelBox.Text, out level);
@@ -985,7 +1005,7 @@ namespace RPG_Noelf
             mob.Mob.Status(xMobStatus);
         }
 
-        private void ClickCustom(object sender, RoutedEventArgs e)
+        private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
         {
             string id = player.Player.Id;
 
@@ -1021,7 +1041,7 @@ namespace RPG_Noelf
             player.Player.Status(xPlayerStatus);
         }
 
-        private string ChangeCustom(char current, int range, bool isNext)
+        private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
         {
             int.TryParse(current.ToString(), out int x);
             if (isNext)
