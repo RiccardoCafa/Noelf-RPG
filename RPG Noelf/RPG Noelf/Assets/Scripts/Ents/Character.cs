@@ -231,14 +231,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 {
                     // Get the distant
                     double dif02 = xPlayer - (actualBlockX + bloco.Width);
-                    //if (dif > 0 && dif < 10) diferenca = dif;
-                    // Pegar os blocos a direita e esquerda mais proximos do player
-                    if (bloco != LastBlock)
+                    if (xPlayer > actualBlockX + bloco.Width && dif02 <= 3 && dif02 > 0)
                     {
-                        if (xPlayer > actualBlockX + bloco.Width && dif02 <= 3 && dif02 > 0)
-                        {
-                            blocoLeftx = bloco;
-                        }
+                        blocoLeftx = bloco;
                     }
                 } else if(moveRight)
                 {
