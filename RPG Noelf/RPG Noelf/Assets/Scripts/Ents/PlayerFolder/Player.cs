@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Shapes;
+using Windows.UI.Xaml.Controls;
+using Windows.Storage;
+using Windows.Storage.Search;
+using System.IO;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -21,7 +26,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
        
 
         public string Id { get; set; }
-        
+
         public int Xp { get; private set; }
         public int XpLim { get; private set; }
 
@@ -36,48 +41,36 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double AtkSpeedBuff { get; set; }
         public double BonusChanceCrit { get; set; } = 1;
 
-        public Player(string id, IRaces race, IClasses _class)
+        public Player(string id, Dictionary<string, Image> playerImages, Dictionary<string, Image> clothesImages)
         {
-            /* ID: rc_x kysh
-             *  r -> raça  0-2
-             *  c -> classe  0-2
-             *  x -> sexo  0,1
-             *  k -> cor de pele  0-2
-             *  y -> cor do olho  0-2
-             *  s -> tipo de cabelo  0-3
-             *  h -> cor de cabelo  0-2
+            /* ID: rcxkysh
+             *  0 r -> raça  0-2
+             *  1 c -> classe  0-2
+             *  2 x -> sexo  0,1
+             *  3 k -> cor de pele  0-2
+             *  4 y -> cor do olho  0-2
+             *  5 s -> tipo de cabelo  0-3
+             *  6 h -> cor de cabelo  0-2
              */
 
             Id = id;
-
+            //Id.ToCharArray(0, 1) = "1";
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
 
-            switch (Id.Substring(0, 1))
+            switch (Id.ToCharArray()[0])
             {
-                case "0":
-                    Race = new Human();
-                    break;
-                case "1":
-                    Race = new Orc();
-                    break;
-                case "2":
-                    Race = new Elf();
-                    break;
+                case '0': Race = new Human(); break;
+                case '1': Race = new Orc(); break;
+                case '2': Race = new Elf(); break;
             }
 
-            switch (_class)
+            switch (Id.ToCharArray()[1])
             {
-                case IClasses.Warrior:
-                    _Class = new Warrior(_SkillManager);
-                    break;
-                case IClasses.Ranger:
-                    _Class = new Ranger(_SkillManager);
-                    break;
-                case IClasses.Wizard:
-                    _Class = new Wizard(_SkillManager);
-                    break;
+                case '0': _Class = new Warrior(_SkillManager); break;
+                case '1': _Class = new Ranger(_SkillManager); break;
+                case '2': _Class = new Wizard(_SkillManager); break;
             }
 
             Id = id;
@@ -88,6 +81,84 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mnd = Race.Mnd + _Class.Mnd;
             level = new Level(1);
             LevelUpdate(0, 0, 0, 0, 0);
+
+            SetPlayer(playerImages);
+            SetClothes(clothesImages);
+        }
+
+        private void SetPlayer(Dictionary<string, Image> playerImages)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                string path1 = "/Assets/Images/player/player/" + parts[i];
+                string path2;
+                switch (parts[i])
+                {
+                    case "arms":
+                    case "legs":
+                        foreach (string side in sides)
+                        {
+                            path2 = "/" + side;
+                            for (int bit = 0; bit < 2; bit++)
+                            {
+                                string path3 = "/" + bit + "/" + Id[0] + Id.Substring(2, 2) + "___.png";
+                                playerImages[parts[i] + side + bit].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            }
+                        }
+                        break;
+                    case "hair":
+                        if(Id[5] == '3') path2 = "/" + Id[0] + Id[2] + "__" + Id[5] + "_.png";
+                        else path2 = "/" + Id[0] + Id[2] + "__" + Id.Substring(5, 2) + ".png";
+                        playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                        break;
+                    case "eye":
+                        path2 = "/" + Id[0] + Id[2] + "_" + Id[4] + "__.png";
+                        playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                        break;
+                    default:
+                        path2 = "/" + Id[0] + Id.Substring(2, 2) + "___.png";
+                        playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                        break;
+                }
+            }
+        }
+
+        private void SetClothes(Dictionary<string, Image> clothesImages)
+        {
+            for (int i = 3; i < 6; i++)
+            {
+                string path1 = "/Assets/Images/player/clothes/" + parts[i];
+                if (parts[i] == "arms" || parts[i] == "legs")
+                {
+                    foreach (string side in sides)
+                    {
+                        string path2 = "/" + side;
+                        for (int bit = 0; bit < 2; bit++)
+                        {
+                            string path3 = "/" + bit + "/" + Id[2] + Id[1] + ".png";
+                            clothesImages[parts[i] + side + bit].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                        }
+                    }
+                }
+                else
+                {
+                    string path2 = "/" + Id[2] + Id[1] + ".png";
+                    clothesImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                }
+            }
+        }
+
+        public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)
+        {
+            string text = "\nHP: " + Hp + "/" + HpMax
+                        + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
+                        + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]";
+            text += "\nattkSpd-> " + AtkSpd + " s"
+                  + "\nrun-> " + Run + " m/s"
+                  + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
+                  + "\ndmg-> " + Damage
+                  + "\n" + Id;
+            textBlock.Text = text;
         }
 
 
@@ -130,7 +201,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Hp += HP;
             }
         }
-        
+
         public double Hit(double bonusDamage)//golpeia
         {
             Random random = new Random();
