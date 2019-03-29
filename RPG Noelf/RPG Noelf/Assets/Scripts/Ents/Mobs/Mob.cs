@@ -21,8 +21,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
 
-        private string[] I = { "face", "body", "arms", "legs" };
-        private string[] J = { "d", "e" };
+        //private string[] I = { "head", "body", "arms", "legs" };
+        
 
         public string[] code = new string[4];
 
@@ -70,25 +70,25 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             Damage = Str;
             #endregion
             #region imagens
-            for (int i = 0; i < 4; i++)
+            for (int i = 2; i < 6; i++)
             {
-                string path1 = "/Assets/Images/mob/" + I[i];
-                if (i == 2 || i == 3)
+                string path1 = "/Assets/Images/mob/" + parts[i];
+                if (parts[i] == "arms" || parts[i] == "legs")
                 {
-                    foreach (string j in J)
+                    foreach (string side in sides)
                     {
-                        string path2 = "/" + j;
-                        for (int k = 0; k < 2; k++)
+                        string path2 = "/" + side;
+                        for (int bit = 0; bit < 2; bit++)
                         {
-                            string path3 = "/" + k + "/" + code[i] + ".png";
-                            images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            string path3 = "/" + bit + "/" + code[i - 2] + ".png";
+                            images[parts[i] + side + bit].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
                         }
                     }
                 }
                 else
                 {
-                    string path2 = "/" + code[i] + ".png";
-                    MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                    string path2 = "/" + code[i - 2] + ".png";
+                    MainPage.instance.MobImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
                 }
             }
             #endregion
@@ -102,20 +102,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
                 + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]"
                 + "\nres.: ";
-            foreach (Element element in Resistance)
-            {
-                text += element.ToString() + "  ";
-            }
+            foreach (Element element in Resistance) { text += element.ToString() + "  "; }
             text += "\nvul.: ";
-            foreach (Element element in Vulnerable)
-            {
-                text += element.ToString() + "  ";
-            }
+            foreach (Element element in Vulnerable) { text += element.ToString() + "  "; }
             text += "\nattks.: ";
-            foreach (string word in attcks)
-            {
-                text += word + "  ";
-            }
+            foreach (string word in attcks) { text += word + "  "; }
             text += "\nattkSpd-> " + AtkSpd + " s"
                   + "\nrun-> " + Run + " m/s"
                   + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"

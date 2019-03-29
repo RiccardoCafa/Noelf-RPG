@@ -49,8 +49,11 @@ namespace RPG_Noelf
         Player p1, p2;
         public TextBlock mobStatus;
         public static MainPage instance;
-        public Dictionary<string, Image> images = new Dictionary<string, Image>();
         public string MobText;
+
+        public Dictionary<string, Image> MobImages;
+        public Dictionary<string, Image> PlayerImages;
+        public Dictionary<string, Image> ClothesImages;
 
         public static Canvas Telona;
         public string test;
@@ -73,8 +76,48 @@ namespace RPG_Noelf
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
             Start.Start();
+            PlayerImages = new Dictionary<string, Image>()
+            {
+                {"armsd0", xPlayerArm_d0 },
+                {"armsd1", xPlayerArm_d1 },
+                {"armse0", xPlayerArm_e0 },
+                {"armse1", xPlayerArm_e1 },
+                {"body", xPlayerBody },
+                {"head", xPlayerHead },
+                {"eye", xPlayerEye },
+                {"hair", xPlayerHair },
+                {"legsd0", xPlayerLeg_d0 },
+                {"legsd1", xPlayerLeg_d1 },
+                {"legse0", xPlayerLeg_e0 },
+                {"legse1", xPlayerLeg_e1 }
+            };
+            ClothesImages = new Dictionary<string, Image>()
+            {
+                {"armsd0", xClothArm_d0 },
+                {"armsd1", xClothArm_d1 },
+                {"armse0", xClothArm_e0 },
+                {"armse1", xClothArm_e1 },
+                {"body", xClothBody },
+                {"legsd0", xClothLeg_d0 },
+                {"legsd1", xClothLeg_d1 },
+                {"legse0", xClothLeg_e0 },
+                {"legse1", xClothLeg_e1 }
+            };
+            MobImages = new Dictionary<string, Image>()
+            {
+                { "head",xMobHead },
+                { "body",xMobBody },
+                { "armsd0", xMobArm_d0 },
+                { "armsd1", xMobArm_d1 },
+                { "armse0", xMobArm_e0 },
+                { "armse1", xMobArm_e1 },
+                { "legsd0", xMobLeg_d0 },
+                { "legsd1", xMobLeg_d1 },
+                { "legse0", xMobLeg_e0 },
+                { "legse1", xMobLeg_e1 }
+            };
         }
-        
+
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -89,37 +132,17 @@ namespace RPG_Noelf
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 Scene elel = new Scene(xScene);//criaçao do cenario
                 // Settando o player
-                player = new CharacterPlayer(PlayerCanvas);
+                player = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
+                player.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
                 player.UpdateBlocks(xScene);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
                 players.Add(player);
-                #region ImageDefinition
-                    images["face"] = face;
-                    images["body"] = body;
-                    images["armsd0"] = arm_d0;
-                    images["armsd1"] = arm_d1;
-                    images["armse0"] = arm_e0;
-                    images["armse1"] = arm_e1;
-                    images["legsd0"] = leg_d0;
-                    images["legsd1"] = leg_d1;
-                    images["legse0"] = leg_e0;
-                    images["legse1"] = leg_e1;
-                #endregion
-                
-                mob = new CharacterMob(MobCanvas, players, new Mob(images, level: 100));//criaçao do mob
+                mob = new CharacterMob(MobCanvas, players, new Mob(MobImages, level: 100));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
                 mob.UpdateBlocks(xScene);
             });
 
-            //Testes
-            p1 = new Player("1", IRaces.Orc, IClasses.Warrior)
-            {
-                Armor = 5
-            };
-            p2 = new Player("2", IRaces.Human, IClasses.Wizard)
-            {
-                Armor = 2
-            };
+            p1 = player.Player;
 
             uint banana = 1;
             uint jorro = 2;
@@ -189,7 +212,7 @@ namespace RPG_Noelf
             p1._Inventory.AddToBag(35, 1);
 
             #endregion
-            
+
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -215,7 +238,7 @@ namespace RPG_Noelf
 
         private void WindowControl(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            switch(e.VirtualKey)
+            switch (e.VirtualKey)
             {
                 case Windows.System.VirtualKey.B:
                     if (InventarioWindow.Visibility == Visibility.Collapsed)
@@ -571,22 +594,8 @@ namespace RPG_Noelf
                 Debug.WriteLine(ex.Message);
                 return;
             }
-
-            if (skillEnter == null) return;
-            int positionColumn = (int)skillEnter.GetValue(Grid.ColumnProperty);
-            int positionRow = (int)skillEnter.GetValue(Grid.RowProperty);
-            SkillGenerics skillInfo;
-
-            int index = positionRow * 5 + positionColumn;
-
-            skillInfo = p1._SkillManager.SkillList.ElementAt(index);
-
-            if (skillInfo == null) return;
-
-            RealocateWindow(WindowSkill, mousePosition);
-
-            UpdateSkillWindowText(skillInfo);
         }
+
         private void ShowEquipWindow(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -617,7 +626,8 @@ namespace RPG_Noelf
             if (columnPosition == 0)
             {
                 itemInfo = new Slot(p1.Equipamento.armor[rowPosition], 1);
-            } else
+            }
+            else
             {
                 itemInfo = new Slot(p1.Equipamento.weapon, 1);
             }
@@ -756,7 +766,7 @@ namespace RPG_Noelf
                 if (element is Image)
                 {
                     element.PointerEntered += ShowItemBuying;
-                    element.PointerExited += CloseItemBuying;
+                    element.PointerExited += CloseItemWindow;
                     element.PointerPressed += ShopItemBuy;
                 }
             }
@@ -790,14 +800,15 @@ namespace RPG_Noelf
 
             Slot itemInfo = null;
 
-            if(!Switch)
+            if (!Switch)
             {
                 if (position < shopper.BuyingItems.Slots.Count)
                 {
                     itemInfo = shopper.BuyingItems.Slots[position];
                 }
                 if (itemInfo == null) return;
-            } else
+            }
+            else
             {
                 if (position < shopper.TradingItems.Slots.Count)
                 {
@@ -811,6 +822,7 @@ namespace RPG_Noelf
             UpdateItemWindowText(itemInfo);
 
         }
+
         private void ShowOfferItem(Slot offerSlot)
         {
             if (offerSlot == null) return;
@@ -826,10 +838,7 @@ namespace RPG_Noelf
             shopper.SlotInOffer = null;
             ItemToSellBuy.Visibility = Visibility.Collapsed;
         }
-        private void CloseItemBuying(object sender, PointerRoutedEventArgs e)
-        {
-            WindowBag.Visibility = Visibility.Collapsed;
-        }
+
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
         {
             WindowBag.Visibility = Visibility.Collapsed;
@@ -871,7 +880,7 @@ namespace RPG_Noelf
             }
             else
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y );
+                window.SetValue(Canvas.TopProperty, mousePosition.Y);
             }
         }
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
@@ -937,6 +946,67 @@ namespace RPG_Noelf
                 ItemBuyingQuantity.Text = val.ToString();
             }
         }
+        
+        #region ButtonEvents
+        private void ClickNewMob(object sender, RoutedEventArgs e)
+        {
+            int level;
+            int.TryParse(xLevelBox.Text, out level);
+            mob.Mob = new Mob(MobImages, level);
+            mob.Mob.Status(xMobStatus);
+        }
+
+        private void ClickCustom(object sender, RoutedEventArgs e)
+        {
+            string id = player.Player.Id;
+
+            if (sender == xEsqRace || sender == xDirRace)
+            {
+                id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
+            }
+            else if (sender == xEsqClass || sender == xDirClass)
+            {
+                id = id.Substring(0, 1) + ChangeCustom(id[1], 3, sender == xDirClass) + id.Substring(2, 5);
+            }
+            else if (sender == xEsqSex || sender == xDirSex)
+            {
+                id = id.Substring(0, 2) + ChangeCustom(id[2], 2, sender == xDirSex) + id.Substring(3, 4);
+            }
+            else if (sender == xEsqSkinTone || sender == xDirSkinTone)
+            {
+                id = id.Substring(0, 3) + ChangeCustom(id[3], 3, sender == xDirSkinTone) + id.Substring(4, 3);
+            }
+            else if (sender == xEsqEyeColor || sender == xDirEyeColor)
+            {
+                id = id.Substring(0, 4) + ChangeCustom(id[4], 3, sender == xDirEyeColor) + id.Substring(5, 2);
+            }
+            else if (sender == xEsqHairStyle || sender == xDirHairStyle)
+            {
+                id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
+            }
+            else if (sender == xEsqHairColor || sender == xDirHairColor)
+            {
+                id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
+            }
+            player.Player = new Player(id, PlayerImages, ClothesImages);
+            player.Player.Status(xPlayerStatus);
+        }
+
+        private string ChangeCustom(char current, int range, bool isNext)
+        {
+            int.TryParse(current.ToString(), out int x);
+            if (isNext)
+            {
+                if (x == range - 1) x = 0;
+                else x++;
+            }
+            else
+            {
+                if (x == 0) x = range - 1;
+                else x--;
+            }
+            return x.ToString();
+        }
 
         private void OfferItemButton(object sender, RoutedEventArgs e)
         {
@@ -958,7 +1028,7 @@ namespace RPG_Noelf
                     }
                 }
                 else
-            {
+                {
                     if (val <= Bag.MaxStack)
                     {
                         Slot newSlot = new Slot(shopper.SlotInOffer.ItemID, val);
@@ -966,7 +1036,7 @@ namespace RPG_Noelf
                         CloseOfferItem();
                     }
                 }
-            
+
             }
         }
 
@@ -1000,7 +1070,7 @@ namespace RPG_Noelf
         
         private void SellButton(object sender, RoutedEventArgs e)
         {
-            if(Switch == false)
+            if (Switch == false)
             {
                 shopper.BuyItem(p1._Inventory);
                 UpdateShopInfo();
@@ -1149,7 +1219,7 @@ namespace RPG_Noelf
         #endregion
         #endregion
 
+        #endregion
 
-        
     }
 }

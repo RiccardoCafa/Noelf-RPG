@@ -17,14 +17,17 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     {
         private MainCamera ActualCam = MainCamera.instance;
         private Thread updatePlayer;
+        public Player Player;
 
-        public CharacterPlayer(Canvas T) : base(T)
+        public CharacterPlayer(Canvas T, Player player) : base(T)
         {
             // Getting character image and Canvas for control
             characT = T;
 
             updatePlayer = new Thread(UpdatePlayer);
             updatePlayer.Start();
+
+            Player = player;
 
             // Setting Key events
             Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
@@ -34,11 +37,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public async void UpdatePlayer()
         {
             if (ActualCam == null) ActualCam = MainCamera.instance;
-            while(alive)
+            while (alive)
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    if (ActualCam != null) 
+                    if (ActualCam != null)
                     {
                         if (ActualCam.CameraMovingLeft)
                         {
@@ -49,14 +52,15 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                             Hspeed = 0;//MoveCharac(MainCamera.CameraSpeed, EDirection.left);
                         }
                         else Hspeed = MaxHSpeed;
-                        
-                    } else
+
+                    }
+                    else
                     {
                         ActualCam = MainCamera.instance;
                     }
                 });
             }
-            
+
         }
 
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
