@@ -12,9 +12,15 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public Trader _Trader { get; set; } = null;
         public Quester _Quester { get; set; } = null;
         
+
     }
 
-    sealed class Trader : NPC
+    abstract class NPCFunctional
+    {
+
+    }
+
+    sealed class Trader
     {
         public Shop shop;
 
@@ -31,7 +37,12 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
     }
 
-    sealed class Quester : NPC
+    sealed class Quester
+    {
+
+    }
+
+    sealed class RuneMaster
     {
 
     }
