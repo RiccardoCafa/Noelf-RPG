@@ -131,6 +131,8 @@
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
+	<Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\CharacterNPC.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\CharacterMob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Arms.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Body.cs" />
