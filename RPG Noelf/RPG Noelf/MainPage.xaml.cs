@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Scenes;
+using RPG_Noelf.Assets.Scripts.Enviroment;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,6 +40,8 @@ namespace RPG_Noelf
     /// </summary>
     public partial class MainPage : Page
     {
+        public static MainPage instance;
+
         Thread Start;
         List<CharacterPlayer> players = new List<CharacterPlayer>();
         CharacterPlayer player;
@@ -47,8 +50,9 @@ namespace RPG_Noelf
         Shop shopper = new Shop();
         InterfaceManager interfaceManager = new InterfaceManager();
         Player p1, p2;
+        DayNight dayNight;
         public TextBlock mobStatus;
-        public static MainPage instance;
+        public TextBlock dayText;
         public string MobText;
 
         public Dictionary<string, Image> MobImages;
@@ -72,6 +76,8 @@ namespace RPG_Noelf
             instance = this;
             this.InitializeComponent();
             Telona = Tela;
+            dayText = DayText;
+            dayNight = new DayNight();
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
@@ -123,7 +129,6 @@ namespace RPG_Noelf
             _str = _spd = _dex = _con = _mnd = 0;
             // Settando Janelas de Interface
             interfaceManager.Inventario = InventarioWindow;
-
             Encyclopedia.LoadItens();
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
@@ -140,7 +145,9 @@ namespace RPG_Noelf
                 mob = new CharacterMob(MobCanvas, players, new Mob(MobImages, level: 100));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
                 mob.UpdateBlocks(xScene);
+                CallConversationBox(2);
             });
+
 
             p1 = player.Player;
 
@@ -865,6 +872,38 @@ namespace RPG_Noelf
                     }
                 }
             }
+        }
+        #endregion
+        #region Conversation
+        private Grid ButtonsGrid;
+        public void CallConversationBox(int Buttons)
+        { 
+            ButtonsGrid = new Grid();
+            ButtonsGrid.Width = Conversation.Width;
+            ButtonsGrid.Height = Conversation.Height / 2;
+            Conversation.Children.Add(ButtonsGrid);
+            ButtonsGrid.SetValue(Canvas.LeftProperty, ButtonsGrid.Height / 2);
+            ColumnDefinition column = new ColumnDefinition() {
+                Width = new GridLength(ButtonsGrid.Width)
+            };
+            ButtonsGrid.ColumnDefinitions.Add(column);
+            for(int i = 0; i <= Buttons; i++)
+            {
+                RowDefinition row = new RowDefinition
+                {
+                    Height = new GridLength(ButtonsGrid.Height / Buttons)
+                };
+                ButtonsGrid.RowDefinitions.Add(row);
+                Button b = new Button
+                {
+                    Height = (ButtonsGrid.Height / Buttons) - 10,
+                    Width = ButtonsGrid.Height / 2,
+                    Content = "Button " + i
+                };
+                ButtonsGrid.Children.Add(b);
+                b.SetValue(Grid.RowProperty, i);
+            }
+            ConvText.Text = "Buttons has been created";
         }
         #endregion
         #region General

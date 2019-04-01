@@ -38,26 +38,39 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
         private void DispatcherSetup()
         {
+            MainPage.instance.dayText.Text = "Day " + days + " - " + hours + ":" + minutes;
             dispatcherTimer.Tick += Timer;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 60 / ((86400 * DayLenght) / 1440));
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1/*86400 / (60 * DayLenght)*/);
             dispatcherTimer.Start();
         }
 
         private void Timer(object sender, object e)
         {
+            string h, m;
             TickATime();
+            if (hours < 10)
+            {
+                h = "0" + hours;
+            }
+            else h = hours.ToString();
+            if (minutes < 10)
+            {
+                m = "0" + minutes;
+            }
+            else m = minutes.ToString();
+            MainPage.instance.dayText.Text = "Day " + days + " - " + h + ":" + m;
         }
 
         private void TickATime()
         {
-            if(minutes < 60)
+            if(minutes + 1 < 60)
             {
                 minutes++;
             } else
             {
                 hours++;
                 minutes = 0;
-                if(hours > 24)
+                if(hours >= 24)
                 {
                     hours = 0;
                     days++;

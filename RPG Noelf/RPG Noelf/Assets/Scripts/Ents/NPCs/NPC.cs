@@ -9,18 +9,42 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
     class NPC
     {
-        public Trader _Trader { get; set; } = null;
-        public Quester _Quester { get; set; } = null;
-        
+        private Dictionary<string, NPCFunction> Functions = new Dictionary<string, NPCFunction>();
+
+        public string Name { get; set; }
+        public string Introduction { get; set; }
+        public string Conclusion { get; set; }
+        public Level MyLevel { get; set; }
+
+        public void StartConversation()
+        {
+            
+        }
+
+        public void AddFunction(NPCFunction Function)
+        {
+            Functions.Add(Function.GetFunctionName(), Function);
+        } 
+
+        public List<string> GetFunctionsString()
+        {
+            List<string> funcList = new List<string>();
+            foreach(string s in Functions.Keys)
+            {
+                funcList.Add(s);
+            }
+            return funcList;
+        }
 
     }
 
-    abstract class NPCFunctional
+    interface NPCFunction
     {
-
+        string GetFunctionName();
+        void MyFunction();
     }
 
-    sealed class Trader
+    sealed class Trader : NPCFunction
     {
         public Shop shop;
 
@@ -34,7 +58,15 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             shop = new Shop();
         }
 
+        public void MyFunction()
+        {
+            
+        }
 
+        public string GetFunctionName()
+        {
+            return "Trader";
+        }
     }
 
     sealed class Quester

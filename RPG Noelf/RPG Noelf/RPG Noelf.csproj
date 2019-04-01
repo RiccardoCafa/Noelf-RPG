@@ -131,8 +131,8 @@
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
-	<Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
-	<Compile Include="Assets\Scripts\Ents\NPCs\CharacterNPC.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\CharacterNPC.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\CharacterMob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Arms.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Body.cs" />
@@ -146,6 +146,8 @@
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\DayNight.cs" />
+    <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
