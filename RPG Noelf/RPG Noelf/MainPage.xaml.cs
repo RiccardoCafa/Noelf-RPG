@@ -29,6 +29,9 @@ using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Scenes;
+using RPG_Noelf.Assets.Scripts.Enviroment;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.General;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,16 +42,12 @@ namespace RPG_Noelf
     /// </summary>
     public partial class MainPage : Page
     {
-        Thread Start;
-        List<CharacterPlayer> players = new List<CharacterPlayer>();
-        CharacterPlayer player;
-        CharacterMob mob;
-        MainCamera mainCamera;
-        Shop shopper = new Shop();
-        InterfaceManager interfaceManager = new InterfaceManager();
-        Player p1, p2;
-        public TextBlock mobStatus;
         public static MainPage instance;
+
+        Thread Start;
+
+        public TextBlock mobStatus;
+        public TextBlock dayText;
         public string MobText;
 
         public Dictionary<string, Image> MobImages;
@@ -56,6 +55,7 @@ namespace RPG_Noelf
         public Dictionary<string, Image> ClothesImages;
 
         public static Canvas Telona;
+        public static Canvas inventarioWindow;
         public string test;
 
         public static TextBlock texticulus;
@@ -71,7 +71,11 @@ namespace RPG_Noelf
         {
             instance = this;
             this.InitializeComponent();
+
             Telona = Tela;
+            dayText = DayText;
+            inventarioWindow = InventarioWindow;
+            
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
@@ -121,10 +125,8 @@ namespace RPG_Noelf
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
-            // Settando Janelas de Interface
-            interfaceManager.Inventario = InventarioWindow;
 
-            Encyclopedia.LoadItens();
+            GameManager.InitializeGame();
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -132,7 +134,7 @@ namespace RPG_Noelf
                 Windows.UI.Xaml.Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 Scene elel = new Scene(xScene);//criaçao do cenario
                 // Settando o player
-                player = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
+                GameManager.player = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
                 player.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
                 player.UpdateBlocks(xScene);
                 mainCamera = new MainCamera(player, Camera, Chunck01);
@@ -140,79 +142,12 @@ namespace RPG_Noelf
                 mob = new CharacterMob(MobCanvas, players, new Mob(MobImages, level: 100));//criaçao do mob
                 mob.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
                 mob.UpdateBlocks(xScene);
+                CallConversationBox(npc);
             });
 
+
             p1 = player.Player;
-
-            uint banana = 1;
-            uint jorro = 2;
-            uint espadona = 3;
-            uint potion = 4;
-
-            shopper.TradingItems.AddToBag(1, Bag.MaxStack);
-            shopper.TradingItems.AddToBag(2, Bag.MaxStack);
-            shopper.TradingItems.AddToBag(3, Bag.MaxStack);
-
-            #region InvTest
-
-            p1._Inventory.AddGold(50);
-
-            p1._Inventory.AddToBag(banana, 1);
-            p1._Inventory.AddToBag(jorro, 1);
-            p1._Inventory.AddToBag(banana, 1);
-            p1._Inventory.AddToBag(jorro, 1);
-            p1._Inventory.AddToBag(banana, 1);
-            p1._Inventory.AddToBag(jorro, 1);
-            p1._Inventory.AddToBag(banana, 1);
-            p1._Inventory.AddToBag(jorro, 1);
-            /*
-            p1._Inventory.RemoveFromBag(jorro, 1);
-            p1._Inventory.RemoveFromBag(jorro, 1);
-            p1._Inventory.RemoveFromBag(jorro, 1);
-            p1._Inventory.RemoveFromBag(jorro, 1);
-            */
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-
-            p1._Inventory.AddToBag(potion, 1);
-            p1._Inventory.AddToBag(potion, 1);
-            p1._Inventory.AddToBag(potion, 1);
-
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-            p1._Inventory.AddToBag(espadona, 1);
-
-            p1._Inventory.RemoveFromBag(espadona, 1);
-            p1._Inventory.RemoveFromBag(espadona, 1);
-
-            p1._Inventory.RemoveFromBag(potion, 1);
-
-            p1._Inventory.RemoveFromBag(banana, 1);
-
-            p1._Inventory.AddToBag(27, 1);
-            p1._Inventory.AddToBag(35, 1);
-
-            #endregion
-
+            
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -865,6 +800,55 @@ namespace RPG_Noelf
                     }
                 }
             }
+        }
+        #endregion
+        #region Conversation
+        private Grid ButtonsGrid;
+        public void CallConversationBox(NPC npc)
+        {
+            Conversation.Visibility = Visibility.Visible;
+            int Buttons = npc.GetFunctionSize() + 1;
+            List<string> funcString = npc.GetFunctionsString();
+            ButtonsGrid = new Grid();
+            ButtonsGrid.Width = Conversation.Width;
+            ButtonsGrid.Height = Conversation.Height / 2;
+            Conversation.Children.Add(ButtonsGrid);
+            ButtonsGrid.SetValue(Canvas.LeftProperty, ButtonsGrid.Height / 2);
+            ColumnDefinition column = new ColumnDefinition() {
+                Width = new GridLength(ButtonsGrid.Width)
+            };
+            ButtonsGrid.ColumnDefinitions.Add(column);
+            for(int i = 0; i < Buttons; i++)
+            {
+                RowDefinition row = new RowDefinition
+                {
+                    Height = new GridLength(ButtonsGrid.Height / Buttons)
+                };
+                ButtonsGrid.RowDefinitions.Add(row);
+                
+                Button b = new Button
+                {
+                    Height = (ButtonsGrid.Height / Buttons) - 10,
+                    Width = ButtonsGrid.Height
+                };
+                ButtonsGrid.Children.Add(b);
+                if (i < Buttons - 1)
+                {
+                    b.Content = funcString[i];
+                    b.Click += npc.GetFunction(funcString[i]).MyFunction;
+                }
+                else
+                {
+                    b.Content = "Exit";
+                    b.Click += CloseConversationBox;
+                }
+                b.SetValue(Grid.RowProperty, i);
+            }
+            ConvText.Text = npc.Introduction;
+        }
+        public void CloseConversationBox(object sender, RoutedEventArgs e)
+        {
+            Conversation.Visibility = Visibility.Collapsed;
         }
         #endregion
         #region General

@@ -18,7 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     /// <summary>
     /// The Character class that will manage gravity, movement, jump, animations...
     /// </summary>
-    abstract class Character
+    public abstract class Character
     {
         public Canvas characT;
         protected Canvas LastBlock;

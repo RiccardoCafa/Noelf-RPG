@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Mob : Ent
+    public class Mob : Ent
     {
         public List<Action> Attacks { get; set; } = new List<Action>();
         public List<string> attcks { get; set; } = new List<string>();//(temporario)

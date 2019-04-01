@@ -27,6 +27,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             MyNPC = _NPC;
             Update = new Thread(update);
+            Update.Start();
         }
 
         private async void update()

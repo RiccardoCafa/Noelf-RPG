@@ -17,10 +17,14 @@
                 <GradientStop Color="#FF6CFFFF" Offset="1"/>
             </LinearGradientBrush>
         </Canvas.Background>
+
         <Image Source="/Assets/Images/layer3.png" Canvas.Top="100"/>
         <Image Source="/Assets/Images/layer2.png" Canvas.Top="320"/>
         <Image Source="/Assets/Images/layer1.png" Canvas.Top="400"/>
+        <TextBlock Name="DayText" Text="Day 1 - 8:50" FontSize="20" FontStretch="Normal"  Width="200" Height="50" Canvas.Top="30" Canvas.Left="10"/>
         <Canvas Name="Camera" Visibility="Collapsed"  Width="916" Height="72" HorizontalAlignment="Left" Canvas.Left="225" Canvas.Top="364"  VerticalAlignment="Top" Background="#19000000" Margin="0,0,0,0"></Canvas>
+
+
         <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1010" Canvas.Top="40">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
             <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
@@ -254,7 +258,7 @@
         </Canvas>
 
 
-        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="20" Canvas.Top="210" VerticalAlignment="Stretch" Width="300">
+        <Canvas HorizontalAlignment="Stretch" Height="50" Canvas.Left="533" Canvas.Top="710" VerticalAlignment="Stretch" Width="300">
             <TextBlock Text="Barra de Habilidades" Width="300" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="300" Height="50" Source="/Assets/Images/UI Elements/UIAtivo 13-0.png" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="Fill"/>
             <Grid Name="BarraSkill" ColumnSpacing="0" RowSpacing="0"  Height="50" Width="300" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -276,7 +280,7 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="WindowTreeSkill" HorizontalAlignment="Stretch" Height="150" Canvas.Left="45" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
+        <Canvas Name="WindowTreeSkill" HorizontalAlignment="Stretch" Height="150" Canvas.Left="220" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
             <TextBlock Text="Árvore de Habilidades" Width="250" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
             <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
             <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -411,6 +415,11 @@
             </Grid>
         </Canvas>
 
+        <Canvas Name="Conversation" Width="500" Height="500" Canvas.Left="850" Canvas.Top="250">
+            <Image Width="500" Height="250" Canvas.Top="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"></Image>
+            <TextBlock Name="ConvText" Padding="15,5,15,5" TextWrapping="Wrap" FontSize="12" Width="500" Height="250" Text="This is a text" Canvas.Top="250" />
+
+        </Canvas>
         <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed" AllowFocusOnInteraction="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" AutomationProperties.Level="-2" >
             <Image Margin="-5,0,0,0"  Width="205" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"/>
             <Grid  Width="200" Height="250" >
