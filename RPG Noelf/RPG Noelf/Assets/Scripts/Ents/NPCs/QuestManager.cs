@@ -8,11 +8,22 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
     class QuestManager
     {
+        public List<Quest> managedQuests { get; set;}
 
-        public QuestManager(TypeQuest tpQuest)
-        {
-            //gerencia do tipo
-        }
+
+
+
+
+
+
+    }
+
+
+    class CountQuestManager : QuestManager
+    {
+
+
+
 
     }
 }
