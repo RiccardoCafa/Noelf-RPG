@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
-    class Level
+    public class Level
     {
         public const int MaxLevel = 100;
         public int actuallevel { get; set; }

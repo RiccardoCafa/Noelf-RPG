@@ -12,7 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         Orc,
         Elf
     }
-    abstract class Race// : IAtributes
+    public abstract class Race// : IAtributes
     {
         public int Str { get; set; }
         public int Spd { get; set; }
@@ -29,7 +29,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
     }
 
-    class Human : Race
+    public class Human : Race
     {
         public Human()
         {
@@ -43,7 +43,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
     }
 
-    class Orc : Race
+    public class Orc : Race
     {
         public Orc()
         {
@@ -57,7 +57,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
     }
 
-    class Elf : Race
+    public class Elf : Race
     {
         public Elf()
         {

@@ -22,7 +22,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         Dead
     }
 
-    class CharacterMob : Character
+    public class CharacterMob : Character
     {
         public MobState MyState;
         public List<CharacterPlayer> players;

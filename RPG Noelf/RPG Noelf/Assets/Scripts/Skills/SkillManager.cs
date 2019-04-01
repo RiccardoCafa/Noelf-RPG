@@ -8,7 +8,7 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    class SkillManager//adiministrador de skills no game
+    public class SkillManager//adiministrador de skills no game
     {
         public List<SkillGenerics> SkillList { get; set; }
         public SkillGenerics[] SkillBar { get; set; }

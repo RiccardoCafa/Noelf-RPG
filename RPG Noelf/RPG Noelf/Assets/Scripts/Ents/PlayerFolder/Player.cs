@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class Player : Ent
+    public class Player : Ent
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }

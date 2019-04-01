@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
-    class NPC
+    public class NPC
     {
         private Dictionary<string, NPCFunction> Functions = new Dictionary<string, NPCFunction>();
 
+        public Level MyLevel { get; set; }
+        public uint IDnpc { get; set; }
         public string Name { get; set; }
         public string Introduction { get; set; }
         public string Conclusion { get; set; }
-        public Level MyLevel { get; set; }
 
         public void StartConversation()
         {
@@ -26,6 +28,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             Functions.Add(Function.GetFunctionName(), Function);
         } 
 
+        public NPCFunction GetFunction(string key)
+        {
+            return Functions[key];
+        }
+
         public List<string> GetFunctionsString()
         {
             List<string> funcList = new List<string>();
@@ -36,15 +43,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             return funcList;
         }
 
+        public int GetFunctionSize()
+        {
+            return Functions.Count;
+        }
+
     }
 
-    interface NPCFunction
+    public interface NPCFunction
     {
         string GetFunctionName();
-        void MyFunction();
+        void MyFunction(object sender, RoutedEventArgs e);
     }
 
-    sealed class Trader : NPCFunction
+    public sealed class Trader : NPCFunction
     {
         public Shop shop;
 
@@ -58,7 +70,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             shop = new Shop();
         }
 
-        public void MyFunction()
+        public void MyFunction(object sender, RoutedEventArgs e)
         {
             
         }
@@ -69,12 +81,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         }
     }
 
-    sealed class Quester
+    public sealed class Quester : NPCFunction
     {
+        public string GetFunctionName()
+        {
+            return "Quester";
+        }
 
+        public void MyFunction(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 
-    sealed class RuneMaster
+    public sealed class RuneMaster
     {
 
     }
