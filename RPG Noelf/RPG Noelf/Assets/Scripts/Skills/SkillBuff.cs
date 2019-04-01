@@ -39,11 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
     class SkillBuff : SkillGenerics //skills com efeitos
     {
-        public double Buff { get; set; }
-
-        public double Timer { get; set; }
-
-        public BuffDebuffTypes Buffer { get; set; }
+       
         
 
         public SkillBuff(string pathImage, string name)
@@ -117,6 +113,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     }
     class SkillDash : SkillGenerics
     {
+        public SkillDash(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
         public override bool UseSkill(Player player, Player Enemy)
         {
 
@@ -125,6 +126,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     }
     class SkillHidden : SkillGenerics
     {
+        public SkillHidden(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
         public override bool UseSkill(Player player, Player Enemy)
         {
             return false;
@@ -132,6 +138,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     }
     class SkillThrow : SkillGenerics
     {
+        public SkillThrow(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
         public override bool UseSkill(Player player, Player Enemy)
         {
             return false;

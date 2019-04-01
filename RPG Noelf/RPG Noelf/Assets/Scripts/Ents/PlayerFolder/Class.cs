@@ -276,7 +276,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Abrealas")
+            skillManager.SkillList.Add(new SkillThrow("/Assets/Images/Chao.jpg", "Abrealas")
             {
                 Damage = 0,
                 manaCost = 0,
@@ -342,7 +342,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "Dash")
+            skillManager.SkillList.Add(new SkillDash("/Assets/Images/Item2.jpg", "Dash")
             {
                 Damage = 0,
                 manaCost = 0,
@@ -354,7 +354,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipo = SkillType.habilite,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "camuflagem")
+            skillManager.SkillList.Add(new SkillHidden("/Assets/Images/Item1.jpg", "camuflagem")
             {
                 manaCost = 0,
                 block = 2,
@@ -432,7 +432,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = 0;
             Mnd = 10;
             skillManager.SetMagePassive("/Assets/Images/Item2.jpg", "Manaflow");
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "bola de fogo")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "bola de fogo")
             {
                 Damage = 0,
                 manaCost = 0,
@@ -441,27 +441,27 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Fire
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "estilhaços")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "estilhaços")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Ice
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "aprisionar")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "aprisionar")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -472,7 +472,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -483,42 +483,42 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "nevasca")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "nevasca")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Ice
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "ilusion")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "ilusion")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "lava")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "lava")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Fire
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "jorrada")
             {
@@ -527,29 +527,29 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "darkside")
+            skillManager.SkillList.Add(new SkillHidden("/Assets/Images/Item1.jpg", "darkside")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "usurpar")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "usurpar")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -560,9 +560,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 1,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.ultimate,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Fire
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "Tsunami")
             {
