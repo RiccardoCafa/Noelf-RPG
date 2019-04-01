@@ -178,8 +178,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Chao.jpg" />
-    <Content Include="Assets\Images\grass.png" />
-    <Content Include="Assets\Images\ground.png" />
+    <Content Include="Assets\Images\tiles\grass.png" />
+    <Content Include="Assets\Images\tiles\ground.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />

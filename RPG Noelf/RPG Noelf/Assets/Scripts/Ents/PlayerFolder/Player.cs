@@ -72,8 +72,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             switch (Id[1])
             {
                 case '0': _Class = new Warrior(_SkillManager); break;
-                case '1': _Class = new Ranger(_SkillManager); break;
-                case '2': _Class = new Wizard(_SkillManager); break;
+                case '1': _Class = new Wizard(_SkillManager); break;
+                case '2': _Class = new Ranger(_SkillManager); break;
             }
 
             Id = id;
@@ -90,7 +90,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             SetClothes(clothesImages);
         }
 
-        private void SetPlayer(Dictionary<string, Image> playerImages)
+        private void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
         {
             for (int i = 0; i < 6; i++)
             {
@@ -143,7 +143,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         //    }
         //}
 
-        private void SetClothes(Dictionary<string, Image> clothesImages)
+        private void SetClothes(Dictionary<string, Image> clothesImages)//aplica as imagens das roupas do player (classe)
         {
             for (int i = 3; i < 6; i++)
             {

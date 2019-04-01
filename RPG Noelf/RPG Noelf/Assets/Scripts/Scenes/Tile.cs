@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             this.tpTile = tpTile;
             vetor[0] = x * Size[0];
             vetor[1] = y * Size[1];
-            Path = "/Assets/Images/" + tpTile + ".png";
+            Path = "/Assets/Images/tiles/" + tpTile + ".png";
             VirtualPosition[0] = vetor[0];
             VirtualPosition[1] = vetor[1] - 40;
         }

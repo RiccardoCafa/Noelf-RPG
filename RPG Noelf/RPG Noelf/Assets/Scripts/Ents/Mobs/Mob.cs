@@ -20,10 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public int Level;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
-
-        //private string[] I = { "head", "body", "arms", "legs" };
         
-
         public string[] code = new string[4];
 
         public Dictionary<string, string> N = new Dictionary<string, string>()
