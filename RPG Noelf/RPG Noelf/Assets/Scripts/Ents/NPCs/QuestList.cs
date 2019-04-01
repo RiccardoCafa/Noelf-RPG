@@ -14,7 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             allquests = new Dictionary<int, Quest>();
 
-            Quest quest1 = new Quest("Here comes A new hero");
+            SpeakQuest quest1 = new SpeakQuest("Here comes A new hero");
 
 
 
