@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+﻿using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using RPG_Noelf.Assets.Scripts.Enviroment;
 using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
@@ -15,19 +16,25 @@ namespace RPG_Noelf.Assets.Scripts.General
 {
     public static class GameManager
     {
-        public static MainPage mainPage;
+        // Player
         public static List<CharacterPlayer> players = new List<CharacterPlayer>();
+        public static Player player;
+        public static CharacterPlayer characterPlayer;
+
+        // User Interface
+        public static MainPage mainPage;
         public static InterfaceManager interfaceManager = new InterfaceManager();
-        public static CharacterPlayer player;
-        public static CharacterMob mob;
-        public static MainCamera mainCamera;
-        public static Player p1, p2;
 
         // Enviroment
+        public static MainCamera mainCamera;
         public static DayNight dayNight;
 
+        // Mobs
+        public static CharacterMob mobTarget;
+
         // NPC's
-        public static NPC npc;
+        public static NPC npcTarget;
+        public static Trader traderTarget;
 
         public static void InitializeGame()
         {
@@ -37,12 +44,14 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public static void CreatePlayer()
         {
-
+            /* Aqui vão ser implementados os métodos que irão criar o player
+             * assim como fazer chamada pra main page e criá-lo graficamente
+             */
         }
 
         public static void CreateNPC()
         {
-
+            
         }
 
         public static void CreateMobs()

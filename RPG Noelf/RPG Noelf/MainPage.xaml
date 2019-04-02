@@ -415,11 +415,12 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="Conversation" Width="500" Height="500" Canvas.Left="850" Canvas.Top="250">
+        <Canvas Name="Conversation" Width="500" Height="500" Canvas.Left="850" Canvas.Top="250" Visibility="Collapsed">
             <Image Width="500" Height="250" Canvas.Top="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"></Image>
             <TextBlock Name="ConvText" Padding="15,5,15,5" TextWrapping="Wrap" FontSize="12" Width="500" Height="250" Text="This is a text" Canvas.Top="250" />
 
         </Canvas>
+        
         <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed" AllowFocusOnInteraction="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" AutomationProperties.Level="-2" >
             <Image Margin="-5,0,0,0"  Width="205" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"/>
             <Grid  Width="200" Height="250" >
