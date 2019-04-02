@@ -1,3 +1,4 @@
+using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         
 
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
+            return false;
+            /*
             if (manaCost <= player.Mp)
             {
                 CalcBonus(player);
@@ -43,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 Enemy.BeHit(player.Hit(DamageBonus));
                 return true;
             }
-            return false;
+            return false;*/
         }
 
 

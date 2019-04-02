@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
      class Encyclopedia
     {
         public static Dictionary<uint, Item> encyclopedia;
+        public static Dictionary<uint, NPC> NonPlayerCharacters;
 
         public static void LoadItens()
         {
@@ -414,6 +416,20 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             encyclopedia.Add(42, item42);
 
 
+        }
+
+        public static void LoadNPC()
+        {
+            NonPlayerCharacters = new Dictionary<uint, NPC>();
+
+            NPC npc1 = new NPC()
+            {
+                IDnpc = 1,
+                Name = "Lapa",
+                Introduction = "Tenho Doutorado em POG e mestrado em XGH. Quer comprar algumas gambiarras?",
+                Conclusion = "Muito obrigado por falar com o rei dos POG, tome aqui uns big bigs",
+                MyLevel = new Ents.Level(999)
+            };
         }
 
         // procura um item especifico
