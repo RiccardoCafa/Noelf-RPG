@@ -130,12 +130,12 @@ namespace RPG_Noelf
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                GameManager.InitializeGame();
                 mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 Scene elel = new Scene(xScene);//criaçao do cenario
                 CreatePlayer();
                 CreateMob();
+                GameManager.InitializeGame();
                 GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
             });
 
@@ -180,23 +180,6 @@ namespace RPG_Noelf
                         Atributos.Visibility = Visibility.Visible;
                     }
                     else Atributos.Visibility = Visibility.Collapsed;
-                    break;
-                case Windows.System.VirtualKey.E:
-                    if (WindowEquipamento.Visibility == Visibility.Collapsed)
-                    {
-                        if (shopOpen)
-                        {
-                            shopOpen = false;
-                            ShopWindow.Visibility = Visibility.Collapsed;
-                        }
-                        WindowEquipamento.Visibility = Visibility.Visible;
-                        equipOpen = true;
-                    }
-                    else
-                    {
-                        equipOpen = false;
-                        WindowEquipamento.Visibility = Visibility.Collapsed;
-                    }
                     break;
                 case Windows.System.VirtualKey.O:
                     if (ShopWindow.Visibility == Visibility.Collapsed)
@@ -669,6 +652,10 @@ namespace RPG_Noelf
             UpdateItemWindowText(itemInfo);
 
         }
+        private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
+        {
+            WindowBag.Visibility = Visibility.Collapsed;
+        }
         #endregion
         #region Shop
         public void UpdateShopInfo()
@@ -698,6 +685,13 @@ namespace RPG_Noelf
 
                 count++;
             }
+        }
+
+        public void OpenShop()
+        {
+            shopOpen = true;
+            ShopWindow.Visibility = Visibility.Visible;
+            UpdateShopInfo();
         }
 
         private void SetEventForShopItem()
@@ -778,11 +772,6 @@ namespace RPG_Noelf
         {
             GameManager.traderTarget.shop.SlotInOffer = null;
             ItemToSellBuy.Visibility = Visibility.Collapsed;
-        }
-
-        private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
-        {
-            WindowBag.Visibility = Visibility.Collapsed;
         }
 
         private void ShopItemBuy(object sender, PointerRoutedEventArgs e)

@@ -53,7 +53,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         protected List<Canvas> collisionBlocks = new List<Canvas>();
 
-        private Thread update;
+        public Task update;
 
         public enum EDirection
         {
@@ -85,11 +85,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             // Get the actual time
             time = DateTime.Now;
             // Creates a loop while alive Thread for update
-            update = new Thread(Update);
-            update.Start();
+            //update = new Task(Update);
+            //update.Start();
         }
 
-        private async void Update()
+        public async void Update()
         {
             while (alive)
             {

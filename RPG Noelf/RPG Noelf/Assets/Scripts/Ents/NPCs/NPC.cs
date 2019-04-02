@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.Shop_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +73,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void MyFunction(object sender, RoutedEventArgs e)
         {
-            
+            GameManager.traderTarget = this;
+            GameManager.OpenShop();
         }
 
         public string GetFunctionName()
