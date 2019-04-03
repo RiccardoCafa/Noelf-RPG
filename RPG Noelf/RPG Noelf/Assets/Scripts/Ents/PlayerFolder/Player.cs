@@ -80,7 +80,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = Race.Con + _Class.Con;
             Mnd = Race.Mnd + _Class.Mnd;
             level = new Level(1);
-            LevelUpdate(0, 0, 0, 0, 0);
+            LevelUpdate(0, 0, 0, 0, 0, 0);
 
             SetPlayer(playerImages);
             SetClothes(clothesImages);

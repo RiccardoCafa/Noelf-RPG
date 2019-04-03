@@ -234,7 +234,7 @@ namespace RPG_Noelf
                                 "Damage: " + GameManager.player.Damage + "\n" +
                                 "Atack Speed: " + GameManager.player.AtkSpd + "\n" +
                                 "Armor: " + GameManager.player.Armor + "\n\n" +
-                                "Level: " + GameManager.player.Level + "\n" +
+                                "Level: " + GameManager.player.level.actuallevel + "\n" +
                                 "Experience: " + GameManager.player.Xp + "/" + GameManager.player.XpLim + "\n" +
                                 "Pontos de skill disponivel: " + GameManager.player._SkillManager.SkillPoints + "\n" +
                                 "Gold: " + GameManager.player._Inventory.Gold;
@@ -1114,7 +1114,7 @@ namespace RPG_Noelf
 
         private void XPPlus(object sender, RoutedEventArgs e)
         {
-            GameManager.player.XpLevel(50);
+            //GameManager.player.;
             UpdatePlayerInfo();
         }
 
@@ -1229,7 +1229,7 @@ namespace RPG_Noelf
 
         private void ApplyStats(object sender, RoutedEventArgs e)
         {
-            GameManager.player.LevelUpdate(_str, _spd, _dex, _con, _mnd);
+            GameManager.player.LevelUpdate(_str, _spd, _dex, _con, _mnd, 50);
             _str = _spd = _dex = _con = _mnd = 0;
             UpdatePlayerInfo();
         }
