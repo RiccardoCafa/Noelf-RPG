@@ -18,13 +18,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     /// <summary>
     /// The Character class that will manage gravity, movement, jump, animations...
     /// </summary>
-    abstract class Character
+    public abstract class Character
     {
         public Canvas characT;
         protected Canvas LastBlock;
         protected DateTime time;
 
-        protected Canvas blocoLeftx, blocoRightx, blocoBottomx;
+        protected Canvas blocoLeftx = null, blocoRightx = null, blocoBottomx = null;
         
         public double xCharacVal = 0, yCharacVal = 0;
         protected double diferenca = 0;
@@ -42,8 +42,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public bool moveRight { get; set; }
         public bool moveLeft { get; set; }
         public bool moveDown { get; set; }
-        public bool jumping { get; set; }
-        public bool isFalling { get; set; } = false;
+        public bool isFalling { get; set; } = true;
         public bool freeRight { get; set; } = true;
         public bool freeLeft { get; set; } = true;
         public bool freeDown { get; set; } = true;
@@ -54,7 +53,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         protected List<Canvas> collisionBlocks = new List<Canvas>();
 
-        private Thread update;
+        public Task update;
 
         public enum EDirection
         {
@@ -86,11 +85,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             // Get the actual time
             time = DateTime.Now;
             // Creates a loop while alive Thread for update
-            update = new Thread(Update);
+            update = new Task(Update);
             update.Start();
         }
 
-        private async void Update()
+        public async void Update()
         {
             while (alive)
             {
@@ -123,31 +122,21 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, Canvas.LeftProperty);
+                        blocoRightx = null;
                         IsWalking = true;
                     } else if (moveLeft && !freeLeft)
                     {
                         IsWalking = false;
                     }
-                    if (freeRight && moveRight)
+                    else if (freeRight && moveRight)
                     {
                         MoveCharac(Hspeed, Canvas.LeftProperty);
                         IsWalking = true;
+                        blocoLeftx = null;
                         //rotation.Angle += 0.5;
                     } else if(moveRight && !freeRight)
                     {
                         IsWalking = false;
-                    }
-                    /*if(freeDown && moveDown)
-                    {
-                        isFalling = false;
-                        GravityMultiplier = 0;
-                        MoveCharac(-MainCamera.CameraJump, EDirection.top);
-                    }*/
-                    
-                    if (jumping && !isFalling)
-                    {
-                        MoveCharac(-Vspeed, Canvas.TopProperty);
-                        jumping = false;
                     }
 
                 }));
@@ -184,12 +173,30 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             return (double)c?.GetValue(Canvas.LeftProperty);
         }
 
+        public static bool IntersectWith(Canvas a, Canvas b)
+        {
+            double xa, ya;
+            double xb, yb;
+            xa = (double) a.GetValue(Canvas.LeftProperty);
+            ya = (double)a.GetValue(Canvas.TopProperty);
+            xb = (double)b.GetValue(Canvas.LeftProperty);
+            yb = (double)b.GetValue(Canvas.TopProperty);
+            if (xa >= xb && xa <= xb + b.Width && ya >= yb && ya <= yb + b.Height)
+            {
+                return true;
+            } else if(xb >= xa && xb <= xa + a.Width && yb >= ya && yb <= ya + a.Height)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void Jump()
         {
             if (isFalling) return;
-            jumping = true;
             time = DateTime.Now;
             isFalling = true;
+            MoveCharac(-Vspeed, Canvas.TopProperty);
         }
 
         public void UpdateBlocks(Canvas blockCanvas)
@@ -208,10 +215,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void CheckGround()
         {
+            if (!moveLeft && !moveRight && !isFalling) return;
             double xPlayer, yPlayer;
-            Canvas bottomBlock = null;
-            blocoLeftx = null;
-            blocoRightx = null;
+            blocoBottomx = null;
             xPlayer = (double)characT.GetValue(Canvas.LeftProperty);
             yPlayer = (double)characT.GetValue(Canvas.TopProperty);
             double XPlayerW = xPlayer + characT.Width;
@@ -231,66 +237,63 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     actualBlockX = GetCanvasLeft(bloco);
                     actualBlockY = GetCanvasTop(bloco);
                 }
-
+                
                 // Get the nearest block on the bottom
                 if (XPlayerW >= actualBlockX && xPlayer < actualBlockX + bloco.Width
                     && actualBlockY - YPlayerH <= 0 && actualBlockY - YPlayerH > -2)
                 {
-                    bottomBlock = bloco;
+                    blocoBottomx = bloco;
                 }
 
-                // Get the distant
-                double dif = actualBlockX - (XPlayerW);
-                double dif02 = xPlayer - (actualBlockX + bloco.Width);
-                //if (dif > 0 && dif < 10) diferenca = dif;
-                // Pegar os blocos a direita e esquerda mais proximos do player
-                if (bloco != LastBlock)
+                if (moveLeft)
                 {
+                    // Get the distant
+                    double dif02 = xPlayer - (actualBlockX + bloco.Width);
                     if (xPlayer > actualBlockX + bloco.Width && dif02 <= 3 && dif02 > 0)
                     {
                         blocoLeftx = bloco;
                     }
-
+                } else if(moveRight)
+                {
+                    double dif = actualBlockX - (XPlayerW);
                     if (XPlayerW <= actualBlockX && dif <= 3 && dif > 0)
                     {
                         blocoRightx = bloco;
                     }
                 }
+            }
 
-                if (bottomBlock != null)
-                {
-                    double ydist = GetCanvasTop(bottomBlock) - yPlayer;
-                    //lastY = GetCanvasTop(bottomBlock);
-                    LastBlock = bottomBlock;
-                    blocoBottomx = bottomBlock;
-                    isFalling = ydist <= characT.Height ? isFalling = false : isFalling = true;
-                }
-                else
-                {
-                    isFalling = true;
-                }
+            if (blocoLeftx != null)
+            {
+                //yvalue = actualBlockY - yPlayer;
+                freeLeft = (YPlayerH >= GetCanvasTop(blocoLeftx) &&
+                                yPlayer <= GetCanvasTop(blocoLeftx) + blocoLeftx.Height) ? false : true;
+            }
+            else
+            {
+                freeLeft = true;
+            }
 
-                if (blocoLeftx != null)
-                {
-                    //yvalue = actualBlockY - yPlayer;
-                    freeLeft = (YPlayerH >= GetCanvasTop(blocoLeftx) &&
-                                    yPlayer <= GetCanvasTop(blocoLeftx) + blocoLeftx.Height) ? false : true;
-                }
-                else
-                {
-                    freeLeft = true;
-                }
+            if (blocoRightx != null)
+            {
+                //yvalue = actualBlockY - yPlayer;
+                freeRight = (YPlayerH >= GetCanvasTop(blocoRightx) &&
+                                yPlayer <= GetCanvasTop(blocoRightx) + blocoRightx.Height) ? false : true;
+            }
+            else
+            {
+                freeRight = true;
+            }
 
-                if (blocoRightx != null)
-                {
-                    //yvalue = actualBlockY - yPlayer;
-                    freeRight = (YPlayerH >= GetCanvasTop(blocoRightx) &&
-                                    yPlayer <= GetCanvasTop(blocoRightx) + blocoRightx.Height) ? false : true;
-                }
-                else
-                {
-                    freeRight = true;
-                }
+            if (blocoBottomx != null)
+            {
+                double ydist = GetCanvasTop(blocoBottomx) - yPlayer;
+                LastBlock = blocoBottomx;
+                isFalling = ydist <= characT.Height ? isFalling = false : isFalling = true;
+            }
+            else
+            {
+                isFalling = true;
             }
         }
 

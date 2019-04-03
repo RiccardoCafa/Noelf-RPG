@@ -1,4 +1,6 @@
 ﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,19 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
      class Encyclopedia
     {
         public static Dictionary<uint, Item> encyclopedia;
+        public static Dictionary<uint, NPC> NonPlayerCharacters;
+
+        public static void LoadEncyclopedia()
+        {
+            LoadItens();
+            LoadNPC();
+        }
 
         public static void LoadItens()
         {
             CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
-
+            #region Items
             // loaded Itens
             Item item1 = new Item("Iron Nugget")
             {
@@ -412,8 +421,50 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             };
             encyclopedia.Add(42, item42);
+            Item item43 = new Item("BigBig")
+            {
+                IsStackable = true,
+                ItemCategory = Category.Epic,
+                PathImage = "/Assets/Images/Item1.jpg",
+                GoldValue = 980,
+                description = "Use it when the POG appears, but be careful"
 
+            };
+            encyclopedia.Add(43, item43);
+            #endregion
 
+        }
+
+        public static void LoadNPC()
+        {
+            NonPlayerCharacters = new Dictionary<uint, NPC>();
+
+            NPC npc1 = new NPC()
+            {
+                IDnpc = 1,
+                Name = "Lapa",
+                Introduction = "Tenho Doutorado em POG e mestrado em XGH. Quer comprar algumas gambiarras?",
+                Conclusion = "Muito obrigado por falar com o rei dos POG, tome aqui uns big bigs",
+                MyLevel = new Ents.Level(999)
+            };
+            Shop s = new Shop();
+            s.TradingItems.AddToBag(43, 1);
+            npc1.AddFunction(new Trader(s));
+
+            NonPlayerCharacters.Add(1, npc1);
+
+            NPC npc2 = new NPC()
+            {
+                IDnpc = 2,
+                Name = "Pai",
+                Introduction = "Meu filho, já passei por inúmeras aventuras, agora é sua vez! Colete relíquias, talentos, mate monstros e se aventure nesse incrível mundo...",
+                Conclusion = "",
+                MyLevel = new Ents.Level(99)
+            };
+
+            npc2.AddFunction(new Quester());
+
+            NonPlayerCharacters.Add(2, npc2);
         }
 
         // procura um item especifico

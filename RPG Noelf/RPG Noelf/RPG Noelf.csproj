@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RPG_Noelf</RootNamespace>
     <AssemblyName>RPG Noelf</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>pt-br</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
@@ -18,6 +18,11 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>RPG Noelf_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Never</AppxBundle>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -126,6 +131,8 @@
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\CharacterNPC.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\CharacterMob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Arms.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Body.cs" />
@@ -134,11 +141,17 @@
     <Compile Include="Assets\Scripts\Ents\Mobs\Legs.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
     <Compile Include="Assets\Scripts\Ents\Character.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\Quest.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\QuestList.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\QuestManager.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\CharacterPlayer.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
+    <Compile Include="Assets\Scripts\Ents\Trigger.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\DayNight.cs" />
+    <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
@@ -150,6 +163,7 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\Runes\RuneSlot.cs" />
     <Compile Include="Assets\Scripts\Scenes\Scene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Tile.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />

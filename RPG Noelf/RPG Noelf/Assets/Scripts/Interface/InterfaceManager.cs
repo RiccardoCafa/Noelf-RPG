@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
-    class InterfaceManager
+    public class InterfaceManager
     {
         public Canvas Inventario { get; set; }
 

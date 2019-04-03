@@ -13,7 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     /// Bag is the main Class to the entire Inventory System. 
     /// There are managment function to manipulate the bag of an entity.
     /// </summary>
-    class Bag
+    public class Bag
     {
         /// <summary>
         /// Slot is a class that contains two atributes.

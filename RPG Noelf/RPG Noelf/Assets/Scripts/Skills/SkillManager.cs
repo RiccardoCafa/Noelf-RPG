@@ -8,7 +8,7 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    class SkillManager//adiministrador de skills no game
+    public class SkillManager//adiministrador de skills no game
     {
         public List<SkillGenerics> SkillList { get; set; }
         public SkillGenerics[] SkillBar { get; set; }
@@ -123,11 +123,54 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return false;
         }
 
+        public void ChangeSkill(SkillGenerics skill)
+        {
+            if (skill.tipo == SkillType.habilite)
+            {
+                foreach (SkillGenerics s in SkillBar)
+                {
+                    if (s != null)
+                    {
+                        if (s.Equals(skill))
+                        {
+                            return;
+                        }
+                    }
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    if (SkillBar[i] == null)
+                    {
+                        SkillBar[i] = skill;
+                        break;
+                    }
+                }
+            }
+            else if (skill.tipo == SkillType.ultimate)
+            {
+                if (SkillBar[3] == null)
+                {
+                    SkillBar[3] = skill;
+                }
+            }
+        }
+
         public bool UnlockSkill(int index)
         {
             if(myPlayer.Level >= SkillList.ElementAt(index).block)
             {
                 SkillList.ElementAt(index).Unlocked = true;
+                SkillPoints--;
+                return true;
+            }
+            return false;
+        }
+
+        public bool UnlockSkill(SkillGenerics skillToUnlock)
+        {
+            if (myPlayer.Level >= skillToUnlock.block)
+            {
+                skillToUnlock.Unlocked = true;
                 SkillPoints--;
                 return true;
             }
@@ -142,29 +185,51 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 return false;
             }
-
-            if (skill.tipo == SkillType.ultimate)
+            
+            if(!skill.Unlocked)
             {
-                MinimiumLevel = 10;
-            }
-            else if (skill.tipo == SkillType.passive)
-            {
-                MinimiumLevel = 15;
-            }
-            else if(skill.tipo == SkillType.habilite)
-            {
-                MinimiumLevel = 25;
-            }
-
-            if (skill.Lvl < MinimiumLevel)
-            {
-                skill.Lvl++;
-                SkillPoints--;
-                skill.Unlocked = true;
-                return true;
+                if(UnlockSkill(skill))
+                {
+                    SkillPoints--;
+                    skill.Unlocked = true;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (SkillBar[i] == null)
+                        {
+                            AddSkillToBar(skill, i);
+                            break;
+                        }
+                    }
+                    return true;
+                } else
+                {
+                    return false;
+                }
             } else
             {
-                return false;
+                if (skill.tipo == SkillType.ultimate)
+                {
+                    MinimiumLevel = 10;
+                }
+                else if (skill.tipo == SkillType.passive)
+                {
+                    MinimiumLevel = 15;
+                }
+                else if(skill.tipo == SkillType.habilite)
+                {
+                    MinimiumLevel = 25;
+                }
+
+                if (skill.Lvl < MinimiumLevel)
+                {
+                    skill.Lvl++;
+                    SkillPoints--;
+                    skill.Unlocked = true;
+                    return true;
+                } else
+                {
+                    return false;
+                }
             }
         }
 	}
