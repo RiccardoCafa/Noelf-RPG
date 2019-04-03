@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void StartConversation()
         {
-            
+            MainPage.instance.CallConversationBox(this);
         }
 
         public void AddFunction(NPCFunction Function)
@@ -75,6 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             GameManager.traderTarget = this;
             GameManager.OpenShop();
+            MainPage.instance.CloseConversationBox(null, null);
         }
 
         public string GetFunctionName()

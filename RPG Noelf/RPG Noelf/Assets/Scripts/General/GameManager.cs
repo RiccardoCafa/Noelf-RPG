@@ -33,6 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static CharacterMob mobTarget;
 
         // NPC's
+        public static CharacterNPC npcCharacter;
         public static NPC npcTarget;
         public static Trader traderTarget;
 
@@ -40,16 +41,18 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             interfaceManager.Inventario = MainPage.inventarioWindow;
             Encyclopedia.LoadEncyclopedia();
-            characters.Add(mobTarget);
-            characters.Add(characterPlayer);
-            Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
+            npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
+            npcCharacter.UpdateBlocks(MainPage.TheScene);
+            npcCharacter.trigger.AddTrigger(characterPlayer);
+            //characters.Add(mobTarget);
+            //characters.Add(characterPlayer);
+            //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
         }
 
         public static void CreatePlayer()
         {
             /* Aqui vão ser implementados os métodos que irão criar o player
-             * assim como fazer chamada pra main page e criá-lo graficamente
-             */
+             * assim como fazer chamada pra main page e criá-lo graficamente */
         }
 
         public static void CreateNPC()
