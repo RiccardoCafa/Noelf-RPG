@@ -8,18 +8,24 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Runes
 {
+   
+
     class Rune
     {
-      public Level actualRuneLevel {get;set;}
+      public string runename { get; set; }
       public double chanceEffect { get; set; }
       public Element typeRune { get; set; }
-      public double damage { get; set; }  
+      public Skill GenericSkill { get; set; }
     
-        public Rune(Element tpRune)
+        public Rune(Element tpRune, int runeLevel)
         {
             typeRune = tpRune;
-            actualRuneLevel = new Level(1);
+            
         }
+
+
+       
+
 
 
 

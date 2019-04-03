@@ -39,6 +39,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             if (actuallevel + 1 < MaxLevel)
             {
                 actuallevel = actuallevel + 1;
+                if(actuallevel == MaxLevel)
+                {
+                    ableToUp = false;
+                }
             }
             return true;
 
