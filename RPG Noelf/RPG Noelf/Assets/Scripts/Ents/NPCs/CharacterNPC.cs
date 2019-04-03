@@ -32,7 +32,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             MyNPC = _NPC;
             trigger = new Trigger(this);
             T.PointerPressed += InteractWith;
-            Debug.WriteLine("Criei o NPC " + MyNPC.Name + " Nivel " + MyNPC.MyLevel.actuallevel);
             //Updates = new Thread(updateNPC);
             //Updates.Start();
         }
@@ -44,7 +43,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 var eprop = e.GetCurrentPoint(MainPage.instance).Properties;
                 if(eprop.IsLeftButtonPressed)
                 {
-                    Debug.WriteLine("Cliquei no NPC " + MyNPC.Name);
                     if(trigger.Triggering())
                     {
                         MyNPC.StartConversation();

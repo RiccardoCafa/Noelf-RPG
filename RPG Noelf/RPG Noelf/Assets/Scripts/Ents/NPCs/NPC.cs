@@ -22,6 +22,18 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public void StartConversation()
         {
             MainPage.instance.CallConversationBox(this);
+            GameManager.interfaceManager.ConvHasToClose = false;
+            GameManager.interfaceManager.Conversation = true;
+        }
+
+        public void EndConversation()
+        {
+            foreach(NPCFunction f in Functions.Values)
+            {
+                f.EndFunction();
+            }
+            GameManager.interfaceManager.ConvHasToClose = true;
+            GameManager.interfaceManager.Conversation = false;
         }
 
         public void AddFunction(NPCFunction Function)
@@ -55,6 +67,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     {
         string GetFunctionName();
         void MyFunction(object sender, RoutedEventArgs e);
+        void EndFunction();
     }
 
     public sealed class Trader : NPCFunction
@@ -75,7 +88,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             GameManager.traderTarget = this;
             GameManager.OpenShop();
-            MainPage.instance.CloseConversationBox(null, null);
+        }
+
+        public void EndFunction()
+        {
+            if (GameManager.interfaceManager.ShopOpen) GameManager.CloseShop();
         }
 
         public string GetFunctionName()
@@ -86,14 +103,19 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
     public sealed class Quester : NPCFunction
     {
-        public string GetFunctionName()
-        {
-            return "Quester";
-        }
-
         public void MyFunction(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        public void EndFunction()
+        {
+            
+        }
+
+        public string GetFunctionName()
+        {
+            return "Quester";
         }
     }
 

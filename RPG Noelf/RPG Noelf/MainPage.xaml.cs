@@ -139,10 +139,9 @@ namespace RPG_Noelf
                 CreateMob();
                 GameManager.InitializeGame();
                 GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
-            });
 
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
+                Conversation.PointerPressed += EndConversation;
+
                 UpdateBag();
                 UpdateSkillTree();
                 UpdatePlayerInfo();
@@ -182,24 +181,6 @@ namespace RPG_Noelf
                         Atributos.Visibility = Visibility.Visible;
                     }
                     else Atributos.Visibility = Visibility.Collapsed;
-                    break;
-                case Windows.System.VirtualKey.O:
-                    if (ShopWindow.Visibility == Visibility.Collapsed)
-                    {
-                        if (equipOpen)
-                        {
-                            equipOpen = false;
-                            WindowEquipamento.Visibility = Visibility.Collapsed;
-                        }
-                        UpdateShopInfo();
-                        ShopWindow.Visibility = Visibility.Visible;
-                        shopOpen = true;
-                    }
-                    else
-                    {
-                        shopOpen = false;
-                        ShopWindow.Visibility = Visibility.Collapsed;
-                    }
                     break;
                 case Windows.System.VirtualKey.K:
                     if (WindowTreeSkill.Visibility == Visibility.Collapsed)
@@ -688,16 +669,20 @@ namespace RPG_Noelf
                         img.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.SearchFor(s.ItemID).PathImage));
                     }
                 }
-
                 count++;
             }
         }
 
         public void OpenShop()
         {
-            shopOpen = true;
+            Atributos.Visibility = Visibility.Collapsed;
             ShopWindow.Visibility = Visibility.Visible;
             UpdateShopInfo();
+        }
+
+        public void CloseShop()
+        {
+            ShopWindow.Visibility = Visibility.Collapsed;
         }
 
         private void SetEventForShopItem()
@@ -804,9 +789,14 @@ namespace RPG_Noelf
         }
         #endregion
         #region Conversation
+        private NPC npc;
         private Grid ButtonsGrid;
+        private Queue<Button> QueueButtons = new Queue<Button>();
+        private List<Button> PoolButtons = new List<Button>();
         public void CallConversationBox(NPC npc)
         {
+            if (GameManager.interfaceManager.Conversation) return;
+            this.npc = npc;
             Conversation.Visibility = Visibility.Visible;
             int Buttons = npc.GetFunctionSize() + 1;
             List<string> funcString = npc.GetFunctionsString();
@@ -826,13 +816,22 @@ namespace RPG_Noelf
                     Height = new GridLength(ButtonsGrid.Height / Buttons)
                 };
                 ButtonsGrid.RowDefinitions.Add(row);
-                
-                Button b = new Button
+                Button b;
+                if (QueueButtons.Count > 0)
                 {
-                    Height = (ButtonsGrid.Height / Buttons) - 10,
-                    Width = ButtonsGrid.Height
-                };
-                ButtonsGrid.Children.Add(b);
+                    b = QueueButtons.Dequeue();
+                    b.Visibility = Visibility.Visible;
+                } else
+                {
+                    b = new Button
+                    {
+                        Height = (ButtonsGrid.Height / Buttons) - 10,
+                        Width = ButtonsGrid.Height
+                    };
+                    ButtonsGrid.Children.Add(b);
+                    PoolButtons.Add(b);
+                }
+                
                 if (i < Buttons - 1)
                 {
                     b.Content = funcString[i];
@@ -841,15 +840,44 @@ namespace RPG_Noelf
                 else
                 {
                     b.Content = "Exit";
-                    b.Click += CloseConversationBox;
+                    b.Click += HasToCloseConv;
                 }
                 b.SetValue(Grid.RowProperty, i);
             }
             ConvText.Text = npc.Introduction;
+            ConvLevel.Text = npc.MyLevel.actuallevel.ToString();
+            string convfunc = "";
+            foreach(string s in npc.GetFunctionsString())
+            {
+                convfunc += s + "/";
+            }
+            ConvFuncs.Text = convfunc;
+            ConvName.Text = npc.Name;
         }
+
+        public void HasToCloseConv(object sender, RoutedEventArgs e)
+        {
+            if (GameManager.interfaceManager.ConvHasToClose != false) return;
+            ConvText.Text = npc.Conclusion;
+            npc.EndConversation();
+            foreach(Button b in PoolButtons)
+            {
+                QueueButtons.Enqueue(b);
+                b.Visibility = Visibility.Collapsed;
+            }
+        }
+
         public void CloseConversationBox(object sender, RoutedEventArgs e)
         {
             Conversation.Visibility = Visibility.Collapsed;
+        }
+
+        public void EndConversation(object sender, RoutedEventArgs e)
+        {
+            if (GameManager.interfaceManager.ConvHasToClose)
+            {
+                Conversation.Visibility = Visibility.Collapsed;
+            }
         }
         #endregion
         #region General

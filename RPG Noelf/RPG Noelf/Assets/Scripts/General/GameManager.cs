@@ -68,7 +68,13 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static void OpenShop()
         {
             if (traderTarget == null) return;
+            interfaceManager.ShopOpen = true;
             MainPage.instance.OpenShop();
+        }
+
+        public static void CloseShop()
+        {
+            MainPage.instance.CloseShop();
 
         }
 
