@@ -24,7 +24,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
-
+            #region Items
             // loaded Itens
             Item item1 = new Item("Iron Nugget")
             {
@@ -431,7 +431,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             };
             encyclopedia.Add(43, item43);
-
+            #endregion
 
         }
 
@@ -452,6 +452,19 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             npc1.AddFunction(new Trader(s));
 
             NonPlayerCharacters.Add(1, npc1);
+
+            NPC npc2 = new NPC()
+            {
+                IDnpc = 2,
+                Name = "Pai",
+                Introduction = "Meu filho, já passei por inúmeras aventuras, agora é sua vez! Colete relíquias, talentos, mate monstros e se aventure nesse incrível mundo...",
+                Conclusion = "",
+                MyLevel = new Ents.Level(99)
+            };
+
+            npc2.AddFunction(new Quester());
+
+            NonPlayerCharacters.Add(2, npc2);
         }
 
         // procura um item especifico

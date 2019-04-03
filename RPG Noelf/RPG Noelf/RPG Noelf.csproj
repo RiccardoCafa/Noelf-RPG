@@ -146,6 +146,7 @@
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
+    <Compile Include="Assets\Scripts\Ents\Trigger.cs" />
     <Compile Include="Assets\Scripts\Enviroment\DayNight.cs" />
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />

@@ -85,8 +85,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             // Get the actual time
             time = DateTime.Now;
             // Creates a loop while alive Thread for update
-            //update = new Task(Update);
-            //update.Start();
+            update = new Task(Update);
+            update.Start();
         }
 
         public async void Update()
@@ -171,6 +171,24 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double GetCanvasLeft(Canvas c)
         {
             return (double)c?.GetValue(Canvas.LeftProperty);
+        }
+
+        public static bool IntersectWith(Canvas a, Canvas b)
+        {
+            double xa, ya;
+            double xb, yb;
+            xa = (double) a.GetValue(Canvas.LeftProperty);
+            ya = (double)a.GetValue(Canvas.TopProperty);
+            xb = (double)b.GetValue(Canvas.LeftProperty);
+            yb = (double)b.GetValue(Canvas.TopProperty);
+            if (xa >= xb && xa <= xb + b.Width && ya >= yb && ya <= yb + b.Height)
+            {
+                return true;
+            } else if(xb >= xa && xb <= xa + a.Width && yb >= ya && yb <= ya + a.Height)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Jump()

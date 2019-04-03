@@ -57,6 +57,7 @@ namespace RPG_Noelf
         public static Canvas Telona;
         public static Canvas ActualChunck;
         public static Canvas inventarioWindow;
+        public static Canvas TheScene;
         public string test;
 
         public static TextBlock texticulus;
@@ -76,6 +77,7 @@ namespace RPG_Noelf
             Telona = Tela;
             dayText = DayText;
             inventarioWindow = InventarioWindow;
+            TheScene = xScene;
             
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Window.Current.CoreWindow.KeyUp += WindowControl;
@@ -230,6 +232,10 @@ namespace RPG_Noelf
             GameManager.characterPlayer.UpdateBlocks(xScene);
             GameManager.player = GameManager.characterPlayer.Player;
             GameManager.players.Add(GameManager.characterPlayer);
+        }
+        public Canvas CreateCharacterNPC()
+        {
+            return NPCCanvas;
         }
         #endregion
         #region Player Updates
