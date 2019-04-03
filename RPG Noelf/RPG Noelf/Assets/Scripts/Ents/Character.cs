@@ -12,6 +12,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Shapes;
 using System.Diagnostics;
 using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.General;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -119,6 +120,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         }
                     }
 
+                    if (GameManager.interfaceManager.Conversation) return;
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, Canvas.LeftProperty);

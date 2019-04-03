@@ -115,7 +115,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         
         private bool TestLevelBlock(SkillGenerics skill)
         {
-            if (myPlayer.Level > skill.block)
+            if (myPlayer.level.actuallevel > skill.block)
             {
                 return true;
             }
@@ -157,7 +157,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public bool UnlockSkill(int index)
         {
-            if(myPlayer.Level >= SkillList.ElementAt(index).block)
+            if(myPlayer.level.actuallevel >= SkillList.ElementAt(index).block)
             {
                 SkillList.ElementAt(index).Unlocked = true;
                 SkillPoints--;
@@ -168,7 +168,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public bool UnlockSkill(SkillGenerics skillToUnlock)
         {
-            if (myPlayer.Level >= skillToUnlock.block)
+            if (myPlayer.level.actuallevel >= skillToUnlock.block)
             {
                 skillToUnlock.Unlocked = true;
                 SkillPoints--;
