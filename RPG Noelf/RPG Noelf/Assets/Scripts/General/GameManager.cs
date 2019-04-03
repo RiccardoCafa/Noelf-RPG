@@ -22,10 +22,10 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static CharacterPlayer characterPlayer;
 
         // User Interface
-        public static MainPage mainPage;
         public static InterfaceManager interfaceManager = new InterfaceManager();
 
         // Enviroment
+        public static List<Character> characters = new List<Character>();
         public static MainCamera mainCamera;
         public static DayNight dayNight;
 
@@ -39,7 +39,10 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static void InitializeGame()
         {
             interfaceManager.Inventario = MainPage.inventarioWindow;
-            Encyclopedia.LoadItens();
+            Encyclopedia.LoadEncyclopedia();
+            characters.Add(mobTarget);
+            characters.Add(characterPlayer);
+            Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
         }
 
         public static void CreatePlayer()
@@ -56,6 +59,13 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public static void CreateMobs()
         {
+
+        }
+
+        public static void OpenShop()
+        {
+            if (traderTarget == null) return;
+            MainPage.instance.OpenShop();
 
         }
 

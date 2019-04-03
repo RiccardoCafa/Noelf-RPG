@@ -1,5 +1,6 @@
 ﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         public static Dictionary<uint, Item> encyclopedia;
         public static Dictionary<uint, NPC> NonPlayerCharacters;
+
+        public static void LoadEncyclopedia()
+        {
+            LoadItens();
+            LoadNPC();
+        }
 
         public static void LoadItens()
         {
@@ -414,6 +421,16 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             };
             encyclopedia.Add(42, item42);
+            Item item43 = new Item("BigBig")
+            {
+                IsStackable = true,
+                ItemCategory = Category.Epic,
+                PathImage = "/Assets/Images/Item1.jpg",
+                GoldValue = 980,
+                description = "Use it when the POG appears, but be careful"
+
+            };
+            encyclopedia.Add(43, item43);
 
 
         }
@@ -430,6 +447,11 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 Conclusion = "Muito obrigado por falar com o rei dos POG, tome aqui uns big bigs",
                 MyLevel = new Ents.Level(999)
             };
+            Shop s = new Shop();
+            s.TradingItems.AddToBag(43, 1);
+            npc1.AddFunction(new Trader(s));
+
+            NonPlayerCharacters.Add(1, npc1);
         }
 
         // procura um item especifico
