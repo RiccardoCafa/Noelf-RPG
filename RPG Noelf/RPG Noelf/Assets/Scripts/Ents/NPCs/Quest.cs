@@ -10,6 +10,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
     public abstract class Quest
     {
+        public uint RequiredID { get; set; }//Id nescessario para a ativação da quest
         public int level { get; set; }//level ta int por que só quero comparar o level atual do player
         public string name { get; set; }//nome da quest
         public string Description { get; set; }//descrição da quest

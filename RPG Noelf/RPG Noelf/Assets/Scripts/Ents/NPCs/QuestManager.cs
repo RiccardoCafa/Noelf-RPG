@@ -37,6 +37,23 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 
             }
         }
+        public void ReceiveNewQuest(Quest q, int playerLevel, uint genericID)
+        {
+            if (q.level <= playerLevel && genericID == q.RequiredID)//checa se o level do player é compativel com a quest
+            {
+                if (numActiveQuests >= maxActiveQuests)//checagem se o numero de quests ativas é o limite
+                {
+                    allQuests.Add(q);
+                }
+                else
+                {
+                    allQuests.Add(q);
+                    activeQuests.Add(q);
+                    numActiveQuests++;
+                }
+
+            }
+        }
 
         //completar uma quest
         public bool CheckQuestIsComplete(Quest q)
@@ -58,13 +75,65 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         //receber recompensas da Quest
         public void GainRewards(Player p, Quest q)
         {
+            if(q.isComplete == true)
+            {
+                p.level.GainEXP(q.GainedXP);
+                p._Inventory.AddGold(q.GainedGold);
+      
+            }       
 
         }
         //setar uma quest para o status de Ativa
+        //esta primeira seta a partir de uma quest especifica
         public void SetQuestToActive(Quest q)
         {
+            if(allQuests.Contains(q) == true && activeQuests.Contains(q) == false && numActiveQuests < maxActiveQuests)
+            {
+                activeQuests.Add(q);
+            }
+        }
+        //esta seta a partir de um ID de ativação
+        public void SetQuestToActive(uint activatingID)
+        {
+            Quest generic = QuestList.SearchQuest(activatingID);
+            allQuests.Add(generic);
+            if(numActiveQuests <= maxActiveQuests)
+            {
+                activeQuests.Add(generic);
+            }
+            else
+            {
+
+            }
 
         }
+
+        //setar uma quest para o status de finalizada
+        public void SetQuestToFinished(Quest q)
+        {
+            if(allQuests.Contains(q) == true && activeQuests.Contains(q) == true  && q.isComplete == true)
+            {
+                allQuests.Remove(q);
+                finishedQuests.Add(q);
+            }
+        }
+        //checar o level da quest, se é possivel adquiri-la ou não
+        public bool CheckQuestLevel(uint questID, int playerLevel)
+        {
+            Quest quest = QuestList.SearchQuest(questID);
+            if (quest.level > playerLevel)
+            {
+                return false;
+            }else if(quest.level <= playerLevel)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+
 
     }
 
