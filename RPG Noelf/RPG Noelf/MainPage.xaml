@@ -132,11 +132,11 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
-        <Canvas Name =" PLayer Quest Manager Window" Width="300" Height="400" Background="LightGray"></Canvas>
+        <Canvas Name ="PlayerQuestManagerWindow" Width="300" Height="400" Background="LightGray"></Canvas>
         
         
         
-       <Canvas Name="Quest Window" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
+       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
             <Grid Width="200" Height="300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
@@ -155,8 +155,8 @@
                         <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="100"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button Name="Accept Quest" Width="80" Height="50" HorizontalAlignment="Center" Content="Accept" Click ="ClickAcceptQuestButton"></Button>
-                    <Button Name="Deny Quest" Width="80" Height="50" HorizontalAlignment="Center" Grid.Column="1" Content="Deny" Click ="ClickDenyQuestButton"></Button>
+                    <Button Name="AcceptQuest" Width="80" Height="50" HorizontalAlignment="Center" Content="Accept" Click ="ClickAcceptQuestButton"></Button>
+                    <Button Name="DenyQuest" Width="80" Height="50" HorizontalAlignment="Center" Grid.Column="1" Content="Deny" Click ="ClickDenyQuestButton"></Button>
                 </Grid>
             </Grid> 
        </Canvas>
