@@ -13,6 +13,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public Canvas Inventario { get; set; }
 
         public bool InventarioOpen { get; set; }
+        public bool ShopOpen { get; set; } = false;
+        public bool ConvHasToClose { get; set; }
+        public bool Conversation { get; set; } = false;
 
         public InterfaceManager()
         {
