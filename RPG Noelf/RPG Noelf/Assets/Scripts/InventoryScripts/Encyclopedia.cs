@@ -18,6 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             LoadItens();
             LoadNPC();
+            QuestList.load_quests();
         }
 
         public static void LoadItens()
@@ -458,7 +459,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 IDnpc = 2,
                 Name = "Pai",
                 Introduction = "Meu filho, já passei por inúmeras aventuras, agora é sua vez! Colete relíquias, talentos, mate monstros e se aventure nesse incrível mundo...",
-                Conclusion = "",
+                Conclusion = "Vá em paz meu filho",
                 MyLevel = new Ents.Level(99)
             };
 

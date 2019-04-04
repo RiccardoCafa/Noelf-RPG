@@ -962,8 +962,16 @@ namespace RPG_Noelf
                 ItemBuyingQuantity.Text = val.ToString();
             }
         }
-        
+
         #region ButtonEvents
+        private void ClickAcceptQuestButton(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ClickDenyQuestButton(object sender, RoutedEventArgs e)
+        {
+
+        } 
         private void ClickNewMob(object sender, RoutedEventArgs e)
         {
             int level;
