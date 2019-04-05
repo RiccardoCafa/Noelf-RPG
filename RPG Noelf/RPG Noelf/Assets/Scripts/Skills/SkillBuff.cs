@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 
@@ -51,9 +52,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
             this.pathImage = pathImage;
         }
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mp >= manaCost)
+            if ((player as Player).Mp >= manaCost)
             {
                 if (Buffer == BuffDebuffTypes.Dex)
                 {
@@ -117,7 +118,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     }
     class SkillDash : SkillGenerics
     {
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
 
             return false;
@@ -125,14 +126,14 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     }
     class SkillHidden : SkillGenerics
     {
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
             return false;
         }
     }
     class SkillThrow : SkillGenerics
     {
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
             return false;
         }

@@ -32,14 +32,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public int Mp { get; set; }
         public int MpMax { get; set; }
-
-        public double Armor { get; set; }
-
-        public double DamageBuff { get; set; }
-        public double ArmorBuff { get; set; }
-        public double AtkSpeedBuff { get; set; }
-        public double BonusChanceCrit { get; set; } = 1;
-
+        
         public Player(string id, Dictionary<string, Image> playerImages, Dictionary<string, Image> clothesImages)
         {
             /* ID: rcxkysh
@@ -172,12 +165,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
             string text = "\nHP: " + Hp + "/" + HpMax
                         + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
-                        + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]";
-            text += "\nattkSpd-> " + AtkSpd + " s"
-                  + "\nrun-> " + Run + " m/s"
-                  + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
-                  + "\ndmg-> " + Damage
-                  + "\n" + Id;
+                        + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]"
+                        + "\nattkSpd-> " + AtkSpd + " s"
+                        + "\nrun-> " + Run + " m/s"
+                        + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
+                        + "\ndmg-> " + Damage;
             textBlock.Text = text;
         }
 
@@ -235,20 +227,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Hp += HP;
             }
-        }
-
-        public double Hit(double bonusDamage)//golpeia
-        {
-            Random random = new Random();
-            double dmg100 = random.NextDouble() * 100;
-            if (dmg100 < 1 / Dex * 0.05) return 0;//errou
-            else if (dmg100 < Dex * BonusChanceCrit * 0.1) return bonusDamage + Damage * dmg100;//acertou
-            else return bonusDamage + Damage * dmg100 * 2;//critico
-        }
-
-        public void BeHit(double damage)//tratamento do dano levado
-        {
-            Hp -= damage / (1 + Con * 0.02 + Armor);
         }
     }
 }

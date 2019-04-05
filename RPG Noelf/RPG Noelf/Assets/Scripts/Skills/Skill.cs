@@ -1,3 +1,4 @@
+using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -34,9 +35,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         
 
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
-            if (manaCost <= player.Mp)
+            if (manaCost <= (player as Player).Mp)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
@@ -45,9 +46,5 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return false;
         }
-
-
-        
-
     }
 }
