@@ -187,6 +187,7 @@
     <Content Include="Assets\Images\Chao.jpg" />
     <Content Include="Assets\Images\grass.png" />
     <Content Include="Assets\Images\ground.png" />
+    <Content Include="Assets\Images\iconeLapa.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />
@@ -556,6 +557,13 @@
     <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuFechadoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuSemiAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\SkillsIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\StatsIcon.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 33-0.png" />
