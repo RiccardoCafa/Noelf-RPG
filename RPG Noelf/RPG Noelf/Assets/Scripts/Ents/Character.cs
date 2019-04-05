@@ -119,6 +119,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                             moveRight = true;
                         }
                     }
+                    
 
                     if (GameManager.interfaceManager.Conversation) return;
                     if (freeLeft && moveLeft)

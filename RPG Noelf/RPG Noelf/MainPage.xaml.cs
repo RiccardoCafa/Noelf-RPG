@@ -139,6 +139,7 @@ namespace RPG_Noelf
                 CreateMob();
                 GameManager.InitializeGame();
                 GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
+                CharacterNPC npc2 = new CharacterNPC(NPCCanvas2, Encyclopedia.NonPlayerCharacters[2]);
 
                 Conversation.PointerPressed += EndConversation;
 
@@ -505,7 +506,22 @@ namespace RPG_Noelf
                 return;
             }
         }
-
+        private void ShowAtributes(object sender, PointerRoutedEventArgs e)
+        {
+            if (Atributos.Visibility == Visibility.Visible)
+                Atributos.Visibility = Visibility.Collapsed;
+            else Atributos.Visibility = Visibility.Visible;
+        }
+        private void ShowSkillTree(object sender, PointerRoutedEventArgs e)
+        {
+            if(WindowTreeSkill.Visibility == Visibility.Collapsed)
+            {
+                WindowTreeSkill.Visibility = Visibility.Visible;
+            } else
+            {
+                WindowTreeSkill.Visibility = Visibility.Collapsed;
+            }
+        }
         private void ShowEquipWindow(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -547,6 +563,16 @@ namespace RPG_Noelf
 
             UpdateItemWindowText(itemInfo);
 
+        }
+        private void ShowEquip(object sender, PointerRoutedEventArgs e)
+        {
+            if(WindowEquipamento.Visibility == Visibility.Collapsed)
+            {
+                WindowEquipamento.Visibility = Visibility.Visible;
+            } else
+            {
+                WindowEquipamento.Visibility = Visibility.Collapsed;
+            }
         }
         private void CloseSkillWindow(object sender, PointerRoutedEventArgs e)
         {
@@ -639,6 +665,13 @@ namespace RPG_Noelf
             UpdateItemWindowText(itemInfo);
 
         }
+        private void ShowBag(object sender, PointerRoutedEventArgs e)
+        {
+            if (InventarioWindow.Visibility == Visibility.Collapsed)
+                InventarioWindow.Visibility = Visibility.Visible;
+            else
+                InventarioWindow.Visibility = Visibility.Collapsed;
+        }
         private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
         {
             WindowBag.Visibility = Visibility.Collapsed;
@@ -697,7 +730,7 @@ namespace RPG_Noelf
                 }
             }
         }
-
+        
         private void ShowItemBuying(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -748,7 +781,6 @@ namespace RPG_Noelf
             UpdateItemWindowText(itemInfo);
 
         }
-
         private void ShowOfferItem(Slot offerSlot)
         {
             if (offerSlot == null) return;
@@ -876,6 +908,7 @@ namespace RPG_Noelf
         {
             if (GameManager.interfaceManager.ConvHasToClose)
             {
+                GameManager.interfaceManager.Conversation = false;
                 Conversation.Visibility = Visibility.Collapsed;
             }
         }
@@ -936,6 +969,31 @@ namespace RPG_Noelf
                 }
             }
 
+        }
+        private void MenuSemiOpenEnter(object sender, PointerRoutedEventArgs e)
+        {
+            MenuFBolaAtras.Visibility = Visibility.Visible;
+        }
+        private void MenuSemiOpenExit(object sender, PointerRoutedEventArgs e)
+        {
+            MenuFBolaAtras.Visibility = Visibility.Collapsed;
+        }
+        private void MenuOpen(object sender, PointerRoutedEventArgs e)
+        {
+            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if(prop.IsLeftButtonPressed)
+                {
+                    MenuAberto.Visibility = Visibility.Visible;
+                    MenuFechado.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+        private void MenuClose(object sender, PointerRoutedEventArgs e)
+        {
+            MenuAberto.Visibility = Visibility.Collapsed;
+            MenuFechado.Visibility = Visibility.Visible;
         }
         #endregion
         
