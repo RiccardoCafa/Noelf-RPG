@@ -131,6 +131,8 @@
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\CharacterNPC.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\CharacterMob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Arms.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Body.cs" />
@@ -139,11 +141,16 @@
     <Compile Include="Assets\Scripts\Ents\Mobs\Legs.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
     <Compile Include="Assets\Scripts\Ents\Character.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\Quest.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\QuestList.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\QuestManager.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\CharacterPlayer.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
+    <Compile Include="Assets\Scripts\Ents\Trigger.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\DayNight.cs" />
+    <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
@@ -178,8 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Chao.jpg" />
-    <Content Include="Assets\Images\tiles\grass.png" />
-    <Content Include="Assets\Images\tiles\ground.png" />
+    <Content Include="Assets\Images\grass.png" />
+    <Content Include="Assets\Images\ground.png" />
+    <Content Include="Assets\Images\iconeLapa.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />
@@ -549,6 +557,13 @@
     <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuFechadoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuSemiAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\SkillsIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\StatsIcon.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 33-0.png" />

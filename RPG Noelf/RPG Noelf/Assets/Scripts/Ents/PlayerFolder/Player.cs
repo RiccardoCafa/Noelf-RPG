@@ -15,15 +15,15 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class Player : Ent
+    public class Player : Ent
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
         public SkillManager _SkillManager { get; }
         public Bag _Inventory { get; }
         public Equips Equipamento { get; }
-
-        public int Level { get; private set; }
+        public Level level { get; }
+       
 
         public string Id { get; set; }
 
@@ -75,9 +75,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = Race.Dex + _Class.Dex;
             Con = Race.Con + _Class.Con;
             Mnd = Race.Mnd + _Class.Mnd;
-            Level = 1;
-            XpLim = Level * 100;
-            LevelUpdate(0, 0, 0, 0, 0);
+            level = new Level(1);
+            LevelUpdate(0, 0, 0, 0, 0, 0);
 
             SetPlayer(playerImages);
             SetClothes(clothesImages);
@@ -173,31 +172,18 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             textBlock.Text = text;
         }
 
-        public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
-        {
-            Xp += xp;
-            if (Xp >= XpLim)
-            {
-                Xp -= XpLim;
-                Level++;
-                _SkillManager.SkillPoints++;
-                _Class.StatsPoints++;
-                XpLim = Level * 100;
-                return true;
-            }
-            return false;
-        }
 
-        public void LevelUpdate(int str, int spd, int dex, int con, int mnd)//atualiza os atributos ao upar
+        public void LevelUpdate(int str, int spd, int dex, int con, int mnd, int exp)//atualiza os atributos ao upar
         {
+            level.GainEXP(exp);
             Str += str;
             Spd += spd;
             Dex += dex;
             Con += con;
             Mnd += mnd;
-            HpMax = Con * 6 + Level * 2;
+            HpMax = Con * 6 + level.actuallevel * 2;
             Hp = HpMax;
-            MpMax = Mnd * 5 + Level;
+            MpMax = Mnd * 5 + level.actuallevel;
             Mp = MpMax;
             AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
             Run = 1 + 0.075 * Spd;

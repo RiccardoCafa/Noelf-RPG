@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
-    class Shop
+    public class Shop
     {
         public Bag TradingItems = new Bag();
         public Bag BuyingItems = new Bag();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
-    abstract class Ent
+    public abstract class Ent
     {
         public int Str { get; set; }
         public int Spd { get; set; }

@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Shapes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class CharacterPlayer : Character
+    public class CharacterPlayer : Character
     {
         private MainCamera ActualCam = MainCamera.instance;
         private Thread updatePlayer;

@@ -37,14 +37,16 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override bool UseSkill(Ent player, Ent Enemy)
         {
-            if (manaCost <= (player as Player).Mp)
+            return false;
+            /*
+            if (manaCost <= player.Mp)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
                 Enemy.BeHit(player.Hit(DamageBonus));
                 return true;
             }
-            return false;
+            return false;*/
         }
     }
 }
