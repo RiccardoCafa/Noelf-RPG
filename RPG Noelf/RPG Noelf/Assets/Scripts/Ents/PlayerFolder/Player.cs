@@ -12,6 +12,7 @@ using Windows.Storage;
 using Windows.Storage.Search;
 using System.IO;
 using Windows.UI.Xaml.Media.Imaging;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -22,6 +23,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public SkillManager _SkillManager { get; }
         public Bag _Inventory { get; }
         public Equips Equipamento { get; }
+        public QuestManager _Questmanager { get; }
         public Level level { get; }
        
 

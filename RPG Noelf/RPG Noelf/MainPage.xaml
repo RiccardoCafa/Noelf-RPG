@@ -132,10 +132,18 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
-        <Canvas Name ="PlayerQuestManagerWindow" Width="300" Height="400" Background="LightGray"></Canvas>
-        
-        
-        
+        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility="Visible">
+            <Grid Width="200" Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Name="QuestBox1" Text="Quest Title"></TextBlock>
+                <TextBlock Name="QuestBox2" Grid.Row="1" Text="Objetivo"></TextBlock>
+            </Grid>
+            
+        </Canvas>
+    
        <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
             <Grid Width="200" Height="300">
                 <Grid.ColumnDefinitions>

@@ -511,7 +511,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         //procura o dano da Arma
         public static float SearchDamageWeapon(uint key)
         {
-            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Weapon)
             {
                 return ((Weapon)encyclopedia[key]).bonusDamage;
             }
