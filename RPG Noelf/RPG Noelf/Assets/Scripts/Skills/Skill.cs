@@ -48,9 +48,5 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return false;*/
         }
-
-
-        
-
     }
 }

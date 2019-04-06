@@ -20,10 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public int Level;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
-
-        //private string[] I = { "head", "body", "arms", "legs" };
         
-
         public string[] code = new string[4];
 
         public Dictionary<string, string> N = new Dictionary<string, string>()
@@ -43,7 +40,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" },
         };
 
-        public Mob(Dictionary<string, Image> images, int level)
+        public Mob(Dictionary<string, Image> images, int level)//cria um mob novo, aleatoriamente montado
         {
             #region montagem
             Level = level;

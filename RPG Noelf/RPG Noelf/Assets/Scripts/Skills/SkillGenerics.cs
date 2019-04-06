@@ -28,7 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public SkillTypeBuff tipobuff { get; set; }
         public Element tipoatributo { get; set; }
 
-        public void CalcBonus(Player calcP)
+        public void CalcBonus(Ent calcP)
         {
             if (atrib == AtributBonus.For)
             {
