@@ -9,11 +9,16 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
     class CraftingEncyclopedia
     {
-        public static Dictionary<uint,string> crafting { get; set; }//o ID do crafting é o id do item criado
+        public static Dictionary<uint, Recipe> crafting = new Dictionary<uint, Recipe>();//o ID do crafting é o id do item criado
 
         public static void LoadCrafting()
         {
-            string a = "nothing";
+            Recipe IronBar = new Recipe(41);//receita de uma barra de ferro
+            IronBar.Materials.Add(new Slot(1, 5));//um slot com 5 barras de ferro é nescessario
+            crafting.Add(41, IronBar);
+
+
+
         }
         
 
