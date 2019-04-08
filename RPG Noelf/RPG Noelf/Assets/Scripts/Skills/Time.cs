@@ -10,11 +10,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     class Time
     {
         //fazer isso dps
+        List<SkillGenerics> skilltime = new List<SkillGenerics>();
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        private double tempo,tempot;
-        public Time(int tempot)
+        public Time(SkillGenerics skill)
         {
-            this.tempot = tempot;
+            skilltime.Add(skill);
             DispatcherSetup();
         }
         private void DispatcherSetup()
@@ -25,10 +25,36 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         private void Timer(object sender, object e)
         {
-            tempo++;
-            if(tempo == tempot)
+            foreach (SkillGenerics habilite in skilltime)
             {
-                dispatcherTimer.Stop();
+                double cool = habilite.cooldown;
+                if (cool == 0)
+                {
+                    habilite.cooldown = cool;
+                    habilite.Useabilite = true;
+                    skilltime.Remove(habilite);
+                }
+                else
+                {
+                    cool--;
+                }
+                if (habilite.tipobuff == SkillTypeBuff.normal)
+                {
+                    //n faz nada
+                }
+                else
+                {
+                    double efect = habilite.Timer;
+                    if(efect == 0)
+                    {
+                        habilite.Usetroca = true;
+                        habilite.Timer = efect;
+                    }
+                    else
+                    {
+                        efect--;
+                    }
+                }
             }
         }
 

@@ -30,6 +30,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public double Buff { get; set; }
         public double Timer { get; set; }
         public BuffDebuffTypes Buffer { get; set; }
+        public bool Useabilite = true;
+        public bool Usetroca = false;
 
         public void CalcBonus(Ent calcP)
         {
@@ -60,5 +62,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return "";
         }
         public abstract bool UseSkill(Ent player, Ent Enemy);
+        public abstract bool TurnBasicSkill(Ent player, Ent Enemy);
     }
 }

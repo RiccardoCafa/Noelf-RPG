@@ -15,7 +15,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public SkillGenerics Passive { get; set; }
         public Player myPlayer;
         public Thread ManageSkill;
-
         public int SkillPoints { get; set; }
         public uint i = 0;
 
