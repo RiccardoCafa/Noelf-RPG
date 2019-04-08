@@ -168,7 +168,7 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
     <Compile Include="Assets\Scripts\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
-    <Compile Include="Assets\Scripts\Skills\Timer.cs" />
+    <Compile Include="Assets\Scripts\Skills\Time.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
