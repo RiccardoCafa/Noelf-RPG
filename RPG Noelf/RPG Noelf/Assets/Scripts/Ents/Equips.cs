@@ -9,7 +9,7 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
-    class Equips
+    public class Equips
     {
         public Equips(Player player)
         {

@@ -8,11 +8,14 @@ using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
-    class InterfaceManager
+    public class InterfaceManager
     {
         public Canvas Inventario { get; set; }
 
         public bool InventarioOpen { get; set; }
+        public bool ShopOpen { get; set; } = false;
+        public bool ConvHasToClose { get; set; }
+        public bool Conversation { get; set; } = false;
 
         public InterfaceManager()
         {

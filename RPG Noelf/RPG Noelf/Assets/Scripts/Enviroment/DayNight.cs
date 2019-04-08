@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 
 namespace RPG_Noelf.Assets.Scripts.Enviroment
 {
-    class DayNight
+    public class DayNight
     {
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
@@ -40,7 +40,7 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
         {
             MainPage.instance.dayText.Text = "Day " + days + " - " + hours + ":" + minutes;
             dispatcherTimer.Tick += Timer;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1/*86400 / (60 * DayLenght)*/);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 86400 / (60 * DayLenght));
             dispatcherTimer.Start();
         }
 

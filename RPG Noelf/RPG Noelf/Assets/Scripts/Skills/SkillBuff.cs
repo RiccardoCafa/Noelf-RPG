@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    enum SkillTypeBuff
+    public enum SkillTypeBuff
     {
         debuff,
         buff,
         normal
     }
-    enum BuffDebuffTypes//todos os tipos possiveis de efeitos
+    public enum BuffDebuffTypes//todos os tipos possiveis de efeitos
     {
         Res,//ok
         Dex,//ok
@@ -29,7 +30,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         Hidden,//classe a parte
         Double//ok
     }
-    enum Element
+    public enum Element
     {
         Fire,
         Ice,
@@ -37,7 +38,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         Poison
     }
 
-    class SkillBuff : SkillGenerics //skills com efeitos
+    public class SkillBuff : SkillGenerics //skills com efeitos
     {
        
         
@@ -47,9 +48,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
             this.pathImage = pathImage;
         }
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mp >= manaCost)
+            return false;
+            /*if (player.Mp >= manaCost)
             {
                 if (Buffer == BuffDebuffTypes.Dex)
                 {
@@ -107,7 +109,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     return false;
                 }
             }
-            return false;
+            return false;*/
         }
         
     }
@@ -118,7 +120,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
+
         {
 
             return false;
@@ -131,7 +134,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool UseSkill(Player player, Player Enemy)
+        public override bool UseSkill(Ent player, Ent Enemy)
+
         {
             return false;
         }
@@ -143,7 +147,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool UseSkill(Player player, Player Enemy)
+
+        public override bool UseSkill(Ent player, Ent Enemy)
         {
             return false;
         }

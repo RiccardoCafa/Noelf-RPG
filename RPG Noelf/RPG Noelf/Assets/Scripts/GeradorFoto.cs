@@ -21,6 +21,15 @@ namespace RPG_Noelf.Assets
             SaveFrame(rTb);
         }
 
+        public static async void MergeImages(Canvas canvas, string path)
+        {
+
+            RenderTargetBitmap rTb = new RenderTargetBitmap();
+            await rTb.RenderAsync(canvas, (int)canvas.Width, (int)canvas.Height);
+            //renderedImage.Source = rTb;
+            //SaveFrame(rTb);
+        }
+
         public static async void SaveFrame(RenderTargetBitmap _bitmap)
         {
             /* TODO Save Frame

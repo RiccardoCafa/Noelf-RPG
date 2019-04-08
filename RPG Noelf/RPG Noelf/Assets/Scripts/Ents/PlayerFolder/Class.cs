@@ -14,7 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         Wizard
     }
 
-    class Class// : IAtributes
+    public class Class// : IAtributes
     {
         public int Str { get; set; }
         public int Spd { get; set; }
@@ -41,7 +41,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
     }
 
-    class Warrior : Class
+    public class Warrior : Class
     {
         public Warrior(SkillManager skillManager) : base(skillManager)
         {
@@ -224,7 +224,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
     }
 
-    class Ranger : Class
+    public class Ranger : Class
     {
         public Ranger(SkillManager skillManager) : base(skillManager)
         {
@@ -421,7 +421,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
     }
 
-    class Wizard : Class
+    public class Wizard : Class
     {
 
         public Wizard(SkillManager skillManager) : base(skillManager)

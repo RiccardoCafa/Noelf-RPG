@@ -12,13 +12,14 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Shapes;
 using System.Diagnostics;
 using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.General;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     /// <summary>
     /// The Character class that will manage gravity, movement, jump, animations...
     /// </summary>
-    abstract class Character
+    public abstract class Character
     {
         public Canvas characT;
         protected Canvas LastBlock;
@@ -53,7 +54,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         protected List<Canvas> collisionBlocks = new List<Canvas>();
 
-        private Thread update;
+        public Task update;
 
         public enum EDirection
         {
@@ -85,11 +86,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             // Get the actual time
             time = DateTime.Now;
             // Creates a loop while alive Thread for update
-            update = new Thread(Update);
+            update = new Task(Update);
             update.Start();
         }
 
-        private async void Update()
+        public async void Update()
         {
             while (alive)
             {
@@ -118,7 +119,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                             moveRight = true;
                         }
                     }
+                    
 
+                    if (GameManager.interfaceManager.Conversation) return;
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, Canvas.LeftProperty);
@@ -171,6 +174,24 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public double GetCanvasLeft(Canvas c)
         {
             return (double)c?.GetValue(Canvas.LeftProperty);
+        }
+
+        public static bool IntersectWith(Canvas a, Canvas b)
+        {
+            double xa, ya;
+            double xb, yb;
+            xa = (double) a.GetValue(Canvas.LeftProperty);
+            ya = (double)a.GetValue(Canvas.TopProperty);
+            xb = (double)b.GetValue(Canvas.LeftProperty);
+            yb = (double)b.GetValue(Canvas.TopProperty);
+            if (xa >= xb && xa <= xb + b.Width && ya >= yb && ya <= yb + b.Height)
+            {
+                return true;
+            } else if(xb >= xa && xb <= xa + a.Width && yb >= ya && yb <= ya + a.Height)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Jump()

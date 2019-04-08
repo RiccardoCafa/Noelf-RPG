@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    abstract class SkillGenerics //atributos e funcoes genericas de skills 
+    public abstract class SkillGenerics //atributos e funcoes genericas de skills 
     {
         public SkillType tipo { get; set; }
         public bool area;
@@ -30,7 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public double Timer { get; set; }
         public BuffDebuffTypes Buffer { get; set; }
 
-        public void CalcBonus(Player calcP)
+        public void CalcBonus(Ent calcP)
         {
             if (atrib == AtributBonus.For)
             {
@@ -58,6 +59,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return "";
         }
-        public abstract bool UseSkill(Player player, Player Enemy);
+        public abstract bool UseSkill(Ent player, Ent Enemy);
     }
 }

@@ -15,15 +15,15 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class Player : Ent
+    public class Player : Ent
     {
         public Race Race { get; set; }
         public Class _Class { get; set; }
         public SkillManager _SkillManager { get; }
         public Bag _Inventory { get; }
         public Equips Equipamento { get; }
-
-        public int Level { get; private set; }
+        public Level level { get; }
+       
 
         public string Id { get; set; }
 
@@ -32,15 +32,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public int Mp { get; set; }
         public int MpMax { get; set; }
-
-        public double Armor { get; set; }
-        public double Damage { get; set; }
-
-        public double DamageBuff { get; set; }
-        public double ArmorBuff { get; set; }
-        public double AtkSpeedBuff { get; set; }
-        public double BonusChanceCrit { get; set; } = 1;
-
+        
         public Player(string id, Dictionary<string, Image> playerImages, Dictionary<string, Image> clothesImages)
         {
             /* ID: rcxkysh
@@ -51,26 +43,30 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
              *  4 y -> cor do olho  0-2
              *  5 s -> tipo de cabelo  0-3
              *  6 h -> cor de cabelo  0-2
+             *  
+             *  clothes: xc.png
+             *  player/head,body,arms,legs: rxk___.png
+             *  player/eye: rx_y__.png
+             *  player/hair: rx__sh.png
              */
 
             Id = id;
-            //Id.ToCharArray(0, 1) = "1";
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
 
-            switch (Id.ToCharArray()[0])
+            switch (Id[0])
             {
                 case '0': Race = new Human(); break;
                 case '1': Race = new Orc(); break;
                 case '2': Race = new Elf(); break;
             }
 
-            switch (Id.ToCharArray()[1])
+            switch (Id[1])
             {
                 case '0': _Class = new Warrior(_SkillManager); break;
-                case '1': _Class = new Ranger(_SkillManager); break;
-                case '2': _Class = new Wizard(_SkillManager); break;
+                case '1': _Class = new Wizard(_SkillManager); break;
+                case '2': _Class = new Ranger(_SkillManager); break;
             }
 
             Id = id;
@@ -79,15 +75,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = Race.Dex + _Class.Dex;
             Con = Race.Con + _Class.Con;
             Mnd = Race.Mnd + _Class.Mnd;
-            Level = 1;
-            XpLim = Level * 100;
-            LevelUpdate(0, 0, 0, 0, 0);
+            level = new Level(1);
+            LevelUpdate(0, 0, 0, 0, 0, 0);
 
             SetPlayer(playerImages);
             SetClothes(clothesImages);
         }
 
-        private void SetPlayer(Dictionary<string, Image> playerImages)
+        private void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
         {
             for (int i = 0; i < 6; i++)
             {
@@ -108,7 +103,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         }
                         break;
                     case "hair":
-                        if(Id[5] == '3') path2 = "/" + Id[0] + Id[2] + "__" + Id[5] + "_.png";
+                        if (Id[5] == '3') path2 = "/" + Id[0] + Id[2] + "__" + Id[5] + "_.png";
                         else path2 = "/" + Id[0] + Id[2] + "__" + Id.Substring(5, 2) + ".png";
                         playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
                         break;
@@ -124,7 +119,23 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        private void SetClothes(Dictionary<string, Image> clothesImages)
+        //private void SetPlayer(List<Image> playerImages)
+        //{
+        //    DirectoryInfo di = new DirectoryInfo("/Assets/Images/player/");
+        //    List<FileInfo> files = di.GetFiles("*.png").Where(file => (file.Name[0] == Id[0] || file.Name[0] == '_') &&
+        //                                                              (file.Name[1] == Id[2] || file.Name[1] == '_') &&
+        //                                                              (file.Name[2] == Id[3] || file.Name[2] == '_') &&
+        //                                                              (file.Name[3] == Id[4] || file.Name[3] == '_') &&
+        //                                                              (file.Name[4] == Id[5] || file.Name[4] == '_') &&
+        //                                                              (file.Name[5] == Id[6] || file.Name[5] == '_'))
+        //                                               .Select(file => file).ToList();
+        //    foreach (FileInfo file in files)
+        //    {
+        //        playerImages[0].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, file.FullName));
+        //    }
+        //}
+
+        private void SetClothes(Dictionary<string, Image> clothesImages)//aplica as imagens das roupas do player (classe)
         {
             for (int i = 3; i < 6; i++)
             {
@@ -153,42 +164,31 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
             string text = "\nHP: " + Hp + "/" + HpMax
                         + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
-                        + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]";
-            text += "\nattkSpd-> " + AtkSpd + " s"
-                  + "\nrun-> " + Run + " m/s"
-                  + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
-                  + "\ndmg-> " + Damage
-                  + "\n" + Id;
+                        + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]"
+                        + "\nattkSpd-> " + AtkSpd + " s"
+                        + "\nrun-> " + Run + " m/s"
+                        + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"
+                        + "\ndmg-> " + Damage;
             textBlock.Text = text;
         }
 
-        public bool XpLevel(int xp)//responde se passou de nivel ou nao, alem de upar (necessario chamar LevelUpdate() em seguida)
-        {
-            Xp += xp;
-            if (Xp >= XpLim)
-            {
-                Xp -= XpLim;
-                Level++;
-                _SkillManager.SkillPoints++;
-                _Class.StatsPoints++;
-                XpLim = Level * 100;
-                return true;
-            }
-            return false;
-        }
 
-        public void LevelUpdate(int str, int spd, int dex, int con, int mnd)//atualiza os atributos ao upar
+        public void LevelUpdate(int str, int spd, int dex, int con, int mnd, int exp)//atualiza os atributos ao upar
         {
+            level.GainEXP(exp);
             Str += str;
             Spd += spd;
             Dex += dex;
             Con += con;
             Mnd += mnd;
-            HpMax = Con * 6 + Level * 2;
+            HpMax = Con * 6 + level.actuallevel * 2;
             Hp = HpMax;
-            MpMax = Mnd * 5 + Level;
+            MpMax = Mnd * 5 + level.actuallevel;
             Mp = MpMax;
-            AtkSpd = 2 - 1.75 * Spd / 100;
+            AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
+            Run = 1 + 0.075 * Spd;
+            TimeMgcDmg = 0.45 * Mnd;
+            Damage = Str;
         }
 
         public void AddMP(int MP)
@@ -213,20 +213,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Hp += HP;
             }
-        }
-
-        public double Hit(double bonusDamage)//golpeia
-        {
-            Random random = new Random();
-            double dmg100 = random.NextDouble() * 100;
-            if (dmg100 < 1 / Dex * 0.05) return 0;//errou
-            else if (dmg100 < Dex * BonusChanceCrit * 0.1) return bonusDamage + Damage * dmg100;//acertou
-            else return bonusDamage + Damage * dmg100 * 2;//critico
-        }
-
-        public void BeHit(double damage)//tratamento do dano levado
-        {
-            Hp -= damage / (1 + Con * 0.02 + Armor);
         }
     }
 }

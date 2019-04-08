@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
-    class MainCamera
+    public class MainCamera
     {
         public static MainCamera instance;
         CharacterPlayer PlayerToFollow;

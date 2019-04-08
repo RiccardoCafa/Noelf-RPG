@@ -1,12 +1,15 @@
-﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
+﻿using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
@@ -18,26 +21,34 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         Trading
     }
 
-    class CharacterNPC : Character
+    public class CharacterNPC : Character
     {
         public NPC MyNPC;
-        private Thread Update;
+        public Trigger trigger;
+        //private Thread Updates;
 
         public CharacterNPC(Canvas T, NPC _NPC) : base(T)
         {
             MyNPC = _NPC;
-            Update = new Thread(update);
-            Update.Start();
+            trigger = new Trigger(this);
+            T.PointerPressed += InteractWith;
+            //Updates = new Thread(updateNPC);
+            //Updates.Start();
         }
 
-        private async void update()
+        private void InteractWith(object sender, PointerRoutedEventArgs e)
         {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-
-            });
-
-
+                var eprop = e.GetCurrentPoint(MainPage.instance).Properties;
+                if(eprop.IsLeftButtonPressed)
+                {
+                    if(trigger.Triggering())
+                    {
+                        MyNPC.StartConversation();
+                    }
+                }
+            }
         }
 
     }

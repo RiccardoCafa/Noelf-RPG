@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,18 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         {
             System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");
             string bp;
+            int sizeX = 0;
+            int sizeY = 0;
             while ((bp = file.ReadLine()) != null)
             {
                 Blueprint.Add(bp);
+                sizeX = sizeX <= bp.Length ? bp.Length : sizeX;
+                sizeY++;
             }
             file.Close();
+            Tile t = new Tile(TypeTile.grass, 0, 0);
+            xScene.Width = (sizeX - 1) * t.Size[0];
+            xScene.Height = sizeY * t.Size[1] + t.VirtualSize[1] - t.Size[1];
             for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
                 List<int> platX = new List<int>();
@@ -42,7 +50,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                         if (block == 'G')
                         {
                             platX.Add(x);
-                            if (/*x + 1 < Blueprint[y].Length || */Blueprint[y].ToArray()[x + 1] != 'G')
+                            if (Blueprint[y].ToArray()[x + 1] != 'G')
                             {
                                 Canvas canvas = new Canvas();
                                 xScene.Children.Add(canvas);
@@ -58,6 +66,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                     x++;
                 }
             }
+            
         }
     }
 }
