@@ -185,8 +185,31 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Chao.jpg" />
-    <Content Include="Assets\Images\grass.png" />
-    <Content Include="Assets\Images\ground.png" />
+    <Content Include="Assets\Images\itens\arcoComposto.png" />
+    <Content Include="Assets\Images\itens\barraFerro.png" />
+    <Content Include="Assets\Images\itens\botaCouro.png" />
+    <Content Include="Assets\Images\itens\botaFerro.png" />
+    <Content Include="Assets\Images\itens\calcaCouro.png" />
+    <Content Include="Assets\Images\itens\capaceteFerro.png" />
+    <Content Include="Assets\Images\itens\capuzLa.png" />
+    <Content Include="Assets\Images\itens\chapeuCouro.png" />
+    <Content Include="Assets\Images\itens\coleteCouro.png" />
+    <Content Include="Assets\Images\itens\couro.png" />
+    <Content Include="Assets\Images\itens\espadaFerro.png" />
+    <Content Include="Assets\Images\itens\la.png" />
+    <Content Include="Assets\Images\itens\linha.png" />
+    <Content Include="Assets\Images\itens\madeira.png" />
+    <Content Include="Assets\Images\itens\pedraMagica.png" />
+    <Content Include="Assets\Images\itens\peitoralFerro.png" />
+    <Content Include="Assets\Images\itens\pepitaFerro.png" />
+    <Content Include="Assets\Images\itens\perneiraFerro.png" />
+    <Content Include="Assets\Images\itens\PocaoManaP.png" />
+    <Content Include="Assets\Images\itens\pocaoVidaP.png" />
+    <Content Include="Assets\Images\itens\roupaLa.png" />
+    <Content Include="Assets\Images\itens\sapatoComum.png" />
+    <Content Include="Assets\Images\tiles\grass.png" />
+    <Content Include="Assets\Images\tiles\ground.png" />
+    <Content Include="Assets\Images\iconeLapa.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />
@@ -556,6 +579,13 @@
     <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuFechadoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuSemiAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\SkillsIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\StatsIcon.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 33-0.png" />

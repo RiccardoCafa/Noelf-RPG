@@ -66,10 +66,5 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             }
             return false;
         }
-
-
-
-
-
     }
 }

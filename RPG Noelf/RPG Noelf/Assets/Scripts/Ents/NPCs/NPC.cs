@@ -33,7 +33,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 f.EndFunction();
             }
             GameManager.interfaceManager.ConvHasToClose = true;
-            GameManager.interfaceManager.Conversation = false;
         }
 
         public void AddFunction(NPCFunction Function)
