@@ -468,6 +468,9 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             NonPlayerCharacters.Add(2, npc2);
         }
 
+        
+
+
         // procura um item especifico
         public static Item SearchFor(uint key)
         {

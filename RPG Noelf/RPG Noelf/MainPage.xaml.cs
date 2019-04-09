@@ -1047,7 +1047,6 @@ namespace RPG_Noelf
         {
 
         } 
-        private void ClickNewMob(object sender, RoutedEventArgs e)
 
         private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
         {
@@ -1308,3 +1307,4 @@ namespace RPG_Noelf
 
     }
 }
+#endregion

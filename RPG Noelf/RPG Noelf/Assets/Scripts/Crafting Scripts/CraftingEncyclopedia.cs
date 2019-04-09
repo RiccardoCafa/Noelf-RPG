@@ -21,9 +21,35 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 
         }
         
-
+        //checar se o item tem como ser craftado
+        public static bool CheckIDRecipe(uint id)
+        {
+           if(crafting.ContainsKey(id) == true)
+            {
+                return true;
+            }
+            return false;
+        }
         
-     
+       public static Recipe PushRecipe(uint key)
+        {
+            Recipe generic = crafting[key];
+            return generic;
+            throw new ArgumentOutOfRangeException();
+        }
+        ]//retornar se os materiais do item estão na mochila
+        public static bool CheckMaterialsFromRecipe(uint desiredID, Bag PlayerBag)
+        {
+            Recipe itemRecipe = crafting[desiredID];
+            if(itemRecipe.CheckRecipe(PlayerBag) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
                     
 
 
