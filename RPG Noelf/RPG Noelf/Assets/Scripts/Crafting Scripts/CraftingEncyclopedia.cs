@@ -16,9 +16,6 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             Recipe IronBar = new Recipe(41);//receita de uma barra de ferro
             IronBar.Materials.Add(new Slot(1, 5));//um slot com 5 barras de ferro é nescessario
             crafting.Add(41, IronBar);
-
-
-
         }
         
         //checar se o item tem como ser craftado
@@ -30,14 +27,14 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             }
             return false;
         }
-        
+        //retornar a receita do dicionario
        public static Recipe PushRecipe(uint key)
         {
             Recipe generic = crafting[key];
             return generic;
             throw new ArgumentOutOfRangeException();
         }
-        ]//retornar se os materiais do item estão na mochila
+        //retornar se os materiais do item estão na mochila
         public static bool CheckMaterialsFromRecipe(uint desiredID, Bag PlayerBag)
         {
             Recipe itemRecipe = crafting[desiredID];

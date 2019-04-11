@@ -18,10 +18,9 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             Materials = new List<Slot>();
         }
 
-       
+       //checar se a mochila tem os materiais
         public bool CheckRecipe(Bag playerbag)
         {
-
             foreach(Slot slots in Materials)
             {
                 //função lambda ou Predicate
@@ -33,7 +32,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             }
             return true;
         }
-      
+      //checar se isso é material
         public bool IsMaterial(Slot item)
         {
            foreach(Slot slot in Materials)
