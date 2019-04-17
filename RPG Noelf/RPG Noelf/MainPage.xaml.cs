@@ -312,6 +312,38 @@ namespace RPG_Noelf
             }
 
         }
+        private void UpdateEquip()
+        {
+            int count = 0;
+            string pathImage;
+            foreach (UIElement element in EquipWindow.Children)
+            {
+                Image img = element as Image;
+                if((int) img.GetValue(Grid.ColumnProperty) == 0)
+                {
+                    if(GameManager.player.Equipamento.armor[count] == null)
+                    {
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Imagens/Chao.jpg"));
+                    } else
+                    {
+                        pathImage = GameManager.player.Equipamento.armor[count].PathImage;
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, pathImage));
+                    }
+                } else
+                {
+                    if (GameManager.player.Equipamento.weapon == null)
+                    {
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Imagens/Chao.jpg"));
+                    }
+                    else
+                    {
+                        pathImage = GameManager.player.Equipamento.weapon.PathImage;
+                        img.Source = new BitmapImage(new Uri(this.BaseUri, pathImage));
+                    }
+                }
+                count++;
+            }
+        }
 
         private void SetEventForSkillBar()
         {
@@ -378,6 +410,8 @@ namespace RPG_Noelf
                             GameManager.player.Equipamento.UseEquip(s.ItemID);
                             WindowBag.Visibility = Visibility.Collapsed;
                         }
+                        UpdateBag();
+                        UpdateEquip();
                     }
                 }
             }
@@ -394,17 +428,17 @@ namespace RPG_Noelf
                     column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
                     row = (int)(sender as Image).GetValue(Grid.RowProperty);
                     index = column * row + column;
-                    Slot s = null;
+                    uint s = 0;
                     if (column == 0)
                     {
-                        s = new Slot(GameManager.player.Equipamento.armor[row], 1);
+                        s = Encyclopedia.SearchFor(GameManager.player.Equipamento.armor[row]);
                     }
                     else
-                    {
-                        s = new Slot(GameManager.player.Equipamento.weapon, 1);
+                    { 
+                        s = Encyclopedia.SearchFor(GameManager.player.Equipamento.weapon);
                     }
-                    if (s == null || s.ItemID == 0) return;
-                    GameManager.player.Equipamento.DesEquip(s.ItemID);
+                    if (s == 0) return;
+                    GameManager.player.Equipamento.DesEquip(s);
                 }
             }
         }
@@ -568,11 +602,16 @@ namespace RPG_Noelf
 
             if (columnPosition == 0)
             {
-                itemInfo = new Slot(GameManager.player.Equipamento.armor[rowPosition], 1);
+                if (GameManager.player.Equipamento.armor[rowPosition] == null) return;
+                uint idinfo = Encyclopedia.SearchFor(GameManager.player.Equipamento.armor[rowPosition]);
+                if (idinfo == 0) return;
+                itemInfo = new Slot(idinfo, 1);
             }
             else
             {
-                itemInfo = new Slot(GameManager.player.Equipamento.weapon, 1);
+                if (GameManager.player.Equipamento.weapon == null) return;
+                uint idinfo = Encyclopedia.SearchFor(GameManager.player.Equipamento.weapon);
+                itemInfo = new Slot(idinfo, 1);
             }
             if (itemInfo.ItemID == 0) return;
 
@@ -586,9 +625,11 @@ namespace RPG_Noelf
             if(WindowEquipamento.Visibility == Visibility.Collapsed)
             {
                 WindowEquipamento.Visibility = Visibility.Visible;
+                equipOpen = true;
             } else
             {
                 WindowEquipamento.Visibility = Visibility.Collapsed;
+                equipOpen = false;
             }
         }
         private void CloseSkillWindow(object sender, PointerRoutedEventArgs e)
@@ -600,7 +641,7 @@ namespace RPG_Noelf
         public void UpdateBag()
         {
 
-            for (int i = 0; i < GameManager.player._Inventory.Slots.Count; i++)
+            for (int i = 0; i < 30; i++)
             {
                 int column = i, row = i;
                 row = i / 6;
@@ -612,7 +653,14 @@ namespace RPG_Noelf
                 if (slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[GameManager.player._Inventory.Slots[i].ItemID].PathImage));
+                    if(i < GameManager.player._Inventory.Slots.Count)
+                    {
+                        slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[GameManager.player._Inventory.Slots[i].ItemID].PathImage));
+                    }
+                    else
+                    {
+                        slot.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Images/Chao.jpg"));
+                    }
                 }
 
             }
@@ -935,7 +983,14 @@ namespace RPG_Noelf
         {
             window.Visibility = Visibility.Visible;
 
-            window.SetValue(Canvas.LeftProperty, mousePosition.X);
+            if(mousePosition.X >= Tela.Width / 2)
+            {
+                window.SetValue(Canvas.LeftProperty, mousePosition.X - window.Width - 10);
+            } else
+            {
+                window.SetValue(Canvas.LeftProperty, mousePosition.X + 10);
+            }
+
 
             if (mousePosition.Y >= Tela.Height / 2)
             {
@@ -943,7 +998,7 @@ namespace RPG_Noelf
             }
             else
             {
-                window.SetValue(Canvas.TopProperty, mousePosition.Y);
+                window.SetValue(Canvas.TopProperty, mousePosition.Y + 10);
             }
         }
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)

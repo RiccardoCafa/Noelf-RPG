@@ -3,14 +3,7 @@ using RPG_Noelf.Assets.Scripts.Skills;
 using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Controls;
-using Windows.Storage;
-using Windows.Storage.Search;
-using System.IO;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
@@ -24,7 +17,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public Equips Equipamento { get; }
         public Level level { get; }
        
-
         public string Id { get; set; }
 
         public int Xp { get; private set; }
@@ -189,6 +181,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Run = 1 + 0.075 * Spd;
             TimeMgcDmg = 0.45 * Mnd;
             Damage = Str;
+            Armor = ArmorBuff + ArmorEquip;
         }
 
         public void AddMP(int MP)
