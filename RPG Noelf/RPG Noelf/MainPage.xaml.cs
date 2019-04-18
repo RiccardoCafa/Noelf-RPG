@@ -1041,11 +1041,12 @@ namespace RPG_Noelf
         #region ButtonEvents
         private void ClickAcceptQuestButton(object sender, RoutedEventArgs e)
         {
-
+            Quest generic = QuestList.allquests[1];
+            int level = GameManager.player.level.actuallevel;
+            GameManager.player._Questmanager.ReceiveNewQuest(generic, level);
         }
         private void ClickDenyQuestButton(object sender, RoutedEventArgs e)
         {
-
         } 
 
         private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)

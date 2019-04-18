@@ -9,7 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
     public class  QuestManager
     {
-        private const int maxActiveQuests = 5;//numero máximo de quests ativas de um player
+        private const int maxActiveQuests = 1;//numero máximo de quests ativas de um player
         public int numActiveQuests { get; set; }
         public List<Quest> allQuests = new List<Quest>();//lista com todas as quests, ativas ou não, excluindo completas
         public List<Quest> activeQuests = new List<Quest>();//lista com todas as quests ativas no momento
@@ -131,7 +131,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             return false;
         }
 
-        //
+        
 
 
 
