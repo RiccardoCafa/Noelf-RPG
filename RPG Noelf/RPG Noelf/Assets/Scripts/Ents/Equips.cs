@@ -100,6 +100,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         }
                         break;
                 }
+                UpdateEquip();
             }
             else if (item is Weapon)
             {

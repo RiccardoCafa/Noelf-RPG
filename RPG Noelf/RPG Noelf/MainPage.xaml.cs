@@ -439,6 +439,8 @@ namespace RPG_Noelf
                     }
                     if (s == 0) return;
                     GameManager.player.Equipamento.DesEquip(s);
+                    UpdateEquip();
+                    UpdateBag();
                 }
             }
         }
