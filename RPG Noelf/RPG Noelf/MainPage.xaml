@@ -88,6 +88,26 @@
             </Canvas>
         </Canvas>
 
+
+        <Canvas Name="Menu" Width="300" Height="300" Canvas.Left="950" Canvas.Top="380">
+            <Canvas Name="MenuAberto" Width="300" Height="300" PointerExited="MenuClose" Visibility="Collapsed">
+                <Image Source="/Assets/Images/UI Elements/Menu/MenuAbertoP.png" Width="300" Height="300"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/BagIcon.png" PointerPressed="ShowBag" Height="64" Width="46" Canvas.Left="83" Canvas.Top="32"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/EquipmentIcon.png" PointerPressed="ShowEquip" Height="64" Width="46" Canvas.Left="172" Canvas.Top="34" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/SkillsIcon.png" PointerPressed="ShowSkillTree" Height="64" Width="46" Canvas.Left="228" Canvas.Top="116" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/StatsIcon.png" PointerPressed="ShowAtributes" Height="64" Width="46" Canvas.Left="25" Canvas.Top="119"/>
+            </Canvas>
+            <Canvas Name="MenuFechado" Width="85" Height="85">
+                <Image Name="MenuFBolaAtras" Width="112" Height="113" Visibility="Collapsed"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="95" Canvas.Top="94" 
+                       Source="/Assets/Images/UI Elements/Menu/MenuSemiAbertoP.png"/>
+                <Image Name="MenuFBola" Width="85" Height="86" PointerEntered="MenuSemiOpenEnter" PointerExited="MenuSemiOpenExit"
+                       PointerPressed="MenuOpen"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="108" Canvas.Top="107" 
+                       Source="/Assets/Images/UI Elements/Menu/MenuFechadoP.png"/>
+            </Canvas>
+        </Canvas>
+
         <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1010" Canvas.Top="40">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
             <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
@@ -503,24 +523,6 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="Menu" Width="300" Height="300" Canvas.Left="950" Canvas.Top="380">
-            <Canvas Name="MenuAberto" Width="300" Height="300" PointerExited="MenuClose" Visibility="Collapsed">
-                <Image Source="/Assets/Images/UI Elements/Menu/MenuAbertoP.png" Width="300" Height="300"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/BagIcon.png" PointerPressed="ShowBag" Height="64" Width="46" Canvas.Left="83" Canvas.Top="32"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/EquipmentIcon.png" PointerPressed="ShowEquip" Height="64" Width="46" Canvas.Left="172" Canvas.Top="34" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/SkillsIcon.png" PointerPressed="ShowSkillTree" Height="64" Width="46" Canvas.Left="228" Canvas.Top="116" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/StatsIcon.png" PointerPressed="ShowAtributes" Height="64" Width="46" Canvas.Left="25" Canvas.Top="119"/>
-            </Canvas>
-            <Canvas Name="MenuFechado" Width="85" Height="85">
-                <Image Name="MenuFBolaAtras" Width="112" Height="113" Visibility="Collapsed"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="95" Canvas.Top="94" 
-                       Source="/Assets/Images/UI Elements/Menu/MenuSemiAbertoP.png"/>
-                <Image Name="MenuFBola" Width="85" Height="86" PointerEntered="MenuSemiOpenEnter" PointerExited="MenuSemiOpenExit"
-                       PointerPressed="MenuOpen"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="108" Canvas.Top="107" 
-                       Source="/Assets/Images/UI Elements/Menu/MenuFechadoP.png"/>
-            </Canvas>
-        </Canvas>
     </Canvas>
 </Page>
 

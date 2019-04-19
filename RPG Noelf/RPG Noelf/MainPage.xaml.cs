@@ -938,7 +938,7 @@ namespace RPG_Noelf
                 }
                 else
                 {
-                    b.Content = "Exit";
+                    b.Content = "Nothing";
                     b.Click += HasToCloseConv;
                 }
                 b.SetValue(Grid.RowProperty, i);
@@ -953,7 +953,6 @@ namespace RPG_Noelf
             ConvFuncs.Text = convfunc;
             ConvName.Text = npc.Name;
         }
-
         public void HasToCloseConv(object sender, RoutedEventArgs e)
         {
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
@@ -965,12 +964,10 @@ namespace RPG_Noelf
                 b.Visibility = Visibility.Collapsed;
             }
         }
-
         public void CloseConversationBox(object sender, RoutedEventArgs e)
         {
             Conversation.Visibility = Visibility.Collapsed;
         }
-
         public void EndConversation(object sender, RoutedEventArgs e)
         {
             if (GameManager.interfaceManager.ConvHasToClose)
