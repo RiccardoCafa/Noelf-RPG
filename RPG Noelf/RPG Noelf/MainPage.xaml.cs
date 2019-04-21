@@ -44,31 +44,34 @@ namespace RPG_Noelf
     {
         public static MainPage instance;
 
-        Thread Start;
+        private Thread Start;
 
         public TextBlock mobStatus;
         public TextBlock dayText;
         public string MobText;
 
+        public List<Image> PlayerImagesTest;
         public Dictionary<string, Image> MobImages;
         public Dictionary<string, Image> PlayerImages;
-        public List<Image> PlayerImagesTest;
         public Dictionary<string, Image> ClothesImages;
 
         public static Canvas Telona;
         public static Canvas ActualChunck;
         public static Canvas inventarioWindow;
         public static Canvas TheScene;
-        public string test;
 
         public static TextBlock texticulus;
         public static int i;
+
+        public string test;
 
         public bool Switch = false;
         public bool shopOpen = false;
         public bool equipOpen = false;
 
-        int _str, _spd, _dex, _con, _mnd;
+        private int _str, _spd, _dex, _con, _mnd;
+        private const int LootWidth = 50;
+        private const int LootHeight = 50;
 
         public MainPage()
         {
@@ -176,6 +179,9 @@ namespace RPG_Noelf
                 Atributos.Visibility = Visibility.Collapsed;
                 WindowEquipamento.Visibility = Visibility.Collapsed;
                 WindowTreeSkill.Visibility = Visibility.Collapsed;
+
+                Slot slotDrop = new Slot(40, 1);
+                CreateDrop(100, 500, slotDrop);
             });
 
         }
@@ -217,7 +223,7 @@ namespace RPG_Noelf
         }
 
         #region Interface Update and Events
-        #region Character Creation
+        #region Interface Elements Creation
         public void CreateMob()
         {
             GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 100));//criaçao do mob
@@ -235,6 +241,24 @@ namespace RPG_Noelf
         public Canvas CreateCharacterNPC()
         {
             return NPCCanvas;
+        }
+        public void CreateDrop(double x, double y, Slot dropSlot)
+        {
+            string pathImage = Encyclopedia.SearchFor(dropSlot.ItemID).PathImage;
+            LootBody drop = new LootBody(dropSlot)
+            {
+                Width = LootWidth,
+                Height = LootHeight
+            };
+            Chunck01.Children.Add(drop);
+            Canvas.SetTop(drop, y);
+            Canvas.SetLeft(drop, x);
+            Image dropImage = new Image();
+            dropImage.Source = new BitmapImage(new Uri(this.BaseUri, pathImage));
+            drop.Children.Add(dropImage);
+            //LootBody loot = new LootBody(drop);
+            //loot.UpdateBlocks(TheScene);
+            //Trigger dropTrigger = new Trigger(loot);
         }
         #endregion
         #region Player Updates

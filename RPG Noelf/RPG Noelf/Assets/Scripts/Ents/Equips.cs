@@ -68,38 +68,25 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             Item item = Encyclopedia.encyclopedia[ID];
             if (item is Armor)
             {
-
-                switch ((item as Armor).PositArmor)//swtich to know where the armor is
+                if (player._Inventory.AddToBag(new Slot(ID, 1)))
                 {
-                    case PositionArmor.Elm:
-
-                        if (player._Inventory.AddToBag(ID, 1))//unequip elm
-                        {
-                            armor[0] = null;
-                        }
-                        break;
-                    case PositionArmor.Armor:
-
-                        if (player._Inventory.AddToBag(ID, 1))//unequip armor
-                        {
-                            armor[1] = null;
-                        }
-                        break;
-                    case PositionArmor.Legs:
-
-                        if (player._Inventory.AddToBag(ID, 1))//unequip legs
-                        {
-                            armor[2] = null;
-                        }
-                        break;
-                    case PositionArmor.Boots:
-
-                        if (player._Inventory.AddToBag(ID, 1))//unequip legs
-                        {
-                            armor[3] = null;
-                        }
-                        break;
+                    switch ((item as Armor).PositArmor)//swtich to know where the armor is
+                    {
+                        case PositionArmor.Elm:
+                                armor[0] = null;
+                            break;
+                        case PositionArmor.Armor:
+                                armor[1] = null;
+                            break;
+                        case PositionArmor.Legs:
+                                armor[2] = null;
+                            break;
+                        case PositionArmor.Boots:
+                                armor[3] = null;
+                            break;
+                    }
                 }
+
                 UpdateEquip();
             }
             else if (item is Weapon)
@@ -108,7 +95,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 if (weap != null)
                 {
 
-                    if (player._Inventory.AddToBag(ID, 1)) weapon = null;//unequip weapon
+                    if (player._Inventory.AddToBag(new Slot(ID, 1))) weapon = null;//unequip weapon
                 }
             }
         }

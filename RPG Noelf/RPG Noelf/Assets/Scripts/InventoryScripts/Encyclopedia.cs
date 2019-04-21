@@ -463,7 +463,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 MyLevel = new Ents.Level(999)
             };
             Shop s = new Shop();
-            s.TradingItems.AddToBag(43, 1);
+            s.TradingItems.AddToBag(new Slot(43, 1));
             npc1.AddFunction(new Trader(s));
 
             NonPlayerCharacters.Add(1, npc1);

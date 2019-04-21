@@ -41,11 +41,11 @@ namespace RPG_Noelf.Assets.Scripts.General
             npcCharacter.UpdateBlocks(MainPage.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
 
-            player._Inventory.AddToBag(3, 1);
-            player._Inventory.AddToBag(21, 1);
-            player._Inventory.AddToBag(22, 1);
-            player._Inventory.AddToBag(24, 1);
-            player._Inventory.AddToBag(25, 1);
+            player._Inventory.AddToBag(new Slot(3, 1));
+            player._Inventory.AddToBag(new Slot(21, 1));
+            player._Inventory.AddToBag(new Slot(22, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(25, 1));
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());

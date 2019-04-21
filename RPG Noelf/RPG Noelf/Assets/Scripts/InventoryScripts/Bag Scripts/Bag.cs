@@ -97,37 +97,38 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// <param name="itemID">The item ID to be added</param>
         /// <param name="amount">The amount of that item</param>
         /// <returns></returns>
-        public virtual bool AddToBag(uint itemID, uint amount)
+        public virtual bool AddToBag(Slot slot)
         {
-            Slot playerSlot = Slots.Find(x => x.ItemID == itemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
+            Slot playerSlot = Slots.Find(x => x.ItemID == slot.ItemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
             if (playerSlot != null)
             {
-                if (playerSlot.ItemAmount + amount > MaxStack)
+                if (playerSlot.ItemAmount + slot.ItemAmount > MaxStack)
                 {
-                    uint offset = playerSlot.ItemAmount + amount - MaxStack;
+                    uint offset = playerSlot.ItemAmount + slot.ItemAmount - MaxStack;
                     playerSlot.ItemAmount += offset;
-                    Slot slot = new Slot(itemID, amount - offset);
                     if (Slots.Count < MaxSlots)
                     {
-                        AddToBag(slot.ItemID, slot.ItemAmount);
+                        slot.ItemAmount -= offset;
+                        AddToBag(slot);
                         FreeSlots--;
                         return true;
                     }
                     else
                     {
-                        //Drop(); // Dropa o restante que não cabe mais na mochila
                         return false;
                     }
                 }
                 else
                 {
-                    playerSlot.ItemAmount += amount;
+                    playerSlot.ItemAmount += slot.ItemAmount;
+                    slot.ItemAmount = 0;
                     return true;
                 }
             }
             else if(CanAddMore())
             {
-                Slots.Add(new Slot(itemID, amount));
+                Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
+                slot.ItemAmount = 0;
                 return true;
             } else
             return false;
