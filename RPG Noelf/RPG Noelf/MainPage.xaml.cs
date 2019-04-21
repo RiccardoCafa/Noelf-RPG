@@ -161,6 +161,10 @@ namespace RPG_Noelf
                 CreateMob();
                 GameManager.InitializeGame();
                 GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
+                GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
+                GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
+                GameManager.player.Equipamento.EquipUpdated += UpdatePlayerInfoEvent;
+                GameManager.player.PlayerUpdated += UpdatePlayerInfoEvent;
                 CharacterNPC npc2 = new CharacterNPC(NPCCanvas2, Encyclopedia.NonPlayerCharacters[2]);
                 Conversation.PointerPressed += EndConversation;
                 UpdateBag();
@@ -312,6 +316,10 @@ namespace RPG_Noelf
                 cont++;
             }
         }
+        private void UpdatePlayerInfoEvent(object sender, EventArgs e)
+        {
+            UpdatePlayerInfo();
+        }
         private void UpdateSkillWindowText(SkillGenerics skillInfo)
         {
             try
@@ -367,6 +375,11 @@ namespace RPG_Noelf
                 }
                 count++;
             }
+        }
+        private void UpdateEquipEvent(object sender, EventArgs e)
+        {
+            UpdateEquip();
+            UpdatePlayerInfo();
         }
 
         private void SetEventForSkillBar()
@@ -434,8 +447,6 @@ namespace RPG_Noelf
                             GameManager.player.Equipamento.UseEquip(s.ItemID);
                             WindowBag.Visibility = Visibility.Collapsed;
                         }
-                        UpdateBag();
-                        UpdateEquip();
                     }
                 }
             }
@@ -463,8 +474,6 @@ namespace RPG_Noelf
                     }
                     if (s == 0) return;
                     GameManager.player.Equipamento.DesEquip(s);
-                    UpdateEquip();
-                    UpdateBag();
                 }
             }
         }
@@ -685,11 +694,15 @@ namespace RPG_Noelf
                     }
                     else
                     {
-                        slot.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Images/Chao.jpg"));
+                        slot.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Images/Cho.jpg"));
                     }
                 }
 
             }
+        }
+        public void UpdateBagEvent(object sender, EventArgs e)
+        {
+            UpdateBag();
         }
         private void UpdateItemWindowText(Slot slot)
         {
@@ -803,7 +816,6 @@ namespace RPG_Noelf
             ShopWindow.Visibility = Visibility.Visible;
             UpdateShopInfo();
         }
-
         public void CloseShop()
         {
             ShopWindow.Visibility = Visibility.Collapsed;
@@ -887,7 +899,6 @@ namespace RPG_Noelf
             GameManager.traderTarget.shop.SlotInOffer = null;
             ItemToSellBuy.Visibility = Visibility.Collapsed;
         }
-
         private void ShopItemBuy(object sender, PointerRoutedEventArgs e)
         {
             if (Switch == true)
@@ -1251,19 +1262,17 @@ namespace RPG_Noelf
         private void XPPlus(object sender, RoutedEventArgs e)
         {
             //GameManager.player.;
-            UpdatePlayerInfo();
+            GameManager.player.LevelUpdate(0, 0, 0, 0, 0, 100);
         }
 
         private void MPPlus(object sender, RoutedEventArgs e)
         {
             GameManager.player.AddMP(20);
-            UpdatePlayerInfo();
         }
 
         private void HPPlus(object sender, RoutedEventArgs e)
         {
             GameManager.player.AddHP(20);
-            UpdatePlayerInfo();
         }
 
         private void PSTR(object sender, RoutedEventArgs e)
@@ -1367,7 +1376,6 @@ namespace RPG_Noelf
         {
             GameManager.player.LevelUpdate(_str, _spd, _dex, _con, _mnd, 50);
             _str = _spd = _dex = _con = _mnd = 0;
-            UpdatePlayerInfo();
         }
         #endregion
 

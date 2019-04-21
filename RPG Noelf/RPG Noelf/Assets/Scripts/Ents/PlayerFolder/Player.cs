@@ -10,6 +10,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     public class Player : Ent
     {
+        public event EventHandler PlayerUpdated;
+
         public Race Race { get; set; }
         public Class _Class { get; set; }
         public SkillManager _SkillManager { get; }
@@ -46,6 +48,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
+
 
             switch (Id[0])
             {
@@ -182,6 +185,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             TimeMgcDmg = 0.45 * Mnd;
             Damage = Str;
             Armor = ArmorBuff + ArmorEquip;
+            OnPlayerUpdate();
         }
 
         public void AddMP(int MP)
@@ -194,6 +198,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Mp += MP;
             }
+            OnPlayerUpdate();
         }
 
         public void AddHP(int HP)
@@ -206,6 +211,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Hp += HP;
             }
+            OnPlayerUpdate();
         }
+
+        public virtual void OnPlayerUpdate()
+        {
+            PlayerUpdated?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
 }

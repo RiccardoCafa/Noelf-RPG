@@ -9,6 +9,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 {
     public class Equips
     {
+        public event EventHandler EquipUpdated;
         public Armor[] armor = new Armor[4];//elm 0, armor 1, Legs 2.
         public Weapon weapon;
         private Player player;
@@ -43,9 +44,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         case PositionArmor.Boots:
                             armor[3] = Encyclopedia.SearchFor(ID) as Armor;
                             player._Inventory.RemoveFromBag(ID, 1);//equip boots
-                            break;
-                        default:
-
                             break;
                     }
                     UpdateEquip();
@@ -86,7 +84,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                             break;
                     }
                 }
-
                 UpdateEquip();
             }
             else if (item is Weapon)
@@ -94,11 +91,15 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 Slot weap = player._Inventory.GetSlot(ID);
                 if (weap != null)
                 {
-
-                    if (player._Inventory.AddToBag(new Slot(ID, 1))) weapon = null;//unequip weapon
+                    if (player._Inventory.AddToBag(new Slot(ID, 1)))
+                    {
+                        weapon = null;//unequip weapon
+                        UpdateEquip();
+                    }
                 }
             }
         }
+
         public void UpdateEquip()
         {
             double defesaTotal = 0;
@@ -108,6 +109,12 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     defesaTotal += arm.defense;
             }
             player.ArmorEquip = defesaTotal;
+            OnEquipUpdated();
+        }
+
+        public virtual void OnEquipUpdated()
+        {
+            EquipUpdated?.Invoke(this, EventArgs.Empty);
         }
 
     }
