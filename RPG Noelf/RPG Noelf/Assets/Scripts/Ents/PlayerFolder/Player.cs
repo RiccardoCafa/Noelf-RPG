@@ -3,20 +3,15 @@ using RPG_Noelf.Assets.Scripts.Skills;
 using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Controls;
-using Windows.Storage;
-using Windows.Storage.Search;
-using System.IO;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
     public class Player : Ent
     {
+        public event EventHandler PlayerUpdated;
+
         public Race Race { get; set; }
         public Class _Class { get; set; }
         public SkillManager _SkillManager { get; }
@@ -24,7 +19,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public Equips Equipamento { get; }
         public Level level { get; }
        
-
         public string Id { get; set; }
 
         public int Xp { get; private set; }
@@ -54,6 +48,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
+
 
             switch (Id[0])
             {
@@ -189,6 +184,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Run = 1 + 0.075 * Spd;
             TimeMgcDmg = 0.45 * Mnd;
             Damage = Str;
+            Armor = ArmorBuff + ArmorEquip;
+            OnPlayerUpdate();
         }
 
         public void AddMP(int MP)
@@ -201,6 +198,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Mp += MP;
             }
+            OnPlayerUpdate();
         }
 
         public void AddHP(int HP)
@@ -213,6 +211,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Hp += HP;
             }
+            OnPlayerUpdate();
         }
+
+        public virtual void OnPlayerUpdate()
+        {
+            PlayerUpdated?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
 }

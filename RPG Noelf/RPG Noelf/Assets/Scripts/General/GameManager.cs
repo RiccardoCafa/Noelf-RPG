@@ -1,16 +1,12 @@
-﻿using RPG_Noelf.Assets.Scripts.Ents.Mobs;
-using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+﻿using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using RPG_Noelf.Assets.Scripts.Enviroment;
 using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
-using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.General
 {
@@ -44,6 +40,12 @@ namespace RPG_Noelf.Assets.Scripts.General
             npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             npcCharacter.UpdateBlocks(MainPage.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
+
+            player._Inventory.AddToBag(new Slot(3, 1));
+            player._Inventory.AddToBag(new Slot(21, 1));
+            player._Inventory.AddToBag(new Slot(22, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(25, 1));
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());

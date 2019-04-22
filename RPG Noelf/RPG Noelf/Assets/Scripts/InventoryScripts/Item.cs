@@ -13,7 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     }
 
   
-    class Item
+    public class Item
     {
         public string description { get; set; }
         public double dropRating { get; set; }

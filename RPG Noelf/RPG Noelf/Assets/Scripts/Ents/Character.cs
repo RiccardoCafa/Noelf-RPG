@@ -23,21 +23,18 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     {
         public Canvas characT;
         protected Canvas LastBlock;
-        protected DateTime time;
-
         protected Canvas blocoLeftx = null, blocoRightx = null, blocoBottomx = null;
+        protected DateTime time;
         
         public double xCharacVal = 0, yCharacVal = 0;
-        protected double diferenca = 0;
-
-        protected const double Gravity = 1.1;
-
         public double Hspeed { get; set; }
         public double Vspeed { get; set; }
         public double CameraVerticalSpeed { get; set; }
-
         public double MaxHSpeed { get; set; }
         public double MaxVSpeed { get; set; }
+
+        protected double diferenca = 0;
+        protected const double Gravity = 1.1;
 
         public bool IsWalking { get; set; } = false;
         public bool moveRight { get; set; }
