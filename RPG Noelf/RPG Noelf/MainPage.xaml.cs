@@ -1127,6 +1127,19 @@ namespace RPG_Noelf
             }
         }
 
+        #region ButtonEvents
+        private void ClickAcceptQuestButton(object sender, RoutedEventArgs e)
+        {
+            Quester npcF = GameManager.npcTarget.GetFunction("Quester") as Quester;
+            Quest generic = npcF.myQuest;
+            QuestBox1.Text = generic.name;
+            QuestBox2.Text = generic.Description;
+            QuestWindow.Visibility = Visibility.Collapsed;
+        }
+        private void ClickDenyQuestButton(object sender, RoutedEventArgs e)
+        {
+        } 
+
         private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
         {
             int level;
@@ -1383,3 +1396,4 @@ namespace RPG_Noelf
 
     }
 }
+#endregion

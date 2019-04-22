@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -17,6 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public SkillManager _SkillManager { get; }
         public Bag _Inventory { get; }
         public Equips Equipamento { get; }
+        public QuestManager _Questmanager { get; }
         public Level level { get; }
        
         public string Id { get; set; }
@@ -48,6 +50,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
+            _Questmanager = new QuestManager(this);
 
 
             switch (Id[0])

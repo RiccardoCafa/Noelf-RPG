@@ -36,10 +36,18 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static void InitializeGame()
         {
             interfaceManager.Inventario = MainPage.inventarioWindow;
+            QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
             npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             npcCharacter.UpdateBlocks(MainPage.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
+            NPC teste = new NPC();
+            Quester quester = new Quester(1);
+            
+            teste.AddFunction(quester);
+
+            npcTarget = teste;
+
 
             player._Inventory.AddToBag(new Slot(3, 1));
             player._Inventory.AddToBag(new Slot(21, 1));
