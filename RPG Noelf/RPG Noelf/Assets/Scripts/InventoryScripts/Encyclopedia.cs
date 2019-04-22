@@ -18,7 +18,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             LoadItens();
             LoadNPC();
-            QuestList.load_quests();
         }
 
         public static void LoadItens()
@@ -463,7 +462,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 MyLevel = new Ents.Level(99)
             };
 
-            npc2.AddFunction(new Quester());
+            npc2.AddFunction(new Quester(1));
 
             NonPlayerCharacters.Add(2, npc2);
         }

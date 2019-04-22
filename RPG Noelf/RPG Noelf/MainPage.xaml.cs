@@ -1041,9 +1041,11 @@ namespace RPG_Noelf
         #region ButtonEvents
         private void ClickAcceptQuestButton(object sender, RoutedEventArgs e)
         {
-            Quest generic = QuestList.allquests[1];
-            int level = GameManager.player.level.actuallevel;
-            GameManager.player._Questmanager.ReceiveNewQuest(generic, level);
+            Quester npcF = GameManager.npcTarget.GetFunction("Quester") as Quester;
+            Quest generic = npcF.myQuest;
+            QuestBox1.Text = generic.name;
+            QuestBox2.Text = generic.Description;
+            QuestWindow.Visibility = Visibility.Collapsed;
         }
         private void ClickDenyQuestButton(object sender, RoutedEventArgs e)
         {

@@ -208,7 +208,7 @@
             
         </Canvas>
     
-       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
+       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Visible">
             <Grid Width="200" Height="300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>

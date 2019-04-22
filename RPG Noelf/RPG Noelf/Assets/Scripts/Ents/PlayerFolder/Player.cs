@@ -56,6 +56,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _SkillManager = new SkillManager(this);
             _Inventory = new Bag();
             Equipamento = new Equips(this);
+            _Questmanager = new QuestManager(this);
 
             switch (Id[0])
             {

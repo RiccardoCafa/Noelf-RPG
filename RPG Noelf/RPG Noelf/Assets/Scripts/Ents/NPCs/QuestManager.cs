@@ -14,14 +14,17 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public List<Quest> allQuests = new List<Quest>();//lista com todas as quests, ativas ou não, excluindo completas
         public List<Quest> activeQuests = new List<Quest>();//lista com todas as quests ativas no momento
         public List<Quest> finishedQuests = new List<Quest>();//lista de todas as quest completas
-        public QuestManager()
+        private Player player;
+        public QuestManager(Player player)
         {
             numActiveQuests = 0;
+            this.player = player;
         }
 
         //adicione uma quest nova ao player
-        public void ReceiveNewQuest(Quest q, int playerLevel)
+        public void ReceiveNewQuest(Quest q)
         {
+            int playerLevel = player.level.actuallevel;
             if(q.level <= playerLevel)//checa se o level do player é compativel com a quest
             {
                 if (numActiveQuests >= maxActiveQuests)//checagem se o numero de quests ativas é o limite
@@ -37,8 +40,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 
             }
         }
-        public void ReceiveNewQuest(Quest q, int playerLevel, uint genericID)
+        public void ReceiveNewQuest(Quest q, uint genericID)
         {
+            int playerLevel = player.level.actuallevel;
             if (q.level <= playerLevel && genericID == q.RequiredID)//checa se o level do player é compativel com a quest
             {
                 if (numActiveQuests >= maxActiveQuests)//checagem se o numero de quests ativas é o limite
@@ -73,12 +77,12 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         }
 
         //receber recompensas da Quest
-        public void GainRewards(Player p, Quest q)
+        public void GainRewards(Quest q)
         {
             if(q.isComplete == true)
             {
-                p.level.GainEXP(q.GainedXP);
-                p._Inventory.AddGold(q.GainedGold);
+                player.level.GainEXP(q.GainedXP);
+                player._Inventory.AddGold(q.GainedGold);
       
             }       
 
@@ -118,8 +122,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             }
         }
         //checar o level da quest, se é possivel adquiri-la ou não
-        public bool CheckQuestLevel(uint questID, int playerLevel)
+        public bool CheckQuestLevel(uint questID)
         {
+            int playerLevel = player.level.actuallevel;
             Quest quest = QuestList.SearchQuest(questID);
             if (quest.level > playerLevel)
             {
