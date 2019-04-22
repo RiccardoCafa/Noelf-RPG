@@ -4,8 +4,6 @@ using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
@@ -48,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = true,
                 ItemCategory = Category.Normal,            
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/madeira.png",
                 GoldValue = 1
             };
             encyclopedia.Add(3, item3);
@@ -56,7 +54,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = true,
                 ItemCategory = Category.Normal,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/couro.png",
                 GoldValue = 2
             };
             encyclopedia.Add(4, item4);
@@ -64,7 +62,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = true,
                 ItemCategory = Category.Normal,             
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/la.png",
                 GoldValue = 1
             };
             encyclopedia.Add(5, item5);
@@ -72,7 +70,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = true,
                 ItemCategory = Category.Normal,             
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/linha.png",
                 GoldValue = 2
             };
             encyclopedia.Add(6, item6);
@@ -80,7 +78,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = true,
                 ItemCategory = Category.Normal,               
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/pedraMagica.png",
                 GoldValue = 3,
                 description = "A funny glowing stone, it seems like have powerful inside"
             };
@@ -134,7 +132,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 bonusDamage = 10,
                 armorPenetration = 1,
                 ItemCategory = Category.Normal,              
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/espadaFerro.png",
                 GoldValue = 20,
                 description = "A simple Iron Sword, sharp and reliable"
 
@@ -157,7 +155,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 bonusDamage = 10,
                 armorPenetration = 1,
                 ItemCategory = Category.Normal,                
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/arcoComposto.png",
                 GoldValue = 20
 
             };
@@ -222,8 +220,11 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Heavy,
+                PositArmor = PositionArmor.Armor,
                 GoldValue = 30,
-                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Armadura para o peitoral feita de ferro, consegue proteger você, mas não de tudo!\n" +
+                                "Consegue lhe dar um aumento de " + 0.5f + " em defesa.",
+                PathImage = "/Assets/Images/itens/peitoralFerro.png",
             };
             encyclopedia.Add(21, item21);
             Armor item22 = new Armor("Iron Legplates")
@@ -231,8 +232,11 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Heavy,
+                PositArmor = PositionArmor.Legs,
                 GoldValue = 20,
-                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Perneira feita de ferro, consegue proteger você, mas não de tudo!\n" +
+                                "Consegue lhe dar um aumento de " + 0.5f + " em defesa.",
+                PathImage = "/Assets/Images/itens/perneiraFerro.png",
             };
             encyclopedia.Add(22, item22);
             Armor item23 = new Armor("Iron Gauntlets")
@@ -249,18 +253,23 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Heavy,
+                PositArmor = PositionArmor.Elm,
                 GoldValue = 15,
-                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Elmo feito de ferro, consegue proteger você, mas não de tudo!\n" +
+                                "Consegue lhe dar um aumento de " + 0.5f + " em defesa.",
+                PathImage = "/Assets/Images/itens/capaceteFerro.png",
             };
             encyclopedia.Add(24, item24);
             Armor item25 = new Armor("Iron Boots")
             {
                 ItemCategory = Category.Normal,
-                PositArmor = PositionArmor.Legs,
+                PositArmor = PositionArmor.Boots,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Heavy,
                 GoldValue = 10,
-                PathImage = "/Assets/Images/Chao.jpg",
+                description = "Bota feita de ferro, consegue proteger você, mas não de tudo!\n" +
+                                "Consegue lhe dar um aumento de " + 0.5f + " em defesa.",
+                PathImage = "/Assets/Images/itens/botaFerro.png",
             };
             encyclopedia.Add(25, item25);
             Armor item26 = new Armor("Steel Chestplate")
@@ -309,59 +318,65 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/Chao.jpg",
             };
             encyclopedia.Add(30, item3);
+
             Armor item31 = new Armor("Leather Body")
             {
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Medium,
                 GoldValue = 8,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/coleteCouro.png",
             };
             encyclopedia.Add(31, item31);
-            Armor item32 = new Armor("Leather Chaps")
-            {
-                ItemCategory = Category.Normal,
-                defense = 0.5f,
-                tpArmor = TypeArmor.Medium,
-                GoldValue = 5,
-                PathImage = "/Assets/Images/Chao.jpg",
-            };
-            encyclopedia.Add(32, item32);
-            Armor item33 = new Armor("Leather Gloves")
+            
+            Armor item32 = new Armor("Leather Gloves")
             {
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Medium,
                 GoldValue = 4,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/Couro.png",
             };
-            encyclopedia.Add(33, item33);
-            Armor item34 = new Armor("Leather Hood")
+            encyclopedia.Add(32, item32);
+
+            Armor item33 = new Armor("Leather Hood")
             {
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Medium,
                 GoldValue = 5,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/chapeuCouro.png",
             };
-            encyclopedia.Add(34, item34);
-            Armor item35 = new Armor("Leather Boots")
+            encyclopedia.Add(33, item33);
+
+            Armor item34 = new Armor("Leather Boots")
             {
                 ItemCategory = Category.Normal,
                 PositArmor = PositionArmor.Boots,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Medium,
                 GoldValue = 4,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/botaCouro.png"
             };
-            encyclopedia.Add(35, item35);
-            Armor item36 = new Armor("Wool Gown")
+            encyclopedia.Add(34, item34);
+
+            Armor item35 = new Armor("Wool Top")
+            {
+                ItemCategory = Category.Normal,
+                PositArmor = PositionArmor.Armor,
+                defense = 0.5f,
+                tpArmor = TypeArmor.Light,
+                GoldValue = 3,
+                PathImage = "/Assets/Images/itens/roupaLa.png"
+            };
+
+            Armor item36 = new Armor("Wool Skirt")
             {
                 ItemCategory = Category.Normal,
                 defense = 0.5f,
                 tpArmor = TypeArmor.Light,
                 GoldValue = 3,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/roupaLa.png"
             };
             encyclopedia.Add(36, item36);
             Armor item37 = new Armor("Wool Hood")
@@ -370,7 +385,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 defense = 0.5f,
                 tpArmor = TypeArmor.Light,
                 GoldValue = 3,
-                PathImage = "/Assets/Images/Chao.jpg"
+                PathImage = "/Assets/Images/itens/capuzLa.png"
             };
             encyclopedia.Add(37, item37);
             Armor item38 = new Armor("Wool Gloves")
@@ -388,7 +403,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 defense = 0.5f,
                 tpArmor = TypeArmor.Light,
                 GoldValue = 3,
-                PathImage = "/Assets/Images/Chao.jpg"
+                PathImage = "/Assets/Images/itens/sapatoComum.png"
             };
             encyclopedia.Add(39, item39);
             Consumable item40 = new Consumable("Minor Health Potion")
@@ -396,7 +411,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
                 Bonus = 20,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/PocaoVidaP.png",
                 description = "Adventurer's best Friend, i think you must carry lots of this"
                 
 
@@ -407,7 +422,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
                 Bonus = 20,
-                PathImage = "/Assets/Images/Chao.jpg"
+                PathImage = "/Assets/Images/itens/PocaoManaP.png"
 
             };
             encyclopedia.Add(41, item41);
@@ -415,7 +430,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = true,
                 ItemCategory = Category.Normal,
-                PathImage = "/Assets/Images/Chao.jpg",
+                PathImage = "/Assets/Images/itens/barraFerro.png",
                 GoldValue = 1,
                 description = "It is not useful like this, but is cheap than gold"
 
@@ -448,7 +463,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 MyLevel = new Ents.Level(999)
             };
             Shop s = new Shop();
-            s.TradingItems.AddToBag(43, 1);
+            s.TradingItems.AddToBag(new Slot(43, 1));
             npc1.AddFunction(new Trader(s));
 
             NonPlayerCharacters.Add(1, npc1);
@@ -478,6 +493,17 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 return encyclopedia[key];
             }
             else throw new ArgumentOutOfRangeException();
+        }
+
+        // pega o id de um item especifico
+        public static uint SearchFor(Item item)
+        {
+            if(item != null)
+            {
+                var iteminfo = encyclopedia.FirstOrDefault(x => x.Value.Equals(item));
+                return iteminfo.Key;
+            }
+            else return 0;
         }
 
         //procura se o ID é estacavel com boleana

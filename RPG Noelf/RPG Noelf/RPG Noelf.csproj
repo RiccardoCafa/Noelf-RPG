@@ -150,6 +150,7 @@
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
     <Compile Include="Assets\Scripts\Ents\Trigger.cs" />
     <Compile Include="Assets\Scripts\Enviroment\DayNight.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\LootBody.cs" />
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
@@ -579,6 +580,7 @@
     <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\UI Elements\FundoInventario.png" />
     <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />

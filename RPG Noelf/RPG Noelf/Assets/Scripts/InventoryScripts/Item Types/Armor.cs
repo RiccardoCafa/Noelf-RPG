@@ -14,7 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         Elm, Armor, Legs, Boots
     }
-    class Armor : Item
+    public class Armor : Item
     {
         public PositionArmor PositArmor;
         public TypeArmor tpArmor;

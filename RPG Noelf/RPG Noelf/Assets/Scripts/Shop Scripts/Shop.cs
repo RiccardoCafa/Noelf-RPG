@@ -41,7 +41,7 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
             long valor = Encyclopedia.SearchFor(offer.ItemID).GoldValue * (long)offer.ItemAmount;
             if (playerBag.Gold >= valor)
             {
-                playerBag.AddToBag(offer.ItemID, offer.ItemAmount);
+                playerBag.AddToBag(offer);
                 playerBag.Gold -= (int)valor;
                 
             }
@@ -65,7 +65,7 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         {
             if (BuyingItems.CanAddMore())
             {
-                return BuyingItems.AddToBag(slot.ItemID, slot.ItemAmount);
+                return BuyingItems.AddToBag(slot);
             }
             return false;
         }
