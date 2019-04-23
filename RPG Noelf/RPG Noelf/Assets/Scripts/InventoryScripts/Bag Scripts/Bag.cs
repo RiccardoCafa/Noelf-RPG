@@ -16,6 +16,11 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     public class Bag
     {
         /// <summary>
+        /// A event that is called everytime that a item has been removed or added from the bag, updating the interface.
+        /// </summary>
+        public event EventHandler BagUpdated;
+
+        /// <summary>
         /// Slot is a class that contains two atributes.
         /// <para>Contains the Item ID that will be use to search in Encyclopedia</para>
         /// <para>Contains the amount of items in this specific slot</para>
@@ -97,37 +102,41 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// <param name="itemID">The item ID to be added</param>
         /// <param name="amount">The amount of that item</param>
         /// <returns></returns>
-        public virtual bool AddToBag(uint itemID, uint amount)
+        public virtual bool AddToBag(Slot slot)
         {
-            Slot playerSlot = Slots.Find(x => x.ItemID == itemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
+            Slot playerSlot = Slots.Find(x => x.ItemID == slot.ItemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
             if (playerSlot != null)
             {
-                if (playerSlot.ItemAmount + amount > MaxStack)
+                if (playerSlot.ItemAmount + slot.ItemAmount > MaxStack)
                 {
-                    uint offset = playerSlot.ItemAmount + amount - MaxStack;
+                    uint offset = playerSlot.ItemAmount + slot.ItemAmount - MaxStack;
                     playerSlot.ItemAmount += offset;
-                    Slot slot = new Slot(itemID, amount - offset);
                     if (Slots.Count < MaxSlots)
                     {
-                        AddToBag(slot.ItemID, slot.ItemAmount);
+                        slot.ItemAmount -= offset;
+                        AddToBag(slot);
                         FreeSlots--;
+                        OnBagUpdated();
                         return true;
                     }
                     else
                     {
-                        //Drop(); // Dropa o restante que não cabe mais na mochila
                         return false;
                     }
                 }
                 else
                 {
-                    playerSlot.ItemAmount += amount;
+                    playerSlot.ItemAmount += slot.ItemAmount;
+                    slot.ItemAmount = 0;
+                    OnBagUpdated();
                     return true;
                 }
             }
             else if(CanAddMore())
             {
-                Slots.Add(new Slot(itemID, amount));
+                Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
+                slot.ItemAmount = 0;
+                OnBagUpdated();
                 return true;
             } else
             return false;
@@ -187,6 +196,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     Slots.Remove(s);
                     FreeSlots--;
+                    OnBagUpdated();
                     if (amount > 1)
                     {
                         s = Slots.Find(x => x.ItemID == s.ItemID);
@@ -217,6 +227,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     {
                         Slots.Remove(s);
                         FreeSlots++;
+                        OnBagUpdated();
                     }
                     return true;
                 } else
@@ -244,6 +255,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     {
                         Slots.RemoveAt(index);
                         FreeSlots++;
+                        OnBagUpdated();
                     }
                 } else
                 {
@@ -266,6 +278,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     Slots.Remove(slot);
                     FreeSlots++;
+                    OnBagUpdated();
                 }
             } else
             {
@@ -285,6 +298,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     Slots.Remove(slot);
                     FreeSlots++;
+                    OnBagUpdated();
                 }
             }
             else
@@ -292,22 +306,19 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 RemoveNonStackableItem(slot, 1);
             }
         }
-
-
-
+        
         public void IncreaseSizeOfBag(int size)
         {
 
             if (size > 0)
             {
-                this.FreeSlots = FreeSlots + size;
+                FreeSlots = FreeSlots + size;
             }
-
-
-
         }
 
-
-
+        public virtual void OnBagUpdated()
+        {
+            BagUpdated?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
@@ -25,6 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         public double DamageBuff { get; set; }
         public double ArmorBuff { get; set; }
+        public double ArmorEquip { get; set; }
         public double AtkSpeedBuff { get; set; }
 
         protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
