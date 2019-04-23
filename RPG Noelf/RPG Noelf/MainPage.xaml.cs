@@ -820,6 +820,25 @@ namespace RPG_Noelf
         {
             ShopWindow.Visibility = Visibility.Collapsed;
         }
+       public void CloseQuest()
+        {
+            QuestWindow.Visibility = Visibility.Collapsed;
+        }
+        public void OpenQuest()
+        {
+            /*GameManager.questerTarget.myQuest = QuestList.allquests[1];
+            QuestTitulo.Text = GameManager.questerTarget.myQuest.name;
+            QuestDescription.Text = GameManager.questerTarget.myQuest.Description;
+            QuestRewards.Text = GameManager.questerTarget.myQuest.RewardDescription;
+            QuestWindow.Visibility = Visibility.Visible;
+            */
+            QuestTitulo.Text = QuestList.allquests[1].name;
+            QuestDescription.Text = QuestList.allquests[1].Description;
+            QuestRewards.Text = QuestList.allquests[1].RewardDescription;
+            QuestWindow.Visibility = Visibility.Visible;
+
+        }
+
 
         private void SetEventForShopItem()
         {
@@ -1138,6 +1157,8 @@ namespace RPG_Noelf
         }
         private void ClickDenyQuestButton(object sender, RoutedEventArgs e)
         {
+            ActiveQuestsWindows.Visibility = Visibility.Collapsed;
+            QuestWindow.Visibility = Visibility.Collapsed;
         } 
 
         private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)

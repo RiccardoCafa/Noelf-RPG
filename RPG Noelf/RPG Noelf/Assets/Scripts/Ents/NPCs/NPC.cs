@@ -103,6 +103,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     public sealed class Quester : NPCFunction
     {
         public Quest myQuest { get; set; }
+        
 
         public Quester(uint quest)
         {
@@ -111,17 +112,25 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void MyFunction(object sender, RoutedEventArgs e)
         {
+            GameManager.questerTarget = this;
             
         }
-
+        
+        //GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
         public void AcceptQuest()
         {
-            GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
+            if(GameManager.player._Questmanager.CheckQuestLevel(myQuest))
+            {
+                GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
+            }
         }
 
         public void EndFunction()
         {
-            
+            if (GameManager.player._Questmanager.activeQuests.Contains(myQuest))
+            {
+                GameManager.CloseQuestWindow();
+            }
         }
 
         public string GetFunctionName()
@@ -132,7 +141,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
     public sealed class RuneMaster
     {
-
+        //TODO
     }
 
 }

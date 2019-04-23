@@ -15,6 +15,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             allquests = new Dictionary<uint, Quest>();
             SpeakQuest quest1 = new SpeakQuest("Here comes a new hero",(uint) 1,(uint) 0);
             quest1.Description = "Adquira o poder supremo XGH";
+            quest1.RewardDescription = "Lingotes de Ouro :D";
             allquests.Add(1, quest1);
 
 

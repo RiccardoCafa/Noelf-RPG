@@ -122,10 +122,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             }
         }
         //checar o level da quest, se é possivel adquiri-la ou não
-        public bool CheckQuestLevel(uint questID)
+        public bool CheckQuestLevel(Quest required)
         {
             int playerLevel = player.level.actuallevel;
-            Quest quest = QuestList.SearchQuest(questID);
+            Quest quest = required;
             if (quest.level > playerLevel)
             {
                 return false;
