@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void StartConversation()
         {
-            MainPage.instance.CallConversationBox(this);
+            MainPage.obj.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
         }

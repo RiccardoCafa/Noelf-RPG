@@ -42,7 +42,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                         Tile tile = new Tile(Tile.TileCode[block], x, y);
                         Image image = new Image();
                         xScene.Children.Add(image);
-                        image.Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, tile.Path));
+                        image.Source = new BitmapImage(new Uri(MainPage.obj.BaseUri, tile.Path));
                         image.Width = tile.VirtualSize[0];
                         image.Height = tile.VirtualSize[1];
                         image.SetValue(Canvas.LeftProperty, tile.VirtualPosition[0]);

@@ -1,37 +1,22 @@
-﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
-using RPG_Noelf.Assets.Scripts.Interface;
-using System.Threading;
-using Windows.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
-using RPG_Noelf.Assets.Scripts.Skills;
-using Windows.UI.Input;
-using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using RPG_Noelf.Assets.Scripts.Shop_Scripts;
-using System.Threading.Tasks;
-using RPG_Noelf.Assets.Scripts.Mobs;
-using RPG_Noelf.Assets.Scripts.Ents.Mobs;
-using RPG_Noelf.Assets.Scripts.Scenes;
-using RPG_Noelf.Assets.Scripts.Enviroment;
+﻿using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Mobs;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using RPG_Noelf.Assets.Scripts.Scenes;
+using RPG_Noelf.Assets.Scripts.Skills;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -42,7 +27,7 @@ namespace RPG_Noelf
     /// </summary>
     public partial class MainPage : Page
     {
-        public static MainPage instance;
+        public static MainPage obj;
 
         Thread Start;
 
@@ -72,7 +57,7 @@ namespace RPG_Noelf
 
         public MainPage()
         {
-            instance = this;
+            obj = this;
             this.InitializeComponent();
 
             Telona = Tela;
@@ -152,7 +137,7 @@ namespace RPG_Noelf
             {
                 mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
-                Scene elel = new Scene(xScene);//criaçao do cenario
+                Scene scene = new Scene(xScene);//criaçao do cenario
 
                 CreatePlayer();
                 CreateMob();
@@ -213,20 +198,20 @@ namespace RPG_Noelf
 
         public static void SetImageSource(Image img, string path)
         {
-            img.Source = new BitmapImage(new Uri(instance.BaseUri, path));
+            img.Source = new BitmapImage(new Uri(obj.BaseUri, path));
         }
 
         #region Interface Update and Events
         #region Character Creation
         public void CreateMob()
         {
-            GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 100));//criaçao do mob
+            GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 2));//criaçao do mob
             GameManager.mobTarget.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
             GameManager.mobTarget.UpdateBlocks(xScene);
         }
         public void CreatePlayer()
         {
-            GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
+            GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages), PlayerCanvas);//criaçao do player
             GameManager.characterPlayer.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
             GameManager.characterPlayer.UpdateBlocks(xScene);
             GameManager.player = GameManager.characterPlayer.Player;
