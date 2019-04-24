@@ -80,7 +80,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             SetClothes(clothesImages);
         }
 
-        private void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
+        public void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
         {
             for (int i = 0; i < 6; i++)
             {
@@ -96,22 +96,22 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                             for (int bit = 0; bit < 2; bit++)
                             {
                                 string path3 = "/" + bit + "/" + Id[0] + Id.Substring(2, 2) + "___.png";
-                                playerImages[parts[i] + side + bit].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                                playerImages[parts[i] + side + bit].Source = new BitmapImage(new Uri("ms-appx://" + path1 + path2 + path3));
                             }
                         }
                         break;
                     case "hair":
                         if (Id[5] == '3') path2 = "/" + Id[0] + Id[2] + "__" + Id[5] + "_.png";
                         else path2 = "/" + Id[0] + Id[2] + "__" + Id.Substring(5, 2) + ".png";
-                        playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                        playerImages[parts[i]].Source = new BitmapImage(new Uri("ms-appx://" + path1 + path2));
                         break;
                     case "eye":
                         path2 = "/" + Id[0] + Id[2] + "_" + Id[4] + "__.png";
-                        playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                        playerImages[parts[i]].Source = new BitmapImage(new Uri("ms-appx://" + path1 + path2));
                         break;
                     default:
                         path2 = "/" + Id[0] + Id.Substring(2, 2) + "___.png";
-                        playerImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                        playerImages[parts[i]].Source = new BitmapImage(new Uri("ms-appx://" + path1 + path2));
                         break;
                 }
             }
@@ -133,7 +133,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         //    }
         //}
 
-        private void SetClothes(Dictionary<string, Image> clothesImages)//aplica as imagens das roupas do player (classe)
+        public void SetClothes(Dictionary<string, Image> clothesImages)//aplica as imagens das roupas do player (classe)
         {
             for (int i = 3; i < 6; i++)
             {
@@ -146,14 +146,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         for (int bit = 0; bit < 2; bit++)
                         {
                             string path3 = "/" + bit + "/" + Id[2] + Id[1] + ".png";
-                            clothesImages[parts[i] + side + bit].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            clothesImages[parts[i] + side + bit].Source = new BitmapImage(new Uri("ms-appx://" + path1 + path2 + path3));
                         }
                     }
                 }
                 else
                 {
                     string path2 = "/" + Id[2] + Id[1] + ".png";
-                    clothesImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                    clothesImages[parts[i]].Source = new BitmapImage(new Uri("ms-appx://" + path1 + path2));
                 }
             }
         }
