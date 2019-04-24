@@ -35,7 +35,9 @@ namespace RPG_Noelf
         public CharacterCreation()
         {
             this.InitializeComponent();
-            
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
             PlayerImages = new Dictionary<string, Image>()
             {
                 {"armsd0", xPlayerArm_d0 },

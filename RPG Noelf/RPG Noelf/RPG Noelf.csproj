@@ -11,7 +11,7 @@
     <AssemblyName>RPG Noelf</AssemblyName>
     <DefaultLanguage>pt-br</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -593,6 +593,11 @@
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
     <Content Include="Assets\Images\UI Elements\FundoInventario.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\CheckBox.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\CheckSymbol.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\PlayBtn.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\QuitBtn.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\Tela.png" />
     <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />

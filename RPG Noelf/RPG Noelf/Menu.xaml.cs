@@ -1,30 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace RPG_Noelf
 {
     /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
+    /// A página do menu.
     /// </summary>
     public sealed partial class Menu : Page
     {
+        private const string username = "root";
+        private const string password = "123";
+
+        private const bool IsServerOn = false;
+
         public Menu()
         {
             this.InitializeComponent();
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ApplicationView.GetForCurrentView().TryResizeView(new Size(860, 640));
+        }
+
+        private void PlayBtn_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if(!IsServerOn)
+            {
+                if(UsernameBox.Text == username && PasswordBox.Text == password)
+                {
+                    OpenPlayerInterface();
+                }
+            }
+        }
+
+        private void QuitBtn_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            CoreApplication.Exit();
+        }
+
+        private async void OpenPlayerInterface()
+        {
+            var viewId = 0;
+            var newView = CoreApplication.CreateNewView();
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                var frame = new Frame();
+                frame.Navigate(typeof(CharacterCreation));
+                Window.Current.Content = frame;
+
+                viewId = ApplicationView.GetForCurrentView().Id;
+                
+                Window.Current.Activate();
+            });
+            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
         }
     }
 }

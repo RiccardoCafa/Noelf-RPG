@@ -6,9 +6,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Width="860" Height="640"
+    MinWidth="860" MaxWidth="860"
+    MinHeight="640" MaxHeight="640"
+    SizeChanged="Page_SizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Canvas>
+        <Image Width="860" Height="640" Source="/Assets/Images/UI Elements/Game Menu/Tela.png"/>
 
+        <Image Name="PlayBtn" Source="/Assets/Images/UI Elements/Game Menu/PlayBtn.png" Height="40" Canvas.Left="370" Canvas.Top="380" Width="130" PointerPressed="PlayBtn_PointerPressed"/>
+        <Image Name="QuitBtn" Source="/Assets/Images/UI Elements/Game Menu/QuitBtn.png" HorizontalAlignment="Stretch" Height="40" Canvas.Left="370" PointerPressed="QuitBtn_PointerPressed" Canvas.Top="435" VerticalAlignment="Stretch" Width="130"/>
+
+
+        <TextBox x:Name="UsernameBox" Canvas.Left="323" Canvas.Top="208" Text="" Margin="0,0,0,0" Width="214" CharacterCasing="Lower" ManipulationMode="System" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PlaceholderText="username"/>
+        <TextBox x:Name="PasswordBox" Canvas.Left="323" Canvas.Top="282" Text="" Margin="0,0,0,0" Width="213" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ManipulationMode="System" InputScope="Password" PlaceholderText="password"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Canvas.Left="318" Canvas.Top="326" VerticalAlignment="Top" Height="33" Width="122" Margin="0,0,0,0"/>
     </Canvas>
 </Page>

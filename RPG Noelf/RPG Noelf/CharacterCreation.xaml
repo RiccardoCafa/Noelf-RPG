@@ -6,7 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1240" Height="780">
+    MinWidth="1240" MaxWidth="1240" 
+    MinHeight="780" MaxHeight="780"
+    Width="1240" Height="780"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Canvas>
 
