@@ -40,11 +40,12 @@ namespace RPG_Noelf
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public partial class MainPage : Page
+    public partial class Game : Page
     {
-        public static MainPage instance;
+        public static Game instance;
 
         private Thread Start;
+        private Player PlayerCreated;
 
         public TextBlock mobStatus;
         public TextBlock dayText;
@@ -73,7 +74,7 @@ namespace RPG_Noelf
         private const int LootWidth = 50;
         private const int LootHeight = 50;
 
-        public MainPage()
+        public Game()
         {
             instance = this;
             this.InitializeComponent();
@@ -144,6 +145,14 @@ namespace RPG_Noelf
                 { "legse0", xMobLeg_e0 },
                 { "legse1", xMobLeg_e1 }
             };
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            var parames = (CharacterCreationParams)e.Parameter;
+            PlayerCreated = parames.playerCreated;
         }
 
         public async void start()
@@ -236,7 +245,16 @@ namespace RPG_Noelf
         }
         public void CreatePlayer()
         {
-            GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
+            if(PlayerCreated != null)
+            {
+                PlayerCreated.SetClothes(ClothesImages);
+                PlayerCreated.SetPlayer(PlayerImages);
+                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, PlayerCreated);//criaçao do player
+
+            } else
+            {
+                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
+            }
             GameManager.characterPlayer.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
             GameManager.characterPlayer.UpdateBlocks(xScene);
             GameManager.player = GameManager.characterPlayer.Player;
@@ -439,7 +457,7 @@ namespace RPG_Noelf
                         ShowOfferItem(s);
                         UpdateShopInfo();
                     }
-                    if (equipOpen)
+                    else if (equipOpen)
                     {
                         Item i = Encyclopedia.encyclopedia[s.ItemID];
                         if (i is Armor || i is Weapon)
@@ -447,6 +465,12 @@ namespace RPG_Noelf
                             GameManager.player.Equipamento.UseEquip(s.ItemID);
                             WindowBag.Visibility = Visibility.Collapsed;
                         }
+                    } else
+                    {
+                        GameManager.player._Inventory.RemoveFromBag(s);
+                        CreateDrop(GameManager.characterPlayer.xCharacVal + 10,
+                                    GameManager.characterPlayer.yCharacVal + 60,
+                                    s);
                     }
                 }
             }
@@ -925,10 +949,15 @@ namespace RPG_Noelf
         #region Conversation
         private NPC npc;
         private Grid ButtonsGrid;
-        private Queue<Button> QueueButtons = new Queue<Button>();
-        private List<Button> PoolButtons = new List<Button>();
+        ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
+        string PoolName = "convBtn"; 
+        private List<Button> PooledButtons = new List<Button>();
         public void CallConversationBox(NPC npc)
         {
+            if(!ButtonPool.ExistPool(PoolName))
+            {
+                ButtonPool.CreatePool(PoolName);
+            }
             if (GameManager.interfaceManager.Conversation) return;
             this.npc = npc;
             Conversation.Visibility = Visibility.Visible;
@@ -951,9 +980,9 @@ namespace RPG_Noelf
                 };
                 ButtonsGrid.RowDefinitions.Add(row);
                 Button b;
-                if (QueueButtons.Count > 0)
+                if (ButtonPool.GetPoolSize(PoolName) > 0)
                 {
-                    b = QueueButtons.Dequeue();
+                    ButtonPool.GetFromPool(PoolName, out b);
                     b.Visibility = Visibility.Visible;
                 } else
                 {
@@ -963,7 +992,7 @@ namespace RPG_Noelf
                         Width = ButtonsGrid.Height
                     };
                     ButtonsGrid.Children.Add(b);
-                    PoolButtons.Add(b);
+                    PooledButtons.Add(b);
                 }
                 
                 if (i < Buttons - 1)
@@ -993,9 +1022,9 @@ namespace RPG_Noelf
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
             ConvText.Text = npc.Conclusion;
             npc.EndConversation();
-            foreach(Button b in PoolButtons)
+            foreach(Button b in PooledButtons)
             {
-                QueueButtons.Enqueue(b);
+                ButtonPool.AddToPool(PoolName, b);
                 b.Visibility = Visibility.Collapsed;
             }
         }
@@ -1135,41 +1164,6 @@ namespace RPG_Noelf
             GameManager.mobTarget.Mob.Status(xMobStatus);
         }
         
-        private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
-        {
-            int.TryParse(current.ToString(), out int x);
-            if (isNext)
-            {
-                if (x == range - 1) x = 0;
-                else x++;
-            }
-            else
-            {
-                if (x == 0) x = range - 1;
-                else x--;
-            }
-            return x.ToString();
-        }
-        private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
-        {
-            string id = GameManager.characterPlayer.Player.Id;
-            if (sender == xEsqRace ||
-                sender == xDirRace) id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
-            else if (sender == xEsqClass ||
-                     sender == xDirClass) id = id.Substring(0, 1) + ChangeCustom(id[1], 3, sender == xDirClass) + id.Substring(2, 5);
-            else if (sender == xEsqSex ||
-                     sender == xDirSex) id = id.Substring(0, 2) + ChangeCustom(id[2], 2, sender == xDirSex) + id.Substring(3, 4);
-            else if (sender == xEsqSkinTone ||
-                     sender == xDirSkinTone) id = id.Substring(0, 3) + ChangeCustom(id[3], 3, sender == xDirSkinTone) + id.Substring(4, 3);
-            else if (sender == xEsqEyeColor ||
-                     sender == xDirEyeColor) id = id.Substring(0, 4) + ChangeCustom(id[4], 3, sender == xDirEyeColor) + id.Substring(5, 2);
-            else if (sender == xEsqHairStyle ||
-                     sender == xDirHairStyle) id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
-            else if (sender == xEsqHairColor ||
-                     sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
-            GameManager.characterPlayer.Player = new Player(id, PlayerImages, ClothesImages);
-            GameManager.characterPlayer.Player.Status(xPlayerStatus);
-        }
 
         private void OfferItemButton(object sender, RoutedEventArgs e)
         {

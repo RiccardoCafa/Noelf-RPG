@@ -35,10 +35,10 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public static void InitializeGame()
         {
-            interfaceManager.Inventario = MainPage.inventarioWindow;
+            interfaceManager.Inventario = Game.inventarioWindow;
             Encyclopedia.LoadEncyclopedia();
-            npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
-            npcCharacter.UpdateBlocks(MainPage.TheScene);
+            npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
+            npcCharacter.UpdateBlocks(Game.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
 
             player._Inventory.AddToBag(new Slot(3, 1));
@@ -49,6 +49,11 @@ namespace RPG_Noelf.Assets.Scripts.General
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
+        }
+
+        public static void InitializePlayer()
+        {
+
         }
 
         public static void CreatePlayer()
@@ -71,13 +76,12 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if (traderTarget == null) return;
             interfaceManager.ShopOpen = true;
-            MainPage.instance.OpenShop();
+            Game.instance.OpenShop();
         }
 
         public static void CloseShop()
         {
-            MainPage.instance.CloseShop();
-
+            Game.instance.CloseShop();
         }
 
     }

@@ -233,8 +233,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = 5;
             Con = 0;
             Mnd = 0;
-            skillManager.SetArcherPassive("/Assets/Images/Item2.jpg", "Headshot");
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Rajadas")
+            skillManager.SetArcherPassive("/Assets/Images/Skills/PassiveArcherSkill.jpg", "Headshot");
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill1.jpg", "Rajadas")
             {
                 Damage = 0,
                 manaCost = 0,
@@ -248,7 +248,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "Flecha de fogo")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill2.jpg", "Flecha de fogo")
             {
                 Damage = 10,
                 manaCost = 0,
@@ -262,7 +262,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.Int,
                 tipoatributo = Element.Fire
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "Trap")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill3.jpg", "Trap")
             {
                 Damage = 75,
                 manaCost = 0,
@@ -276,7 +276,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Abrealas")
+            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill4.jpg", "Abrealas")
             {
                 Damage = 0,
                 manaCost = 0,

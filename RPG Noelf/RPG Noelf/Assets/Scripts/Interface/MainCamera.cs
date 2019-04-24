@@ -36,7 +36,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             this.PlayerToFollow = playerToFollow;
             this.Camera = Camera;
             this.Chunck = Chunck;
-            this.Tela = MainPage.Telona;
+            this.Tela = Game.Telona;
             CameraSpeed = playerToFollow.MaxHSpeed;
             CameraJump = 0.2;
             UpdateThread = new Thread(Update);
