@@ -473,14 +473,17 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 IDnpc = 2,
                 Name = "Pai",
                 Introduction = "Meu filho, já passei por inúmeras aventuras, agora é sua vez! Colete relíquias, talentos, mate monstros e se aventure nesse incrível mundo...",
-                Conclusion = "",
+                Conclusion = "Vá em paz meu filho",
                 MyLevel = new Ents.Level(99)
             };
 
-            npc2.AddFunction(new Quester());
+            npc2.AddFunction(new Quester(1));
 
             NonPlayerCharacters.Add(2, npc2);
         }
+
+        
+
 
         // procura um item especifico
         public static Item SearchFor(uint key)
@@ -536,7 +539,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         //procura o dano da Arma
         public static float SearchDamageWeapon(uint key)
         {
-            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
+            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Weapon)
             {
                 return ((Weapon)encyclopedia[key]).bonusDamage;
             }

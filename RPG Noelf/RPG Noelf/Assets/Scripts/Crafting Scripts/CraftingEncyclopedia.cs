@@ -9,35 +9,44 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
     class CraftingEncyclopedia
     {
-        public static Dictionary<uint, Recipe> crafting { get; set; }//o ID do crafting é o id do item criado
+        public static Dictionary<uint, Recipe> crafting = new Dictionary<uint, Recipe>();//o ID do crafting é o id do item criado
 
         public static void LoadCrafting()
         {
-            crafting = new Dictionary<uint, Recipe>();
-            List<Slot> materiais = new List<Slot>();
-
-            materiais.Add(new Slot(42, 2));
-            materiais.Add(new Slot(3, 2));
-            Recipe rec1 = new Recipe("Blueprint: Iron Sword", materiais)
-            {
-                generatedID = 13
-            };
-            crafting.Add(rec1.generatedID, rec1);//receita adicionada no crafting
-
-            materiais = new List<Slot>();
-            materiais.Add(new Slot(1, 5));
-            Recipe rec2 = new Recipe("Recipe: Iron Ingot", materiais)
-            {
-                generatedID = 42
-            };
-            crafting.Add(rec2.generatedID,rec2);//adicionada no crafting
-
-
+            Recipe IronBar = new Recipe(41);//receita de uma barra de ferro
+            IronBar.Materials.Add(new Slot(1, 5));//um slot com 5 barras de ferro é nescessario
+            crafting.Add(41, IronBar);
         }
-
-
         
-     
+        //checar se o item tem como ser craftado
+        public static bool CheckIDRecipe(uint id)
+        {
+           if(crafting.ContainsKey(id) == true)
+            {
+                return true;
+            }
+            return false;
+        }
+        //retornar a receita do dicionario
+       public static Recipe PushRecipe(uint key)
+        {
+            Recipe generic = crafting[key];
+            return generic;
+            throw new ArgumentOutOfRangeException();
+        }
+        //retornar se os materiais do item estão na mochila
+        public static bool CheckMaterialsFromRecipe(uint desiredID, Bag PlayerBag)
+        {
+            Recipe itemRecipe = crafting[desiredID];
+            if(itemRecipe.CheckRecipe(PlayerBag) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
                     
 
 

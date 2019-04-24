@@ -245,6 +245,44 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Canvas>
+		
+        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility="Visible">
+            <Grid Width="200" Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Name="QuestBox1" Text="Quest Title"></TextBlock>
+                <TextBlock Name="QuestBox2" Grid.Row="1" Text="Objetivo"></TextBlock>
+            </Grid>
+            
+        </Canvas>
+    
+       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Visible">
+            <Grid Width="200" Height="300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <TextBlock Name="QuestTitulo" Width="200" Height="40" Text="Titulo" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Name="QuestDescription" Width="200" Height="150" Text="Conteudo" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Name="QuestRewards" Width="200" Height="50" Text="Rewards" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left"></TextBlock>
+                <Grid Height="60" Width="200" HorizontalAlignment="Left" Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="AcceptQuest" Width="80" Height="50" HorizontalAlignment="Center" Content="Accept" Click ="ClickAcceptQuestButton"></Button>
+                    <Button Name="DenyQuest" Width="80" Height="50" HorizontalAlignment="Center" Grid.Column="1" Content="Deny" Click ="ClickDenyQuestButton"></Button>
+                </Grid>
+            </Grid> 
+       </Canvas>
+
 
         <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="950" Canvas.Top="80" Visibility="Collapsed">
             <Image Width="110" Height="155" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"  ></Image>
