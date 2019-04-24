@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,46 +13,40 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 {
     public static class Collision
     {
-        public static List<Solid> solids;
-
-        public static void OnMoved(DynamicSolid sender, EventArgs e)//sempre q um DynamicSolid se mover, verifica-se sua colisao com os outros Solid
+        public static List<Solid> solids = new List<Solid>();
+        private const double margin = 5;
+        public static void OnMoved(DynamicSolid solidMoving)//sempre q um DynamicSolid se mover, verifica-se sua colisao com os outros Solid
         {
-            bool down = false, up = false, right = false, left = false;
-            sender.lockedKeys.Clear();
+            solidMoving.freeDirections[Direction.down] =
+            solidMoving.freeDirections[Direction.right] =
+            solidMoving.freeDirections[Direction.left] = true;
             foreach (Solid solid in solids)
             {
-                if (sender.Equals(solid)) continue;//se for comparar o DynamicSolid com ele msm, pule
-                if (sender.Xi <= solid.Xf && sender.Xf >= solid.Xi)//se o DynamicSolid movendo esta numa regiao q pode colidir em cima ou embaixo
+                if (solidMoving.Equals(solid)) continue;//se for comparar o solidMoving com ele msm, pule o teste
+                if (solidMoving.Yf >= solid.Yi && solidMoving.Yf < solid.Yi + margin)//se o solidMoving esta no nivel de pisar em algum Solid
                 {
-                    //if (sender.Yi <= solid.Yf)//se o DynamicSolid movendo esta colidindo em cima
-                    //{
-                    //    sender.lockedKeys.Add(VirtualKey.Up);
-                    //    sender.lockedKeys.Add(VirtualKey.W);
-                    //    up = true;
-                    //}
-                    if (sender.Yf >= solid.Yi)//se o DynamicSolid movendo esta colidindo embaixo
+                    if (solidMoving.Xi < solid.Xf && solidMoving.Xf > solid.Xi)//se o solidMoving esta colindindo embaixo
                     {
-                        sender.lockedKeys.Add(VirtualKey.Down);
-                        sender.lockedKeys.Add(VirtualKey.S);
-                        down = true;
+                        solidMoving.Yf = solid.Yi;
+                        solidMoving.freeDirections[Direction.down] = false;
                     }
                 }
-                if (sender.Yi <= solid.Yf && sender.Yf >= solid.Yi)//se o DynamicSolid movendo esta numa regiao q pode colidir na esquerda ou na direita
+                if (solidMoving.Yi < solid.Yf && solidMoving.Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
                 {
-                    if (sender.Xf >= solid.Xi)//se o DynamicSolid movendo esta colidindo na direita
+                    if (solidMoving.Xf >= solid.Xi && solidMoving.Xf < solid.Xi + margin)//se o solidMoving esta colindindo a direita
                     {
-                        sender.lockedKeys.Add(VirtualKey.Right);
-                        sender.lockedKeys.Add(VirtualKey.D);
-                        right = true;
+                        solidMoving.Xf = solid.Xi;
+                        solidMoving.freeDirections[Direction.right] = false;
                     }
-                    if (sender.Xi <= solid.Xf)//se o DynamicSolid movendo esta colidindo na esquerda
+                    if (solidMoving.Xi <= solid.Xf && solidMoving.Xi > solid.Xf - margin)//se o solidMoving esta colindindo a esquerda
                     {
-                        sender.lockedKeys.Add(VirtualKey.Left);
-                        sender.lockedKeys.Add(VirtualKey.A);
-                        left = true;
+                        solidMoving.Xi = solid.Xf;
+                        solidMoving.freeDirections[Direction.left] = false;
                     }
                 }
-                if (down && up && right && left) break;
+                if (!solidMoving.freeDirections[Direction.down] &&
+                    !solidMoving.freeDirections[Direction.right] &&
+                    !solidMoving.freeDirections[Direction.left]) break;
             }
         }
     }

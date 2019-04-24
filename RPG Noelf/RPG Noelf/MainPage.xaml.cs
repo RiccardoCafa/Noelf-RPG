@@ -1,5 +1,7 @@
-﻿using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+﻿using RPG_Noelf.Assets.Scripts;
+using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Enviroment;
 using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
@@ -14,8 +16,10 @@ using System.Linq;
 using System.Threading;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -141,6 +145,10 @@ namespace RPG_Noelf
                 mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 Scene scene = new Scene(xScene);//criaçao do cenario
+
+                DynamicSolid solid = new DynamicSolid(600, 30, 50, 50, 10);
+                solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
+                TheScene.Children.Add(solid);
 
                 CreatePlayer();
                 CreateMob();

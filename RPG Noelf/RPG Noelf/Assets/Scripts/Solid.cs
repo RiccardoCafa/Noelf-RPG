@@ -1,6 +1,7 @@
 ﻿using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,106 +9,134 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel.Core;
 
 namespace RPG_Noelf.Assets.Scripts
 {
-    public enum Direction { horizontal, vertical }
+    public enum Axis { horizontal, vertical }
 
-    public abstract class Solid : Canvas
+    public class Solid : Canvas
     {
-        public const double g = 1.1;
         public DateTime time;
 
-        public double Xi, Yi;
-        public double Xf, Yf;
-
+        protected double xi;
+        public double Xi {
+            get { return xi; }
+            set { SetLeft(this, value); xi = value; }
+        }
+        protected double yi;
+        public double Yi {
+            get { return yi; }
+            set { SetTop(this, value); yi = value; }
+        }
+        public double Xf {
+            get { return xi + Width; }
+            set { xi = value - Width; }
+        }
+        public double Yf {
+            get { return yi + Height; }
+            set { yi = value - Height; }
+        }
         public bool down, up, right, left;
 
-        public Solid()
+        public Solid(double xi, double yi, double width, double height)
         {
-            Xi = GetLeft(this);
-            Yi = GetTop(this);
-            Xf = GetLeft(this) + Width;
-            Yf = GetTop(this) + Height;
+            Xi = xi;
+            Yi = yi;
+            Width = width;
+            Height = height;
             Collision.solids.Add(this);
         }
     }
 
+    public enum Direction { down, right, left }
+
     public class DynamicSolid : Solid
     {
-        public delegate void MoveHandler(DynamicSolid sender, EventArgs args);
+        public delegate void MoveHandler(DynamicSolid sender);
         public event MoveHandler Moved;
 
-        public List<VirtualKey> lockedKeys = new List<VirtualKey>();
+        //public List<VirtualKey> lockedKeys = new List<VirtualKey>();
+        public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
+            { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
 
-        public sbyte horizontalDirection = 0;
         public double speed;
-        public double HorizontalSpeed;
-        public double VerticalSpeed;
-        public const double a = 0.1;
-        public bool moveUp, moveRight, moveLeft;
+        public const double jumpSpeed = 0.5;
+        public double verticalSpeed;
+        public double horizontalSpeed;
+        public sbyte horizontalDirection = 0;
+        public const double g = 0.001;
+        public bool jump, moveRight, moveLeft;
 
-        public DynamicSolid(double speed)
+        public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
         {
-            this.speed = speed;
+            this.speed = 0.5;
             Moved += Collision.OnMoved;
-            Window.Current.CoreWindow.KeyUp += Move;
-            //time = DateTime.Now;
+            horizontalSpeed = speed / 20;
+            Window.Current.CoreWindow.KeyDown += Move;
+            Window.Current.CoreWindow.KeyUp += Stop;
             Task.Run(Update);
         }
 
         public bool alive = true;
-        public void Update()//atualiza a td instante
+        public async void Update()//atualiza a td instante
         {
             while (alive)
             {
-                //TimeSpan secs = time - DateTime.Now;
-                if (lockedKeys.Contains(VirtualKey.Down))//se ha chao
+                if (freeDirections[Direction.down]) ApplyGravity();//se n ha chao
+                else verticalSpeed = 0;
+                if (moveRight) horizontalDirection = 1;//se esta se movimentando para direita
+                else if (moveLeft) horizontalDirection = -1;//se esta se movimentando para esquerda
+                else horizontalDirection = 0;//se n quer se mover pros lados
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    VerticalSpeed = 0;
-                    moveUp = false;
-                }
-                else ApplyGravity();
-                if (moveUp) VerticalSpeed = speed;
-                if (moveRight) horizontalDirection = 1;
-                else if (moveLeft) horizontalDirection = -1;
-                else horizontalDirection = 0;
-                Translate(Direction.vertical);
-                Translate(Direction.horizontal);
+                    Translate(Axis.vertical);
+                    Translate(Axis.horizontal);
+                });
             }
         }
 
-        public void ApplyGravity()//aplica a gravidade
+        public void ApplyGravity() => verticalSpeed = verticalSpeed < 5 ? verticalSpeed - g : 5;//aplica a gravidade
+
+        public void Stop(CoreWindow sender, KeyEventArgs e)//ouve o comando do usuario de parar
         {
-            VerticalSpeed -= a;
+            switch (e.VirtualKey)
+            {
+                case VirtualKey.Up: case VirtualKey.W://usuario soltou o pular
+                    jump = false;
+                    break;
+                case VirtualKey.Right: case VirtualKey.D://usuario soltou a direita
+                    moveRight = false;
+                    break;
+                case VirtualKey.Left: case VirtualKey.A://usuario soltou a esquerda
+                    moveLeft = false;
+                    break;
+            }
         }
 
         public void Move(CoreWindow sender, KeyEventArgs e)//ouve o comando do usuario de mover
         {
-            if (lockedKeys.Contains(e.VirtualKey)) return;
-            if (!moveUp && (e.VirtualKey == VirtualKey.Up || e.VirtualKey == VirtualKey.W)) moveUp = true;
-            if (e.VirtualKey == VirtualKey.Right || e.VirtualKey == VirtualKey.D)
+            switch (e.VirtualKey)
             {
-                moveRight = true;
-                moveLeft = false;
+                case VirtualKey.Up: case VirtualKey.W://usuario quer pular
+                    if (!freeDirections[Direction.down]) verticalSpeed = jumpSpeed;
+                    break;
+                case VirtualKey.Right: case VirtualKey.D://usuario quer mover p direita
+                    moveRight = freeDirections[Direction.right];
+                    break;
+                case VirtualKey.Left: case VirtualKey.A://usuario quer mover p esquerda
+                    moveLeft = freeDirections[Direction.left];
+                    break;
             }
-            else if (e.VirtualKey == VirtualKey.Left || e.VirtualKey == VirtualKey.A)
-            {
-                moveRight = false;
-                moveLeft = true;
-            }
-            else moveRight = moveLeft = false;
         }
 
-        public void Translate(Direction direction)//translada o DynamicSolid
+        public void Translate(Axis direction)//translada o DynamicSolid
         {
-            if (direction == Direction.vertical)
-                SetTop(this, GetTop(this) - VerticalSpeed);
-            if (direction == Direction.horizontal)
-                SetLeft(this, GetLeft(this) + horizontalDirection * HorizontalSpeed);
-            if (VerticalSpeed != 0 || HorizontalSpeed != 0) OnMoved();//chama o evento
+            if (direction == Axis.vertical) Yi -= verticalSpeed;
+            if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed;
+            if (verticalSpeed != 0 || horizontalSpeed != 0) OnMoved();//chama o evento
         }
 
-        public virtual void OnMoved() => Moved?.Invoke(this, EventArgs.Empty);//metodo q dispara o event Moved
+        public void OnMoved() => Moved?.Invoke(this);//metodo q dispara o event Moved
     }
 }
