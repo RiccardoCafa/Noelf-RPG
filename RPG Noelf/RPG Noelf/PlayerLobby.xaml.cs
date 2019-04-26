@@ -1,4 +1,6 @@
 ﻿using RPG_Noelf.Assets;
+using RPG_Noelf.Assets.Scripts;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,13 +29,10 @@ namespace RPG_Noelf
     /// </summary>
     public sealed partial class PlayerLobby : Page
     {
-        List<PlayerParams> playerParams = new List<PlayerParams>();
         List<Image> slots = new List<Image>();
 
-        public Dictionary<string, Image> PlayerImages;
-        public Dictionary<string, Image> ClothesImages;
-
-        public List<Dictionary<string, string>> playerData = new List<Dictionary<string, string>>();
+        public Dictionary<int, PlayerParams> playerParams = new Dictionary<int, PlayerParams>(3);
+        public List<Dictionary<string, string>> playerData = new List<Dictionary<string, string>>(3);
 
         int slotSelected = -1;
 
@@ -55,34 +54,6 @@ namespace RPG_Noelf
 
             LoadCharacters("root");
 
-            PlayerImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xPlayerArm_d0 },
-                {"armsd1", xPlayerArm_d1 },
-                {"armse0", xPlayerArm_e0 },
-                {"armse1", xPlayerArm_e1 },
-                {"body", xPlayerBody },
-                {"head", xPlayerHead },
-                {"eye", xPlayerEye },
-                {"hair", xPlayerHair },
-                {"legsd0", xPlayerLeg_d0 },
-                {"legsd1", xPlayerLeg_d1 },
-                {"legse0", xPlayerLeg_e0 },
-                {"legse1", xPlayerLeg_e1 }
-            };
-            ClothesImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xClothArm_d0 },
-                {"armsd1", xClothArm_d1 },
-                {"armse0", xClothArm_e0 },
-                {"armse1", xClothArm_e1 },
-                {"body", xClothBody },
-                {"legsd0", xClothLeg_d0 },
-                {"legsd1", xClothLeg_d1 },
-                {"legse0", xClothLeg_e0 },
-                {"legse1", xClothLeg_e1 }
-            };
-
         }
 
         private void SlotPressed(object sender, PointerRoutedEventArgs e)
@@ -92,7 +63,7 @@ namespace RPG_Noelf
                 Image me = (Image)sender;
                 var slot = me.Name.Split("_");
                 int.TryParse(slot[1], out int val);
-                SelectSlot(val);
+                SelectSlot(val - 1);
             }
         }
 
@@ -106,8 +77,8 @@ namespace RPG_Noelf
                     string path = Path.Combine(Path.GetTempPath() + @"/Noelf/slot_" + i);
                     if (File.Exists(path))
                     {
-                        Debug.WriteLine("Slot " + i + " found");
                         playerData.Add(new Dictionary<string, string>());
+                        playerData[i].Add("slot", i.ToString());
                         using(StreamReader rw = File.OpenText(path))
                         {
                             string r = "";
@@ -121,17 +92,15 @@ namespace RPG_Noelf
                 }
             } else
             {
-                // Get from text
+                // Get from database
 
             }
 
-            for(int i = 0; i < 3; i++)
+            foreach(Dictionary<string, string> data in playerData)
             {
-                if(playerData.Count > i)
-                {
-                    LoadPlayerImage(playerData[i].Values.ElementAt(0), i);
-                    playerParams.Add(new PlayerParams());
-                }
+                int.TryParse(data["slot"], out int slot);
+                LoadPlayerImage(playerData[slot].Values.ElementAt(1), slot);
+                playerParams.Add(slot, new PlayerParams(id: playerData[slot].FirstOrDefault(x => x.Key == "id").Value));
             }
         }
 
@@ -149,10 +118,10 @@ namespace RPG_Noelf
         {
             if (slotSelected != -1)
             {
-                if(playerParams.Count > slotSelected && playerParams[slotSelected] != null)
+                if(playerParams.Keys.Contains(slotSelected))
                 {
                     // Tem Dados Salvos nesse slot
-                    
+                    LoadGamePage(playerParams[slotSelected]);
                 } else
                 {
                     // Criar outro personagem
@@ -161,6 +130,19 @@ namespace RPG_Noelf
                 }
             }
             else return;
+        }
+
+        private void LoadPlayerImage(string tid, int slot)
+        {
+            Player player = new Player(tid);
+            player.Spawn(35, 33);
+            switch (slot)
+            {
+                case 0: SlotImage_1.Children.Add(player.box); EmptySlot1.Visibility = Visibility.Collapsed; break;
+                case 1: SlotImage_2.Children.Add(player.box); EmptySlot2.Visibility = Visibility.Collapsed; break;
+                case 2: SlotImage_3.Children.Add(player.box); EmptySlot3.Visibility = Visibility.Collapsed; break;
+            }
+            (player.box as DynamicSolid).alive = false;
         }
 
         private async void LoadCharacterCreationPage(object param)
@@ -189,81 +171,27 @@ namespace RPG_Noelf
                 var frame = new Frame();
                 frame.Navigate(typeof(Game), param);
                 Window.Current.Content = frame;
-
                 viewId = ApplicationView.GetForCurrentView().Id;
-
                 Window.Current.Activate();
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
         }
 
-        private async void LoadPlayerImage(string tid, int slot)
-        {
-            /* ID: rcxkysh
-             *  0 r -> raça  0-2
-             *  1 c -> classe  0-2
-             *  2 x -> sexo  0,1
-             *  3 k -> cor de pele  0-2
-             *  4 y -> cor do olho  0-2
-             *  5 s -> tipo de cabelo  0-3
-             *  6 h -> cor de cabelo  0-2
-             *  
-             *  clothes: xc.png
-             *  player/head,body,arms,legs: rxk___.png
-             *  player/eye: rx_y__.png
-             *  player/hair: rx__sh.png
-             */
-            string playerPath = @"/Assets/Images/player/";
-
-            // Fazer o corpo
-            string bodyPath = playerPath + @"player/";
-            xPlayerLeg_d0.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "legs/d/0/" + tid[0] + tid[2] + tid[3] + "___.png"));
-            xPlayerLeg_d1.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "legs/d/1/" + tid[0] + tid[2] + tid[3] + "___.png"));
-            
-            xPlayerLeg_e0.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "legs/e/0/" + tid[0] + tid[2] + tid[3] + "___.png"));
-            xPlayerLeg_e1.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "legs/e/1/" + tid[0] + tid[2] + tid[3] + "___.png"));
-
-            xPlayerArm_e0.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "arms/e/0/" + tid[0] + tid[2] + tid[3] + "___.png"));
-            xPlayerArm_e1.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "arms/e/1/" + tid[0] + tid[2] + tid[3] + "___.png"));
-
-            xPlayerArm_d0.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "arms/d/0/" + tid[0] + tid[2] + tid[3] + "___.png"));
-            xPlayerArm_d1.Source = new BitmapImage(new Uri("ms-appx://" + bodyPath + "arms/d/1/" + tid[0] + tid[2] + tid[3] + "___.png"));
-
-            RenderTargetBitmap render = null;
-            switch (slot)
-            {
-                case 0:
-                    await GeradorFoto.MergeImages(PlayerCanvas, render, (int) SlotImage_1.Width, (int) SlotImage_1.Height);
-                    SlotImage_1.Source = render;
-                    EmptySlot1.Visibility = Visibility.Collapsed;
-                    break;
-
-                case 1:
-                    await GeradorFoto.MergeImages(PlayerCanvas, render, (int)SlotImage_2.Width, (int)SlotImage_2.Height);
-                    SlotImage_2.Source = render;
-                    EmptySlot2.Visibility = Visibility.Collapsed;
-                    break;
-
-                case 2:
-                    await GeradorFoto.MergeImages(PlayerCanvas, render, (int)SlotImage_3.Width, (int)SlotImage_3.Height);
-                    SlotImage_3.Source = render;
-                    EmptySlot3.Visibility = Visibility.Collapsed;
-                    break;
-            }
-                
-            
-            //player/arms/e/1/000___.png"
-        }
     }
 
     public class PlayerParams
     {
+        public string idPlayer { get; set; }
 
+        public PlayerParams(string id)
+        {
+            idPlayer = id;
+        }
     }
 
     public class NewPlayer
     {
-        int slot;
+        public int slot { get; set; }
 
         public NewPlayer(int slot)
         {

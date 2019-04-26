@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.General;
+﻿using RPG_Noelf.Assets.Scripts;
+using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,18 @@ namespace RPG_Noelf
             CustomPlayer = new Player("0000000");
             CustomPlayer.Spawn(xPlayerSpawn, yPlayerSpawn);
             PlayerCanvas.Children.Add(CustomPlayer.box);
+            (CustomPlayer.box as DynamicSolid).alive = false; 
         }
-        
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if(e.Parameter is NewPlayer)
+            {
+                selectedSlot = (e.Parameter as NewPlayer).slot;
+            }
+        }
+
         private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
         {
             int.TryParse(current.ToString(), out int x);
