@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
         }
 
-        public override bool TurnBasicSkill(Ent player)
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
         {
             return false;
         }

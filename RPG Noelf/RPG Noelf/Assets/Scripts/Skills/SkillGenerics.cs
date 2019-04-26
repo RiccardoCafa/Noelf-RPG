@@ -29,6 +29,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public Element tipoatributo { get; set; }
         public double Buff { get; set; }
         public double Timer { get; set; }
+        public double CountTime;
+        public double CountBuffTime;
         public BuffDebuffTypes Buffer { get; set; }
         public bool Useabilite = true;
         public bool Usetroca = false;

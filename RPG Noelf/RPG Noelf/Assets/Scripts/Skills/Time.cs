@@ -12,8 +12,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         //fazer isso dps
         List<SkillGenerics> skilltime = new List<SkillGenerics>();
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private double RealTime;
         public Time(SkillGenerics skill)
         {
+            skill.CountTime = RealTime + skill.cooldown;
+            skill.CountBuffTime = RealTime + skill.Timer;
             skilltime.Add(skill);
             DispatcherSetup();
         }
@@ -25,18 +28,18 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         private void Timer(object sender, object e)
         {
+            
             foreach (SkillGenerics habilite in skilltime)
             {
-                double cool = habilite.cooldown;
-                if (cool == 0)
+                if (habilite.CountTime == RealTime)
                 {
-                    habilite.cooldown = cool;
+                    habilite.CountTime = 0;
                     habilite.Useabilite = true;
                     skilltime.Remove(habilite);
                 }
                 else
                 {
-                    cool--;
+                    RealTime++;
                 }
                 if (habilite.tipobuff == SkillTypeBuff.normal)
                 {
@@ -44,16 +47,16 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 }
                 else
                 {
-                    double efect = habilite.Timer;
-                    if(efect == 0)
+                    if(habilite.CountBuffTime == RealTime)
                     {
                         habilite.Usetroca = true;
-                        habilite.Timer = efect;
+                        habilite.CountBuffTime = 0;
                     }
                     else
                     {
-                        efect--;
+                        RealTime++;
                     }
+                    RealTime++;
                 }
             }
         }
