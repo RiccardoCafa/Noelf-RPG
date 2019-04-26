@@ -20,9 +20,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             xScene.Children.Add(layers[1]);
             xScene.Children.Add(layers[0]);
             scene = new Scene(xScene);
-            layers[2].Source = new BitmapImage(new Uri(MainPage.obj.BaseUri, "/Assets/Images/layer3.png"));
-            layers[1].Source = new BitmapImage(new Uri(MainPage.obj.BaseUri, "/Assets/Images/layer2.png"));
-            layers[0].Source = new BitmapImage(new Uri(MainPage.obj.BaseUri, "/Assets/Images/layer1.png"));
+            layers[2].Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/layer3.png"));
+            layers[1].Source = new BitmapImage(new Uri("ms-appx:/// Assets/Images/layer2.png"));
+            layers[0].Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/layer1.png"));
             Canvas.SetTop(layers[2], 100);
             Canvas.SetTop(layers[1], 320);
             Canvas.SetTop(layers[0], 400);

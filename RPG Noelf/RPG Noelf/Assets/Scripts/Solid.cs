@@ -69,7 +69,7 @@ namespace RPG_Noelf.Assets.Scripts
             Moved += Collision.OnMoved;
             horizontalSpeed = speed / 20;
             DateTime time = DateTime.Now;
-            Task.Run(Update);
+            new Task(Update);
         }
 
         public bool alive = true;

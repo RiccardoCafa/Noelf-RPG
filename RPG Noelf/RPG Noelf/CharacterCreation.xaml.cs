@@ -67,7 +67,7 @@ namespace RPG_Noelf
                 {"legse0", xClothLeg_e0 },
                 {"legse1", xClothLeg_e1 }
             };
-            CustomPlayer = new Player("0000000", PlayerImages, ClothesImages);
+            CustomPlayer = new Player("0000000");
         }
         
         private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
@@ -87,7 +87,7 @@ namespace RPG_Noelf
         }
         private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
         {
-            string id = CustomPlayer.Id;
+            /*string id = CustomPlayer.Id;
             if (sender == xEsqRace ||
                 sender == xDirRace) id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
             else if (sender == xEsqClass ||
@@ -104,7 +104,7 @@ namespace RPG_Noelf
                      sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
             CustomPlayer = new Player(id, PlayerImages, ClothesImages);
             CustomPlayer.Status(xPlayerStatus);
-            CodigoChar.Text = CustomPlayer.Id;
+            CodigoChar.Text = CustomPlayer.Id;*/
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)

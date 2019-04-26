@@ -55,7 +55,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 Background = new SolidColorBrush(Color.FromArgb(0, 150, 75, 0)),
                 Width = 30, Height = 30
             };
-            MainPage.ActualChunck.Children.Add(hit);
+            Game.ActualChunck.Children.Add(hit);
             
         }
     }
