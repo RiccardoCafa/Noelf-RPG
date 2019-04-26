@@ -83,7 +83,7 @@ namespace RPG_Noelf
             inventarioWindow = InventarioWindow;
             TheScene = xScene;
             
-            Application.Current.DebugSettings.EnableFrameRateCounter = true;
+            //Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
             Start.Start();
@@ -820,25 +820,31 @@ namespace RPG_Noelf
         {
             ShopWindow.Visibility = Visibility.Collapsed;
         }
-       public void CloseQuest()
+
+
+        #region Quest
+        public void CloseQuest()
         {
             QuestWindow.Visibility = Visibility.Collapsed;
         }
         public void OpenQuest()
         {
-            /*GameManager.questerTarget.myQuest = QuestList.allquests[1];
+
+            GameManager.questerTarget.myQuest = QuestList.allquests[GameManager.questerTarget.GetQuestID()];
             QuestTitulo.Text = GameManager.questerTarget.myQuest.name;
             QuestDescription.Text = GameManager.questerTarget.myQuest.Description;
             QuestRewards.Text = GameManager.questerTarget.myQuest.RewardDescription;
             QuestWindow.Visibility = Visibility.Visible;
-            */
+            
+            /*
             QuestTitulo.Text = QuestList.allquests[1].name;
             QuestDescription.Text = QuestList.allquests[1].Description;
             QuestRewards.Text = QuestList.allquests[1].RewardDescription;
             QuestWindow.Visibility = Visibility.Visible;
+            */
 
         }
-
+        #endregion
 
         private void SetEventForShopItem()
         {
