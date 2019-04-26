@@ -1,24 +1,21 @@
 ﻿using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.ApplicationModel.Core;
 
 namespace RPG_Noelf.Assets.Scripts
 {
     public enum Axis { horizontal, vertical }
+    public enum Direction { up, down, right, left }
 
-    public class Solid : Canvas
+    public class Solid : Canvas//solido colidivel
     {
-        public DateTime time;
-
         protected double xi;
         public double Xi {
             get { return xi; }
@@ -49,32 +46,29 @@ namespace RPG_Noelf.Assets.Scripts
         }
     }
 
-    public enum Direction { down, right, left }
-
-    public class DynamicSolid : Solid
+    public class DynamicSolid : Solid//solido q se movimenta
     {
         public delegate void MoveHandler(DynamicSolid sender);
         public event MoveHandler Moved;
 
-        //public List<VirtualKey> lockedKeys = new List<VirtualKey>();
         public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
             { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
 
         public double speed;
-        public const double jumpSpeed = 0.5;
+        public double jumpSpeed;
         public double verticalSpeed;
         public double horizontalSpeed;
         public sbyte horizontalDirection = 0;
         public const double g = 0.001;
-        public bool jump, moveRight, moveLeft;
+        public bool moveRight, moveLeft;
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
         {
-            this.speed = 0.5;
+            speed = 4;
+            jumpSpeed = speed / 7;
             Moved += Collision.OnMoved;
             horizontalSpeed = speed / 20;
-            Window.Current.CoreWindow.KeyDown += Move;
-            Window.Current.CoreWindow.KeyUp += Stop;
+            DateTime time = DateTime.Now;
             Task.Run(Update);
         }
 
@@ -83,6 +77,7 @@ namespace RPG_Noelf.Assets.Scripts
         {
             while (alive)
             {
+                //Thread.Sleep(5);
                 if (freeDirections[Direction.down]) ApplyGravity();//se n ha chao
                 else verticalSpeed = 0;
                 if (moveRight) horizontalDirection = 1;//se esta se movimentando para direita
@@ -96,22 +91,25 @@ namespace RPG_Noelf.Assets.Scripts
             }
         }
 
-        public void ApplyGravity() => verticalSpeed = verticalSpeed < 5 ? verticalSpeed - g : 5;//aplica a gravidade
-
-        public void Stop(CoreWindow sender, KeyEventArgs e)//ouve o comando do usuario de parar
+        public void Translate(Axis direction)//translada o DynamicSolid
         {
-            switch (e.VirtualKey)
-            {
-                case VirtualKey.Up: case VirtualKey.W://usuario soltou o pular
-                    jump = false;
-                    break;
-                case VirtualKey.Right: case VirtualKey.D://usuario soltou a direita
-                    moveRight = false;
-                    break;
-                case VirtualKey.Left: case VirtualKey.A://usuario soltou a esquerda
-                    moveLeft = false;
-                    break;
-            }
+            if (direction == Axis.vertical) Yi -= verticalSpeed;
+            if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed;
+            if (verticalSpeed != 0 || horizontalDirection != 0) OnMoved();//chama o evento
+        }
+
+        public void ApplyGravity() => verticalSpeed = verticalSpeed - g;//aplica a gravidade
+
+        public void OnMoved() => Moved?.Invoke(this);//metodo q dispara o event Moved
+    }
+
+    public class PlayableSolid : DynamicSolid//solido controlavel
+    {
+        public PlayableSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height, speed)
+        {
+            Moved += Camera.OnMoved;
+            Window.Current.CoreWindow.KeyDown += Move;
+            Window.Current.CoreWindow.KeyUp += Stop;
         }
 
         public void Move(CoreWindow sender, KeyEventArgs e)//ouve o comando do usuario de mover
@@ -130,13 +128,62 @@ namespace RPG_Noelf.Assets.Scripts
             }
         }
 
-        public void Translate(Axis direction)//translada o DynamicSolid
+        public void Stop(CoreWindow sender, KeyEventArgs e)//ouve o comando do usuario de parar
         {
-            if (direction == Axis.vertical) Yi -= verticalSpeed;
-            if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed;
-            if (verticalSpeed != 0 || horizontalSpeed != 0) OnMoved();//chama o evento
+            switch (e.VirtualKey)
+            {
+                case VirtualKey.Right: case VirtualKey.D://usuario soltou a direita
+                    moveRight = false;
+                    break;
+                case VirtualKey.Left: case VirtualKey.A://usuario soltou a esquerda
+                    moveLeft = false;
+                    break;
+            }
+        }
+    }
+
+    public class LimitArgs
+    {
+        public Direction limit;
+        public double speed;
+
+        public LimitArgs(Direction limit, double speed)
+        {
+            this.limit = limit;
+            this.speed = speed;
+        }
+    }
+
+    public static class Camera
+    {
+        private const double boundX = 1366, boundY = 768;
+        public delegate void ReachedLimitHandler(LimitArgs args);
+        public static event ReachedLimitHandler ReachedLimit;
+
+        public static void OnMoved(DynamicSolid solidMoving)
+        {
+            //if (solidMoving.Xi <= 350)
+            //{
+            //    OnReachedLimit(new LimitArgs(Direction.left, solidMoving.speed));
+            //    solidMoving.freeDirections[Direction.left] = false;
+            //}
+            //if (solidMoving.Xf >= boundX - 350)
+            //{
+            //    OnReachedLimit(new LimitArgs(Direction.right, solidMoving.speed));
+            //    solidMoving.freeDirections[Direction.right] = false;
+            //}
+            //if (solidMoving.Yi <= 300)
+            //{
+            //    OnReachedLimit(new LimitArgs(Direction.up, solidMoving.speed));
+            //    solidMoving.freeDirections[Direction.up] = false;
+            //}
+            //if (solidMoving.Yi >= boundY - 200)
+            //{
+            //    OnReachedLimit(new LimitArgs(Direction.down, solidMoving.speed));
+            //    solidMoving.freeDirections[Direction.down] = false;
+            //}
         }
 
-        public void OnMoved() => Moved?.Invoke(this);//metodo q dispara o event Moved
+        public static void OnReachedLimit(LimitArgs args) => ReachedLimit?.Invoke(args);//metodo q dispara o event ReachedLimit
     }
 }

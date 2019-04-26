@@ -79,62 +79,62 @@ namespace RPG_Noelf
             Start = new Thread(start);
             Start.Start();
 
-            PlayerImagesTest = new List<Image>()
-            {
-                xPlayerArm_d0,
-                xPlayerArm_d1,
-                xPlayerArm_e0,
-                xPlayerArm_e1,
-                xPlayerBody,
-                xPlayerHead,
-                xPlayerEye,
-                xPlayerHair,
-                xPlayerLeg_d0,
-                xPlayerLeg_d1,
-                xPlayerLeg_e0,
-                xPlayerLeg_e1
-            };//(temporario)
+            //PlayerImagesTest = new List<Image>()
+            //{
+            //    xPlayerArm_d0,
+            //    xPlayerArm_d1,
+            //    xPlayerArm_e0,
+            //    xPlayerArm_e1,
+            //    xPlayerBody,
+            //    xPlayerHead,
+            //    xPlayerEye,
+            //    xPlayerHair,
+            //    xPlayerLeg_d0,
+            //    xPlayerLeg_d1,
+            //    xPlayerLeg_e0,
+            //    xPlayerLeg_e1
+            //};//(temporario)
 
-            PlayerImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xPlayerArm_d0 },
-                {"armsd1", xPlayerArm_d1 },
-                {"armse0", xPlayerArm_e0 },
-                {"armse1", xPlayerArm_e1 },
-                {"body", xPlayerBody },
-                {"head", xPlayerHead },
-                {"eye", xPlayerEye },
-                {"hair", xPlayerHair },
-                {"legsd0", xPlayerLeg_d0 },
-                {"legsd1", xPlayerLeg_d1 },
-                {"legse0", xPlayerLeg_e0 },
-                {"legse1", xPlayerLeg_e1 }
-            };
-            ClothesImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xClothArm_d0 },
-                {"armsd1", xClothArm_d1 },
-                {"armse0", xClothArm_e0 },
-                {"armse1", xClothArm_e1 },
-                {"body", xClothBody },
-                {"legsd0", xClothLeg_d0 },
-                {"legsd1", xClothLeg_d1 },
-                {"legse0", xClothLeg_e0 },
-                {"legse1", xClothLeg_e1 }
-            };
-            MobImages = new Dictionary<string, Image>()
-            {
-                { "head",xMobHead },
-                { "body",xMobBody },
-                { "armsd0", xMobArm_d0 },
-                { "armsd1", xMobArm_d1 },
-                { "armse0", xMobArm_e0 },
-                { "armse1", xMobArm_e1 },
-                { "legsd0", xMobLeg_d0 },
-                { "legsd1", xMobLeg_d1 },
-                { "legse0", xMobLeg_e0 },
-                { "legse1", xMobLeg_e1 }
-            };
+            //PlayerImages = new Dictionary<string, Image>()
+            //{
+            //    {"armsd0", xPlayerArm_d0 },
+            //    {"armsd1", xPlayerArm_d1 },
+            //    {"armse0", xPlayerArm_e0 },
+            //    {"armse1", xPlayerArm_e1 },
+            //    {"body", xPlayerBody },
+            //    {"head", xPlayerHead },
+            //    {"eye", xPlayerEye },
+            //    {"hair", xPlayerHair },
+            //    {"legsd0", xPlayerLeg_d0 },
+            //    {"legsd1", xPlayerLeg_d1 },
+            //    {"legse0", xPlayerLeg_e0 },
+            //    {"legse1", xPlayerLeg_e1 }
+            //};
+            //ClothesImages = new Dictionary<string, Image>()
+            //{
+            //    {"armsd0", xClothArm_d0 },
+            //    {"armsd1", xClothArm_d1 },
+            //    {"armse0", xClothArm_e0 },
+            //    {"armse1", xClothArm_e1 },
+            //    {"body", xClothBody },
+            //    {"legsd0", xClothLeg_d0 },
+            //    {"legsd1", xClothLeg_d1 },
+            //    {"legse0", xClothLeg_e0 },
+            //    {"legse1", xClothLeg_e1 }
+            //};
+            //MobImages = new Dictionary<string, Image>()
+            //{
+            //    { "head",xMobHead },
+            //    { "body",xMobBody },
+            //    { "armsd0", xMobArm_d0 },
+            //    { "armsd1", xMobArm_d1 },
+            //    { "armse0", xMobArm_e0 },
+            //    { "armse1", xMobArm_e1 },
+            //    { "legsd0", xMobLeg_d0 },
+            //    { "legsd1", xMobLeg_d1 },
+            //    { "legse0", xMobLeg_e0 },
+            //    { "legse1", xMobLeg_e1 }
+            //};
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -152,18 +152,14 @@ namespace RPG_Noelf
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                mobStatus = xMobStatus;
+                //mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
-                Scene scene = new Scene(xScene);//criaçao do cenario
-
-                DynamicSolid solid = new DynamicSolid(600, 30, 50, 50, 10);
-                solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                TheScene.Children.Add(solid);
+                LevelScene scene = new LevelScene(xScene);//criaçao do cenario
 
                 CreatePlayer();
                 CreateMob();
                 GameManager.InitializeGame();
-                GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
+                //GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdatePlayerInfoEvent;
@@ -233,26 +229,27 @@ namespace RPG_Noelf
         #region Interface Elements Creation
         public void CreateMob()
         {
-            GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 2));//criaçao do mob
-            GameManager.mobTarget.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
-            GameManager.mobTarget.UpdateBlocks(xScene);
+            GameManager.mob = new Mob(level: 2);
+            GameManager.mob.Spawn(30, 30);
+            TheScene.Children.Add(GameManager.mob.box);
+            //GameManager.mob.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
+            //GameManager.mob.Status(xMobStatus);
+
+            //GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 2));//criaçao do mob
+            //GameManager.mobTarget.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
+            //GameManager.mobTarget.UpdateBlocks(xScene);
         }
         public void CreatePlayer()
         {
             if(PlayerCreated != null)
             {
-                PlayerCreated.SetClothes(ClothesImages);
-                PlayerCreated.SetPlayer(PlayerImages);
-                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, PlayerCreated, PlayerCanvas);//criaçao do player
-
+                GameManager.player = new Player(PlayerCreated.Id);
             } else
             {
-                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages), PlayerCanvas);//criaçao do player
+                GameManager.player = new Player("0000000");
             }
-            GameManager.characterPlayer.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
-            GameManager.characterPlayer.UpdateBlocks(xScene);
-            GameManager.player = GameManager.characterPlayer.Player;
-            GameManager.players.Add(GameManager.characterPlayer);
+            GameManager.player.Spawn(300, 30);
+            TheScene.Children.Add(GameManager.player.box);
         }
         public Canvas CreateCharacterNPC()
         {
@@ -1165,12 +1162,47 @@ namespace RPG_Noelf
 
         private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
         {
-            int level;
-            int.TryParse(xLevelBox.Text, out level);
-            GameManager.mobTarget.Mob = new Mob(MobImages, level);
-            GameManager.mobTarget.Mob.Status(xMobStatus);
+            //int level;
+            //int.TryParse(xLevelBox.Text, out level);
+            //GameManager.mobTarget.Mob = new Mob(level);
+            //GameManager.mobTarget.Mob.Status(xMobStatus);
         }
         
+        //private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
+        //{
+        //    int.TryParse(current.ToString(), out int x);
+        //    if (isNext)
+        //    {
+        //        if (x == range - 1) x = 0;
+        //        else x++;
+        //    }
+        //    else
+        //    {
+        //        if (x == 0) x = range - 1;
+        //        else x--;
+        //    }
+        //    return x.ToString();
+        //}
+        //private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
+        //{
+        //    string id = GameManager.characterPlayer.Player.Id;
+        //    if (sender == xEsqRace ||
+        //        sender == xDirRace) id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
+        //    else if (sender == xEsqClass ||
+        //             sender == xDirClass) id = id.Substring(0, 1) + ChangeCustom(id[1], 3, sender == xDirClass) + id.Substring(2, 5);
+        //    else if (sender == xEsqSex ||
+        //             sender == xDirSex) id = id.Substring(0, 2) + ChangeCustom(id[2], 2, sender == xDirSex) + id.Substring(3, 4);
+        //    else if (sender == xEsqSkinTone ||
+        //             sender == xDirSkinTone) id = id.Substring(0, 3) + ChangeCustom(id[3], 3, sender == xDirSkinTone) + id.Substring(4, 3);
+        //    else if (sender == xEsqEyeColor ||
+        //             sender == xDirEyeColor) id = id.Substring(0, 4) + ChangeCustom(id[4], 3, sender == xDirEyeColor) + id.Substring(5, 2);
+        //    else if (sender == xEsqHairStyle ||
+        //             sender == xDirHairStyle) id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
+        //    else if (sender == xEsqHairColor ||
+        //             sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
+        //    GameManager.characterPlayer.Player = new Player(id);
+        //    GameManager.characterPlayer.Player.Status(xPlayerStatus);
+        //}
 
         private void OfferItemButton(object sender, RoutedEventArgs e)
         {

@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Controls;
+using static RPG_Noelf.Assets.Scripts.Solid;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
     public static class Collision
     {
         public static List<Solid> solids = new List<Solid>();
-        private const double margin = 5;
+        private const double margin = 10;
         public static void OnMoved(DynamicSolid solidMoving)//sempre q um DynamicSolid se mover, verifica-se sua colisao com os outros Solid
         {
             solidMoving.freeDirections[Direction.down] =

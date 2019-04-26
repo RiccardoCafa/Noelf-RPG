@@ -28,6 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static DayNight dayNight;
 
         // Mobs
+        public static Mob mob;
         public static CharacterMob mobTarget;
 
         // NPC's

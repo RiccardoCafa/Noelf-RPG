@@ -37,7 +37,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Str += (int)(1 + mob.Level * 0.25);
+            mob.Str += (int)(1 + mob.level.actuallevel * 0.25);
             mob.Vulnerable.Add(Element.Ice);
         }
     }
@@ -46,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Spd += (int)(10 + mob.Level * 1.2);
+            mob.Spd += (int)(10 + mob.level.actuallevel * 1.2);
         }
     }
 
@@ -54,8 +54,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Mnd += (int)(1 + mob.Level * 0.25);
-            mob.Spd = (int)(1 + mob.Level * 0.05);
+            mob.Mnd += (int)(1 + mob.level.actuallevel * 0.25);
+            mob.Spd = (int)(1 + mob.level.actuallevel * 0.05);
         }
     }
 
@@ -63,7 +63,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Con += (int)(1 + mob.Level * 0.25);
+            mob.Con += (int)(1 + mob.level.actuallevel * 0.25);
             mob.Meek = true;
         }
     }
@@ -72,7 +72,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Dex += (int)(1 + mob.Level * 0.25);
+            mob.Dex += (int)(1 + mob.level.actuallevel * 0.25);
             if (mob.Resistance.Contains(Element.Common)) mob.Resistance.Remove(Element.Common);
             else mob.Vulnerable.Add(Element.Common);
         }
