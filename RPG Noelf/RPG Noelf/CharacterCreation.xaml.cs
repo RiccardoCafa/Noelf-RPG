@@ -2,6 +2,7 @@
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,39 +32,19 @@ namespace RPG_Noelf
         public Dictionary<string, Image> PlayerImages;
         public Dictionary<string, Image> ClothesImages;
         Player CustomPlayer;
+        int selectedSlot;
+
+        const double xPlayerSpawn = 20;
+        const double yPlayerSpawn = 20;
 
         public CharacterCreation()
         {
             this.InitializeComponent();
-            
-            PlayerImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xPlayerArm_d0 },
-                {"armsd1", xPlayerArm_d1 },
-                {"armse0", xPlayerArm_e0 },
-                {"armse1", xPlayerArm_e1 },
-                {"body", xPlayerBody },
-                {"head", xPlayerHead },
-                {"eye", xPlayerEye },
-                {"hair", xPlayerHair },
-                {"legsd0", xPlayerLeg_d0 },
-                {"legsd1", xPlayerLeg_d1 },
-                {"legse0", xPlayerLeg_e0 },
-                {"legse1", xPlayerLeg_e1 }
-            };
-            ClothesImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xClothArm_d0 },
-                {"armsd1", xClothArm_d1 },
-                {"armse0", xClothArm_e0 },
-                {"armse1", xClothArm_e1 },
-                {"body", xClothBody },
-                {"legsd0", xClothLeg_d0 },
-                {"legsd1", xClothLeg_d1 },
-                {"legse0", xClothLeg_e0 },
-                {"legse1", xClothLeg_e1 }
-            };
-            CustomPlayer = new Player("0000000", PlayerImages, ClothesImages);
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            CustomPlayer = new Player("0000000");
+            CustomPlayer.Spawn(xPlayerSpawn, yPlayerSpawn);
+            PlayerCanvas.Children.Add(CustomPlayer.box);
         }
         
         private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
@@ -98,9 +79,15 @@ namespace RPG_Noelf
                      sender == xDirHairStyle) id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
             else if (sender == xEsqHairColor ||
                      sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
-            CustomPlayer = new Player(id, PlayerImages, ClothesImages);
-            CustomPlayer.Status(xPlayerStatus);
+            AppearPlayer(id);
             CodigoChar.Text = CustomPlayer.Id;
+        }
+
+        private void AppearPlayer(string id)
+        {
+            CustomPlayer.Id = id;
+            CustomPlayer.SetPlayer(CustomPlayer.playerImages);
+            CustomPlayer.SetClothes(CustomPlayer.clothesImages);
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -108,6 +95,7 @@ namespace RPG_Noelf
             var viewId = 0;
             CharacterCreationParams cParams = new CharacterCreationParams();
             cParams.playerCreated = CustomPlayer;
+            SavePlayerData();
             var newView = CoreApplication.CreateNewView();
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -122,6 +110,24 @@ namespace RPG_Noelf
                 Window.Current.Activate();
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
+        }
+
+        private void SavePlayerData()
+        {
+            string path = Path.GetTempPath() + @"/Noelf";
+            if(!File.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path);
+            }
+
+            string fileName = "slot_" + selectedSlot;
+
+            path = Path.Combine(path, fileName);
+
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                sw.WriteLine("id " + CustomPlayer.Id);
+            }
         }
     }
 
