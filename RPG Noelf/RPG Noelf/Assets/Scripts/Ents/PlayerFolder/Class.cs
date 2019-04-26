@@ -195,7 +195,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "afastar")
+            skillManager.SkillList.Add(new SkillThrow("/Assets/Images/Chao.jpg", "afastar")
             {
                 Damage = 25,
                 manaCost = 0,
@@ -204,7 +204,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 15,
                 Buff = 1.18,
                 tipo = SkillType.habilite,
-                Buffer = BuffDebuffTypes.Throw,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -276,14 +275,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill4.jpg", "Abrealas")
+            skillManager.SkillList.Add(new SkillThrow("/Assets/Images/Skills/ArcherSkill4.jpg", "Abrealas")
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 2,
                 Amplificator = 0.05,
                 Buff = 0,
-                Buffer = BuffDebuffTypes.Throw,
                 cooldown = 7,
                 Timer = 0.25,
                 tipo = SkillType.habilite,
@@ -348,7 +346,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 0,
                 block = 2,
                 Amplificator = 0.28,
-                Buffer = BuffDebuffTypes.Dash,
                 cooldown = 10,
                 Timer = 0,
                 tipo = SkillType.habilite,
@@ -360,7 +357,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 2,
                 Amplificator = 1.01,
                 Buff = 1.09,
-                Buffer = BuffDebuffTypes.Hidden,
                 cooldown = 10,
                 Timer = 3,
                 tipo = SkillType.habilite,

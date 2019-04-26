@@ -31,6 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             this.pathImage = pathImage;
             this.name = name;
+            this.tipobuff = SkillTypeBuff.normal;
         }
 
         public override bool TurnBasicSkill(Ent player, Ent Enemy)
@@ -40,8 +41,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override bool UseSkill(Ent player, Ent Enemy)
         {
-            return false;
-            /*
             if (manaCost <= player.Mp)
             {
                 CalcBonus(player);
@@ -49,7 +48,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 Enemy.BeHit(player.Hit(DamageBonus));
                 return true;
             }
-            return false;*/
+            return false;
         }
     }
 }

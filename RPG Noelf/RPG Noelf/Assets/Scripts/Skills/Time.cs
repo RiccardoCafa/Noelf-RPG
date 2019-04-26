@@ -7,12 +7,11 @@ using Windows.UI.Xaml;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    class Time
+    class Time//Classe que faz o CD e o tempo de duracao dos buffs
     {
-        //fazer isso dps
-        List<SkillGenerics> skilltime = new List<SkillGenerics>();
+        List<SkillGenerics> skilltime = new List<SkillGenerics>();//lista de skills que foram usadas
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        private double RealTime;
+        private double RealTime = 0;
         public Time(SkillGenerics skill)
         {
             skill.CountTime = RealTime + skill.cooldown;
@@ -29,7 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         private void Timer(object sender, object e)
         {
             
-            foreach (SkillGenerics habilite in skilltime)
+            foreach (SkillGenerics habilite in skilltime)//para verificar se as skills ja acabaram seus tempos de CD
             {
                 if (habilite.CountTime == RealTime)
                 {
