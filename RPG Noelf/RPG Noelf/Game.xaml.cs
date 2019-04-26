@@ -140,9 +140,11 @@ namespace RPG_Noelf
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            var parames = (CharacterCreationParams)e.Parameter;
-            PlayerCreated = parames.playerCreated;
+            if(e.Parameter is CharacterCreationParams)
+            {
+                var parames = (CharacterCreationParams)e.Parameter;
+                PlayerCreated = parames.playerCreated;
+            }
         }
 
         public async void start()
