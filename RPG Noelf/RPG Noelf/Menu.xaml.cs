@@ -34,7 +34,7 @@ namespace RPG_Noelf
             {
                 if(UsernameBox.Text == username && PasswordBox.Text == password)
                 {
-                    OpenPlayerInterface();
+                    OpenLobbyInterface();
                 }
             }
         }
@@ -42,6 +42,23 @@ namespace RPG_Noelf
         private void QuitBtn_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             CoreApplication.Exit();
+        }
+
+        private async void OpenLobbyInterface()
+        {
+            var viewId = 0;
+            var newView = CoreApplication.CreateNewView();
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                var frame = new Frame();
+                frame.Navigate(typeof(PlayerLobby));
+                Window.Current.Content = frame;
+
+                viewId = ApplicationView.GetForCurrentView().Id;
+
+                Window.Current.Activate();
+            });
+            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
         }
 
         private async void OpenPlayerInterface()

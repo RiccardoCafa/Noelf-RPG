@@ -2,6 +2,7 @@
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,6 +32,7 @@ namespace RPG_Noelf
         public Dictionary<string, Image> PlayerImages;
         public Dictionary<string, Image> ClothesImages;
         Player CustomPlayer;
+        int selectedSlot;
 
         public CharacterCreation()
         {
@@ -110,6 +112,7 @@ namespace RPG_Noelf
             var viewId = 0;
             CharacterCreationParams cParams = new CharacterCreationParams();
             cParams.playerCreated = CustomPlayer;
+            SavePlayerData();
             var newView = CoreApplication.CreateNewView();
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -124,6 +127,24 @@ namespace RPG_Noelf
                 Window.Current.Activate();
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
+        }
+
+        private void SavePlayerData()
+        {
+            string path = Path.GetTempPath() + @"/Noelf";
+            if(!File.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path);
+            }
+
+            string fileName = "slot_" + selectedSlot;
+
+            path = Path.Combine(path, fileName);
+
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                sw.WriteLine("id " + CustomPlayer.Id);
+            }
         }
     }
 
