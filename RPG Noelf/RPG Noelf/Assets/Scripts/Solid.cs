@@ -69,7 +69,7 @@ namespace RPG_Noelf.Assets.Scripts
             Moved += Collision.OnMoved;
             horizontalSpeed = speed / 20;
             DateTime time = DateTime.Now;
-            new Task(Update);
+            new Task(Update).Start();
         }
 
         public bool alive = true;
@@ -98,7 +98,7 @@ namespace RPG_Noelf.Assets.Scripts
             if (verticalSpeed != 0 || horizontalDirection != 0) OnMoved();//chama o evento
         }
 
-        public void ApplyGravity() => verticalSpeed = verticalSpeed - g;//aplica a gravidade
+        public void ApplyGravity() => verticalSpeed -= g;//aplica a gravidade
 
         public void OnMoved() => Moved?.Invoke(this);//metodo q dispara o event Moved
     }

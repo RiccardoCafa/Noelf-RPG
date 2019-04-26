@@ -73,7 +73,7 @@ namespace RPG_Noelf
             dayText = DayText;
             inventarioWindow = InventarioWindow;
             TheScene = xScene;
-            
+
             Application.Current.DebugSettings.EnableFrameRateCounter = true;
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
@@ -241,15 +241,17 @@ namespace RPG_Noelf
         }
         public void CreatePlayer()
         {
-            if(PlayerCreated != null)
+            if (PlayerCreated != null)
             {
                 GameManager.player = new Player(PlayerCreated.Id);
-            } else
+            }
+            else
             {
                 GameManager.player = new Player("0000000");
             }
             GameManager.player.Spawn(300, 30);
             TheScene.Children.Add(GameManager.player.box);
+            //GameManager.player.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
         }
         public Canvas CreateCharacterNPC()
         {
@@ -360,17 +362,19 @@ namespace RPG_Noelf
             foreach (UIElement element in EquipWindow.Children)
             {
                 Image img = element as Image;
-                if((int) img.GetValue(Grid.ColumnProperty) == 0)
+                if ((int)img.GetValue(Grid.ColumnProperty) == 0)
                 {
-                    if(GameManager.player.Equipamento.armor[count] == null)
+                    if (GameManager.player.Equipamento.armor[count] == null)
                     {
                         img.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Imagens/Chao.jpg"));
-                    } else
+                    }
+                    else
                     {
                         pathImage = GameManager.player.Equipamento.armor[count].PathImage;
                         img.Source = new BitmapImage(new Uri(this.BaseUri, pathImage));
                     }
-                } else
+                }
+                else
                 {
                     if (GameManager.player.Equipamento.weapon == null)
                     {
@@ -456,7 +460,8 @@ namespace RPG_Noelf
                             GameManager.player.Equipamento.UseEquip(s.ItemID);
                             WindowBag.Visibility = Visibility.Collapsed;
                         }
-                    } else
+                    }
+                    else
                     {
                         GameManager.player._Inventory.RemoveFromBag(s);
                         CreateDrop(GameManager.characterPlayer.xCharacVal + 10,
@@ -484,7 +489,7 @@ namespace RPG_Noelf
                         s = Encyclopedia.SearchFor(GameManager.player.Equipamento.armor[row]);
                     }
                     else
-                    { 
+                    {
                         s = Encyclopedia.SearchFor(GameManager.player.Equipamento.weapon);
                     }
                     if (s == 0) return;
@@ -615,10 +620,11 @@ namespace RPG_Noelf
         }
         private void ShowSkillTree(object sender, PointerRoutedEventArgs e)
         {
-            if(WindowTreeSkill.Visibility == Visibility.Collapsed)
+            if (WindowTreeSkill.Visibility == Visibility.Collapsed)
             {
                 WindowTreeSkill.Visibility = Visibility.Visible;
-            } else
+            }
+            else
             {
                 WindowTreeSkill.Visibility = Visibility.Collapsed;
             }
@@ -672,11 +678,12 @@ namespace RPG_Noelf
         }
         private void ShowEquip(object sender, PointerRoutedEventArgs e)
         {
-            if(WindowEquipamento.Visibility == Visibility.Collapsed)
+            if (WindowEquipamento.Visibility == Visibility.Collapsed)
             {
                 WindowEquipamento.Visibility = Visibility.Visible;
                 equipOpen = true;
-            } else
+            }
+            else
             {
                 WindowEquipamento.Visibility = Visibility.Collapsed;
                 equipOpen = false;
@@ -703,7 +710,7 @@ namespace RPG_Noelf
                 if (slotTemp != null)
                 {
                     Image slot = (Image)slotTemp.ElementAt(0);
-                    if(i < GameManager.player._Inventory.Slots.Count)
+                    if (i < GameManager.player._Inventory.Slots.Count)
                     {
                         slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[GameManager.player._Inventory.Slots[i].ItemID].PathImage));
                     }
@@ -848,7 +855,7 @@ namespace RPG_Noelf
                 }
             }
         }
-        
+
         private void ShowItemBuying(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
@@ -941,11 +948,11 @@ namespace RPG_Noelf
         private NPC npc;
         private Grid ButtonsGrid;
         ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
-        string PoolName = "convBtn"; 
+        string PoolName = "convBtn";
         private List<Button> PooledButtons = new List<Button>();
         public void CallConversationBox(NPC npc)
         {
-            if(!ButtonPool.ExistPool(PoolName))
+            if (!ButtonPool.ExistPool(PoolName))
             {
                 ButtonPool.CreatePool(PoolName);
             }
@@ -959,11 +966,12 @@ namespace RPG_Noelf
             ButtonsGrid.Height = Conversation.Height / 2;
             Conversation.Children.Add(ButtonsGrid);
             ButtonsGrid.SetValue(Canvas.LeftProperty, ButtonsGrid.Height / 2);
-            ColumnDefinition column = new ColumnDefinition() {
+            ColumnDefinition column = new ColumnDefinition()
+            {
                 Width = new GridLength(ButtonsGrid.Width)
             };
             ButtonsGrid.ColumnDefinitions.Add(column);
-            for(int i = 0; i < Buttons; i++)
+            for (int i = 0; i < Buttons; i++)
             {
                 RowDefinition row = new RowDefinition
                 {
@@ -975,7 +983,8 @@ namespace RPG_Noelf
                 {
                     ButtonPool.GetFromPool(PoolName, out b);
                     b.Visibility = Visibility.Visible;
-                } else
+                }
+                else
                 {
                     b = new Button
                     {
@@ -985,7 +994,7 @@ namespace RPG_Noelf
                     ButtonsGrid.Children.Add(b);
                     PooledButtons.Add(b);
                 }
-                
+
                 if (i < Buttons - 1)
                 {
                     b.Content = funcString[i];
@@ -1001,7 +1010,7 @@ namespace RPG_Noelf
             ConvText.Text = npc.Introduction;
             ConvLevel.Text = npc.MyLevel.actuallevel.ToString();
             string convfunc = "";
-            foreach(string s in npc.GetFunctionsString())
+            foreach (string s in npc.GetFunctionsString())
             {
                 convfunc += s + "/";
             }
@@ -1013,7 +1022,7 @@ namespace RPG_Noelf
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
             ConvText.Text = npc.Conclusion;
             npc.EndConversation();
-            foreach(Button b in PooledButtons)
+            foreach (Button b in PooledButtons)
             {
                 ButtonPool.AddToPool(PoolName, b);
                 b.Visibility = Visibility.Collapsed;
@@ -1037,10 +1046,11 @@ namespace RPG_Noelf
         {
             window.Visibility = Visibility.Visible;
 
-            if(mousePosition.X >= Tela.Width / 2)
+            if (mousePosition.X >= Tela.Width / 2)
             {
                 window.SetValue(Canvas.LeftProperty, mousePosition.X - window.Width - 10);
-            } else
+            }
+            else
             {
                 window.SetValue(Canvas.LeftProperty, mousePosition.X + 10);
             }
@@ -1089,7 +1099,7 @@ namespace RPG_Noelf
             string s;
             if (GameManager.player._SkillManager.SkillBar[indicadorzao] != null)
             {
-                if(GameManager.mobTarget.Mob != null)
+                if (GameManager.mobTarget.Mob != null)
                 {
                     s = (GameManager.player._SkillManager.SkillBar[indicadorzao]).UseSkill(GameManager.player, GameManager.mobTarget.Mob).ToString();
                 }
@@ -1106,10 +1116,10 @@ namespace RPG_Noelf
         }
         private void MenuOpen(object sender, PointerRoutedEventArgs e)
         {
-            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 var prop = e.GetCurrentPoint(this).Properties;
-                if(prop.IsLeftButtonPressed)
+                if (prop.IsLeftButtonPressed)
                 {
                     MenuAberto.Visibility = Visibility.Visible;
                     MenuFechado.Visibility = Visibility.Collapsed;
@@ -1158,7 +1168,7 @@ namespace RPG_Noelf
         }
         private void ClickDenyQuestButton(object sender, RoutedEventArgs e)
         {
-        } 
+        }
 
         private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
         {
@@ -1167,7 +1177,7 @@ namespace RPG_Noelf
             //GameManager.mobTarget.Mob = new Mob(level);
             //GameManager.mobTarget.Mob.Status(xMobStatus);
         }
-        
+
         //private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
         //{
         //    int.TryParse(current.ToString(), out int x);
