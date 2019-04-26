@@ -1,37 +1,27 @@
-﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
+﻿using RPG_Noelf.Assets.Scripts;
+using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Enviroment;
+using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Mobs;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using RPG_Noelf.Assets.Scripts.Scenes;
+using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
-using RPG_Noelf.Assets.Scripts.Interface;
-using System.Threading;
-using Windows.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
-using RPG_Noelf.Assets.Scripts.Skills;
-using Windows.UI.Input;
-using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using RPG_Noelf.Assets.Scripts.Shop_Scripts;
-using System.Threading.Tasks;
-using RPG_Noelf.Assets.Scripts.Mobs;
-using RPG_Noelf.Assets.Scripts.Ents.Mobs;
-using RPG_Noelf.Assets.Scripts.Scenes;
-using RPG_Noelf.Assets.Scripts.Enviroment;
-using RPG_Noelf.Assets.Scripts.Ents.NPCs;
-using RPG_Noelf.Assets.Scripts.General;
+using System.Linq;
+using System.Threading;
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -164,7 +154,11 @@ namespace RPG_Noelf
             {
                 mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
-                Scene elel = new Scene(xScene);//criaçao do cenario
+                Scene scene = new Scene(xScene);//criaçao do cenario
+
+                DynamicSolid solid = new DynamicSolid(600, 30, 50, 50, 10);
+                solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
+                TheScene.Children.Add(solid);
 
                 CreatePlayer();
                 CreateMob();
@@ -239,7 +233,7 @@ namespace RPG_Noelf
         #region Interface Elements Creation
         public void CreateMob()
         {
-            GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 100));//criaçao do mob
+            GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 2));//criaçao do mob
             GameManager.mobTarget.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
             GameManager.mobTarget.UpdateBlocks(xScene);
         }
@@ -249,11 +243,11 @@ namespace RPG_Noelf
             {
                 PlayerCreated.SetClothes(ClothesImages);
                 PlayerCreated.SetPlayer(PlayerImages);
-                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, PlayerCreated);//criaçao do player
+                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, PlayerCreated, PlayerCanvas);//criaçao do player
 
             } else
             {
-                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages));//criaçao do player
+                GameManager.characterPlayer = new CharacterPlayer(PlayerCanvas, new Player("0000000", PlayerImages, ClothesImages), PlayerCanvas);//criaçao do player
             }
             GameManager.characterPlayer.Player.Status(xPlayerStatus);//fornecimento das informaçoes do player (temporario)
             GameManager.characterPlayer.UpdateBlocks(xScene);

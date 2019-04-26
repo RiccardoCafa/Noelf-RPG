@@ -1,4 +1,6 @@
-﻿using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Ents;
+using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using RPG_Noelf.Assets.Scripts.Enviroment;
 using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
@@ -16,7 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static List<CharacterPlayer> players = new List<CharacterPlayer>();
         public static Player player;
         public static CharacterPlayer characterPlayer;
-
+        
         // User Interface
         public static InterfaceManager interfaceManager = new InterfaceManager();
 

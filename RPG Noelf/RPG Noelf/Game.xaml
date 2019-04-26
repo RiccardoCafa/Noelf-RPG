@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
 
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768" RequestedTheme="Light">
 
     <Canvas Name="Tela" Width="1366" Height="768"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 

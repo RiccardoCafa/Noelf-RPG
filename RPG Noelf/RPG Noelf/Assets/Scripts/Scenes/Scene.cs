@@ -52,13 +52,21 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                             platX.Add(x);
                             if (Blueprint[y].ToArray()[x + 1] != 'G')
                             {
-                                Canvas canvas = new Canvas();
-                                xScene.Children.Add(canvas);
-                                canvas.Width = tile.Size[0] * (platX.Last() - platX.First() + 1);
-                                canvas.Height = tile.Size[1] / 4;
-                                canvas.SetValue(Canvas.LeftProperty, tile.Size[0] * platX.First());
-                                canvas.SetValue(Canvas.TopProperty, tile.Size[1] * y - 1);
-                                canvas.Name = "plat" + platX.First() + y;
+                                //Solid canvas = new Solid();
+                                //xScene.Children.Add(canvas);
+                                //canvas.Width = tile.Size[0] * (platX.Last() - platX.First() + 1);
+                                //canvas.Height = tile.Size[1] / 4;
+                                //canvas.SetValue(Canvas.LeftProperty, tile.Size[0] * platX.First());
+                                //canvas.SetValue(Canvas.TopProperty, tile.Size[1] * y - 1);
+                                //canvas.Name = "plat" + platX.First() + y;
+                                //platX.Clear();
+                                Solid solid = new Solid(tile.Size[0] * platX.First(),
+                                                        tile.Size[1] * y - 1,
+                                                        tile.Size[0] * (platX.Last() - platX.First() + 1),
+                                                        tile.Size[1]/* / 4*/);
+                                xScene.Children.Add(solid);
+                                solid.Background = new SolidColorBrush(Color.FromArgb(255, 0, 127, 255));
+                                solid.Name = "plat" + platX.First() + y;
                                 platX.Clear();
                             }
                         }

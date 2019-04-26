@@ -1,9 +1,13 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
@@ -34,8 +38,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
     class DragonFace : Face
     {
+        Mob mob;
+
         public override void UpdateMob(Mob mob)
         {
+            this.mob = mob;
             mob.Str += (int)(3 + mob.Level * 0.5);
             mob.Attacks.Add(Fireball);
             mob.attcks.Add("Fireball");
@@ -43,7 +50,13 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public void Fireball()//bola de fogo
         {
-
+            Canvas hit = new Canvas
+            {
+                Background = new SolidColorBrush(Color.FromArgb(0, 150, 75, 0)),
+                Width = 30, Height = 30
+            };
+            MainPage.ActualChunck.Children.Add(hit);
+            
         }
     }
 

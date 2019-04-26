@@ -25,19 +25,19 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public Dictionary<string, string> N = new Dictionary<string, string>()
         {
-            {"0", "Dr" }, {"1", "M" }, {"2", "L" }, {"3", "B" }, {"4", "J" },
+            {"0", "Dr" }, {"1", "M" }, {"2", "L" }, {"3", "B" }, {"4", "J" }
         };
         public Dictionary<string, string> a = new Dictionary<string, string>()
         {
-            {"0", "a" }, {"1", "on" }, {"2", "i" }, {"3", "u" }, {"4", "a" },
+            {"0", "a" }, {"1", "on" }, {"2", "i" }, {"3", "u" }, {"4", "a" }
         };
         public Dictionary<string, string> m = new Dictionary<string, string>()
         {
-            {"0", "g" }, {"1", "k" }, {"2", "zar" }, {"3", "fall" }, {"4", "gu" },
+            {"0", "g" }, {"1", "k" }, {"2", "zar" }, {"3", "fall" }, {"4", "gu" }
         };
         public Dictionary<string, string> e = new Dictionary<string, string>()
         {
-            {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" },
+            {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" }
         };
 
         public Mob(Dictionary<string, Image> images, int level)//cria um mob novo, aleatoriamente montado
