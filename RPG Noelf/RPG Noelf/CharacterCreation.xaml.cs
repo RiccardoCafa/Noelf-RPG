@@ -34,40 +34,17 @@ namespace RPG_Noelf
         Player CustomPlayer;
         int selectedSlot;
 
+        const double xPlayerSpawn = 20;
+        const double yPlayerSpawn = 20;
+
         public CharacterCreation()
         {
             this.InitializeComponent();
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-
-            PlayerImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xPlayerArm_d0 },
-                {"armsd1", xPlayerArm_d1 },
-                {"armse0", xPlayerArm_e0 },
-                {"armse1", xPlayerArm_e1 },
-                {"body", xPlayerBody },
-                {"head", xPlayerHead },
-                {"eye", xPlayerEye },
-                {"hair", xPlayerHair },
-                {"legsd0", xPlayerLeg_d0 },
-                {"legsd1", xPlayerLeg_d1 },
-                {"legse0", xPlayerLeg_e0 },
-                {"legse1", xPlayerLeg_e1 }
-            };
-            ClothesImages = new Dictionary<string, Image>()
-            {
-                {"armsd0", xClothArm_d0 },
-                {"armsd1", xClothArm_d1 },
-                {"armse0", xClothArm_e0 },
-                {"armse1", xClothArm_e1 },
-                {"body", xClothBody },
-                {"legsd0", xClothLeg_d0 },
-                {"legsd1", xClothLeg_d1 },
-                {"legse0", xClothLeg_e0 },
-                {"legse1", xClothLeg_e1 }
-            };
             CustomPlayer = new Player("0000000");
+            CustomPlayer.Spawn(xPlayerSpawn, yPlayerSpawn);
+            PlayerCanvas.Children.Add(CustomPlayer.box);
         }
         
         private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
@@ -87,7 +64,7 @@ namespace RPG_Noelf
         }
         private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
         {
-            /*string id = CustomPlayer.Id;
+            string id = CustomPlayer.Id;
             if (sender == xEsqRace ||
                 sender == xDirRace) id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
             else if (sender == xEsqClass ||
@@ -102,9 +79,15 @@ namespace RPG_Noelf
                      sender == xDirHairStyle) id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
             else if (sender == xEsqHairColor ||
                      sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
-            CustomPlayer = new Player(id, PlayerImages, ClothesImages);
-            CustomPlayer.Status(xPlayerStatus);
-            CodigoChar.Text = CustomPlayer.Id;*/
+            AppearPlayer(id);
+            CodigoChar.Text = CustomPlayer.Id;
+        }
+
+        private void AppearPlayer(string id)
+        {
+            CustomPlayer.Id = id;
+            CustomPlayer.SetPlayer(CustomPlayer.playerImages);
+            CustomPlayer.SetClothes(CustomPlayer.clothesImages);
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
