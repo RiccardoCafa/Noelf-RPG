@@ -11,16 +11,14 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     public class Mob : Ent
     {
-        public List<Action> Attacks { get; set; } = new List<Action>();
-        public List<string> attcks { get; set; } = new List<string>();//(temporario)
-        public List<Element> Resistance { get; set; } = new List<Element>();
-        public List<Element> Vulnerable { get; set; } = new List<Element>();
-        public bool Meek { get; set; } = false;
-
-        public int Level;
+        public List<Action> Attacks = new List<Action>();
+        public List<string> attcks = new List<string>();//(temporario)
+        public List<Element> Resistance = new List<Element>();
+        public List<Element> Vulnerable = new List<Element>();
+        public bool Meek = false;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
-        
+
         public string[] code = new string[4];
 
         public Dictionary<string, string> N = new Dictionary<string, string>()
@@ -40,10 +38,24 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" }
         };
 
-        public Mob(Dictionary<string, Image> images, int level)//cria um mob novo, aleatoriamente montado
+        public Dictionary<string, Image> mobImages = new Dictionary<string, Image>()
+        {
+            {"armsd0", new Image() { Width = 60, Height = 65 } },
+            {"armsd1", new Image() { Width = 70, Height = 80 } },
+            {"legsd1", new Image() { Width = 75, Height = 55 } },
+            {"legsd0", new Image() { Width = 65, Height = 70 } },
+            {"body", new Image() { Width = 160, Height = 135 } },
+            {"head", new Image() { Width = 100, Height = 100 } },
+            {"legse1", new Image() { Width = 75, Height = 55 } },
+            {"legse0", new Image() { Width = 60, Height = 65 } },
+            {"armse0", new Image() { Width = 60, Height = 70 } },
+            {"armse1", new Image() { Width = 65, Height = 80 } }
+        };
+
+        public Mob(int level)//cria um mob novo, aleatoriamente montado
         {
             #region montagem
-            Level = level;
+            this.level = new Level(level);
             Str = 2;
             Spd = 2;
             Dex = 2;
@@ -58,15 +70,35 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 Parts[i].UpdateMob(this);
             }
             #endregion
-            #region atributos derivados
-            HpMax = Con * 6 + Level * 2;
-            Hp = HpMax;
-            AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
-            Run = 1 + 0.075 * Spd;
-            TimeMgcDmg = 0.45 * Mnd;
-            Damage = Str;
-            #endregion
-            #region imagens
+            ApplyDerivedAttributes();
+            SetMob(mobImages);
+        }
+
+        private void Load()
+        {
+            foreach (string key in mobImages.Keys)
+            {
+                box.Children.Add(mobImages[key]);
+            }
+            Canvas.SetLeft(mobImages["armsd0"], 4); Canvas.SetTop(mobImages["armsd0"], 18);
+            Canvas.SetLeft(mobImages["armsd1"], -21); Canvas.SetTop(mobImages["armsd1"], 49);
+            Canvas.SetLeft(mobImages["legsd1"], 32); Canvas.SetTop(mobImages["legsd1"], 76);
+            Canvas.SetLeft(mobImages["legsd0"], 20); Canvas.SetTop(mobImages["legsd0"], 45);
+            Canvas.SetLeft(mobImages["body"], 8); Canvas.SetTop(mobImages["body"], -10);
+            Canvas.SetLeft(mobImages["head"], -16); Canvas.SetTop(mobImages["head"], -34);;
+            Canvas.SetLeft(mobImages["legse1"], 64); Canvas.SetTop(mobImages["legse1"], 75);
+            Canvas.SetLeft(mobImages["legse0"], 55); Canvas.SetTop(mobImages["legse0"], 47);
+            Canvas.SetLeft(mobImages["armse0"], 33); Canvas.SetTop(mobImages["armse0"], 18);
+            Canvas.SetLeft(mobImages["armse1"], 12); Canvas.SetTop(mobImages["armse1"], 50);
+        }//monta as imagens na box do Mob
+        public void Spawn(double x, double y)//cria o mob na tela
+        {
+            box = new DynamicSolid(x, y, 120, 120, Run);
+            Load();
+        }
+
+        private void SetMob(Dictionary<string, Image> images)//aplica as imagens das caracteristicas fisicas do mob
+        {
             for (int i = 2; i < 6; i++)
             {
                 string path1 = "/Assets/Images/mob/" + parts[i];
@@ -85,10 +117,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 else
                 {
                     string path2 = "/" + code[i - 2] + ".png";
-                    MainPage.obj.MobImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.obj.BaseUri, path1 + path2));
+                    images[parts[i]].Source = new BitmapImage(new Uri(MainPage.obj.BaseUri, path1 + path2));
                 }
             }
-            #endregion
+
         }
 
         public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)

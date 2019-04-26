@@ -164,6 +164,7 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\Scenes\LevelScene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Scene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Tile.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />

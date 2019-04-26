@@ -18,9 +18,9 @@
             </LinearGradientBrush>
         </Canvas.Background>
 
-        <Image Source="/Assets/Images/layer3.png" Canvas.Top="100"/>
+        <!--<Image Source="/Assets/Images/layer3.png" Canvas.Top="100"/>
         <Image Source="/Assets/Images/layer2.png" Canvas.Top="320"/>
-        <Image Source="/Assets/Images/layer1.png" Canvas.Top="400"/>
+        <Image Source="/Assets/Images/layer1.png" Canvas.Top="400"/>-->
         <TextBlock Name="DayText" Text="Day 1 - 8:50" FontSize="20" FontStretch="Normal"  Width="200" Height="50" Canvas.Top="30" Canvas.Left="10"/>
         <Canvas Name="Camera" Visibility="Collapsed"  Width="916" Height="72" HorizontalAlignment="Left" Canvas.Left="225" Canvas.Top="364"  VerticalAlignment="Top" Background="#19000000" Margin="0,0,0,0"></Canvas>
 
@@ -68,7 +68,7 @@
                 <Image Canvas.Left="-17" Canvas.Top="39" Width="45" Height="48" Source="/Assets/Images/player/clothes/arms/d/1/00.png"/>
                 <Image Width="87" Height="97"  Source="/Assets/Images/iconeLapa.png" Canvas.Left="-16" Canvas.Top="-29"/>
             </Canvas>
-            <Canvas Name="MobCanvas" Canvas.Left="100" Canvas.Top="525" Width="120" Height="120">
+            <!--<Canvas Name="MobCanvas" Canvas.Left="100" Canvas.Top="525" Width="120" Height="120">
                 <Image Name="xMobArm_d0" Canvas.Left="4" Canvas.Top="18" Width="60" Height="65"/>
                 <Image Name="xMobArm_d1" Canvas.Left="-21" Canvas.Top="49" Width="70" Height="80"/>
                 <Image Name="xMobLeg_d1" Canvas.Left="32" Canvas.Top="76" Width="75" Height="55"/>
@@ -85,7 +85,7 @@
                 <Border BorderThickness="1" BorderBrush="Gray" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80">
                     <TextBlock Name="xMobStatus" Width="160" Height="150" Canvas.Left="100" Canvas.Top="-80" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"/>
                 </Border>
-            </Canvas>
+            </Canvas>-->
         </Canvas>
 
 
@@ -413,7 +413,7 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="PlayerCanvas" Canvas.Left="382" Canvas.Top="78" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top">
+        <!--<Canvas Name="PlayerCanvas" Canvas.Left="382" Canvas.Top="78" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top">
             <Image Name="xPlayerArm_e0" Canvas.Left="16" Canvas.Top="24" Width="51" Height="57"/>
             <Image Name="xClothArm_e0" Canvas.Left="16" Canvas.Top="24" Width="51" Height="57"/>
             <Image Name="xPlayerArm_e1" Canvas.Left="26" Canvas.Top="42" Width="53" Height="41"/>
@@ -477,7 +477,7 @@
                 <Button Name="xDirHairColor" Width="25" Height="15" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,-9,0,0" FontSize="16" Content="&gt;" Click="ClickCustom" FontWeight="Bold"/>
                 <TextBlock Text="Hair color" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Consolas" FontWeight="Bold" FontSize="12"/>
             </Grid>
-        </Canvas>
+        </Canvas>-->
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>

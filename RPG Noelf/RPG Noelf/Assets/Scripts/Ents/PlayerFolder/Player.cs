@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -13,23 +15,49 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
     {
         public event EventHandler PlayerUpdated;
 
-        public Race Race { get; set; }
-        public Class _Class { get; set; }
-        public SkillManager _SkillManager { get; }
-        public Bag _Inventory { get; }
-        public Equips Equipamento { get; }
-        public QuestManager _Questmanager { get; }
-        public Level level { get; }
-       
-        public string Id { get; set; }
+        public Race Race;
+        public Class _Class;
+        public readonly SkillManager _SkillManager;
+        public readonly Bag _Inventory;
+        public readonly Equips Equipamento;
+        public readonly QuestManager _Questmanager;
+
+        public string Id;
+        public Dictionary<string, Image> playerImages = new Dictionary<string, Image>()
+        {
+            {"armse0", new Image() { Width = 51, Height = 57 } },
+            {"armse1", new Image() { Width = 53, Height = 41 } },
+            {"legse1", new Image() { Width = 54, Height = 57 } },
+            {"legse0", new Image() { Width = 45, Height = 45 } },
+            {"body", new Image() { Width = 69, Height = 84 } },
+            {"head", new Image() { Width = 78, Height = 78 } },
+            {"eye", new Image() { Width = 78, Height = 78 } },
+            {"hair", new Image() { Width = 78, Height = 78 } },
+            {"legsd1", new Image() { Width = 51, Height = 51 } },
+            {"legsd0", new Image() { Width = 42, Height = 48 } },
+            {"armsd0", new Image() { Width = 60, Height = 54 } },
+            {"armsd1", new Image() { Width = 45, Height = 48 } }
+        };
+        public Dictionary<string, Image> clothesImages = new Dictionary<string, Image>()
+        {
+            {"armse0", new Image() { Width = 51, Height = 57 } },
+            {"armse1", new Image() { Width = 53, Height = 41 } },
+            {"legse1", new Image() { Width = 54, Height = 57 } },
+            {"legse0", new Image() { Width = 45, Height = 45 } },
+            {"body", new Image() { Width = 69, Height = 84 } },
+            {"legsd1", new Image() { Width = 51, Height = 51 } },
+            {"legsd0", new Image() { Width = 42, Height = 48 } },
+            {"armsd0", new Image() { Width = 60, Height = 54 } },
+            {"armsd1", new Image() { Width = 45, Height = 48 } }
+        };
 
         public int Xp { get; private set; }
         public int XpLim { get; private set; }
 
-        public int Mp { get; set; }
-        public int MpMax { get; set; }
-        
-        public Player(string id, Dictionary<string, Image> playerImages, Dictionary<string, Image> clothesImages)
+        public int Mp;
+        public int MpMax;
+
+        public Player(string id) : base()
         {
             /* ID: rcxkysh
              *  0 r -> raça  0-2
@@ -51,7 +79,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _Inventory = new Bag();
             Equipamento = new Equips(this);
             _Questmanager = new QuestManager(this);
-
 
             switch (Id[0])
             {
@@ -75,9 +102,44 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mnd = Race.Mnd + _Class.Mnd;
             level = new Level(1);
             LevelUpdate(0, 0, 0, 0, 0, 0);
+            ApplyDerivedAttributes();
+        }
 
+        private void Load()
+        {
+            foreach (string key in playerImages.Keys)
+            {
+                box.Children.Add(playerImages[key]);
+                if(key != "head" && key != "eye" && key != "hair") box.Children.Add(clothesImages[key]);
+            }
+            Canvas.SetLeft(playerImages["armse0"], 16); Canvas.SetTop(playerImages["armse0"], 24);
+            Canvas.SetLeft(playerImages["armse1"], 26); Canvas.SetTop(playerImages["armse1"], 42);
+            Canvas.SetLeft(playerImages["legse1"], 17); Canvas.SetTop(playerImages["legse1"], 73);
+            Canvas.SetLeft(playerImages["legse0"], 15); Canvas.SetTop(playerImages["legse0"], 58);
+            Canvas.SetLeft(playerImages["body"], -9); Canvas.SetTop(playerImages["body"], 9);
+            Canvas.SetLeft(playerImages["head"], -5); Canvas.SetTop(playerImages["head"], -27);
+            Canvas.SetLeft(playerImages["eye"], -5); Canvas.SetTop(playerImages["eye"], -27);
+            Canvas.SetLeft(playerImages["hair"], -5); Canvas.SetTop(playerImages["hair"], -27);
+            Canvas.SetLeft(playerImages["legsd1"], -17); Canvas.SetTop(playerImages["legsd1"], 78);
+            Canvas.SetLeft(playerImages["legsd0"], -5); Canvas.SetTop(playerImages["legsd0"], 59);
+            Canvas.SetLeft(playerImages["armsd0"], -24); Canvas.SetTop(playerImages["armsd0"], 18);
+            Canvas.SetLeft(playerImages["armsd1"], -17); Canvas.SetTop(playerImages["armsd1"], 39);
+            Canvas.SetLeft(clothesImages["armse0"], 16); Canvas.SetTop(clothesImages["armse0"], 24);
+            Canvas.SetLeft(clothesImages["armse1"], 26); Canvas.SetTop(clothesImages["armse1"], 42);
+            Canvas.SetLeft(clothesImages["legse1"], 17); Canvas.SetTop(clothesImages["legse1"], 73);
+            Canvas.SetLeft(clothesImages["legse0"], 15); Canvas.SetTop(clothesImages["legse0"], 58);
+            Canvas.SetLeft(clothesImages["body"], -9); Canvas.SetTop(clothesImages["body"], 9);
+            Canvas.SetLeft(clothesImages["legsd1"], -17); Canvas.SetTop(clothesImages["legsd1"], 78);
+            Canvas.SetLeft(clothesImages["legsd0"], -5); Canvas.SetTop(clothesImages["legsd0"], 59);
+            Canvas.SetLeft(clothesImages["armsd0"], -24); Canvas.SetTop(clothesImages["armsd0"], 18);
+            Canvas.SetLeft(clothesImages["armsd1"], -17); Canvas.SetTop(clothesImages["armsd1"], 39);
+        }//monta as imagens na box do Player
+        public void Spawn(double x, double y)//cria o Player na tela
+        {
+            box = new PlayableSolid(x, y, 60, 120, Run);
             SetPlayer(playerImages);
             SetClothes(clothesImages);
+            Load();
         }
 
         private void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
@@ -221,6 +283,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
             PlayerUpdated?.Invoke(this, EventArgs.Empty);
         }
-        
+
     }
 }
