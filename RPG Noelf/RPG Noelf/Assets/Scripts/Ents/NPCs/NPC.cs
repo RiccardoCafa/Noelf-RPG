@@ -21,7 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void StartConversation()
         {
-            MainPage.instance.CallConversationBox(this);
+            Game.instance.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
         }
@@ -102,9 +102,21 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
     public sealed class Quester : NPCFunction
     {
+        public Quest myQuest { get; set; }
+
+        public Quester(uint quest)
+        {
+            myQuest = QuestList.allquests[quest];
+        }
+
         public void MyFunction(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        public void AcceptQuest()
+        {
+            GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
         }
 
         public void EndFunction()

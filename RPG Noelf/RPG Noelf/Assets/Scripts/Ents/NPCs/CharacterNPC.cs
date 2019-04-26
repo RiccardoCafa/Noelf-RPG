@@ -40,7 +40,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                var eprop = e.GetCurrentPoint(MainPage.instance).Properties;
+                var eprop = e.GetCurrentPoint(Game.instance).Properties;
                 if(eprop.IsLeftButtonPressed)
                 {
                     if(trigger.Triggering())

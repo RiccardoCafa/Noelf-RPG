@@ -17,9 +17,9 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             //throw new NotImplementedException();
         }
 
-        public override bool AddToBag(uint itemID, uint amount)
+        public override bool AddToBag(Slot slot)
         {
-            Slot adic = new Slot(itemID, amount);
+            Slot adic = new Slot(slot.ItemID, slot.ItemAmount);
             if(adic!= null && Slots.Count() < mobCarry)
             {
                 Slots.Add(adic);
@@ -43,7 +43,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     drop = new MobBag();
                     drop.AddGold(GoldDrop);
-                    drop.AddToBag(idkey, amount);
+                    drop.AddToBag(new Slot(idkey, amount));
                     return drop;
 
                 }

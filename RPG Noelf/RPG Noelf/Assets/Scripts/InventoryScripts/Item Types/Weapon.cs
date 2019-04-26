@@ -13,7 +13,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         Melee,Ranged,Magical 
     }
-    class Weapon:Item
+    public class Weapon:Item
     {
         public float bonusDamage { get; set; }
         public float armorPenetration { get; set; }// tArmor - ArmorPenetration =  new armadura

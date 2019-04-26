@@ -38,7 +38,7 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
         private void DispatcherSetup()
         {
-            MainPage.instance.dayText.Text = "Day " + days + " - " + hours + ":" + minutes;
+            Game.instance.dayText.Text = "Day " + days + " - " + hours + ":" + minutes;
             dispatcherTimer.Tick += Timer;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 86400 / (60 * DayLenght));
             dispatcherTimer.Start();
@@ -58,7 +58,7 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
                 m = "0" + minutes;
             }
             else m = minutes.ToString();
-            MainPage.instance.dayText.Text = "Day " + days + " - " + h + ":" + m;
+            Game.instance.dayText.Text = "Day " + days + " - " + h + ":" + m;
         }
 
         private void TickATime()

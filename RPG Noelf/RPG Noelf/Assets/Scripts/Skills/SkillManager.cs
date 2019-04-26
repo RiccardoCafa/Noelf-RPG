@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             while(true)
             {
                 Thread.Sleep(1000);
-                MainPage.i++;
+                Game.i++;
             }
         }
 

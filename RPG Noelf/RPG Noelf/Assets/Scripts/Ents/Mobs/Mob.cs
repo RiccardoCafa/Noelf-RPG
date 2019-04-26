@@ -78,14 +78,14 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                         for (int bit = 0; bit < 2; bit++)
                         {
                             string path3 = "/" + bit + "/" + code[i - 2] + ".png";
-                            images[parts[i] + side + bit].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
+                            images[parts[i] + side + bit].Source = new BitmapImage(new Uri(Game.instance.BaseUri, path1 + path2 + path3));
                         }
                     }
                 }
                 else
                 {
                     string path2 = "/" + code[i - 2] + ".png";
-                    MainPage.instance.MobImages[parts[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
+                    Game.instance.MobImages[parts[i]].Source = new BitmapImage(new Uri(Game.instance.BaseUri, path1 + path2));
                 }
             }
             #endregion
