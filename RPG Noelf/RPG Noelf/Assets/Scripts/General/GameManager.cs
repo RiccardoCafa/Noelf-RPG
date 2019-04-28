@@ -35,6 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static CharacterNPC npcCharacter;
         public static NPC npcTarget;
         public static Trader traderTarget;
+        public static Quester questerTarget;
 
         public static void InitializeGame()
         {
@@ -44,13 +45,13 @@ namespace RPG_Noelf.Assets.Scripts.General
             npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             npcCharacter.UpdateBlocks(Game.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
-            NPC teste = new NPC();
-            Quester quester = new Quester(1);
             
-            teste.AddFunction(quester);
-
+            NPC teste = new NPC();
+            questerTarget = new Quester(1);
+            teste.AddFunction(questerTarget);          
             npcTarget = teste;
-
+            npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
+            MainPage.instance.OpenQuest();
 
             player._Inventory.AddToBag(new Slot(3, 1));
             player._Inventory.AddToBag(new Slot(21, 1));
@@ -93,6 +94,23 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static void CloseShop()
         {
             Game.instance.CloseShop();
+        }
+
+        public static void CloseQuestWindow()
+        {
+            if(questerTarget != null)
+            {
+                MainPage.instance.CloseQuest();
+            }
+        } 
+
+        public static void OpenQuestWindow()
+        {
+            if (questerTarget != null)
+            {
+                MainPage.instance.OpenQuest();
+            }
+            
         }
 
     }

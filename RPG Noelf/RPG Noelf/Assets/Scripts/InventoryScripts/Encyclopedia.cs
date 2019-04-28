@@ -446,6 +446,17 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             };
             encyclopedia.Add(43, item43);
+            Item item44 = new Item("Cpt Jack Sparrow")
+            {
+                IsStackable = false,
+                ItemCategory = Category.Legendary,
+                PathImage = "Black Pearl's deck",
+                GoldValue = 99999,
+                description = "Sea turtles, mate"
+            };
+            encyclopedia.Add(44, item44);
+
+
             #endregion
 
         }

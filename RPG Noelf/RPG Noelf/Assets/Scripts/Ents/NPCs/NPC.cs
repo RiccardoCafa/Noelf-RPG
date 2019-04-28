@@ -18,12 +18,15 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public string Name { get; set; }
         public string Introduction { get; set; }
         public string Conclusion { get; set; }
+        public delegate void EventoFalar(object source, EventArgs arg, uint id);
+        public event EventoFalar EventoFala;
 
         public void StartConversation()
         {
             Game.instance.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
+            OnEventoFalar();
         }
 
         public void EndConversation()
@@ -58,6 +61,14 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public int GetFunctionSize()
         {
             return Functions.Count;
+        }
+
+        protected virtual void OnEventoFalar()
+        {
+            if(EventoFala != null)
+            {
+                EventoFala(this, EventArgs.Empty, this.IDnpc);
+            }
         }
 
     }
@@ -103,7 +114,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     public sealed class Quester : NPCFunction
     {
         public Quest myQuest { get; set; }
-
+       
         public Quester(uint quest)
         {
             myQuest = QuestList.allquests[quest];
@@ -111,28 +122,49 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void MyFunction(object sender, RoutedEventArgs e)
         {
+            GameManager.questerTarget = this;
             
         }
-
+        
+        //GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
         public void AcceptQuest()
         {
-            GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
+            if(GameManager.player._Questmanager.CheckQuestLevel(myQuest))
+            {
+                GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
+            }
         }
 
         public void EndFunction()
         {
-            
+            if (GameManager.player._Questmanager.activeQuests.Contains(myQuest))
+            {
+                GameManager.CloseQuestWindow();
+            }
         }
 
         public string GetFunctionName()
         {
             return "Quester";
         }
+
+        public uint GetQuestID()
+        {
+            return QuestList.allquests.FirstOrDefault(x => x.Value.Equals(myQuest)).Key;
+            /*
+             Função do tipo predicar, foi chamada a função FirstOrDefault, que retorna um valor, e dentro desta função
+             se deu um parametro para indentificar o valor a ser procurado, no final da senteça, retorna-se a chave do dicionario
+             referente a este valor             
+             */
+        }
     }
+
+    
+
 
     public sealed class RuneMaster
     {
-
+        //TODO
     }
 
 }
