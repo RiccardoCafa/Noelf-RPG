@@ -125,6 +125,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Assets\Scripts\Bau\Bau.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Crafting.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\CraftingEncyclopedia.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
