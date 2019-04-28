@@ -9,26 +9,34 @@ namespace RPG_Noelf.Assets.Scripts.Bau
 {
     class Bau
     {
-        public int SizeCrate;
+        private int Type;
         private Bag intens;
-        public int GeneratorSizeCrate(int Tamanho)//Quantos intens quer q o bau tenha
+        public Bau(int Type,int Qnt_itensMax)
+        {
+            this.Type = Type;
+            GeneratorSizeCrate(Qnt_itensMax);
+        }
+        public void GeneratorSizeCrate(int Tamanho)//Quantos intens quer q o bau tenha
         {
             Random sizecrate = new Random();
-            SizeCrate = sizecrate.Next(Tamanho);
-            return SizeCrate;
+            intens.FreeSlots = sizecrate.Next(Tamanho);
         }
-        public int CrateType()
+        public int CrateCreation(Bau Novobau)
         {
-            Random type = new Random();
-            switch (type.Next(3)) {
+            switch (Novobau.Type) {
                 case 1:
-
+                    for (int i = 0; i < Novobau.intens.FreeSlots; i++)
+                    {
+                        Random additem = new Random();
+                    }
                     break;
-    
-
-
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
             }
-
             return 1;
         }
     }
