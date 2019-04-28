@@ -129,6 +129,7 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Crafting.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\CraftingEncyclopedia.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
+    <Compile Include="Assets\Scripts\Ents\Collision.cs" />
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\Scenes\LevelScene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Scene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Tile.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Assets\Scripts\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Skills\Time.cs" />
+	<Compile Include="Assets\Scripts\Solid.cs" />
     <Compile Include="CharacterCreation.xaml.cs">
       <DependentUpon>CharacterCreation.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,9 @@
     </Compile>
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerLobby.xaml.cs">
+      <DependentUpon>PlayerLobby.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -594,6 +600,14 @@
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
     <Content Include="Assets\Images\UI Elements\FundoInventario.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\LobbyBg.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\SlotFull.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\SlotEmpty.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\CheckBox.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\CheckSymbol.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\PlayBtn.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\QuitBtn.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\Tela.png" />
     <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />
@@ -628,6 +642,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlayerLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,14 +19,17 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         private MainCamera ActualCam = MainCamera.instance;
         private Thread updatePlayer;
         public Player Player;
+        public Canvas MyCanvas;
 
-        public CharacterPlayer(Canvas T, Player player) : base(T)
+        public CharacterPlayer(Canvas T, Player player, Canvas canvas) : base(T)
         {
             // Getting character image and Canvas for control
             characT = T;
 
             updatePlayer = new Thread(UpdatePlayer);
             updatePlayer.Start();
+
+            MyCanvas = canvas;
 
             Player = player;
 
@@ -36,6 +40,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public async void UpdatePlayer()
         {
+            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, Animation);
+
             if (ActualCam == null) ActualCam = MainCamera.instance;
             while (alive)
             {
@@ -60,7 +66,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                     }
                 });
             }
-
         }
 
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
@@ -70,6 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
                 {
                     moveLeft = true;
+
                 }
                 else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
                 {
@@ -109,7 +115,22 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 IsWalking = false;
                 if (isFalling) prepRight = false;
             }
+        }
 
+        public async void Animation()
+        {
+            while (!IsWalking)
+            {
+                //Vector3Transition vector3Transition = new Vector3Transition();
+                //vector3Transition.Components = Vector3TransitionComponents.X;
+                //MyCanvas.TranslationTransition.Duration = TimeSpan.FromMilliseconds(2000);
+                //await Task.Delay(200);
+                //MyCanvas.RotationTransition.Duration = TimeSpan.FromMilliseconds(2000);
+                //MyCanvas.RotationAxis = new System.Numerics.Vector3(15, 15, 1);
+                //MyCanvas.RotationTransition = new ScalarTransition();
+                //ScalarTransition scalar = new ScalarTransition();
+                //scalar.
+            }
         }
     }
 }
