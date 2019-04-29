@@ -15,6 +15,7 @@ namespace RPG_Noelf.Assets.Scripts.Bau
         {
             this.Type = Type;
             GeneratorSizeCrate(Qnt_itensMax);
+            CrateCreation(this);
         }
         public void GeneratorSizeCrate(int Tamanho)//Quantos intens quer q o bau tenha
         {
@@ -28,11 +29,25 @@ namespace RPG_Noelf.Assets.Scripts.Bau
                     for (int i = 0; i < Novobau.intens.FreeSlots; i++)
                     {
                         Random additem = new Random();
+                        Random addQuant = new Random();
+                        Novobau.intens.AddToBag(new Slot((uint)additem.Next(29), (uint)addQuant.Next(10)));
                     }
                     break;
                 case 2:
+                    for (int i = 0; i < Novobau.intens.FreeSlots; i++)
+                    {
+                        Random additem = new Random();
+                        Random addQuant = new Random();
+                        Novobau.intens.AddToBag(new Slot((uint)additem.Next(39), (uint)addQuant.Next(10)));
+                    }
                     break;
                 case 3:
+                    for (int i = 0; i < Novobau.intens.FreeSlots; i++)
+                    {
+                        Random additem = new Random();
+                        Random addQuant = new Random();
+                        Novobau.intens.AddToBag(new Slot((uint)additem.Next(42), (uint)addQuant.Next(10)));
+                    }
                     break;
                 default:
                     break;
