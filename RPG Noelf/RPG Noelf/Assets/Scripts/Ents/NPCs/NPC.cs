@@ -20,12 +20,18 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public string Conclusion { get; set; }
         public delegate void EventoFalar(object source, EventArgs arg, uint id);
         public event EventoFalar EventoFala;
+        
+        public NPC()
+        {
+            this.EventoFala += GameManager.player._Questmanager.EventoFalaComNPCDaQuest;
+        }
 
         public void StartConversation()
         {
             MainPage.instance.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
+            GameManager.player._Questmanager.PrintActualQuestStatus();
             OnEventoFalar();
         }
 

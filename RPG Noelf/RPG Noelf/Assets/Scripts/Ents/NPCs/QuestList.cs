@@ -14,6 +14,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             allquests = new Dictionary<uint, Quest>();
             SpeakQuest quest1 = new SpeakQuest((uint) 1);
+            quest1.QUEST_ID = 1;
             quest1.name = "Chega ai parceiro";
             quest1.Description = "Fale com Lapa";
             quest1.RewardDescription = "Aprovação em LP II";

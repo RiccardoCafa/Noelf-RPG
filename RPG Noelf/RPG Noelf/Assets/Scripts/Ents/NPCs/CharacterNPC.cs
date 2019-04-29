@@ -29,6 +29,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public CharacterNPC(Canvas T, NPC _NPC) : base(T)
         {
+            
             MyNPC = _NPC;
             trigger = new Trigger(this);
             T.PointerPressed += InteractWith;

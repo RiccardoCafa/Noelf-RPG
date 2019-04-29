@@ -15,7 +15,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public List<Quest> allQuests = new List<Quest>();//lista com todas as quests, ativas ou não, excluindo completas
         public List<Quest> activeQuests = new List<Quest>();//lista com todas as quests ativas no momento
         public List<Quest> finishedQuests = new List<Quest>();//lista de todas as quest completas
-        
+        public Quest actualQuest;
+
         private Player player;
         public QuestManager(Player player)
         {
@@ -142,23 +143,28 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
 
         public void EventoFalaComNPCDaQuest(object source, EventArgs arg, uint id)
-        {
-
-            if (id == 1) Console.WriteLine("Quest Completa");
-
-            /*
+        {   
             SpeakQuest generic = new SpeakQuest(id);
             foreach(Quest q in allQuests)
             {
-                if(q.Equals(generic) == true)
+                if(q.QUEST_ID == generic.QUEST_ID)
                 {
                     generic = (SpeakQuest) q;
                     generic.isComplete = true;
-                    Debug.Write("Quest Completa");
+                    this.actualQuest = generic;
                 }
             }
-           */
+        }
 
+        public void PrintActualQuestStatus()
+        {
+            if(actualQuest != null){
+                Debug.Write("Quest Completa");
+            }
+            else
+            {
+                Debug.Write("Funfou não mano");
+            }
 
         }
 

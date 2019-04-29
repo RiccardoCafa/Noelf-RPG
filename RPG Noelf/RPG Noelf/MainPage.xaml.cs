@@ -829,8 +829,14 @@ namespace RPG_Noelf
         }
         public void OpenQuest()
         {
-
-            GameManager.questerTarget.myQuest = QuestList.allquests[GameManager.questerTarget.GetQuestID()];
+            if(GameManager.questerTarget != null)
+            {
+                GameManager.questerTarget.myQuest = QuestList.allquests[GameManager.questerTarget.GetQuestID()];
+            }
+            else
+            {
+                GameManager.questerTarget = new Quester(1);
+            }
             QuestTitulo.Text = GameManager.questerTarget.myQuest.name;
             QuestDescription.Text = GameManager.questerTarget.myQuest.Description;
             QuestRewards.Text = GameManager.questerTarget.myQuest.RewardDescription;
@@ -842,8 +848,8 @@ namespace RPG_Noelf
             QuestRewards.Text = QuestList.allquests[1].RewardDescription;
             QuestWindow.Visibility = Visibility.Visible;
             */
-
         }
+
         #endregion
 
         private void SetEventForShopItem()

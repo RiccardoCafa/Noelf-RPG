@@ -6,6 +6,7 @@ using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RPG_Noelf.Assets.Scripts.General
@@ -42,12 +43,9 @@ namespace RPG_Noelf.Assets.Scripts.General
             npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             npcCharacter.UpdateBlocks(MainPage.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
+            //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             
-            NPC teste = new NPC();
-            questerTarget = new Quester(1);
-            teste.AddFunction(questerTarget);          
-            npcTarget = teste;
-            npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
+            //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
             MainPage.instance.OpenQuest();
 
             player._Inventory.AddToBag(new Slot(3, 1));
@@ -63,7 +61,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static void CreatePlayer()
         {
             /* Aqui vão ser implementados os métodos que irão criar o player
-             * assim como fazer chamada pra main page e criá-lo graficamente */
+              assim como fazer chamada pra main page e criá-lo graficamente */
         }
 
         public static void CreateNPC()

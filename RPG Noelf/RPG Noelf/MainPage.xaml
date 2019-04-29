@@ -217,7 +217,7 @@
             </Grid>
         </Canvas>
 		
-        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility="Visible">
+        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility ="Collapsed">
             <Grid Width="200" Height="100">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
@@ -229,7 +229,7 @@
             
         </Canvas>
     
-       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Visible">
+       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
             <Grid Width="200" Height="300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
