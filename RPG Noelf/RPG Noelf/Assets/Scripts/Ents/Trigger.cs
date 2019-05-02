@@ -67,6 +67,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             double Valor;
             foreach (Character c in characterToTrigger)
             {
+                if (c == null) return false;
                 Valor = Character.GetDistance(c.xCharacVal, c.yCharacVal, Me.xCharacVal, Me.yCharacVal);
                 if (Valor <= DistanceOffSet)
                 {

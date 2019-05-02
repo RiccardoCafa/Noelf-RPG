@@ -1,4 +1,6 @@
-﻿using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Ents;
+using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using RPG_Noelf.Assets.Scripts.Enviroment;
 using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
@@ -17,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static List<CharacterPlayer> players = new List<CharacterPlayer>();
         public static Player player;
         public static CharacterPlayer characterPlayer;
-
+        
         // User Interface
         public static InterfaceManager interfaceManager = new InterfaceManager();
 
@@ -27,6 +29,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static DayNight dayNight;
 
         // Mobs
+        public static Mob mob;
         public static CharacterMob mobTarget;
 
         // NPC's
@@ -37,11 +40,11 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public static void InitializeGame()
         {
-            interfaceManager.Inventario = MainPage.inventarioWindow;
+            interfaceManager.Inventario = Game.inventarioWindow;
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
-            npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
-            npcCharacter.UpdateBlocks(MainPage.TheScene);
+            npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
+            npcCharacter.UpdateBlocks(Game.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
             GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
@@ -56,6 +59,11 @@ namespace RPG_Noelf.Assets.Scripts.General
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
+        }
+
+        public static void InitializePlayer()
+        {
+
         }
 
         public static void CreatePlayer()
@@ -78,13 +86,12 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if (traderTarget == null) return;
             interfaceManager.ShopOpen = true;
-            MainPage.instance.OpenShop();
+            Game.instance.OpenShop();
         }
 
         public static void CloseShop()
         {
-            MainPage.instance.CloseShop();
-
+            Game.instance.CloseShop();
         }
 
         public static void CloseQuestWindow()

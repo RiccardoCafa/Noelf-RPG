@@ -7,18 +7,19 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
+using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets
 {
     class GeradorFoto
     {
-        public static async void MergeImages(UIElement personagem, int width, int height)
+        public static async Task MergeImages(UIElement personagem, RenderTargetBitmap render, int width, int height)
         {
 
             RenderTargetBitmap rTb = new RenderTargetBitmap();
             await rTb.RenderAsync(personagem, width, height);
-            //renderedImage.Source = rTb;
-            SaveFrame(rTb);
+            render = rTb;
+            //SaveFrame(rTb);
         }
 
         public static async void MergeImages(Canvas canvas, string path)
