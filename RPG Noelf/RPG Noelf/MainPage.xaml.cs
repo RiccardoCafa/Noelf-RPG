@@ -954,14 +954,13 @@ namespace RPG_Noelf
         }
         #endregion
         #region Conversation
-        private NPC npc;
         private Grid ButtonsGrid;
         private Queue<Button> QueueButtons = new Queue<Button>();
         private List<Button> PoolButtons = new List<Button>();
         public void CallConversationBox(NPC npc)
         {
             if (GameManager.interfaceManager.Conversation) return;
-            this.npc = npc;
+            GameManager.npcTarget = npc;
             Conversation.Visibility = Visibility.Visible;
             int Buttons = npc.GetFunctionSize() + 1;
             List<string> funcString = npc.GetFunctionsString();
@@ -1022,13 +1021,14 @@ namespace RPG_Noelf
         public void HasToCloseConv(object sender, RoutedEventArgs e)
         {
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
-            ConvText.Text = npc.Conclusion;
-            npc.EndConversation();
+            ConvText.Text = GameManager.npcTarget.Conclusion;
+            GameManager.npcTarget.EndConversation();
             foreach(Button b in PoolButtons)
             {
                 QueueButtons.Enqueue(b);
                 b.Visibility = Visibility.Collapsed;
             }
+            GameManager.npcTarget = null;
         }
         public void CloseConversationBox(object sender, RoutedEventArgs e)
         {

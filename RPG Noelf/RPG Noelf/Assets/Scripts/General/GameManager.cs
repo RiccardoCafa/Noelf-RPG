@@ -43,10 +43,10 @@ namespace RPG_Noelf.Assets.Scripts.General
             npcCharacter = new CharacterNPC(MainPage.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             npcCharacter.UpdateBlocks(MainPage.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
+            GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
-            
             //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
-            MainPage.instance.OpenQuest();
+            //MainPage.instance.OpenQuest();
 
             player._Inventory.AddToBag(new Slot(3, 1));
             player._Inventory.AddToBag(new Slot(21, 1));
