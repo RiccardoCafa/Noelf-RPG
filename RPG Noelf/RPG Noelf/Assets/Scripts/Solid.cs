@@ -59,7 +59,7 @@ namespace RPG_Noelf.Assets.Scripts
         public double verticalSpeed;
         public double horizontalSpeed;
         public sbyte horizontalDirection = 0;
-        public const double g = 0.001;
+        public const double g = 0.002;
         public bool moveRight, moveLeft;
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
@@ -75,6 +75,7 @@ namespace RPG_Noelf.Assets.Scripts
         public bool alive = true;
         public async void Update()//atualiza a td instante
         {
+            Thread.Sleep(40);
             while (alive)
             {
                 //Thread.Sleep(5);

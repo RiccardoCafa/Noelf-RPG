@@ -20,7 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         public static void LoadItens()
         {
-            CraftingEncyclopedia.LoadCrafting();
+            //CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
             #region Items
             // loaded Itens
@@ -364,6 +364,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 GoldValue = 3,
                 PathImage = "/Assets/Images/itens/roupaLa.png"
             };
+            encyclopedia.Add(35, item35);
             Armor item36 = new Armor("Wool Skirt")
             {
                 ItemCategory = Category.Normal,
@@ -449,7 +450,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 description = "Sea turtles, mate"
             };
             encyclopedia.Add(44, item44);
-
 
             #endregion
         }
