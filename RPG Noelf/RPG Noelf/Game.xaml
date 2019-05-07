@@ -24,9 +24,8 @@
         <TextBlock Name="DayText" Text="Day 1 - 8:50" FontSize="20" FontStretch="Normal"  Width="200" Height="50" Canvas.Top="30" Canvas.Left="10"/>
         <Canvas Name="Camera" Visibility="Collapsed"  Width="916" Height="72" HorizontalAlignment="Left" Canvas.Left="225" Canvas.Top="364"  VerticalAlignment="Top" Background="#19000000" Margin="0,0,0,0"></Canvas>
 
-        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="6000" VerticalAlignment="Top" Margin="0,0,0,0">
-            <Canvas Name="xScene" Height="768" Width="6000" Canvas.Top="0"/>
-
+        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Canvas Name="xScene" Height="768" Width="1366" Canvas.Top="0"/>
             <Canvas Name="NPCCanvas2" Canvas.Left="1500" Canvas.Top="20" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top">
                 <Image Canvas.Left="16" Canvas.Top="24" Width="51" Height="57" Source="/Assets/Images/player/player/arms/e/0/00.png"/>
                 <Image Canvas.Left="16" Canvas.Top="24" Width="51" Height="57" Source="/Assets/Images/player/clothes/arms/e/0/00.png"/>

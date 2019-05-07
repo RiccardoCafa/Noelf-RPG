@@ -50,6 +50,7 @@ namespace RPG_Noelf
         public static Canvas ActualChunck;
         public static Canvas inventarioWindow;
         public static Canvas TheScene;
+        public LevelScene scene1;
 
         public static TextBlock texticulus;
         public static int i;
@@ -156,7 +157,7 @@ namespace RPG_Noelf
             {
                 //mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
-                LevelScene scene = new LevelScene(xScene);//criaçao do cenario
+                scene1 = new LevelScene(xScene);//criaçao do cenario
 
                 CreatePlayer();
                 CreateMob();
