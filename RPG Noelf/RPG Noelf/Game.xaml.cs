@@ -140,7 +140,7 @@ namespace RPG_Noelf
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if(e.Parameter is CharacterCreationParams)
+            if (e.Parameter is CharacterCreationParams)
             {
                 var parames = (CharacterCreationParams)e.Parameter;
                 PlayerCreated = parames.playerCreated;
@@ -853,7 +853,7 @@ namespace RPG_Noelf
         }
         public void OpenQuest()
         {
-            if(GameManager.questerTarget != null)
+            if (GameManager.questerTarget != null)
             {
                 GameManager.questerTarget.myQuest = QuestList.allquests[GameManager.questerTarget.GetQuestID()];
             }
@@ -865,7 +865,7 @@ namespace RPG_Noelf
             QuestDescription.Text = GameManager.questerTarget.myQuest.Description;
             QuestRewards.Text = GameManager.questerTarget.myQuest.RewardDescription;
             QuestWindow.Visibility = Visibility.Visible;
-            
+
             /*
             QuestTitulo.Text = QuestList.allquests[1].name;
             QuestDescription.Text = QuestList.allquests[1].Description;
@@ -1053,8 +1053,8 @@ namespace RPG_Noelf
         {
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
 
-            ConvText.Text = npc.Conclusion;
-            npc.EndConversation();
+           // ConvText.Text = npc.Conclusion;
+            //npc.EndConversation();
             foreach (Button b in PooledButtons)
             {
                 ButtonPool.AddToPool(PoolName, b);
@@ -1204,263 +1204,263 @@ namespace RPG_Noelf
         {
             ActiveQuestsWindows.Visibility = Visibility.Collapsed;
             QuestWindow.Visibility = Visibility.Collapsed;
-        } 
-
-        }
-        private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
-        {
-            //int level;
-            //int.TryParse(xLevelBox.Text, out level);
-            //GameManager.mobTarget.Mob = new Mob(level);
-            //GameManager.mobTarget.Mob.Status(xMobStatus);
         }
 
-        //private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
-        //{
-        //    int.TryParse(current.ToString(), out int x);
-        //    if (isNext)
-        //    {
-        //        if (x == range - 1) x = 0;
-        //        else x++;
-        //    }
-        //    else
-        //    {
-        //        if (x == 0) x = range - 1;
-        //        else x--;
-        //    }
-        //    return x.ToString();
-        //}
-        //private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
-        //{
-        //    string id = GameManager.characterPlayer.Player.Id;
-        //    if (sender == xEsqRace ||
-        //        sender == xDirRace) id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
-        //    else if (sender == xEsqClass ||
-        //             sender == xDirClass) id = id.Substring(0, 1) + ChangeCustom(id[1], 3, sender == xDirClass) + id.Substring(2, 5);
-        //    else if (sender == xEsqSex ||
-        //             sender == xDirSex) id = id.Substring(0, 2) + ChangeCustom(id[2], 2, sender == xDirSex) + id.Substring(3, 4);
-        //    else if (sender == xEsqSkinTone ||
-        //             sender == xDirSkinTone) id = id.Substring(0, 3) + ChangeCustom(id[3], 3, sender == xDirSkinTone) + id.Substring(4, 3);
-        //    else if (sender == xEsqEyeColor ||
-        //             sender == xDirEyeColor) id = id.Substring(0, 4) + ChangeCustom(id[4], 3, sender == xDirEyeColor) + id.Substring(5, 2);
-        //    else if (sender == xEsqHairStyle ||
-        //             sender == xDirHairStyle) id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
-        //    else if (sender == xEsqHairColor ||
-        //             sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
-        //    GameManager.characterPlayer.Player = new Player(id);
-        //    GameManager.characterPlayer.Player.Status(xPlayerStatus);
-        //}
+    
+    private void ClickNewMob(object sender, RoutedEventArgs e)//recria o mob aleatoriamente (temporario)
+    {
+        //int level;
+        //int.TryParse(xLevelBox.Text, out level);
+        //GameManager.mobTarget.Mob = new Mob(level);
+        //GameManager.mobTarget.Mob.Status(xMobStatus);
+    }
 
-        private void OfferItemButton(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.traderTarget == null) return;
-            if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
-            {
-                if (Switch == false)
-                {
+    //private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
+    //{
+    //    int.TryParse(current.ToString(), out int x);
+    //    if (isNext)
+    //    {
+    //        if (x == range - 1) x = 0;
+    //        else x++;
+    //    }
+    //    else
+    //    {
+    //        if (x == 0) x = range - 1;
+    //        else x--;
+    //    }
+    //    return x.ToString();
+    //}
+    //private void ClickCustom(object sender, RoutedEventArgs e)//gerencia a customizaçao do player (temporario)
+    //{
+    //    string id = GameManager.characterPlayer.Player.Id;
+    //    if (sender == xEsqRace ||
+    //        sender == xDirRace) id = ChangeCustom(id[0], 3, sender == xDirRace) + id.Substring(1, 6);
+    //    else if (sender == xEsqClass ||
+    //             sender == xDirClass) id = id.Substring(0, 1) + ChangeCustom(id[1], 3, sender == xDirClass) + id.Substring(2, 5);
+    //    else if (sender == xEsqSex ||
+    //             sender == xDirSex) id = id.Substring(0, 2) + ChangeCustom(id[2], 2, sender == xDirSex) + id.Substring(3, 4);
+    //    else if (sender == xEsqSkinTone ||
+    //             sender == xDirSkinTone) id = id.Substring(0, 3) + ChangeCustom(id[3], 3, sender == xDirSkinTone) + id.Substring(4, 3);
+    //    else if (sender == xEsqEyeColor ||
+    //             sender == xDirEyeColor) id = id.Substring(0, 4) + ChangeCustom(id[4], 3, sender == xDirEyeColor) + id.Substring(5, 2);
+    //    else if (sender == xEsqHairStyle ||
+    //             sender == xDirHairStyle) id = id.Substring(0, 5) + ChangeCustom(id[5], 4, sender == xDirHairStyle) + id.Substring(6, 1);
+    //    else if (sender == xEsqHairColor ||
+    //             sender == xDirHairColor) id = id.Substring(0, 6) + ChangeCustom(id[6], 3, sender == xDirHairColor);
+    //    GameManager.characterPlayer.Player = new Player(id);
+    //    GameManager.characterPlayer.Player.Status(xPlayerStatus);
+    //}
 
-                    if (val <= Bag.MaxStack)
-                    {
-                        if (GameManager.player._Inventory.RemoveFromBag(GameManager.traderTarget.shop.SlotInOffer.ItemID, val))
-                        {
-                            Slot newSlot = new Slot(GameManager.traderTarget.shop.SlotInOffer.ItemID, val);
-                            GameManager.traderTarget.shop.AddToBuyingItems(newSlot);
-                            GameManager.traderTarget.shop.SlotInOffer = null;
-                            UpdateShopInfo();
-                            CloseOfferItem();
-                        }
-                    }
-                }
-                else
-                {
-                    if (val <= Bag.MaxStack)
-                    {
-                        Slot newSlot = new Slot(GameManager.traderTarget.shop.SlotInOffer.ItemID, val);
-                        GameManager.traderTarget.shop.SellItem(newSlot, GameManager.player._Inventory);
-                        CloseOfferItem();
-                    }
-                }
-
-            }
-        }
-
-        private void IncrementOfferAmount(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.traderTarget.shop.SlotInOffer == null) return;
-            if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
-            {
-                uint MaxValue = GameManager.player._Inventory.GetSlot(GameManager.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
-                val++;
-                if (val >= MaxValue)
-                {
-                    val = MaxValue;
-                }
-                ItemBuyingQuantity.Text = val.ToString();
-            }
-        }
-
-        private void DecrementOfferAmount(object sender, RoutedEventArgs e)
-        {
-            if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
-            {
-                val--;
-                if (val <= 0)
-                {
-                    val = 1;
-                }
-                ItemBuyingQuantity.Text = val.ToString();
-            }
-        }
-
-        private void SellButton(object sender, RoutedEventArgs e)
+    private void OfferItemButton(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.traderTarget == null) return;
+        if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
         {
             if (Switch == false)
             {
-                GameManager.traderTarget.shop.BuyItem(GameManager.player._Inventory);
-                UpdateShopInfo();
-                UpdatePlayerInfo();
+
+                if (val <= Bag.MaxStack)
+                {
+                    if (GameManager.player._Inventory.RemoveFromBag(GameManager.traderTarget.shop.SlotInOffer.ItemID, val))
+                    {
+                        Slot newSlot = new Slot(GameManager.traderTarget.shop.SlotInOffer.ItemID, val);
+                        GameManager.traderTarget.shop.AddToBuyingItems(newSlot);
+                        GameManager.traderTarget.shop.SlotInOffer = null;
+                        UpdateShopInfo();
+                        CloseOfferItem();
+                    }
+                }
             }
-        }
-
-        private void CancelSellingButton(object sender, RoutedEventArgs e)
-        {
-            CloseOfferItem();
-        }
-
-        private void GeralSumStat()
-        {
-            GameManager.player._Class.StatsPoints--;
-            UpdatePlayerInfo();
-        }
-
-        private void GeralSubStat()
-        {
-            GameManager.player._Class.StatsPoints++;
-            UpdatePlayerInfo();
-        }
-
-        private void XPPlus(object sender, RoutedEventArgs e)
-        {
-            //GameManager.player.;
-            GameManager.player.LevelUpdate(0, 0, 0, 0, 0, 100);
-        }
-
-        private void MPPlus(object sender, RoutedEventArgs e)
-        {
-            GameManager.player.AddMP(20);
-        }
-
-        private void HPPlus(object sender, RoutedEventArgs e)
-        {
-            GameManager.player.AddHP(20);
-        }
-
-        private void PSTR(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.player._Class.StatsPoints > 0)
+            else
             {
-                _str++;
-                GeralSumStat();
+                if (val <= Bag.MaxStack)
+                {
+                    Slot newSlot = new Slot(GameManager.traderTarget.shop.SlotInOffer.ItemID, val);
+                    GameManager.traderTarget.shop.SellItem(newSlot, GameManager.player._Inventory);
+                    CloseOfferItem();
+                }
             }
+
         }
-
-        private void PMND(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.player._Class.StatsPoints > 0)
-            {
-                _mnd++;
-                GeralSumStat();
-            }
-        }
-
-        private void PSPD(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.player._Class.StatsPoints > 0)
-            {
-                _spd++;
-                GeralSumStat();
-            }
-        }
-
-        private void PDEX(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.player._Class.StatsPoints > 0)
-            {
-                _dex++;
-                GeralSumStat();
-            }
-        }
-
-        private void PCON(object sender, RoutedEventArgs e)
-        {
-            if (GameManager.player._Class.StatsPoints > 0)
-            {
-                _con++;
-                GeralSumStat();
-            }
-        }
-
-        private void MSTR(object sender, RoutedEventArgs e)
-        {
-            if (_str > 0)
-            {
-                _str--;
-                GeralSubStat();
-            }
-        }
-
-        private void MDEX(object sender, RoutedEventArgs e)
-        {
-            if (_dex > 0)
-            {
-                _dex--;
-                GeralSubStat();
-            }
-        }
-
-        private void MSPD(object sender, RoutedEventArgs e)
-        {
-            if (_spd > 0)
-            {
-                _spd--;
-                GeralSubStat();
-            }
-        }
-
-        private void MCON(object sender, RoutedEventArgs e)
-        {
-            if (_con > 0)
-            {
-                _con--;
-                GeralSubStat();
-            }
-        }
-
-        private void MMND(object sender, RoutedEventArgs e)
-        {
-            if (_mnd > 0)
-            {
-                _mnd--;
-                GeralSubStat();
-            }
-        }
-
-        private void TrocaButton(object sender, RoutedEventArgs e)
-        {
-            Switch = !Switch;
-            Buy.Content = Switch == true ? "Buy" : "Sell";
-            UpdateShopInfo();
-        }
-
-        private void ApplyStats(object sender, RoutedEventArgs e)
-        {
-            GameManager.player.LevelUpdate(_str, _spd, _dex, _con, _mnd, 50);
-            _str = _spd = _dex = _con = _mnd = 0;
-        }
-        #endregion
-
-        #endregion
-
     }
+
+    private void IncrementOfferAmount(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.traderTarget.shop.SlotInOffer == null) return;
+        if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
+        {
+            uint MaxValue = GameManager.player._Inventory.GetSlot(GameManager.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
+            val++;
+            if (val >= MaxValue)
+            {
+                val = MaxValue;
+            }
+            ItemBuyingQuantity.Text = val.ToString();
+        }
+    }
+
+    private void DecrementOfferAmount(object sender, RoutedEventArgs e)
+    {
+        if (uint.TryParse(ItemBuyingQuantity.Text, out uint val))
+        {
+            val--;
+            if (val <= 0)
+            {
+                val = 1;
+            }
+            ItemBuyingQuantity.Text = val.ToString();
+        }
+    }
+
+    private void SellButton(object sender, RoutedEventArgs e)
+    {
+        if (Switch == false)
+        {
+            GameManager.traderTarget.shop.BuyItem(GameManager.player._Inventory);
+            UpdateShopInfo();
+            UpdatePlayerInfo();
+        }
+    }
+
+    private void CancelSellingButton(object sender, RoutedEventArgs e)
+    {
+        CloseOfferItem();
+    }
+
+    private void GeralSumStat()
+    {
+        GameManager.player._Class.StatsPoints--;
+        UpdatePlayerInfo();
+    }
+
+    private void GeralSubStat()
+    {
+        GameManager.player._Class.StatsPoints++;
+        UpdatePlayerInfo();
+    }
+
+    private void XPPlus(object sender, RoutedEventArgs e)
+    {
+        //GameManager.player.;
+        GameManager.player.LevelUpdate(0, 0, 0, 0, 0, 100);
+    }
+
+    private void MPPlus(object sender, RoutedEventArgs e)
+    {
+        GameManager.player.AddMP(20);
+    }
+
+    private void HPPlus(object sender, RoutedEventArgs e)
+    {
+        GameManager.player.AddHP(20);
+    }
+
+    private void PSTR(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.player._Class.StatsPoints > 0)
+        {
+            _str++;
+            GeralSumStat();
+        }
+    }
+
+    private void PMND(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.player._Class.StatsPoints > 0)
+        {
+            _mnd++;
+            GeralSumStat();
+        }
+    }
+
+    private void PSPD(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.player._Class.StatsPoints > 0)
+        {
+            _spd++;
+            GeralSumStat();
+        }
+    }
+
+    private void PDEX(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.player._Class.StatsPoints > 0)
+        {
+            _dex++;
+            GeralSumStat();
+        }
+    }
+
+    private void PCON(object sender, RoutedEventArgs e)
+    {
+        if (GameManager.player._Class.StatsPoints > 0)
+        {
+            _con++;
+            GeralSumStat();
+        }
+    }
+
+    private void MSTR(object sender, RoutedEventArgs e)
+    {
+        if (_str > 0)
+        {
+            _str--;
+            GeralSubStat();
+        }
+    }
+
+    private void MDEX(object sender, RoutedEventArgs e)
+    {
+        if (_dex > 0)
+        {
+            _dex--;
+            GeralSubStat();
+        }
+    }
+
+    private void MSPD(object sender, RoutedEventArgs e)
+    {
+        if (_spd > 0)
+        {
+            _spd--;
+            GeralSubStat();
+        }
+    }
+
+    private void MCON(object sender, RoutedEventArgs e)
+    {
+        if (_con > 0)
+        {
+            _con--;
+            GeralSubStat();
+        }
+    }
+
+    private void MMND(object sender, RoutedEventArgs e)
+    {
+        if (_mnd > 0)
+        {
+            _mnd--;
+            GeralSubStat();
+        }
+    }
+
+    private void TrocaButton(object sender, RoutedEventArgs e)
+    {
+        Switch = !Switch;
+        Buy.Content = Switch == true ? "Buy" : "Sell";
+        UpdateShopInfo();
+    }
+
+    private void ApplyStats(object sender, RoutedEventArgs e)
+    {
+        GameManager.player.LevelUpdate(_str, _spd, _dex, _con, _mnd, 50);
+        _str = _spd = _dex = _con = _mnd = 0;
+    }
+    #endregion
+
+    #endregion
+
+    #endregion
 }
-#endregion
+}

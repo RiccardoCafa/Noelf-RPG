@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
+
     class Crafting
     {
         public bool IsPossibleToCraft(uint item, Bag playerBag)
@@ -40,7 +41,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 {
                     if (bag.Slots.Contains(s))
                     {
-                        
+                        bag.Slots.Remove(s);
                     }
                 }
             }
@@ -48,14 +49,16 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
         
         public Slot CraftItem(uint itemID, Bag bag)
         {
+            Slot NewItem;
             if (IsPossibleToCraft(itemID, bag))
             {
-
+                NewItem = new Slot(itemID, 1);
+                RemoveMaterials(itemID, bag);
+                return NewItem;
             }
-
-
-
-
+            Slot carvao = new Slot(2, 1);
+            return carvao;
+           
         }
         
 
