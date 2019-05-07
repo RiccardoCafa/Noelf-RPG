@@ -461,8 +461,8 @@ namespace RPG_Noelf
                     } else
                     {
                         GameManager.player._Inventory.RemoveFromBag(s);
-                        CreateDrop(GameManager.characterPlayer.xCharacVal + 10,
-                                    GameManager.characterPlayer.yCharacVal + 60,
+                        CreateDrop(GameManager.player.box.Xi + 10,
+                                    GameManager.player.box.Yi + 60,
                                     s);
                     }
                 }

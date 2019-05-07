@@ -1,13 +1,4 @@
-﻿using RPG_Noelf.Assets.Scripts.General;
-using RPG_Noelf.Assets.Scripts.PlayerFolder;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.UI.Core;
+﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -44,10 +35,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 var eprop = e.GetCurrentPoint(Game.instance).Properties;
                 if(eprop.IsLeftButtonPressed)
                 {
-                    if(trigger.Triggering())
-                    {
+                    //if(trigger.Triggering())
+                    //{
                         MyNPC.StartConversation();
-                    }
+                    //}
                 }
             }
         }

@@ -120,7 +120,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public void MyFunction(object sender, RoutedEventArgs e)
         {
             GameManager.questerTarget = this;
-            MainPage.instance.OpenQuest();
+            Game.instance.OpenQuest();
             
         }
         

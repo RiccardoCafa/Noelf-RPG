@@ -98,7 +98,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if(questerTarget != null)
             {
-                MainPage.instance.CloseQuest();
+               Game.instance.CloseQuest();
             }
         } 
 
@@ -106,7 +106,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if (questerTarget != null)
             {
-                MainPage.instance.OpenQuest();
+                Game.instance.OpenQuest();
             }
             
         }
