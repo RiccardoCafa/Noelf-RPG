@@ -104,11 +104,10 @@ namespace RPG_Noelf
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var viewId = 0;
-            CharacterCreationParams cParams = new CharacterCreationParams();
-            cParams.playerCreated = CustomPlayer;
+            PlayerParams cParams = new PlayerParams(CustomPlayer.Id);
             SavePlayerData();
             var newView = CoreApplication.CreateNewView();
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 var frame = new Frame();
                 frame.Navigate(typeof(Game), cParams);
@@ -128,7 +127,7 @@ namespace RPG_Noelf
             string path = Path.GetTempPath() + @"/Noelf";
             if(!File.Exists(path))
             {
-                System.IO.Directory.CreateDirectory(path);
+                Directory.CreateDirectory(path);
             }
 
             string fileName = "slot_" + selectedSlot;
@@ -140,10 +139,5 @@ namespace RPG_Noelf
                 sw.WriteLine("id " + CustomPlayer.Id);
             }
         }
-    }
-
-    public class CharacterCreationParams
-    {
-        public Player playerCreated { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             Game.instance.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
+            Debug.WriteLine("Conversa iniciada");
         }
 
         public void EndConversation()
