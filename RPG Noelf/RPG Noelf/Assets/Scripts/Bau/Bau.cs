@@ -9,50 +9,49 @@ namespace RPG_Noelf.Assets.Scripts.Bau
 {
     class Bau
     {
-        private int Type;
+        private Category Type;
         private Bag intens;
-        public Bau(int Type,int Qnt_itensMax)
+
+        public Bau(Category Type,int Qnt_itensMax)
         {
             this.Type = Type;
             GeneratorSizeCrate(Qnt_itensMax);
-            CrateCreation(this);
+            CrateCreation();
         }
-        public void GeneratorSizeCrate(int Tamanho)//Quantos intens quer q o bau tenha
+
+        public void GeneratorSizeCrate(int Tamanho)//Quantos itens quer q o bau tenha
         {
             Random sizecrate = new Random();
             intens.FreeSlots = sizecrate.Next(Tamanho);
         }
-        public int CrateCreation(Bau Novobau)
+
+        public void CrateCreation()
         {
-            switch (Novobau.Type) {
-                case 1:
-                    for (int i = 0; i < Novobau.intens.FreeSlots; i++)
-                    {
-                        Random additem = new Random();
-                        Random addQuant = new Random();
-                        Novobau.intens.AddToBag(new Slot((uint)additem.Next(29), (uint)addQuant.Next(10)));
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < Novobau.intens.FreeSlots; i++)
-                    {
-                        Random additem = new Random();
-                        Random addQuant = new Random();
-                        Novobau.intens.AddToBag(new Slot((uint)additem.Next(39), (uint)addQuant.Next(10)));
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < Novobau.intens.FreeSlots; i++)
-                    {
-                        Random additem = new Random();
-                        Random addQuant = new Random();
-                        Novobau.intens.AddToBag(new Slot((uint)additem.Next(42), (uint)addQuant.Next(10)));
-                    }
-                    break;
-                default:
-                    break;
+            Random GetRand = new Random();
+            int typeID = GetTypeId(Type);
+            for (int i = 0; i < intens.FreeSlots; i++)
+            {
+                uint itemProcurado = (uint) GetRand.Next(Encyclopedia.encyclopedia.Count);
+                if (typeID >= GetTypeId(Encyclopedia.SearchFor(itemProcurado).ItemCategory))
+                {
+                    intens.AddToBag(new Slot(itemProcurado, (uint)GetRand.Next(10)));
+                }
             }
-            return 1;
+        }
+
+        public int GetTypeId(Category Type)
+        {
+            switch(Type)
+            {
+                case Category.Legendary:
+                    return 3;
+                case Category.Epic:
+                    return 2;
+                case Category.Uncommon:
+                    return 1;
+                default: return 0;
+            }
+
         }
     }
 }
