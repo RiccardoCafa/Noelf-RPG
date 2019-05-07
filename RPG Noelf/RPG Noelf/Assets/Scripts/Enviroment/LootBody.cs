@@ -24,7 +24,7 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
         public void OnLootPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (Character.GetDistance(GameManager.characterPlayer.xCharacVal, GameManager.characterPlayer.yCharacVal, (double)GetLeft(this), (double)GetTop(this)) < 65)
+            if (Character.GetDistance(GameManager.player.box.Xi, GameManager.player.box.Yi, (double)GetLeft(this), (double)GetTop(this)) < 65)
             {
                 if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {

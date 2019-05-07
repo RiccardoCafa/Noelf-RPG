@@ -7,77 +7,64 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
+
     class Crafting
     {
+        public bool IsPossibleToCraft(uint item, Bag playerBag)
+        {
+            int count = 0;
+            if(CraftingEncyclopedia.HaveRecipe(item) == true)
+            {
+                Recipe generic = CraftingEncyclopedia.CraftItems[item];
+                foreach(Slot s in generic.ListaMaterial)
+                {
+                    if (playerBag.Slots.Contains(s))
+                    {
+                        count = count + 1;
+                    }
+                }
+                if(count == generic.NumMaterials)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }       
+
+        public void RemoveMaterials(uint id, Bag bag)
+        {
+            if (IsPossibleToCraft(id, bag))
+            {
+                Recipe generic = CraftingEncyclopedia.CraftItems[id];
+                foreach (Slot s in generic.ListaMaterial)
+                {
+                    if (bag.Slots.Contains(s))
+                    {
+                        bag.Slots.Remove(s);
+                    }
+                }
+            }
+        }
+        
+        public Slot CraftItem(uint itemID, Bag bag)
+        {
+            Slot NewItem;
+            if (IsPossibleToCraft(itemID, bag))
+            {
+                NewItem = new Slot(itemID, 1);
+                RemoveMaterials(itemID, bag);
+                return NewItem;
+            }
+            Slot carvao = new Slot(2, 1);
+            return carvao;
+           
+        }
         
 
-        public Slot SmithingCraft(Bag PlayerBag, uint desiredID)
-        {
-            Recipe itemRecipe;
-            Slot NewItem;
-            Item generic; 
-            if(CraftingEncyclopedia.CheckIDRecipe(desiredID) == true)
-            {
-                itemRecipe = CraftingEncyclopedia.PushRecipe(desiredID);
-                generic = Encyclopedia.SearchFor(desiredID);
-                if(generic is Weapon|| generic is Armor)
-                {
-                    if(CraftingEncyclopedia.CheckMaterialsFromRecipe(desiredID,PlayerBag) == true)
-                    {
-                        NewItem = new Slot(desiredID, 1);
-                        return NewItem;
-                    }
 
 
-                }
-              return null;
-            }
-            return null;
-        }
 
-        public Slot AlchemyCraft(Bag PlayerBag, uint desiredID)
-        {
-
-            Recipe itemRecipe;
-            Slot NewItem;
-            Item generic;
-            if (CraftingEncyclopedia.CheckIDRecipe(desiredID) == true)
-            {
-                itemRecipe = CraftingEncyclopedia.PushRecipe(desiredID);
-                generic = Encyclopedia.SearchFor(desiredID);
-                if (generic is Consumable)
-                {
-                    if (CraftingEncyclopedia.CheckMaterialsFromRecipe(desiredID, PlayerBag) == true)
-                    {
-                        NewItem = new Slot(desiredID, 1);
-                        return NewItem;
-                    }
-
-
-                }
-                return null;
-            }
-            return null;
-
-        }
-
-        public List<Slot> DestroyItem(uint ItemId)
-        {
-          List<Slot> Material;
-          Recipe generic = CraftingEncyclopedia.PushRecipe(ItemId);
-            if(generic == null)
-            {
-                Slot a = new Slot(ItemId, 1);
-                Material = new List<Slot>();
-                Material.Add(a);
-                return Material;
-            }
-            else
-            {
-                Material = generic.Materials;
-                return Material;
-            }
-        }
 
 
 

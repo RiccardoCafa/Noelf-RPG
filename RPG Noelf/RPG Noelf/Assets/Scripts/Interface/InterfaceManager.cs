@@ -16,6 +16,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public bool ShopOpen { get; set; } = false;
         public bool ConvHasToClose { get; set; }
         public bool Conversation { get; set; } = false;
+        
 
         public InterfaceManager()
         {

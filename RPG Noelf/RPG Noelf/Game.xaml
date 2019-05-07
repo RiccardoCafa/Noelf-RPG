@@ -245,7 +245,7 @@
             </Grid>
         </Canvas>
 		
-        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility="Visible">
+        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility ="Collapsed">
             <Grid Width="200" Height="100">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
@@ -257,7 +257,7 @@
             
         </Canvas>
     
-       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Visible">
+       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
             <Grid Width="200" Height="300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
@@ -269,7 +269,7 @@
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <TextBlock Name="QuestTitulo" Width="200" Height="40" Text="Titulo" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></TextBlock>
-                <TextBlock Name="QuestDescription" Width="200" Height="150" Text="Conteudo" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock Name="QuestDescription" TextWrapping="Wrap" Width="200" Height="150" Text="Conteudo" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"></TextBlock>
                 <TextBlock Name="QuestRewards" Width="200" Height="50" Text="Rewards" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left"></TextBlock>
                 <Grid Height="60" Width="200" HorizontalAlignment="Left" Grid.Row="4">
                     <Grid.ColumnDefinitions>
