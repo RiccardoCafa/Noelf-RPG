@@ -503,7 +503,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 return encyclopedia[key];
             }
-            else throw new ArgumentOutOfRangeException();
+            else return null;
         }
 
         // pega o id de um item especifico

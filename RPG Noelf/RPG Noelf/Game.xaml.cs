@@ -78,63 +78,6 @@ namespace RPG_Noelf
             Window.Current.CoreWindow.KeyUp += WindowControl;
             Start = new Thread(start);
             Start.Start();
-
-            //PlayerImagesTest = new List<Image>()
-            //{
-            //    xPlayerArm_d0,
-            //    xPlayerArm_d1,
-            //    xPlayerArm_e0,
-            //    xPlayerArm_e1,
-            //    xPlayerBody,
-            //    xPlayerHead,
-            //    xPlayerEye,
-            //    xPlayerHair,
-            //    xPlayerLeg_d0,
-            //    xPlayerLeg_d1,
-            //    xPlayerLeg_e0,
-            //    xPlayerLeg_e1
-            //};//(temporario)
-
-            //PlayerImages = new Dictionary<string, Image>()
-            //{
-            //    {"armsd0", xPlayerArm_d0 },
-            //    {"armsd1", xPlayerArm_d1 },
-            //    {"armse0", xPlayerArm_e0 },
-            //    {"armse1", xPlayerArm_e1 },
-            //    {"body", xPlayerBody },
-            //    {"head", xPlayerHead },
-            //    {"eye", xPlayerEye },
-            //    {"hair", xPlayerHair },
-            //    {"legsd0", xPlayerLeg_d0 },
-            //    {"legsd1", xPlayerLeg_d1 },
-            //    {"legse0", xPlayerLeg_e0 },
-            //    {"legse1", xPlayerLeg_e1 }
-            //};
-            //ClothesImages = new Dictionary<string, Image>()
-            //{
-            //    {"armsd0", xClothArm_d0 },
-            //    {"armsd1", xClothArm_d1 },
-            //    {"armse0", xClothArm_e0 },
-            //    {"armse1", xClothArm_e1 },
-            //    {"body", xClothBody },
-            //    {"legsd0", xClothLeg_d0 },
-            //    {"legsd1", xClothLeg_d1 },
-            //    {"legse0", xClothLeg_e0 },
-            //    {"legse1", xClothLeg_e1 }
-            //};
-            //MobImages = new Dictionary<string, Image>()
-            //{
-            //    { "head",xMobHead },
-            //    { "body",xMobBody },
-            //    { "armsd0", xMobArm_d0 },
-            //    { "armsd1", xMobArm_d1 },
-            //    { "armse0", xMobArm_e0 },
-            //    { "armse1", xMobArm_e1 },
-            //    { "legsd0", xMobLeg_d0 },
-            //    { "legsd1", xMobLeg_d1 },
-            //    { "legse0", xMobLeg_e0 },
-            //    { "legse1", xMobLeg_e1 }
-            //};
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -168,6 +111,7 @@ namespace RPG_Noelf
                 GameManager.player.PlayerUpdated += UpdatePlayerInfoEvent;
                 CharacterNPC npc2 = new CharacterNPC(NPCCanvas2, Encyclopedia.NonPlayerCharacters[2]);
                 Conversation.PointerPressed += EndConversation;
+
                 UpdateBag();
                 UpdateSkillTree();
                 UpdatePlayerInfo();
@@ -187,6 +131,9 @@ namespace RPG_Noelf
 
                 Slot slotDrop = new Slot(40, 1);
                 CreateDrop(100, 500, slotDrop);
+
+                Bau bauchicabaubau = new Bau(Category.Legendary, 15);
+                CreateChest(200, 220, bauchicabaubau);
             });
 
         }
@@ -234,12 +181,6 @@ namespace RPG_Noelf
             GameManager.mob = new Mob(level: 2);
             GameManager.mob.Spawn(30, 30);
             TheScene.Children.Add(GameManager.mob.box);
-            //GameManager.mob.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
-            //GameManager.mob.Status(xMobStatus);
-
-            //GameManager.mobTarget = new CharacterMob(MobCanvas, GameManager.players, new Mob(MobImages, level: 2));//criaçao do mob
-            //GameManager.mobTarget.Mob.Status(xMobStatus);//fornecimento das informaçoes do mob (temporario)
-            //GameManager.mobTarget.UpdateBlocks(xScene);
         }
         public void CreatePlayer()
         {
@@ -252,6 +193,24 @@ namespace RPG_Noelf
             }
             GameManager.player.Spawn(300, 30);
             TheScene.Children.Add(GameManager.player.box);
+        }
+        public void CreateChest(double x, double y, Bau bau) 
+        {
+            ChestBody chest = new ChestBody(x, y, bau)
+            {
+                Width = 85,
+                Height = 85
+            };
+            Chunck01.Children.Add(chest);
+            Image chestImage = new Image()
+            {
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Interactable/chest-rpg-normal.png")),
+                Width = 85,
+                Height = 85
+            };
+            chest.Children.Add(chestImage);
+            chest.ChestOpen += ChestOpen;
+            chest.PointerPressed += ShowChest;
         }
         public Canvas CreateCharacterNPC()
         {
@@ -1147,6 +1106,30 @@ namespace RPG_Noelf
         {
             MenuAberto.Visibility = Visibility.Collapsed;
             MenuFechado.Visibility = Visibility.Visible;
+        }
+        private void ShowChest(object sender, PointerRoutedEventArgs e)
+        {
+            ChestBody chest = (ChestBody)sender;
+            chest.OnChestOpened();
+        }
+        private void ChestOpen(object sender, ChestEventArgs e)
+        {
+            ChestWindow.Visibility = Visibility.Visible;
+            UpdateChest(e.chest);
+        }
+        private void UpdateChest(Bau chest)
+        {
+            int count = 0;
+            foreach (Image img in ChestGrid.Children)
+            {
+                if (count >= chest.itens.Slots.Count) img.Source = new BitmapImage();
+                else
+                {
+                    Slot s = chest.itens.GetSlot(count);
+                    img.Source = new BitmapImage(new Uri("ms-appx://" + Encyclopedia.SearchFor(s.ItemID).PathImage));
+                }
+                count++;
+            }
         }
         #endregion
 

@@ -5,36 +5,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Noelf.Assets.Scripts.Bau
+namespace RPG_Noelf.Assets.Scripts.Enviroment
 {
-    class Bau
+    public class Bau
     {
         private Category Type;
-        private Bag intens;
+        public Bag itens { get; set; }
+
+        private const int maxSlots = 15;
 
         public Bau(Category Type,int Qnt_itensMax)
         {
             this.Type = Type;
-            GeneratorSizeCrate(Qnt_itensMax);
+            itens = new Bag();
+            GeneratorSizeCrate(Math.Clamp(Qnt_itensMax, 1, maxSlots));
             CrateCreation();
         }
 
         public void GeneratorSizeCrate(int Tamanho)//Quantos itens quer q o bau tenha
         {
             Random sizecrate = new Random();
-            intens.FreeSlots = sizecrate.Next(Tamanho);
+            itens.FreeSlots = sizecrate.Next(Tamanho);
         }
 
         public void CrateCreation()
         {
             Random GetRand = new Random();
             int typeID = GetTypeId(Type);
-            for (int i = 0; i < intens.FreeSlots; i++)
+            for (int i = 0; i < itens.FreeSlots; i++)
             {
-                uint itemProcurado = (uint) GetRand.Next(Encyclopedia.encyclopedia.Count);
+                uint itemProcurado;
+                do
+                {
+                    itemProcurado = (uint)GetRand.Next(Encyclopedia.encyclopedia.Count - 1);
+                } while (Encyclopedia.SearchFor(itemProcurado) == null);
+
                 if (typeID >= GetTypeId(Encyclopedia.SearchFor(itemProcurado).ItemCategory))
                 {
-                    intens.AddToBag(new Slot(itemProcurado, (uint)GetRand.Next(10)));
+                    itens.AddToBag(new Slot(itemProcurado, (uint)GetRand.Next(10)));
                 }
             }
         }

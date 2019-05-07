@@ -51,7 +51,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             teste.AddFunction(questerTarget);          
             npcTarget = teste;
             npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
-            MainPage.instance.OpenQuest();
+            Game.instance.OpenQuest();
 
             player._Inventory.AddToBag(new Slot(3, 1));
             player._Inventory.AddToBag(new Slot(21, 1));
@@ -100,7 +100,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if(questerTarget != null)
             {
-                MainPage.instance.CloseQuest();
+                Game.instance.CloseQuest();
             }
         } 
 
@@ -108,7 +108,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if (questerTarget != null)
             {
-                MainPage.instance.OpenQuest();
+                Game.instance.OpenQuest();
             }
             
         }

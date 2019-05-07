@@ -41,7 +41,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override bool UseSkill(Ent player, Ent Enemy)
         {
-            if (manaCost <= player.Mp)
+            if (manaCost <= player.Mnd)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
