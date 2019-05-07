@@ -11,14 +11,15 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Scenes
 {
-    class Scene
+    public class Scene
     {
         public Canvas chunck;
         public List<string> Blueprint { get; private set; } = new List<string>();
 
         public Scene(Canvas xScene)//constroi o cenario, com os tiles e os canvas
         {
-            chunck = xScene;
+            chunck = new Canvas();
+            xScene.Children.Add(chunck);
             System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");
             string bp;
             int sizeX = 0;
@@ -31,8 +32,8 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             }
             file.Close();
             Tile t = new Tile(TypeTile.grass, 0, 0);
-            xScene.Width = (sizeX - 1) * t.Size[0];
-            xScene.Height = sizeY * t.Size[1] + t.VirtualSize[1] - t.Size[1];
+            chunck.Width = (sizeX - 1) * t.Size[0];
+            chunck.Height = sizeY * t.Size[1] + t.VirtualSize[1] - t.Size[1];
             for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
                 List<int> platX = new List<int>();
@@ -43,7 +44,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                     {
                         Tile tile = new Tile(Tile.TileCode[block], x, y);
                         Image image = new Image();
-                        xScene.Children.Add(image);
+                        chunck.Children.Add(image);
                         image.Source = new BitmapImage(new Uri(Game.instance.BaseUri, tile.Path));
                         image.Width = tile.VirtualSize[0];
                         image.Height = tile.VirtualSize[1];
@@ -56,7 +57,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                             {
                                 Solid solid = new Solid(tile.Size[0] * platX.First(), tile.Size[1] * y - 1,
                                                         tile.Size[0] * (platX.Last() - platX.First() + 1), tile.Size[1]);
-                                xScene.Children.Add(solid);
+                                chunck.Children.Add(solid);
                                 solid.Name = "plat" + platX.First() + y;
                                 //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                                 platX.Clear();
@@ -66,7 +67,6 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                     x++;
                 }
             }
-            
         }
     }
 }
