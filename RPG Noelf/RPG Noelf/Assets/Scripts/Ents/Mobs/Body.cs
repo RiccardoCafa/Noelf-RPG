@@ -37,7 +37,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Str += (int)(3 + mob.Level * 0.75);
+            mob.Str += (int)(3 + mob.level.actuallevel * 0.75);
             mob.Resistance.Add(Element.Fire);
         }
     }
@@ -46,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Spd += (int)(3 + mob.Level * 0.75);
+            mob.Spd += (int)(3 + mob.level.actuallevel * 0.75);
             mob.Vulnerable.Add(Element.Fire);
         }
     }
@@ -55,7 +55,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Mnd += (int)(3 + mob.Level * 0.75);
+            mob.Mnd += (int)(3 + mob.level.actuallevel * 0.75);
             mob.Resistance.Add(Element.Poison);
         }
     }
@@ -64,7 +64,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Con += (int)(3 + mob.Level * 0.75);
+            mob.Con += (int)(3 + mob.level.actuallevel * 0.75);
             mob.Resistance.Add(Element.Common);
         }
     }
@@ -73,7 +73,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
     {
         public override void UpdateMob(Mob mob)
         {
-            mob.Dex += (int)(3 + mob.Level * 0.75);
+            mob.Dex += (int)(3 + mob.level.actuallevel * 0.75);
             mob.Attacks.Add(Camouflage);
             mob.attcks.Add("Camouflage");
         }

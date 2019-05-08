@@ -22,7 +22,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         Dead
     }
 
-    class CharacterMob : Character
+    public class CharacterMob : Character
     {
         public MobState MyState;
         public List<CharacterPlayer> players;
@@ -76,7 +76,8 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
                         }
                         else if(distPlayer < MinDistance && distInitialToMob < MinDistance / 2)
                         {
-                            MyState = MobState.Following;
+                            if (Mob.Meek && Mob.Hp == Mob.HpMax) MyState = MobState.Alert;
+                            else MyState = MobState.Following;
                         }
                         else if (distInitialToMob > ChunckDistance)
                         {

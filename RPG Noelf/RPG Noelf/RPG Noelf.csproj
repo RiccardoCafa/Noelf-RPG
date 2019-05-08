@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RPG_Noelf</RootNamespace>
     <AssemblyName>RPG Noelf</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>pt-br</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
@@ -18,6 +18,11 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>RPG Noelf_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Never</AppxBundle>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -120,12 +125,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Assets\Scripts\Crafting Scripts\Crafter.cs" />
+    <Compile Include="Assets\Scripts\Crafting Scripts\Crafting.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\CraftingEncyclopedia.cs" />
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
+    <Compile Include="Assets\Scripts\Ents\Collision.cs" />
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\CharacterNPC.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\CharacterMob.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Arms.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Body.cs" />
@@ -134,11 +142,18 @@
     <Compile Include="Assets\Scripts\Ents\Mobs\Legs.cs" />
     <Compile Include="Assets\Scripts\Ents\Mobs\Mob.cs" />
     <Compile Include="Assets\Scripts\Ents\Character.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\Quest.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\QuestList.cs" />
+    <Compile Include="Assets\Scripts\Ents\NPCs\QuestManager.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\CharacterPlayer.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Class.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Player.cs" />
     <Compile Include="Assets\Scripts\Ents\PlayerFolder\Race.cs" />
-    <Compile Include="Assets\Scripts\Ents\PlayerLevel.cs" />
+    <Compile Include="Assets\Scripts\Ents\Trigger.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\DayNight.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\LootBody.cs" />
+    <Compile Include="Assets\Scripts\General\GameManager.cs" />
+    <Compile Include="Assets\Scripts\General\ObjectPooling.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
@@ -150,6 +165,7 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Consumable.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GeradorFoto.cs" />
+    <Compile Include="Assets\Scripts\Scenes\LevelScene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Scene.cs" />
     <Compile Include="Assets\Scripts\Scenes\Tile.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
@@ -159,8 +175,19 @@
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
     <Compile Include="Assets\Scripts\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Assets\Scripts\Skills\Timer.cs" />
+	<Compile Include="Assets\Scripts\Solid.cs" />
+    <Compile Include="CharacterCreation.xaml.cs">
+      <DependentUpon>CharacterCreation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Game.xaml.cs">
+      <DependentUpon>Game.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerLobby.xaml.cs">
+      <DependentUpon>PlayerLobby.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -171,14 +198,43 @@
     <None Include="RPG Noelf_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\00-0--.png" />
-    <Content Include="Assets\Images\000---.png" />
     <Content Include="Assets\Images\Chao.jpg" />
-    <Content Include="Assets\Images\grass.png" />
-    <Content Include="Assets\Images\ground.png" />
+    <Content Include="Assets\Images\itens\arcoComposto.png" />
+    <Content Include="Assets\Images\itens\barraFerro.png" />
+    <Content Include="Assets\Images\itens\botaCouro.png" />
+    <Content Include="Assets\Images\itens\botaFerro.png" />
+    <Content Include="Assets\Images\itens\calcaCouro.png" />
+    <Content Include="Assets\Images\itens\capaceteFerro.png" />
+    <Content Include="Assets\Images\itens\capuzLa.png" />
+    <Content Include="Assets\Images\itens\chapeuCouro.png" />
+    <Content Include="Assets\Images\itens\coleteCouro.png" />
+    <Content Include="Assets\Images\itens\couro.png" />
+    <Content Include="Assets\Images\itens\espadaFerro.png" />
+    <Content Include="Assets\Images\itens\la.png" />
+    <Content Include="Assets\Images\itens\linha.png" />
+    <Content Include="Assets\Images\itens\madeira.png" />
+    <Content Include="Assets\Images\itens\pedraMagica.png" />
+    <Content Include="Assets\Images\itens\peitoralFerro.png" />
+    <Content Include="Assets\Images\itens\pepitaFerro.png" />
+    <Content Include="Assets\Images\itens\perneiraFerro.png" />
+    <Content Include="Assets\Images\itens\PocaoManaP.png" />
+    <Content Include="Assets\Images\itens\pocaoVidaP.png" />
+    <Content Include="Assets\Images\itens\roupaLa.png" />
+    <Content Include="Assets\Images\itens\sapatoComum.png" />
+    <Content Include="Assets\Images\Skills\ArcherSkill1.jpg" />
+    <Content Include="Assets\Images\Skills\ArcherSkill2.jpg" />
+    <Content Include="Assets\Images\Skills\ArcherSkill3.jpg" />
+    <Content Include="Assets\Images\Skills\ArcherSkill4.jpg" />
+    <Content Include="Assets\Images\Skills\PassiveArcherSkill.jpg" />
+    <Content Include="Assets\Images\tiles\grass.png" />
+    <Content Include="Assets\Images\tiles\ground.png" />
+    <Content Include="Assets\Images\iconeLapa.png" />
     <Content Include="Assets\Images\Inimigo.jpg" />
     <Content Include="Assets\Images\Item1.jpg" />
     <Content Include="Assets\Images\Item2.jpg" />
+    <Content Include="Assets\Images\layer1.png" />
+    <Content Include="Assets\Images\layer2.png" />
+    <Content Include="Assets\Images\layer3.png" />
     <Content Include="Assets\Images\mob\arms\d\0\0.png" />
     <Content Include="Assets\Images\mob\arms\d\0\1.png" />
     <Content Include="Assets\Images\mob\arms\d\0\2.png" />
@@ -204,11 +260,11 @@
     <Content Include="Assets\Images\mob\body\2.png" />
     <Content Include="Assets\Images\mob\body\3.png" />
     <Content Include="Assets\Images\mob\body\4.png" />
-    <Content Include="Assets\Images\mob\face\0.png" />
-    <Content Include="Assets\Images\mob\face\1.png" />
-    <Content Include="Assets\Images\mob\face\2.png" />
-    <Content Include="Assets\Images\mob\face\3.png" />
-    <Content Include="Assets\Images\mob\face\4.png" />
+    <Content Include="Assets\Images\mob\head\0.png" />
+    <Content Include="Assets\Images\mob\head\1.png" />
+    <Content Include="Assets\Images\mob\head\2.png" />
+    <Content Include="Assets\Images\mob\head\3.png" />
+    <Content Include="Assets\Images\mob\head\4.png" />
     <Content Include="Assets\Images\mob\legs\d\0\0.png" />
     <Content Include="Assets\Images\mob\legs\d\0\1.png" />
     <Content Include="Assets\Images\mob\legs\d\0\2.png" />
@@ -230,6 +286,334 @@
     <Content Include="Assets\Images\mob\legs\e\1\3.png" />
     <Content Include="Assets\Images\mob\legs\e\1\4.png" />
     <Content Include="Assets\Images\Player.jpg" />
+    <Content Include="Assets\Images\player\clothes\arms\d\0\00.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\0\01.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\0\02.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\0\10.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\0\11.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\0\12.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\1\10.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\1\01.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\1\02.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\1\00.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\1\11.png" />
+    <Content Include="Assets\Images\player\clothes\arms\d\1\12.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\0\00.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\0\01.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\0\02.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\0\10.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\0\11.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\0\12.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\1\00.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\1\01.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\1\02.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\1\10.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\1\11.png" />
+    <Content Include="Assets\Images\player\clothes\arms\e\1\12.png" />
+    <Content Include="Assets\Images\player\clothes\body\00.png" />
+    <Content Include="Assets\Images\player\clothes\body\01.png" />
+    <Content Include="Assets\Images\player\clothes\body\02.png" />
+    <Content Include="Assets\Images\player\clothes\body\10.png" />
+    <Content Include="Assets\Images\player\clothes\body\11.png" />
+    <Content Include="Assets\Images\player\clothes\body\12.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\0\00.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\0\01.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\0\02.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\0\10.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\0\11.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\0\12.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\1\00.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\1\01.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\1\02.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\1\10.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\1\11.png" />
+    <Content Include="Assets\Images\player\clothes\legs\d\1\12.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\0\00.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\0\01.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\0\02.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\0\10.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\0\11.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\0\12.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\1\00.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\1\01.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\1\02.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\1\10.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\1\11.png" />
+    <Content Include="Assets\Images\player\clothes\legs\e\1\12.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\000___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\001___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\002___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\010___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\011___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\012___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\100___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\101___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\102___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\110___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\111___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\112___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\200___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\201___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\202___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\210___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\211___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\0\212___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\000___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\001___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\002___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\010___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\011___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\012___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\100___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\101___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\102___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\110___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\111___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\112___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\200___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\201___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\202___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\210___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\211___.png" />
+    <Content Include="Assets\Images\player\player\arms\d\1\212___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\000___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\001___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\002___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\010___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\011___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\012___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\100___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\101___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\102___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\110___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\111___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\112___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\200___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\201___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\202___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\210___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\211___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\0\212___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\000___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\001___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\002___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\010___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\011___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\012___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\100___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\101___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\102___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\110___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\111___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\112___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\200___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\201___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\202___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\210___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\211___.png" />
+    <Content Include="Assets\Images\player\player\arms\e\1\212___.png" />
+    <Content Include="Assets\Images\player\player\body\000___.png" />
+    <Content Include="Assets\Images\player\player\body\001___.png" />
+    <Content Include="Assets\Images\player\player\body\002___.png" />
+    <Content Include="Assets\Images\player\player\body\010___.png" />
+    <Content Include="Assets\Images\player\player\body\011___.png" />
+    <Content Include="Assets\Images\player\player\body\012___.png" />
+    <Content Include="Assets\Images\player\player\body\100___.png" />
+    <Content Include="Assets\Images\player\player\body\101___.png" />
+    <Content Include="Assets\Images\player\player\body\102___.png" />
+    <Content Include="Assets\Images\player\player\body\110___.png" />
+    <Content Include="Assets\Images\player\player\body\111___.png" />
+    <Content Include="Assets\Images\player\player\body\112___.png" />
+    <Content Include="Assets\Images\player\player\body\200___.png" />
+    <Content Include="Assets\Images\player\player\body\201___.png" />
+    <Content Include="Assets\Images\player\player\body\202___.png" />
+    <Content Include="Assets\Images\player\player\body\210___.png" />
+    <Content Include="Assets\Images\player\player\body\211___.png" />
+    <Content Include="Assets\Images\player\player\body\212___.png" />
+    <Content Include="Assets\Images\player\player\eye\00_0__.png" />
+    <Content Include="Assets\Images\player\player\eye\00_1__.png" />
+    <Content Include="Assets\Images\player\player\eye\00_2__.png" />
+    <Content Include="Assets\Images\player\player\eye\01_0__.png" />
+    <Content Include="Assets\Images\player\player\eye\01_1__.png" />
+    <Content Include="Assets\Images\player\player\eye\01_2__.png" />
+    <Content Include="Assets\Images\player\player\eye\10_0__.png" />
+    <Content Include="Assets\Images\player\player\eye\10_1__.png" />
+    <Content Include="Assets\Images\player\player\eye\10_2__.png" />
+    <Content Include="Assets\Images\player\player\eye\11_0__.png" />
+    <Content Include="Assets\Images\player\player\eye\11_1__.png" />
+    <Content Include="Assets\Images\player\player\eye\11_2__.png" />
+    <Content Include="Assets\Images\player\player\eye\20_0__.png" />
+    <Content Include="Assets\Images\player\player\eye\20_1__.png" />
+    <Content Include="Assets\Images\player\player\eye\20_2__.png" />
+    <Content Include="Assets\Images\player\player\eye\21_0__.png" />
+    <Content Include="Assets\Images\player\player\eye\21_1__.png" />
+    <Content Include="Assets\Images\player\player\eye\21_2__.png" />
+    <Content Include="Assets\Images\player\player\hair\00__00.png" />
+    <Content Include="Assets\Images\player\player\hair\00__01.png" />
+    <Content Include="Assets\Images\player\player\hair\00__02.png" />
+    <Content Include="Assets\Images\player\player\hair\00__10.png" />
+    <Content Include="Assets\Images\player\player\hair\00__11.png" />
+    <Content Include="Assets\Images\player\player\hair\00__12.png" />
+    <Content Include="Assets\Images\player\player\hair\00__20.png" />
+    <Content Include="Assets\Images\player\player\hair\00__21.png" />
+    <Content Include="Assets\Images\player\player\hair\00__22.png" />
+    <Content Include="Assets\Images\player\player\hair\00__3_.png" />
+    <Content Include="Assets\Images\player\player\hair\01__00.png" />
+    <Content Include="Assets\Images\player\player\hair\01__01.png" />
+    <Content Include="Assets\Images\player\player\hair\01__02.png" />
+    <Content Include="Assets\Images\player\player\hair\01__10.png" />
+    <Content Include="Assets\Images\player\player\hair\01__11.png" />
+    <Content Include="Assets\Images\player\player\hair\01__12.png" />
+    <Content Include="Assets\Images\player\player\hair\01__20.png" />
+    <Content Include="Assets\Images\player\player\hair\01__21.png" />
+    <Content Include="Assets\Images\player\player\hair\01__22.png" />
+    <Content Include="Assets\Images\player\player\hair\01__3_.png" />
+    <Content Include="Assets\Images\player\player\hair\10__00.png" />
+    <Content Include="Assets\Images\player\player\hair\10__01.png" />
+    <Content Include="Assets\Images\player\player\hair\10__02.png" />
+    <Content Include="Assets\Images\player\player\hair\10__10.png" />
+    <Content Include="Assets\Images\player\player\hair\10__11.png" />
+    <Content Include="Assets\Images\player\player\hair\10__12.png" />
+    <Content Include="Assets\Images\player\player\hair\10__20.png" />
+    <Content Include="Assets\Images\player\player\hair\10__21.png" />
+    <Content Include="Assets\Images\player\player\hair\10__22.png" />
+    <Content Include="Assets\Images\player\player\hair\10__3_.png" />
+    <Content Include="Assets\Images\player\player\hair\11__00.png" />
+    <Content Include="Assets\Images\player\player\hair\11__01.png" />
+    <Content Include="Assets\Images\player\player\hair\11__02.png" />
+    <Content Include="Assets\Images\player\player\hair\11__10.png" />
+    <Content Include="Assets\Images\player\player\hair\11__11.png" />
+    <Content Include="Assets\Images\player\player\hair\11__12.png" />
+    <Content Include="Assets\Images\player\player\hair\11__20.png" />
+    <Content Include="Assets\Images\player\player\hair\11__21.png" />
+    <Content Include="Assets\Images\player\player\hair\11__22.png" />
+    <Content Include="Assets\Images\player\player\hair\11__3_.png" />
+    <Content Include="Assets\Images\player\player\hair\20__00.png" />
+    <Content Include="Assets\Images\player\player\hair\20__01.png" />
+    <Content Include="Assets\Images\player\player\hair\20__02.png" />
+    <Content Include="Assets\Images\player\player\hair\20__10.png" />
+    <Content Include="Assets\Images\player\player\hair\20__11.png" />
+    <Content Include="Assets\Images\player\player\hair\20__12.png" />
+    <Content Include="Assets\Images\player\player\hair\20__20.png" />
+    <Content Include="Assets\Images\player\player\hair\20__21.png" />
+    <Content Include="Assets\Images\player\player\hair\20__22.png" />
+    <Content Include="Assets\Images\player\player\hair\20__3_.png" />
+    <Content Include="Assets\Images\player\player\hair\21__00.png" />
+    <Content Include="Assets\Images\player\player\hair\21__01.png" />
+    <Content Include="Assets\Images\player\player\hair\21__02.png" />
+    <Content Include="Assets\Images\player\player\hair\21__10.png" />
+    <Content Include="Assets\Images\player\player\hair\21__11.png" />
+    <Content Include="Assets\Images\player\player\hair\21__12.png" />
+    <Content Include="Assets\Images\player\player\hair\21__20.png" />
+    <Content Include="Assets\Images\player\player\hair\21__21.png" />
+    <Content Include="Assets\Images\player\player\hair\21__22.png" />
+    <Content Include="Assets\Images\player\player\hair\21__3_.png" />
+    <Content Include="Assets\Images\player\player\head\000___.png" />
+    <Content Include="Assets\Images\player\player\head\001___.png" />
+    <Content Include="Assets\Images\player\player\head\002___.png" />
+    <Content Include="Assets\Images\player\player\head\010___.png" />
+    <Content Include="Assets\Images\player\player\head\011___.png" />
+    <Content Include="Assets\Images\player\player\head\012___.png" />
+    <Content Include="Assets\Images\player\player\head\100___.png" />
+    <Content Include="Assets\Images\player\player\head\101___.png" />
+    <Content Include="Assets\Images\player\player\head\102___.png" />
+    <Content Include="Assets\Images\player\player\head\110___.png" />
+    <Content Include="Assets\Images\player\player\head\111___.png" />
+    <Content Include="Assets\Images\player\player\head\112___.png" />
+    <Content Include="Assets\Images\player\player\head\200___.png" />
+    <Content Include="Assets\Images\player\player\head\201___.png" />
+    <Content Include="Assets\Images\player\player\head\202___.png" />
+    <Content Include="Assets\Images\player\player\head\210___.png" />
+    <Content Include="Assets\Images\player\player\head\211___.png" />
+    <Content Include="Assets\Images\player\player\head\212___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\000___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\001___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\002___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\010___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\011___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\012___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\100___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\101___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\102___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\110___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\111___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\112___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\200___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\201___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\202___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\210___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\211___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\0\212___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\000___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\001___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\002___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\010___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\011___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\012___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\100___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\101___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\102___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\110___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\111___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\112___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\200___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\201___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\202___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\210___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\211___.png" />
+    <Content Include="Assets\Images\player\player\legs\d\1\212___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\000___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\001___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\002___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\010___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\011___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\012___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\100___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\101___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\102___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\110___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\111___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\112___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\200___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\201___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\202___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\210___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\211___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\0\212___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\000___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\001___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\002___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\010___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\011___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\012___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\100___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\101___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\102___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\110___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\111___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\112___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\200___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\201___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\202___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
+    <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\UI Elements\FundoInventario.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\LobbyBg.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\SlotFull.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\SlotEmpty.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\CheckBox.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\CheckSymbol.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\PlayBtn.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\QuitBtn.png" />
+    <Content Include="Assets\Images\UI Elements\Game Menu\Tela.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuFechadoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\MenuSemiAbertoP.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\SkillsIcon.png" />
+    <Content Include="Assets\Images\UI Elements\Menu\StatsIcon.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 33-0.png" />
@@ -248,9 +632,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="CharacterCreation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Game.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlayerLobby.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

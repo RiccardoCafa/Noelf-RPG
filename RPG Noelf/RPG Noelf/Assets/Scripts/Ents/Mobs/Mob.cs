@@ -9,92 +9,121 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
-    class Mob : Ent
+    public class Mob : Ent
     {
-        public List<Action> Attacks { get; set; } = new List<Action>();
-        public List<string> attcks { get; set; } = new List<string>();
-        public List<Element> Resistance { get; set; } = new List<Element>();
-        public List<Element> Vulnerable { get; set; } = new List<Element>();
-        public bool Meek { get; set; } = false;
-
-        public int Level;
+        public List<Action> Attacks = new List<Action>();
+        public List<string> attcks = new List<string>();//(temporario)
+        public List<Element> Resistance = new List<Element>();
+        public List<Element> Vulnerable = new List<Element>();
+        public bool Meek = false;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
 
-        private string[] I = { "face", "body", "arms", "legs" };
-        private string[] J = { "d", "e" };
-
         public string[] code = new string[4];
 
-        public Dictionary<string, char> N = new Dictionary<string, char>()
+        public Dictionary<string, string> N = new Dictionary<string, string>()
         {
-            {"0", 'D' }, {"1", 'G' }, {"2", 'L' }, {"3", 'B' }, {"4", 'C' },
+            {"0", "Dr" }, {"1", "M" }, {"2", "L" }, {"3", "B" }, {"4", "J" }
         };
         public Dictionary<string, string> a = new Dictionary<string, string>()
         {
-            {"0", "ar" }, {"1", "e" }, {"2", "hi" }, {"3", "on" }, {"4", "uo" },
+            {"0", "a" }, {"1", "on" }, {"2", "i" }, {"3", "u" }, {"4", "a" }
         };
-        public Dictionary<string, char> m = new Dictionary<string, char>()
+        public Dictionary<string, string> m = new Dictionary<string, string>()
         {
-            {"0", 'g' }, {"1", 'r' }, {"2", 'z' }, {"3", 'n' }, {"4", 't' },
+            {"0", "g" }, {"1", "k" }, {"2", "zar" }, {"3", "fall" }, {"4", "gu" }
         };
         public Dictionary<string, string> e = new Dictionary<string, string>()
         {
-            {"0", "a" }, {"1", "eo" }, {"2", "il" }, {"3", "o" }, {"4", "u" },
+            {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" }
         };
 
-        public Mob(Dictionary<string, Image> images, int level)
+        public Dictionary<string, Image> mobImages = new Dictionary<string, Image>()
         {
+            {"armsd0", new Image() { Width = 60, Height = 65 } },
+            {"armsd1", new Image() { Width = 70, Height = 80 } },
+            {"legsd1", new Image() { Width = 75, Height = 55 } },
+            {"legsd0", new Image() { Width = 65, Height = 70 } },
+            {"body", new Image() { Width = 160, Height = 135 } },
+            {"head", new Image() { Width = 100, Height = 100 } },
+            {"legse1", new Image() { Width = 75, Height = 55 } },
+            {"legse0", new Image() { Width = 60, Height = 65 } },
+            {"armse0", new Image() { Width = 60, Height = 70 } },
+            {"armse1", new Image() { Width = 65, Height = 80 } }
+        };
+
+        public Mob(int level)//cria um mob novo, aleatoriamente montado
+        {
+            #region montagem
+            this.level = new Level(level);
+            Str = 2;
+            Spd = 2;
+            Dex = 2;
+            Con = 2;
+            Mnd = 2;
+            Random random = new Random();
+            for (int i = 0; i < 4; i++)
             {
-                Level = level;
-                Str = 2;
-                Spd = 2;
-                Dex = 2;
-                Con = 2;
-                Mnd = 2;
-                Random random = new Random();
-                for (int i = 0; i < 4; i++)
-                {
-                    int c = random.Next(0, 5);
-                    code[i] = "" + c;
-                    Parts[i] = Parts[i].Choose(c);
-                    Parts[i].UpdateMob(this);
-                }
-            }//monta o mob randomicamente
-            {
-                HpMax = Con * 6 + Level * 2;
-                Hp = HpMax;
-                AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
-                Run = 1 + 0.075 * Spd;
-                TimeMgcDmg = 9.0 * Mnd / 10;
-                Damage = Str;
-            }//calcula os atributos derivados
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    string path1 = "/Assets/Images/mob/" + I[i];
-                    if (i == 2 || i == 3)
-                    {
-                        foreach (string j in J)
-                        {
-                            string path2 = "/" + j;
-                            for (int k = 0; k < 2; k++)
-                            {
-                                string path3 = "/" + k + "/" + code[i] + ".png";
-                                images[I[i] + j + k].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2 + path3));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        string path2 = "/" + code[i] + ".png";
-                        MainPage.instance.images[I[i]].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, path1 + path2));
-                    }
-                }
-            }//define e exibe as imagens
+                int c = random.Next(0, 5);
+                code[i] = "" + c;
+                Parts[i] = Parts[i].Choose(c);
+                Parts[i].UpdateMob(this);
+            }
+            #endregion
+            ApplyDerivedAttributes();
+            SetMob(mobImages);
         }
 
-        public void Status(TextBlock textBlock)
+        private void Load()
+        {
+            foreach (string key in mobImages.Keys)
+            {
+                box.Children.Add(mobImages[key]);
+            }
+            Canvas.SetLeft(mobImages["armsd0"], 4); Canvas.SetTop(mobImages["armsd0"], 18);
+            Canvas.SetLeft(mobImages["armsd1"], -21); Canvas.SetTop(mobImages["armsd1"], 49);
+            Canvas.SetLeft(mobImages["legsd1"], 32); Canvas.SetTop(mobImages["legsd1"], 76);
+            Canvas.SetLeft(mobImages["legsd0"], 20); Canvas.SetTop(mobImages["legsd0"], 45);
+            Canvas.SetLeft(mobImages["body"], 8); Canvas.SetTop(mobImages["body"], -10);
+            Canvas.SetLeft(mobImages["head"], -16); Canvas.SetTop(mobImages["head"], -34);;
+            Canvas.SetLeft(mobImages["legse1"], 64); Canvas.SetTop(mobImages["legse1"], 75);
+            Canvas.SetLeft(mobImages["legse0"], 55); Canvas.SetTop(mobImages["legse0"], 47);
+            Canvas.SetLeft(mobImages["armse0"], 33); Canvas.SetTop(mobImages["armse0"], 18);
+            Canvas.SetLeft(mobImages["armse1"], 12); Canvas.SetTop(mobImages["armse1"], 50);
+        }//monta as imagens na box do Mob
+        public void Spawn(double x, double y)//cria o mob na tela
+        {
+            box = new DynamicSolid(x, y, 120, 120, Run);
+            Load();
+        }
+
+        private void SetMob(Dictionary<string, Image> images)//aplica as imagens das caracteristicas fisicas do mob
+        {
+            for (int i = 2; i < 6; i++)
+            {
+                string path1 = "/Assets/Images/mob/" + parts[i];
+                if (parts[i] == "arms" || parts[i] == "legs")
+                {
+                    foreach (string side in sides)
+                    {
+                        string path2 = "/" + side;
+                        for (int bit = 0; bit < 2; bit++)
+                        {
+                            string path3 = "/" + bit + "/" + code[i - 2] + ".png";
+                            images[parts[i] + side + bit].Source = new BitmapImage(new Uri(Game.instance.BaseUri, path1 + path2 + path3));
+                        }
+                    }
+                }
+                else
+                {
+                    string path2 = "/" + code[i - 2] + ".png";
+                    images[parts[i]].Source = new BitmapImage(new Uri(Game.instance.BaseUri, path1 + path2));
+                }
+            }
+
+        }
+
+        public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)
         {
             string text = "name: " + N[code[0]] + a[code[1]] + m[code[2]] + e[code[3]]
                 + "   (code " + code[0] + code[1] + code[2] + code[3] + ")"
@@ -102,20 +131,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 + "\n str[" + Str + "]" + "  spd[" + Spd + "]" + "  dex[" + Dex + "]"
                 + "\n     con[" + Con + "]" + "  mnd[" + Mnd + "]"
                 + "\nres.: ";
-            foreach (Element element in Resistance)
-            {
-                text += element.ToString() + "  ";
-            }
+            foreach (Element element in Resistance) { text += element.ToString() + "  "; }
             text += "\nvul.: ";
-            foreach (Element element in Vulnerable)
-            {
-                text += element.ToString() + "  ";
-            }
+            foreach (Element element in Vulnerable) { text += element.ToString() + "  "; }
             text += "\nattks.: ";
-            foreach (string word in attcks)
-            {
-                text += word + "  ";
-            }
+            foreach (string word in attcks) { text += word + "  "; }
             text += "\nattkSpd-> " + AtkSpd + " s"
                   + "\nrun-> " + Run + " m/s"
                   + "\ntimeMgcDmg-> " + TimeMgcDmg + " s"

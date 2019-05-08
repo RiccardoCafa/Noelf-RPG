@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,18 +14,24 @@ using Windows.UI.Xaml.Shapes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
-    class CharacterPlayer : Character
+    public class CharacterPlayer : Character
     {
         private MainCamera ActualCam = MainCamera.instance;
         private Thread updatePlayer;
+        public Player Player;
+        public Canvas MyCanvas;
 
-        public CharacterPlayer(Canvas T) : base(T)
+        public CharacterPlayer(Canvas T, Player player, Canvas canvas) : base(T)
         {
             // Getting character image and Canvas for control
             characT = T;
 
             updatePlayer = new Thread(UpdatePlayer);
             updatePlayer.Start();
+
+            MyCanvas = canvas;
+
+            Player = player;
 
             // Setting Key events
             Window.Current.CoreWindow.KeyDown += Charac_KeyDown;
@@ -33,12 +40,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public async void UpdatePlayer()
         {
+            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, Animation);
+
             if (ActualCam == null) ActualCam = MainCamera.instance;
-            while(alive)
+            while (alive)
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    if (ActualCam != null) 
+                    if (ActualCam != null)
                     {
                         if (ActualCam.CameraMovingLeft)
                         {
@@ -49,14 +58,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                             Hspeed = 0;//MoveCharac(MainCamera.CameraSpeed, EDirection.left);
                         }
                         else Hspeed = MaxHSpeed;
-                        
-                    } else
+
+                    }
+                    else
                     {
                         ActualCam = MainCamera.instance;
                     }
                 });
             }
-            
         }
 
         private void Charac_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
@@ -66,12 +75,14 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 if (e.VirtualKey == Windows.System.VirtualKey.A || e.VirtualKey == Windows.System.VirtualKey.Left)
                 {
                     moveLeft = true;
+
                 }
                 else if (e.VirtualKey == Windows.System.VirtualKey.D || e.VirtualKey == Windows.System.VirtualKey.Right)
                 {
                     moveRight = true;
                 }
-                else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
+
+                if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
                 {
                     Jump();
                 }
@@ -104,11 +115,22 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 IsWalking = false;
                 if (isFalling) prepRight = false;
             }
-            else if (e.VirtualKey == Windows.System.VirtualKey.W || e.VirtualKey == Windows.System.VirtualKey.Up)
-            {
-                jumping = false;
-            }
+        }
 
+        public async void Animation()
+        {
+            while (!IsWalking)
+            {
+                //Vector3Transition vector3Transition = new Vector3Transition();
+                //vector3Transition.Components = Vector3TransitionComponents.X;
+                //MyCanvas.TranslationTransition.Duration = TimeSpan.FromMilliseconds(2000);
+                //await Task.Delay(200);
+                //MyCanvas.RotationTransition.Duration = TimeSpan.FromMilliseconds(2000);
+                //MyCanvas.RotationAxis = new System.Numerics.Vector3(15, 15, 1);
+                //MyCanvas.RotationTransition = new ScalarTransition();
+                //ScalarTransition scalar = new ScalarTransition();
+                //scalar.
+            }
         }
     }
 }

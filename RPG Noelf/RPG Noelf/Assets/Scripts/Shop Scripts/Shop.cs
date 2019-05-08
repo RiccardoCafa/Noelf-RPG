@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
 {
-    class Shop
+    public class Shop
     {
-        public List<Slot> TradingItems = new List<Slot>();
+        public Bag TradingItems = new Bag();
         public Bag BuyingItems = new Bag();
         private Slot slotInOffer;
 
@@ -36,22 +36,16 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         }
 
         // função para vender itens ao jogador
-        public void SellItem(uint soldID,uint amount, Bag playerBag)
+        public void SellItem(Slot offer, Bag playerBag)
         {
-
-            if (playerBag.CanAddMore())
+            long valor = Encyclopedia.SearchFor(offer.ItemID).GoldValue * (long)offer.ItemAmount;
+            if (playerBag.Gold >= valor)
             {
-                playerBag.AddToBag(soldID,amount);
-                int valor = Encyclopedia.SearchFor(soldID).GoldValue;
-                playerBag.Gold -= valor;
+                playerBag.AddToBag(offer);
+                playerBag.Gold -= (int)valor;
                 
             }
 
-        }
-        public void CreateIventory(uint ItemID,uint amount)
-        {
-            Slot Newitem = new Slot(ItemID,amount);
-            TradingItems.Add(Newitem);
         }
 
         //função para comprar itens do jogador
@@ -71,7 +65,7 @@ namespace RPG_Noelf.Assets.Scripts.Shop_Scripts
         {
             if (BuyingItems.CanAddMore())
             {
-                return BuyingItems.AddToBag(slot.ItemID, slot.ItemAmount);
+                return BuyingItems.AddToBag(slot);
             }
             return false;
         }
