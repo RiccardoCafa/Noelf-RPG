@@ -193,6 +193,16 @@
             </Grid>
         </Canvas>
 
+        <Canvas Name="CraftingCenter" Height="400" Canvas.Left="30" Canvas.Top="200" Width="500" HorizontalAlignment="Left"  VerticalAlignment="Stretch">
+            <ScrollViewer Name="ListadeCraftings" Height="300" Width="500">
+                <StackPanel Name="CraftPanel" Width="500" Height="750" Orientation="Vertical" Spacing="5">
+                    
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollBar Canvas.Left="138" Canvas.Top="144"/>
+        </Canvas>
+        
+
         <Canvas Name="InventarioWindow" Height="150" Canvas.Left="800" Canvas.Top="40" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <TextBlock Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"></TextBlock>
             <Image Source="/Assets/Images/UI Elements/FundoInventario.png" Width="180" Height="150"></Image>

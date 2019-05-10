@@ -11,7 +11,7 @@
     <AssemblyName>RPG Noelf</AssemblyName>
     <DefaultLanguage>pt-br</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -154,6 +154,7 @@
     <Compile Include="Assets\Scripts\Enviroment\LootBody.cs" />
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\General\ObjectPooling.cs" />
+    <Compile Include="Assets\Scripts\Interface\CraftBox.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
@@ -176,7 +177,7 @@
     <Compile Include="Assets\Scripts\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Skills\Timer.cs" />
-	<Compile Include="Assets\Scripts\Solid.cs" />
+    <Compile Include="Assets\Scripts\Solid.cs" />
     <Compile Include="CharacterCreation.xaml.cs">
       <DependentUpon>CharacterCreation.xaml</DependentUpon>
     </Compile>

@@ -1,73 +1,57 @@
-﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 
 namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
 
-    class Crafting
+    public class Crafting
     {
-        public bool IsPossibleToCraft(uint item, Bag playerBag)
+        Bag bag;
+
+        public Crafting()
         {
-            int count = 0;
-            if(CraftingEncyclopedia.HaveRecipe(item) == true)
-            {
-                Recipe generic = CraftingEncyclopedia.CraftItems[item];
-                foreach(Slot s in generic.ListaMaterial)
-                {
-                    if (playerBag.Slots.Contains(s))
-                    {
-                        count = count + 1;
-                    }
-                }
-                if(count == generic.NumMaterials)
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
+            bag = GameManager.player._Inventory;
+        }
+
+        private bool IsPossibleToCraft(uint item)
+        {
+
+            return true;
+
+
+
         }       
 
-        public void RemoveMaterials(uint id, Bag bag)
+        private void RemoveMaterials(uint id)
         {
-            if (IsPossibleToCraft(id, bag))
+            if (IsPossibleToCraft(id))
             {
                 Recipe generic = CraftingEncyclopedia.CraftItems[id];
                 foreach (Slot s in generic.ListaMaterial)
                 {
-                    if (bag.Slots.Contains(s))
+                    Slot ps = bag.GetSlot(s.ItemID);
+                    if (ps == null) continue;
+                    if (ps.ItemID == s.ItemID && ps.ItemAmount >= s.ItemAmount)
                     {
-                        bag.Slots.Remove(s);
+                        bool a = bag.RemoveFromBag(s.ItemID, s.ItemAmount);
                     }
                 }
             }
         }
         
-        public Slot CraftItem(uint itemID, Bag bag)
+        public bool CraftItem(uint itemID)
         {
             Slot NewItem;
-            if (IsPossibleToCraft(itemID, bag))
+            if (IsPossibleToCraft(itemID))
             {
                 NewItem = new Slot(itemID, 1);
-                RemoveMaterials(itemID, bag);
-                return NewItem;
+                RemoveMaterials(itemID);
+                bag.AddToBag(NewItem);
+                return true;
             }
-            Slot carvao = new Slot(2, 1);
-            return carvao;
-           
+            return false;
         }
-        
 
 
-
-
-
-
-
-        
     }
 }
