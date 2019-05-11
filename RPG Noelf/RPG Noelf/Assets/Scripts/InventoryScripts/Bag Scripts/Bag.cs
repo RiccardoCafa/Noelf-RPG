@@ -346,6 +346,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         /// <summary>
         /// Remove from bag one unit of the Slot
+        /// DEPRECEATED NOT USE YET PLEASE
         /// </summary>
         /// <param name="itemID">The slot to look for and remove</param>
         public void RemoveFromBag(Slot slot)

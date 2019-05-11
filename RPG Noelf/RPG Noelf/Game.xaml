@@ -24,9 +24,8 @@
         <TextBlock Name="DayText" Text="Day 1 - 8:50" FontSize="20" FontStretch="Normal"  Width="200" Height="50" Canvas.Top="30" Canvas.Left="10"/>
         <Canvas Name="Camera" Visibility="Collapsed"  Width="916" Height="72" HorizontalAlignment="Left" Canvas.Left="225" Canvas.Top="364"  VerticalAlignment="Top" Background="#19000000" Margin="0,0,0,0"></Canvas>
 
-        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="6000" VerticalAlignment="Top" Margin="0,0,0,0">
-            <Canvas Name="xScene" Height="768" Width="6000" Canvas.Top="0"/>
-
+        <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Canvas Name="xScene" Height="768" Width="1366" Canvas.Top="0"/>
             <Canvas Name="NPCCanvas2" Canvas.Left="1500" Canvas.Top="20" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top">
                 <Image Canvas.Left="16" Canvas.Top="24" Width="51" Height="57" Source="/Assets/Images/player/player/arms/e/0/00.png"/>
                 <Image Canvas.Left="16" Canvas.Top="24" Width="51" Height="57" Source="/Assets/Images/player/clothes/arms/e/0/00.png"/>
@@ -88,6 +87,14 @@
             </Canvas>-->
         </Canvas>
 
+        <Canvas Name="CraftingCenter" Visibility="Collapsed" Height="400" Canvas.Left="30" Canvas.Top="200" Width="500" HorizontalAlignment="Left"  VerticalAlignment="Stretch">
+            <ScrollViewer Name="ListadeCraftings" Height="300" Width="500">
+                <StackPanel Name="CraftPanel" Width="500" Height="750" Orientation="Vertical" Spacing="5">
+
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollBar Canvas.Left="138" Canvas.Top="144"/>
+        </Canvas>
 
         <Canvas Name="PlayerCanvas" Canvas.Left="382" Canvas.Top="78" HorizontalAlignment="Left" Height="120" Width="60" VerticalAlignment="Top">
             <Image Name="xPlayerArm_e0" Canvas.Left="16" Canvas.Top="24" Width="51" Height="57"/>
@@ -118,16 +125,17 @@
         </Canvas>
 
         <Canvas Name="ChestWindow">
-            
+
         </Canvas>
 
         <Canvas Name="Menu" Width="300" Height="300" Canvas.Left="950" Canvas.Top="380" CanDrag="True" AllowDrop="True">
             <Canvas Name="MenuAberto" Width="300" Height="300" PointerExited="MenuClose" Visibility="Collapsed">
                 <Image Source="/Assets/Images/UI Elements/Menu/MenuAbertoP.png" Width="300" Height="300"/>
                 <Image Source="/Assets/Images/UI Elements/Menu/BagIcon.png" PointerPressed="ShowBag" Height="64" Width="46" Canvas.Left="83" Canvas.Top="32"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/EquipmentIcon.png" PointerPressed="ShowEquip" Height="64" Width="46" Canvas.Left="172" Canvas.Top="34" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Source="/Assets/Images/itens/espadaFerro.png" PointerPressed="ShowEquip" Height="55" Width="55" Canvas.Left="169" Canvas.Top="36" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Image Source="/Assets/Images/UI Elements/Menu/SkillsIcon.png" PointerPressed="ShowSkillTree" Height="64" Width="46" Canvas.Left="228" Canvas.Top="116" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Image Source="/Assets/Images/UI Elements/Menu/StatsIcon.png" PointerPressed="ShowAtributes" Height="64" Width="46" Canvas.Left="25" Canvas.Top="119"/>
+                <Image Source="/Assets/Images/itens/barraFerro.png" PointerPressed="ShowCrafting" Height="64" Width="46" Canvas.Left="81" Canvas.Top="205" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Canvas>
             <Canvas Name="MenuFechado" Width="85" Height="85">
                 <Image Name="MenuFBolaAtras" Width="112" Height="113" Visibility="Collapsed"
@@ -197,59 +205,8 @@
             </Grid>
         </Canvas>
 
-        <!--<Canvas Name="InventarioWindow" Height="150" Canvas.Left="800" Canvas.Top="40" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-            <TextBlock Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"></TextBlock>
-            <Image Source="/Assets/Images/UI Elements/FundoInventario.png" Width="180" Height="150"></Image>
-            <Grid Name="InventarioGrid"  ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="3" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="4" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="5" Grid.Row="0" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="4" Grid.Row="1" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="5" Grid.Row="1" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="3" Grid.Row="2" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="4" Grid.Row="2" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="5" Grid.Row="2" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="4" Grid.Row="3" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="5" Grid.Row="3" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="2" Grid.Row="4" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="3" Grid.Row="4" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="4" Grid.Row="4" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Image HorizontalAlignment="Left" Height="25" Grid.Column="5" Grid.Row="4" VerticalAlignment="Top" Width="25" Source="/Assets/Images/a.jpg"/>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-            </Grid>
-        </Canvas>-->
-		
-        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility="Visible">
+
+        <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility ="Collapsed">
             <Grid Width="200" Height="100">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
@@ -258,10 +215,10 @@
                 <TextBlock Name="QuestBox1" Text="Quest Title"></TextBlock>
                 <TextBlock Name="QuestBox2" Grid.Row="1" Text="Objetivo"></TextBlock>
             </Grid>
-            
+
         </Canvas>
-    
-       <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Visible">
+
+        <Canvas Name="QuestWindow" Width="200" Height ="300" Background="LightGray" Visibility="Collapsed">
             <Grid Width="200" Height="300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
@@ -283,8 +240,8 @@
                     <Button Name="AcceptQuest" Width="80" Height="50" HorizontalAlignment="Center" Content="Accept" Click ="ClickAcceptQuestButton"></Button>
                     <Button Name="DenyQuest" Width="80" Height="50" HorizontalAlignment="Center" Grid.Column="1" Content="Deny" Click ="ClickDenyQuestButton"></Button>
                 </Grid>
-            </Grid> 
-       </Canvas>
+            </Grid>
+        </Canvas>
 
 
         <Canvas Name="ItemToSellBuy" Width="110" Height="155" Canvas.Left="950" Canvas.Top="80" Visibility="Collapsed">
@@ -512,7 +469,7 @@
         </Canvas>-->
 
         <Canvas Name="BagWindow">
-            
+
         </Canvas>
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">

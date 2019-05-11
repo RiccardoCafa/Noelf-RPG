@@ -13,11 +13,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public static void load_quests()
         {
             allquests = new Dictionary<uint, Quest>();
+
             SpeakQuest quest1 = new SpeakQuest((uint) 1);
+            quest1.QUEST_ID = 1;
             quest1.name = "Chega ai parceiro";
             quest1.Description = "Fale com Lapa";
             quest1.RewardDescription = "Aprovação em LP II";
             allquests.Add(1, quest1);
+
+            SpeakQuest quest2 = new SpeakQuest((uint)2);
+            quest2.QUEST_ID = 2;
+            quest2.name = "Conheça o mundo";
+            quest2.Description = "Veja a Quimera debaixo da plataforma";
+            quest2.RewardDescription = "Ouro e Joias";
+            allquests.Add(2, quest2);
 
 
 

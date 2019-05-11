@@ -156,6 +156,7 @@
     <Compile Include="Assets\Scripts\Enviroment\LootBody.cs" />
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\General\ObjectPooling.cs" />
+    <Compile Include="Assets\Scripts\Interface\CraftBox.cs" />
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\ItemImage.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />

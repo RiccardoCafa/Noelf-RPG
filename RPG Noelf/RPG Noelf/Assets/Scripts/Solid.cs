@@ -64,46 +64,49 @@ namespace RPG_Noelf.Assets.Scripts
         public double verticalSpeed;
         public double horizontalSpeed;
         public sbyte horizontalDirection = 0;
-        public const double g = 0.001;
+        public const double g = 1500;
         public bool moveRight, moveLeft;
+        DateTime time;
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
         {
-            speed = 4;
-            jumpSpeed = speed / 7;
+            this.speed = speed;
+            jumpSpeed = speed * 150;
             Moved += Collision.OnMoved;
-            horizontalSpeed = speed / 20;
-            DateTime time = DateTime.Now;
+            horizontalSpeed = speed * 75;
+            time = DateTime.Now;
             new Task(Update).Start();
         }
 
         public bool alive = true;
         public async void Update()//atualiza a td instante
         {
+            TimeSpan span = DateTime.Now - time;
             while (alive)
             {
-                //Thread.Sleep(5);
-                if (freeDirections[Direction.down]) ApplyGravity();//se n ha chao
+                time = DateTime.Now;
+                if (freeDirections[Direction.down]) ApplyGravity(span.TotalSeconds);//se n ha chao
                 else verticalSpeed = 0;
                 if (moveRight) horizontalDirection = 1;//se esta se movimentando para direita
                 else if (moveLeft) horizontalDirection = -1;//se esta se movimentando para esquerda
                 else horizontalDirection = 0;//se n quer se mover pros lados
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    Translate(Axis.vertical);
-                    Translate(Axis.horizontal);
+                    Translate(Axis.vertical, span.TotalSeconds);
+                    Translate(Axis.horizontal, span.TotalSeconds);
                 });
+                span = DateTime.Now - time;
             }
         }
 
-        public void Translate(Axis direction)//translada o DynamicSolid
+        public virtual void Translate(Axis direction, double span)//translada o DynamicSolid
         {
-            if (direction == Axis.vertical) Yi -= verticalSpeed;
-            if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed;
+            if (direction == Axis.vertical) Yi -= verticalSpeed * span;
+            if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed * span;
             if (verticalSpeed != 0 || horizontalDirection != 0) OnMoved();//chama o evento
         }
 
-        public void ApplyGravity() => verticalSpeed = verticalSpeed - g;//aplica a gravidade
+        public void ApplyGravity(double span) => verticalSpeed -= g * span;//aplica a gravidade
 
         public void OnMoved() => Moved?.Invoke(this);//metodo q dispara o event Moved
     }
@@ -121,13 +124,16 @@ namespace RPG_Noelf.Assets.Scripts
         {
             switch (e.VirtualKey)
             {
-                case VirtualKey.Up: case VirtualKey.W://usuario quer pular
+                case VirtualKey.Up:
+                case VirtualKey.W://usuario quer pular
                     if (!freeDirections[Direction.down]) verticalSpeed = jumpSpeed;
                     break;
-                case VirtualKey.Right: case VirtualKey.D://usuario quer mover p direita
+                case VirtualKey.Right:
+                case VirtualKey.D://usuario quer mover p direita
                     moveRight = freeDirections[Direction.right];
                     break;
-                case VirtualKey.Left: case VirtualKey.A://usuario quer mover p esquerda
+                case VirtualKey.Left:
+                case VirtualKey.A://usuario quer mover p esquerda
                     moveLeft = freeDirections[Direction.left];
                     break;
             }
@@ -137,12 +143,38 @@ namespace RPG_Noelf.Assets.Scripts
         {
             switch (e.VirtualKey)
             {
-                case VirtualKey.Right: case VirtualKey.D://usuario soltou a direita
+                case VirtualKey.Right:
+                case VirtualKey.D://usuario soltou a direita
                     moveRight = false;
                     break;
-                case VirtualKey.Left: case VirtualKey.A://usuario soltou a esquerda
+                case VirtualKey.Left:
+                case VirtualKey.A://usuario soltou a esquerda
                     moveLeft = false;
                     break;
+            }
+        }
+
+        public override void Translate(Axis direction, double span)//translada o LevelScene
+        {
+            if (direction == Axis.vertical)
+            {
+                Yi -= verticalSpeed * span;
+                //SetTop(Game.instance.scene1.layers[2], GetTop(Game.instance.scene1.layers[2]) + verticalSpeed * 0.125);
+                //SetTop(Game.instance.scene1.layers[1], GetTop(Game.instance.scene1.layers[1]) + verticalSpeed * 0.25);
+                //SetTop(Game.instance.scene1.layers[0], GetTop(Game.instance.scene1.layers[0]) + verticalSpeed * 0.5);
+                //SetTop(Game.instance.scene1.scene.chunck, GetTop(Game.instance.scene1.scene.chunck) + verticalSpeed);
+            }
+            if (direction == Axis.horizontal)
+            {
+                Xi += horizontalDirection * horizontalSpeed * span;
+                //SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - horizontalDirection * horizontalSpeed * 0.125);
+                //SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - horizontalDirection * horizontalSpeed * 0.25);
+                //SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - horizontalDirection * horizontalSpeed * 0.5);
+                //SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) - horizontalDirection * horizontalSpeed);
+            }
+            if (verticalSpeed != 0 || horizontalDirection != 0)
+            {
+                OnMoved();//chama o evento
             }
         }
     }

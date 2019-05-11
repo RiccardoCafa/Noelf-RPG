@@ -1,4 +1,3 @@
-﻿using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -20,6 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public CharacterNPC(NPC _NPC, double x, double y, double width, double height) : base(x, y, width, height)
         {
+            
             MyNPC = _NPC;
             trigger = new Trigger(this);
             PointerPressed += InteractWith;
@@ -41,10 +41,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 var eprop = e.GetCurrentPoint(Game.instance).Properties;
                 if(eprop.IsLeftButtonPressed)
                 {
-                    if(trigger.Triggering())
-                    {
+                    //if(trigger.Triggering())
+                    //{
                         MyNPC.StartConversation();
-                    }
+                    //}
                 }
             }
         }

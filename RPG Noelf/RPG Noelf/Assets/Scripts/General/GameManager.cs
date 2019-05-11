@@ -1,3 +1,4 @@
+using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
 using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
@@ -33,6 +34,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static CharacterMob mobTarget;
 
         // NPC's
+        public static Crafting CraftingStation;
         public static CharacterNPC npcCharacter;
         public static NPC npcTarget;
         public static Trader traderTarget;
@@ -43,16 +45,10 @@ namespace RPG_Noelf.Assets.Scripts.General
             interfaceManager.Inventario = Game.inventarioWindow;
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
+
             npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 150, 120, 60);
             npcCharacter.trigger.AddTrigger(player.box);
             
-            NPC teste = new NPC();
-            questerTarget = new Quester(1);
-            teste.AddFunction(questerTarget);          
-            npcTarget = teste;
-            npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
-            Game.instance.OpenQuest();
-            Slot s1;
             player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
             player._Inventory.AddToBag(new Slot(21, 1));
             player._Inventory.AddToBag(new Slot(22, 1));
@@ -62,9 +58,10 @@ namespace RPG_Noelf.Assets.Scripts.General
             player._Inventory.AddToBag(new Slot(27, 1));
             player._Inventory.AddToBag(new Slot(28, 1));
             player._Inventory.AddToBag(new Slot(42, 1));
-            //characters.Add(mobTarget);
-            //characters.Add(characterPlayer);
-            //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
+            player._Inventory.AddToBag(new Slot(1, 5));
+            CraftingEncyclopedia.LoadCraftings();
+            CraftingStation = new Crafting();
+            GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
         }
 
         public static void InitializePlayer()
@@ -75,7 +72,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static void CreatePlayer()
         {
             /* Aqui vão ser implementados os métodos que irão criar o player
-             * assim como fazer chamada pra main page e criá-lo graficamente */
+              assim como fazer chamada pra main page e criá-lo graficamente */
         }
 
         public static void CreateNPC()

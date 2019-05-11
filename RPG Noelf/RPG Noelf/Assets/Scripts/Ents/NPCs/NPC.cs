@@ -20,12 +20,18 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public string Conclusion { get; set; }
         public delegate void EventoFalar(object source, EventArgs arg, uint id);
         public event EventoFalar EventoFala;
+        
+        public NPC()
+        {
+            this.EventoFala += GameManager.player._Questmanager.EventoFalaComNPCDaQuest;
+        }
 
         public void StartConversation()
         {
             Game.instance.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
+            GameManager.player._Questmanager.PrintActualQuestStatus();
             OnEventoFalar();
         }
 
@@ -65,10 +71,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         protected virtual void OnEventoFalar()
         {
-            if(EventoFala != null)
-            {
-                EventoFala(this, EventArgs.Empty, this.IDnpc);
-            }
+            EventoFala?.Invoke(this, EventArgs.Empty, this.IDnpc);
         }
 
     }
@@ -83,7 +86,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     public sealed class Trader : NPCFunction
     {
         public Shop shop;
-
         public Trader(Shop shop)
         {
             this.shop = shop;
@@ -93,24 +95,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             shop = new Shop();
         }
-
         public void MyFunction(object sender, RoutedEventArgs e)
         {
             GameManager.traderTarget = this;
             GameManager.OpenShop();
         }
-
         public void EndFunction()
         {
             if (GameManager.interfaceManager.ShopOpen) GameManager.CloseShop();
         }
-
         public string GetFunctionName()
         {
             return "Trader";
         }
     }
-
     public sealed class Quester : NPCFunction
     {
         public Quest myQuest { get; set; }
@@ -119,10 +117,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             myQuest = QuestList.allquests[quest];
         }
-
         public void MyFunction(object sender, RoutedEventArgs e)
         {
             GameManager.questerTarget = this;
+            Game.instance.OpenQuest();
             
         }
         
