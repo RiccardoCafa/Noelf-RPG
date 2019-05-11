@@ -39,6 +39,7 @@ namespace RPG_Noelf
 
         public TextBlock mobStatus;
         public TextBlock dayText;
+        public TextBlock ChestName;
         public string MobText;
 
         public List<Image> PlayerImagesTest;
@@ -50,6 +51,9 @@ namespace RPG_Noelf
         public static Canvas ActualChunck;
         public static Canvas inventarioWindow;
         public static Canvas TheScene;
+        public static Canvas _InventarioCanvas;
+        public static Grid _InventarioGrid;
+        public static Grid ChestGrid;
 
         public static TextBlock texticulus;
         public static int i;
@@ -71,7 +75,6 @@ namespace RPG_Noelf
 
             Telona = Tela;
             dayText = DayText;
-            inventarioWindow = InventarioWindow;
             TheScene = xScene;
             
             //Application.Current.DebugSettings.EnableFrameRateCounter = true;
@@ -100,16 +103,20 @@ namespace RPG_Noelf
                 //mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 LevelScene scene = new LevelScene(xScene);//criaçao do cenario
-
+                
                 CreatePlayer();
                 CreateMob();
                 GameManager.InitializeGame();
+
+                CreateInventory(BagWindow);
+                CreateChestWindow();
+                
                 //GameManager.mainCamera = new MainCamera(GameManager.characterPlayer, Camera, Chunck01);
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdatePlayerInfoEvent;
                 GameManager.player.PlayerUpdated += UpdatePlayerInfoEvent;
-                CharacterNPC npc2 = new CharacterNPC(NPCCanvas2, Encyclopedia.NonPlayerCharacters[2]);
+                //CharacterNPC npc2 = new CharacterNPC(Encyclopedia.NonPlayerCharacters[2]);
                 Conversation.PointerPressed += EndConversation;
 
                 UpdateBag();
@@ -124,7 +131,7 @@ namespace RPG_Noelf
                 SetEventForEquip();
 
                 ShopWindow.Visibility = Visibility.Collapsed;
-                InventarioWindow.Visibility = Visibility.Collapsed;
+                _InventarioCanvas.Visibility = Visibility.Collapsed;
                 Atributos.Visibility = Visibility.Collapsed;
                 WindowEquipamento.Visibility = Visibility.Collapsed;
                 WindowTreeSkill.Visibility = Visibility.Collapsed;
@@ -143,12 +150,12 @@ namespace RPG_Noelf
             switch (e.VirtualKey)
             {
                 case Windows.System.VirtualKey.B:
-                    if (InventarioWindow.Visibility == Visibility.Collapsed)
+                    if (_InventarioCanvas.Visibility == Visibility.Collapsed)
                     {
                         UpdateBag();
-                        InventarioWindow.Visibility = Visibility.Visible;
+                        _InventarioCanvas.Visibility = Visibility.Visible;
                     }
-                    else InventarioWindow.Visibility = Visibility.Collapsed;
+                    else _InventarioCanvas.Visibility = Visibility.Collapsed;
                     break;
                 case Windows.System.VirtualKey.P:
                     if (Atributos.Visibility == Visibility.Collapsed)
@@ -211,6 +218,7 @@ namespace RPG_Noelf
             chest.Children.Add(chestImage);
             chest.ChestOpen += ChestOpen;
             chest.PointerPressed += ShowChest;
+            bau.itens.BagUpdated += UpdateChestEvent;
         }
         public Canvas CreateCharacterNPC()
         {
@@ -233,6 +241,136 @@ namespace RPG_Noelf
             //LootBody loot = new LootBody(drop);
             //loot.UpdateBlocks(TheScene);
             //Trigger dropTrigger = new Trigger(loot);
+        }
+        public void CreateInventory(Canvas BagCanvas)
+        {
+            // Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"
+            // Height="150" Canvas.Left="800" Canvas.Top="40" Width="180"
+            BagCanvas.Width = 180;
+            BagCanvas.Height = 150;
+            Canvas.SetLeft(BagCanvas, 800);
+            Canvas.SetTop(BagCanvas, 40);
+            _InventarioCanvas = BagCanvas;
+            TextBlock text = new TextBlock()
+            {
+                Width = 180,
+                Height = 20,
+                Text = "Bag",
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            Canvas.SetTop(text, -20);
+            _InventarioCanvas.Children.Add(text);
+            Image bg = new Image()
+            {
+                //Source="/Assets/Images/UI Elements/FundoInventario.png" Width="180" Height="150"
+                Width = 180,
+                Height = 150,
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/FundoInventario.png"))
+            };
+            _InventarioCanvas.Children.Add(bg);
+            _InventarioGrid = new Grid()
+            {
+                Width = 180,
+                Height = 150
+            };
+            _InventarioGrid.SetValue(Grid.PaddingProperty, new Thickness(2.5, 2.5, 2.5, 2.5));
+            _InventarioCanvas.Children.Add(_InventarioGrid);
+
+            DefinitionsGrid(_InventarioGrid, 6, 5, 30, 30);
+            FillGridItemImage(_InventarioGrid, GameManager.player._Inventory, 6, 5, 25, 25);
+
+        }
+        public void CreateChestWindow()
+        {
+            //Configurando o ChestWindow
+            ChestWindow.Width = 250;
+            ChestWindow.Height = 150;
+            Canvas.SetTop(ChestWindow, 350);
+            Canvas.SetLeft(ChestWindow, 250);
+            ChestWindow.Visibility = Visibility.Collapsed;
+
+            // Criando o texto e a imagem de fundo
+            ChestName = new TextBlock()
+            {
+                Text = "Normal Chest",
+                Width = 250,
+                Height = 20,
+                TextAlignment = TextAlignment.Center
+            };
+            Canvas.SetTop(ChestName, -20);
+            ChestWindow.Children.Add(ChestName);
+
+            Image background = new Image()
+            {
+                Width = 250,
+                Height = 150,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/UIAtivo 23-0.png"))
+            };
+            ChestWindow.Children.Add(background);
+
+            //Criando o grid com os ItemImage
+            ChestGrid = new Grid()
+            {
+                Width = 250,
+                Height = 150,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Padding = new Thickness(5, 5, 5, 5)
+            };
+            ChestWindow.Children.Add(ChestGrid);
+
+            DefinitionsGrid(ChestGrid, 5, 3, 50, 50);
+            FillGridItemImage(ChestGrid, null, 5, 3, 40, 40);
+        }
+        public void UpdateGridBagItemImages(Grid grid, Bag bag)
+        {
+            foreach(ItemImage item in grid.Children)
+            {
+                item.myBagRef = bag;
+                item.itemOwner = EItemOwner.drop;
+                item.SetEvents();
+            }
+        }
+        public void DefinitionsGrid(Grid grid, int columnNumber, int rowNumber, int widthCell, int heightCell)
+        {
+            int r = 0;
+            for (int i = 0; i < columnNumber || r < rowNumber; i++, r++)
+            {
+                if(i < columnNumber)
+                {
+                    ColumnDefinition coldef = new ColumnDefinition() { Width = new GridLength(widthCell) };
+                    grid.ColumnDefinitions.Add(coldef);
+                }
+                if (r < rowNumber)
+                {
+                    RowDefinition rowdef = new RowDefinition() { Height = new GridLength(heightCell) };
+                    grid.RowDefinitions.Add(rowdef);
+                }
+            }
+        }
+        public void FillGridItemImage(Grid grid, Bag gridBag, int columnSize, int rowSize, int widthImage, int heightImage)
+        {
+            int column = -1, row = 0;
+            for (int i = 0; i < columnSize * rowSize; i++)
+            {
+                ItemImage item;
+                column++;
+                item = gridBag != null ? new ItemImage(i, widthImage, heightImage, gridBag) : new ItemImage(i, widthImage, heightImage);
+                grid.Children.Add(item);
+                Grid.SetColumn(item, column);
+                Grid.SetRow(item, row);
+                if(item.myBagRef != null && item.myBagRef.GetSlot(i) != null)
+                    Debug.WriteLine(Encyclopedia.SearchFor(item.myBagRef.GetSlot(i).ItemID).Name 
+                                    + " col " + column + " row " + row + "\n");
+                if (column == columnSize - 1)
+                {
+                    row++;
+                    column = -1;
+                }
+            }
         }
         #endregion
         #region Player Updates
@@ -389,19 +527,14 @@ namespace RPG_Noelf
             }
         }
 
-        private void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
+        public void InventorySlotEvent(object sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 var prop = e.GetCurrentPoint(this).Properties;
                 if (prop.IsLeftButtonPressed)
                 {
-                    int index;
-                    int column, row;
-                    column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
-                    row = (int)(sender as Image).GetValue(Grid.RowProperty);
-                    index = column * row + column;
-                    Slot s = GameManager.player._Inventory.GetSlot(index);
+                    Slot s = GameManager.player._Inventory.GetSlot((sender as ItemImage).myItemPosition);
                     if (s == null) return;
                     if (shopOpen)
                     {
@@ -420,9 +553,24 @@ namespace RPG_Noelf
                     } else
                     {
                         GameManager.player._Inventory.RemoveFromBag(s);
-                        CreateDrop(GameManager.characterPlayer.xCharacVal + 10,
-                                    GameManager.characterPlayer.yCharacVal + 60,
+                        CreateDrop(GameManager.player.box.Xi + 10,
+                                    GameManager.player.box.Yi + 60,
                                     s);
+                    }
+                }
+            }
+        }
+        public void ItemSlotEventDrop(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                var prop = e.GetCurrentPoint(this).Properties;
+                if (prop.IsLeftButtonPressed)
+                {
+                    Slot s = (sender as ItemImage).Slot;
+                    if (GameManager.player._Inventory.AddToBag(s))
+                    {
+                        bool c = (sender as ItemImage).myBagRef.RemoveFromBag(s.ItemID, s.ItemAmount);
                     }
                 }
             }
@@ -464,7 +612,7 @@ namespace RPG_Noelf
 
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
-                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    int position = _InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
                     GameManager.player._SkillManager.SkillBar[position - 1] = null;
                     UpdateSkillWindowText(null);
                     UpdateSkillBar();
@@ -483,7 +631,7 @@ namespace RPG_Noelf
 
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
-                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    int position = _InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
                     skillClicked = GameManager.player._SkillManager.SkillList[position];
                     if (GameManager.player._SkillManager.UpSkill(skillClicked))
                     {
@@ -499,7 +647,7 @@ namespace RPG_Noelf
 
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
-                    int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
+                    int position = _InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
 
                     skillClicked = GameManager.player._SkillManager.SkillList[position];
                     if (skillClicked.Unlocked == false) return;
@@ -628,7 +776,7 @@ namespace RPG_Noelf
 
             RealocateWindow(WindowBag, mousePosition);
 
-            UpdateItemWindowText(itemInfo);
+            //UpdateItemWindowText(itemInfo);
 
         }
         private void ShowEquip(object sender, PointerRoutedEventArgs e)
@@ -651,37 +799,18 @@ namespace RPG_Noelf
         #region Inventario
         public void UpdateBag()
         {
-
-            for (int i = 0; i < 30; i++)
+            foreach(ItemImage itemImg in _InventarioGrid.Children)
             {
-                int column = i, row = i;
-                row = i / 6;
-                while (column > 5) column -= 6;
-
-                var slotTemp = from element in InventarioGrid.Children
-                               where (int)element.GetValue(Grid.ColumnProperty) == column && (int)element.GetValue(Grid.RowProperty) == row
-                               select element;
-                if (slotTemp != null)
-                {
-                    Image slot = (Image)slotTemp.ElementAt(0);
-                    if(i < GameManager.player._Inventory.Slots.Count)
-                    {
-                        slot.Source = new BitmapImage(new Uri(this.BaseUri, Encyclopedia.encyclopedia[GameManager.player._Inventory.Slots[i].ItemID].PathImage));
-                    }
-                    else
-                    {
-                        slot.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Images/Cho.jpg"));
-                    }
-                }
-
+                itemImg.OnItemImageUpdate();
             }
         }
-        public void UpdateBagEvent(object sender, EventArgs e)
+        public void UpdateBagEvent(object sender, BagEventArgs e)
         {
             UpdateBag();
         }
-        private void UpdateItemWindowText(Slot slot)
+        public void UpdateItemWindowText(int slotPosition, Bag bag)
         {
+            Slot slot = bag.GetSlot(slotPosition);
             if (slot == null) return;
             Item item = Encyclopedia.encyclopedia[slot.ItemID];
             W_ItemImage.Source = new BitmapImage(new Uri(this.BaseUri, item.PathImage));
@@ -695,7 +824,7 @@ namespace RPG_Noelf
 
         private void SetEventForBagItem()
         {
-            foreach (UIElement element in InventarioGrid.Children)
+            /*foreach (UIElement element in _InventarioGrid.Children)
             {
                 if (element is Image)
                 {
@@ -703,10 +832,10 @@ namespace RPG_Noelf
                     element.PointerExited += CloseItemWindow;
                     element.PointerPressed += InventorySlotEvent;
                 }
-            }
+            }*/
         }
 
-        private void ShowItemWindow(object sender, PointerRoutedEventArgs e)
+        public void ShowItemWindow(object sender, PointerRoutedEventArgs e)
         {
             if (WindowBag.Visibility == Visibility.Visible)
             {
@@ -714,45 +843,20 @@ namespace RPG_Noelf
             }
 
             Point mousePosition = e.GetCurrentPoint(Tela).Position;
-
-            Image itemEnter = null;
-            try
-            {
-                itemEnter = sender as Image;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return;
-            }
-
-            if (itemEnter == null) return;
-
-            int columnPosition = (int)itemEnter.GetValue(Grid.ColumnProperty);
-            int rowPosition = (int)itemEnter.GetValue(Grid.RowProperty);
-            int position = InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
-
-            Slot itemInfo = null;
-
-            if (position < GameManager.player._Inventory.Slots.Count)
-            {
-                itemInfo = GameManager.player._Inventory.Slots[position];
-            }
-            if (itemInfo == null) return;
-
+            ItemImage itemImg = (ItemImage)sender;
             RealocateWindow(WindowBag, mousePosition);
-
-            UpdateItemWindowText(itemInfo);
+            itemImg.OnItemImageUpdate();
+            UpdateItemWindowText(itemImg.myItemPosition, itemImg.myBagRef);
 
         }
         private void ShowBag(object sender, PointerRoutedEventArgs e)
         {
-            if (InventarioWindow.Visibility == Visibility.Collapsed)
-                InventarioWindow.Visibility = Visibility.Visible;
+            if (_InventarioCanvas.Visibility == Visibility.Collapsed)
+                _InventarioCanvas.Visibility = Visibility.Visible;
             else
-                InventarioWindow.Visibility = Visibility.Collapsed;
+                _InventarioCanvas.Visibility = Visibility.Collapsed;
         }
-        private void CloseItemWindow(object sender, PointerRoutedEventArgs e)
+        public void CloseItemWindow(object sender, PointerRoutedEventArgs e)
         {
             WindowBag.Visibility = Visibility.Collapsed;
         }
@@ -882,7 +986,7 @@ namespace RPG_Noelf
 
             RealocateWindow(WindowBag, mousePosition);
 
-            UpdateItemWindowText(itemInfo);
+            // TODO UpdateItemWindowText(itemInfo);
 
         }
         private void ShowOfferItem(Slot offerSlot)
@@ -1119,14 +1223,31 @@ namespace RPG_Noelf
         }
         private void UpdateChest(Bau chest)
         {
+            UpdateGridBagItemImages(ChestGrid, chest.itens);
             int count = 0;
-            foreach (Image img in ChestGrid.Children)
+            foreach (ItemImage img in ChestGrid.Children)
             {
                 if (count >= chest.itens.Slots.Count) img.Source = new BitmapImage();
                 else
                 {
-                    Slot s = chest.itens.GetSlot(count);
-                    img.Source = new BitmapImage(new Uri("ms-appx://" + Encyclopedia.SearchFor(s.ItemID).PathImage));
+                    img.Source = new BitmapImage(
+                        new Uri("ms-appx://" + Encyclopedia.SearchFor(chest.itens.GetSlot(count).ItemID).PathImage));
+                }
+                count++;
+            }
+        }
+        private void UpdateChestEvent(object sender, BagEventArgs e)
+        {
+            Bag chest = e.Bag;
+            UpdateGridBagItemImages(ChestGrid, chest);
+            int count = 0;
+            foreach (ItemImage img in ChestGrid.Children)
+            {
+                if (count >= chest.Slots.Count) img.Source = new BitmapImage();
+                else
+                {
+                    img.Source = new BitmapImage(
+                        new Uri("ms-appx://" + Encyclopedia.SearchFor(chest.GetSlot(count).ItemID).PathImage));
                 }
                 count++;
             }

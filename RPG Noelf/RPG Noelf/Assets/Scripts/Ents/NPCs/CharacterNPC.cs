@@ -1,13 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -21,19 +13,25 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         Trading
     }
 
-    public class CharacterNPC : Character
+    public class CharacterNPC : Solid
     {
         public NPC MyNPC;
         public Trigger trigger;
-        //private Thread Updates;
 
-        public CharacterNPC(Canvas T, NPC _NPC) : base(T)
+        public CharacterNPC(NPC _NPC, double x, double y, double width, double height) : base(x, y, width, height)
         {
             MyNPC = _NPC;
             trigger = new Trigger(this);
-            T.PointerPressed += InteractWith;
-            //Updates = new Thread(updateNPC);
-            //Updates.Start();
+            PointerPressed += InteractWith;
+        }
+
+        public CharacterNPC(NPC _NPC, Canvas canvas) : 
+                        base(GetLeft(canvas), GetTop(canvas), (double)canvas.GetValue(WidthProperty), (double) canvas.GetValue(HeightProperty))
+        {
+
+            MyNPC = _NPC;
+            trigger = new Trigger(this);
+            PointerPressed += InteractWith;
         }
 
         private void InteractWith(object sender, PointerRoutedEventArgs e)

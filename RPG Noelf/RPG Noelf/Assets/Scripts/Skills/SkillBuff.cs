@@ -37,7 +37,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
     public class SkillBuff : SkillGenerics //skills com efeitos
     {
-
         
         public double oldstatus;
         public SkillBuff(string pathImage, string name)

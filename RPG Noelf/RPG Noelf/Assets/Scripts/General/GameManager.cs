@@ -8,6 +8,7 @@ using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RPG_Noelf.Assets.Scripts.General
@@ -17,7 +18,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         // Player
         public static List<CharacterPlayer> players = new List<CharacterPlayer>();
         public static Player player;
-        public static CharacterPlayer characterPlayer;
+        //public static CharacterPlayer characterPlayer;
         
         // User Interface
         public static InterfaceManager interfaceManager = new InterfaceManager();
@@ -42,9 +43,8 @@ namespace RPG_Noelf.Assets.Scripts.General
             interfaceManager.Inventario = Game.inventarioWindow;
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
-            npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
-            npcCharacter.UpdateBlocks(Game.TheScene);
-            npcCharacter.trigger.AddTrigger(characterPlayer);
+            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 150, 120, 60);
+            npcCharacter.trigger.AddTrigger(player.box);
             
             NPC teste = new NPC();
             questerTarget = new Quester(1);
@@ -52,12 +52,16 @@ namespace RPG_Noelf.Assets.Scripts.General
             npcTarget = teste;
             npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
             Game.instance.OpenQuest();
-
-            player._Inventory.AddToBag(new Slot(3, 1));
+            Slot s1;
+            player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
             player._Inventory.AddToBag(new Slot(21, 1));
             player._Inventory.AddToBag(new Slot(22, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
             player._Inventory.AddToBag(new Slot(25, 1));
+            player._Inventory.AddToBag(new Slot(26, 1));
+            player._Inventory.AddToBag(new Slot(27, 1));
+            player._Inventory.AddToBag(new Slot(28, 1));
+            player._Inventory.AddToBag(new Slot(42, 1));
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());

@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
+    public class BagEventArgs : EventArgs
+    {
+        public Bag Bag { get; set; }
+    }
+
     /// <summary>
     /// Bag is the main Class to the entire Inventory System. 
     /// There are managment function to manipulate the bag of an entity.
@@ -18,7 +23,8 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// <summary>
         /// A event that is called everytime that a item has been removed or added from the bag, updating the interface.
         /// </summary>
-        public event EventHandler BagUpdated;
+        public delegate void BagEventHandler(object sender, BagEventArgs bag);
+        public event BagEventHandler BagUpdated;
 
         /// <summary>
         /// Slot is a class that contains two atributes.
@@ -102,7 +108,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// <param name="itemID">The item ID to be added</param>
         /// <param name="amount">The amount of that item</param>
         /// <returns></returns>
-        public virtual bool AddToBag(Slot slot)
+        public virtual bool AddToBag(Slot slot, ref Slot slotOffset)
         {
             Slot playerSlot = Slots.Find(x => x.ItemID == slot.ItemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
             if (playerSlot != null)
@@ -114,8 +120,8 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     if (Slots.Count < MaxSlots)
                     {
                         slot.ItemAmount -= offset;
-                        AddToBag(slot);
                         FreeSlots--;
+                        AddToBag(slot, ref slotOffset);
                         OnBagUpdated();
                         return true;
                     }
@@ -142,6 +148,58 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             return false;
         }
 
+        /// <summary>
+        /// This function add a item to the bag.
+        /// It look for space and if there is some item that can be 'stacked' with space to do that.
+        /// Then, if the item is stackable and it will overflow the max of items, then will calculate how many left and look for more space
+        /// If there is more space, then it will recursivly add a new item in case the item overflow 2x the limite of max
+        /// If is a non-stackable then will only add to the list if can be added
+        /// See also <seealso cref="CanAddMore"/> 
+        /// </summary>
+        /// <param name="itemID">The item ID to be added</param>
+        /// <param name="amount">The amount of that item</param>
+        /// <returns></returns>
+        public virtual bool AddToBag(Slot slot)
+        {
+            if (slot == null) return false;
+            Slot playerSlot = Slots.Find(x => x.ItemID == slot.ItemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
+            if (playerSlot != null)
+            {
+                if (playerSlot.ItemAmount + slot.ItemAmount > MaxStack)
+                {
+                    uint offset = playerSlot.ItemAmount + slot.ItemAmount - MaxStack;
+                    playerSlot.ItemAmount = MaxStack;
+                    slot.ItemAmount = offset;
+                    if (Slots.Count < MaxSlots)
+                    {
+                        FreeSlots--;
+                        AddToBag(slot);
+                        OnBagUpdated();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    playerSlot.ItemAmount += slot.ItemAmount;
+                    slot.ItemAmount = 0;
+                    OnBagUpdated();
+                    return true;
+                }
+            }
+            else if (CanAddMore())
+            {
+                Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
+                slot.ItemAmount = 0;
+                OnBagUpdated();
+                return true;
+            }
+            else
+                return false;
+        }
         /// <summary>
         /// Get a slot by his index
         /// </summary>
@@ -318,7 +376,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         public virtual void OnBagUpdated()
         {
-            BagUpdated?.Invoke(this, EventArgs.Empty);
+            BagUpdated?.Invoke(this, new BagEventArgs() { Bag = this });
         }
     }
 }

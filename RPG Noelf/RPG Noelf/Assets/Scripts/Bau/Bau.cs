@@ -42,7 +42,13 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
                 if (typeID >= GetTypeId(Encyclopedia.SearchFor(itemProcurado).ItemCategory))
                 {
-                    itens.AddToBag(new Slot(itemProcurado, (uint)GetRand.Next(10)));
+                    if(Encyclopedia.SearchFor(itemProcurado).IsStackable)
+                    {
+                        itens.AddToBag(new Slot(itemProcurado, (uint)GetRand.Next(9) + 1));
+                    } else
+                    {
+                        itens.AddToBag(new Slot(itemProcurado, 1));
+                    }
                 }
             }
         }

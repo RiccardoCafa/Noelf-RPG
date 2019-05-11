@@ -44,6 +44,11 @@ namespace RPG_Noelf.Assets.Scripts
             Height = height;
             Collision.solids.Add(this);
         }
+
+        public double GetDistance(double xref, double yref)
+        {
+            return Math.Sqrt(Math.Pow(xref - (Xi + Width/2), 2) + Math.Pow(yref - (Yi + Height/2), 2));
+        }
     }
 
     public class DynamicSolid : Solid//solido q se movimenta

@@ -117,38 +117,8 @@
             </Border>
         </Canvas>
 
-        <Canvas Name="ChestWindow" Visibility="Collapsed" HorizontalAlignment="Stretch" Height="150" Canvas.Left="250" Canvas.Top="350" VerticalAlignment="Stretch" Width="250">
-            <TextBlock Name="ChestName" Width="250" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
-            <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
-            <Grid Name="ChestGrid" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg" ></Image>
-                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-            </Grid>
+        <Canvas Name="ChestWindow">
+            
         </Canvas>
 
         <Canvas Name="Menu" Width="300" Height="300" Canvas.Left="950" Canvas.Top="380" CanDrag="True" AllowDrop="True">
@@ -227,7 +197,7 @@
             </Grid>
         </Canvas>
 
-        <Canvas Name="InventarioWindow" Height="150" Canvas.Left="800" Canvas.Top="40" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <!--<Canvas Name="InventarioWindow" Height="150" Canvas.Left="800" Canvas.Top="40" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <TextBlock Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"></TextBlock>
             <Image Source="/Assets/Images/UI Elements/FundoInventario.png" Width="180" Height="150"></Image>
             <Grid Name="InventarioGrid"  ColumnSpacing="0" RowSpacing="0" Padding="2.5,2.5,2,2"  Height="150" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" CompositeMode="Inherit">
@@ -277,7 +247,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
             </Grid>
-        </Canvas>
+        </Canvas>-->
 		
         <Canvas Name="ActiveQuestsWindows" Width="200" Height="100" Background="LightGray" Visibility="Visible">
             <Grid Width="200" Height="100">
@@ -540,6 +510,10 @@
                 <TextBlock Text="Hair color" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Consolas" FontWeight="Bold" FontSize="12"/>
             </Grid>
         </Canvas>-->
+
+        <Canvas Name="BagWindow">
+            
+        </Canvas>
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
             <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
