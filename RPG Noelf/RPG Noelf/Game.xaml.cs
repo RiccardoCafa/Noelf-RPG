@@ -324,6 +324,47 @@ namespace RPG_Noelf
 
             DefinitionsGrid(ChestGrid, 5, 3, 50, 50);
             FillGridItemImage(ChestGrid, null, 5, 3, 40, 40);
+
+            Button GetAllBtn = new Button()
+            {
+                Width = 90,
+                Height = 60,
+                Content = "All"
+            };
+            ChestWindow.Children.Add(GetAllBtn);
+            Canvas.SetTop(GetAllBtn, 0);
+            Canvas.SetLeft(GetAllBtn, ChestWindow.Width);
+            GetAllBtn.Click += (object sender, RoutedEventArgs e) =>
+            {
+                Bag bag = ((ItemImage)ChestGrid.Children[0]).myBagRef;
+                List<Slot> ItemSlots = new List<Slot>();
+                foreach(ItemImage item in ChestGrid.Children)
+                {
+                    ItemSlots.Add(item.Slot);
+                }
+                foreach(Slot s in ItemSlots)
+                {
+                    if (GameManager.player._Inventory.AddToBag(s))
+                    {
+                        bool c = bag.RemoveFromBag(s.ItemID, s.ItemAmount);
+                    }
+                }
+            };
+
+            Button Close = new Button()
+            {
+                Width = 90,
+                Height = 60,
+                Content = "Close"
+            };
+            ChestWindow.Children.Add(Close);
+            Canvas.SetTop(Close, GetAllBtn.Height + 10);
+            Canvas.SetLeft(Close, ChestWindow.Width);
+            Close.Click += (object sender, RoutedEventArgs e) =>
+            {
+                ChestWindow.Visibility = Visibility.Collapsed;
+            };
+
         }
         public void UpdateGridBagItemImages(Grid grid, Bag bag)
         {
