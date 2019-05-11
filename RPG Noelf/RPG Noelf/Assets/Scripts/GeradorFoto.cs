@@ -9,6 +9,7 @@ using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using System.Threading.Tasks;
 
+
 namespace RPG_Noelf.Assets
 {
     class GeradorFoto

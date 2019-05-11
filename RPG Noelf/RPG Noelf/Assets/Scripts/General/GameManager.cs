@@ -1,3 +1,4 @@
+using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
 using RPG_Noelf.Assets.Scripts.Ents;
 using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
@@ -33,6 +34,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static CharacterMob mobTarget;
 
         // NPC's
+        public static Crafting CraftingStation;
         public static CharacterNPC npcCharacter;
         public static NPC npcTarget;
         public static Trader traderTarget;
@@ -43,6 +45,8 @@ namespace RPG_Noelf.Assets.Scripts.General
             interfaceManager.Inventario = Game.inventarioWindow;
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
+            CraftingEncyclopedia.LoadCraftings();
+            CraftingStation = new Crafting();
             npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             npcCharacter.UpdateBlocks(Game.TheScene);
             npcCharacter.trigger.AddTrigger(characterPlayer);
@@ -51,11 +55,13 @@ namespace RPG_Noelf.Assets.Scripts.General
             //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
             //MainPage.instance.OpenQuest();
 
-            player._Inventory.AddToBag(new Slot(3, 1));
-            player._Inventory.AddToBag(new Slot(21, 1));
-            player._Inventory.AddToBag(new Slot(22, 1));
-            player._Inventory.AddToBag(new Slot(24, 1));
-            player._Inventory.AddToBag(new Slot(25, 1));
+            //player._Inventory.AddToBag(new Slot(3, 1));
+            //player._Inventory.AddToBag(new Slot(21, 1));
+            //player._Inventory.AddToBag(new Slot(22, 1));
+            //player._Inventory.AddToBag(new Slot(24, 1));
+          //  player._Inventory.AddToBag(new Slot(25, 1));
+            player._Inventory.AddToBag(new Slot(42, 5));
+            player._Inventory.AddToBag(new Slot(1, 5));
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
