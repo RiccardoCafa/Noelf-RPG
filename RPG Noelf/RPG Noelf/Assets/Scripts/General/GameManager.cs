@@ -61,6 +61,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             //player._Inventory.AddToBag(new Slot(24, 1));
           //  player._Inventory.AddToBag(new Slot(25, 1));
             player._Inventory.AddToBag(new Slot(42, 5));
+            player._Inventory.AddToBag(new Slot(1, 5));
             //characters.Add(mobTarget);
             //characters.Add(characterPlayer);
             //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());

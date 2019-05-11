@@ -15,11 +15,19 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 
         private bool IsPossibleToCraft(uint item)
         {
+            Recipe generic = CraftingEncyclopedia.CraftItems[item];
 
-            return true;
-
-
-
+            foreach(Slot s in bag.Slots )
+            {
+                foreach(Slot slot in generic.ListaMaterial)
+                {
+                    if(s.ItemID == slot.ItemID && s.ItemAmount>= slot.ItemAmount)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }       
 
         private void RemoveMaterials(uint id)
