@@ -109,7 +109,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             level = new Level(1);
             LevelUpdate(0, 0, 0, 0, 0, 0);
             ApplyDerivedAttributes();
-            Window.Current.CoreWindow.KeyDown += Attack;
+            //Window.Current.CoreWindow.KeyDown += Attack;
             attkDelay = DateTime.Now;
         }
 
@@ -150,24 +150,24 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Load();
         }
 
-        public void Attack(CoreWindow sender, KeyEventArgs e)
-        {
-            if (e.VirtualKey == Windows.System.VirtualKey.Z && attkDelay.Millisecond - DateTime.Now.Millisecond <= AtkSpd * 1000)
-            {
-                Task.Run(() =>
-                {
-                    HitSolid atk = new HitSolid(100, 20, 40, 50, 240);
-                    box.Children.Add(atk);
-                    //TextBlock txt = new TextBlock();
-                    //txt.Text = "" + (DateTime.Now.Millisecond - attkDelay.Millisecond) + ">=" + (AtkSpd * 1000);
-                    //atk.Children.Add(txt);
-                    //Canvas.SetTop(txt, -20);
-                    //Thread.Sleep(500);
-                    //box.Children.Remove(atk);
-                    attkDelay = DateTime.Now;
-                });
-            }
-        }
+        //public void Attack(CoreWindow sender, KeyEventArgs e)
+        //{
+        //    if (e.VirtualKey == Windows.System.VirtualKey.Z && attkDelay.Millisecond - DateTime.Now.Millisecond <= AtkSpd * 1000)
+        //    {
+        //        Task.Run(() =>
+        //        {
+        //            HitSolid atk = new HitSolid(100, 20, 40, 50, 240);
+        //            box.Children.Add(atk);
+        //            //TextBlock txt = new TextBlock();
+        //            //txt.Text = "" + (DateTime.Now.Millisecond - attkDelay.Millisecond) + ">=" + (AtkSpd * 1000);
+        //            //atk.Children.Add(txt);
+        //            //Canvas.SetTop(txt, -20);
+        //            //Thread.Sleep(500);
+        //            //box.Children.Remove(atk);
+        //            attkDelay = DateTime.Now;
+        //        });
+        //    }
+        //}
 
         public void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
         {
