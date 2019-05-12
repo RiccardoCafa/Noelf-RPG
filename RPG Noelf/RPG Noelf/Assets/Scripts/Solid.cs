@@ -66,7 +66,7 @@ namespace RPG_Noelf.Assets.Scripts
             const double margin = 20;
             foreach (Solid solid in solids)
             {
-                if(solid is DynamicSolid)
+                if (solid is DynamicSolid)
                 {
 
                 }
@@ -98,8 +98,8 @@ namespace RPG_Noelf.Assets.Scripts
 
     public class DynamicSolid : Solid//solido q se movimenta
     {
-        //public delegate void MoveHandler(Solid sender);
-        //public event MoveHandler Moved;
+        public delegate void MoveHandler();
+        public event MoveHandler Moved;
 
         public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
             { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
@@ -117,7 +117,7 @@ namespace RPG_Noelf.Assets.Scripts
         {
             this.speed = speed;
             jumpSpeed = speed * 150;
-            //Moved += Collision.OnMoved;
+            Moved += OnMoved;
             horizontalSpeed = speed * 75;
             time = DateTime.Now;
             new Task(Update).Start();
@@ -148,10 +148,10 @@ namespace RPG_Noelf.Assets.Scripts
         {
             if (direction == Axis.vertical) Yi -= verticalSpeed * span;
             if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed * span;
-            if (verticalSpeed != 0 || horizontalDirection != 0) Interaction();//chama o evento
+            if (verticalSpeed != 0 || horizontalDirection != 0) Move();//Interaction();//chama o evento
         }
 
-        public void Interaction()//o q este solido faz com os outros ao redor
+        public void OnMoved()//o q este solido faz com os outros ao redor
         {
             const double margin = 20;
             freeDirections[Direction.down] =
@@ -186,14 +186,14 @@ namespace RPG_Noelf.Assets.Scripts
 
         public void ApplyGravity(double span) => verticalSpeed -= g * span;//aplica a gravidade
 
-        //public void OnMoved() => Moved?.Invoke(this);//metodo q dispara o event Moved
+        public void Move() => Moved?.Invoke();//metodo q dispara o event Moved
     }
 
     public class PlayableSolid : DynamicSolid//solido controlavel
     {
         public PlayableSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height, speed)
         {
-            //Moved += Camera.OnMoved;
+            Moved += OnMoved;
             Window.Current.CoreWindow.KeyDown += Move;
             Window.Current.CoreWindow.KeyUp += Stop;
         }
@@ -237,23 +237,27 @@ namespace RPG_Noelf.Assets.Scripts
             if (direction == Axis.vertical)
             {
                 Yi -= verticalSpeed * span;
-                //SetTop(Game.instance.scene1.layers[2], GetTop(Game.instance.scene1.layers[2]) + verticalSpeed * 0.125);
-                //SetTop(Game.instance.scene1.layers[1], GetTop(Game.instance.scene1.layers[1]) + verticalSpeed * 0.25);
-                //SetTop(Game.instance.scene1.layers[0], GetTop(Game.instance.scene1.layers[0]) + verticalSpeed * 0.5);
-                //SetTop(Game.instance.scene1.scene.chunck, GetTop(Game.instance.scene1.scene.chunck) + verticalSpeed);
+                //SetTop(Game.instance.scene1.layers[2], GetTop(Game.instance.scene1.layers[2]) + verticalSpeed * span * 0.075);
+                //SetTop(Game.instance.scene1.layers[1], GetTop(Game.instance.scene1.layers[1]) + verticalSpeed * span * 0.15);
+                //SetTop(Game.instance.scene1.layers[0], GetTop(Game.instance.scene1.layers[0]) + verticalSpeed * span * 0.3);
+                //foreach (UIElement child in Game.instance.scene1.scene.chunck.Children)
+                //{
+                //    if (child is Solid) (child as Solid).Xi += verticalSpeed * span;
+                //    else if (child is Image) SetTop(child, GetTop(child) + verticalSpeed * span);
+                //}
             }
             if (direction == Axis.horizontal)
             {
                 Xi += horizontalDirection * horizontalSpeed * span;
-                //SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - horizontalDirection * horizontalSpeed * 0.125);
-                //SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - horizontalDirection * horizontalSpeed * 0.25);
-                //SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - horizontalDirection * horizontalSpeed * 0.5);
-                //SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) - horizontalDirection * horizontalSpeed);
+                //SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - horizontalDirection * horizontalSpeed * span * 0.075);
+                //SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - horizontalDirection * horizontalSpeed * span * 0.15);
+                //SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - horizontalDirection * horizontalSpeed * span * 0.3);
+                //foreach (Solid s in Game.instance.scene1.scene.ground) s.Xi -= horizontalDirection * horizontalSpeed * span;
             }
-            if (verticalSpeed != 0 || horizontalDirection != 0)
-            {
-                Interaction();//chama o evento
-            }
+            //if (verticalSpeed != 0 || horizontalDirection != 0)
+            //{
+            Move();//chama o evento
+            //}
         }
     }
 
