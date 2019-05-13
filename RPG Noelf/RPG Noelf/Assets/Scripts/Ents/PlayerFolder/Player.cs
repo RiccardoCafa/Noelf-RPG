@@ -8,6 +8,10 @@ using Windows.UI.Xaml.Media.Imaging;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Core;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -57,6 +61,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public int Mp;
         public int MpMax;
 
+        DateTime attkDelay;
+
         public Player(string id) : base()
         {
             /* ID: rcxkysh
@@ -103,6 +109,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             level = new Level(1);
             LevelUpdate(0, 0, 0, 0, 0, 0);
             ApplyDerivedAttributes();
+            //Window.Current.CoreWindow.KeyDown += Attack;
+            attkDelay = DateTime.Now;
         }
 
         private void Load()
@@ -110,7 +118,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             foreach (string key in playerImages.Keys)
             {
                 box.Children.Add(playerImages[key]);
-                if(key != "head" && key != "eye" && key != "hair") box.Children.Add(clothesImages[key]);
+                if (key != "head" && key != "eye" && key != "hair") box.Children.Add(clothesImages[key]);
             }
             Canvas.SetLeft(playerImages["armse0"], 16); Canvas.SetTop(playerImages["armse0"], 24);
             Canvas.SetLeft(playerImages["armse1"], 26); Canvas.SetTop(playerImages["armse1"], 42);
@@ -141,6 +149,25 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             SetClothes(clothesImages);
             Load();
         }
+
+        //public void Attack(CoreWindow sender, KeyEventArgs e)
+        //{
+        //    if (e.VirtualKey == Windows.System.VirtualKey.Z && attkDelay.Millisecond - DateTime.Now.Millisecond <= AtkSpd * 1000)
+        //    {
+        //        Task.Run(() =>
+        //        {
+        //            HitSolid atk = new HitSolid(100, 20, 40, 50, 240);
+        //            box.Children.Add(atk);
+        //            //TextBlock txt = new TextBlock();
+        //            //txt.Text = "" + (DateTime.Now.Millisecond - attkDelay.Millisecond) + ">=" + (AtkSpd * 1000);
+        //            //atk.Children.Add(txt);
+        //            //Canvas.SetTop(txt, -20);
+        //            //Thread.Sleep(500);
+        //            //box.Children.Remove(atk);
+        //            attkDelay = DateTime.Now;
+        //        });
+        //    }
+        //}
 
         public void SetPlayer(Dictionary<string, Image> playerImages)//aplica as imagens das caracteristicas fisicas do player
         {
