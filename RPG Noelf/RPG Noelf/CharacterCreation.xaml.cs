@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.General;
+﻿using RPG_Noelf.Assets.Scripts;
+using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,18 @@ namespace RPG_Noelf
             CustomPlayer = new Player("0000000");
             CustomPlayer.Spawn(xPlayerSpawn, yPlayerSpawn);
             PlayerCanvas.Children.Add(CustomPlayer.box);
+            (CustomPlayer.box as DynamicSolid).alive = false; 
         }
-        
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if(e.Parameter is NewPlayer)
+            {
+                selectedSlot = (e.Parameter as NewPlayer).slot;
+            }
+        }
+
         private string ChangeCustom(char current, int range, bool isNext)//metodo auxiliar de ClickCustom()
         {
             int.TryParse(current.ToString(), out int x);
@@ -93,11 +104,10 @@ namespace RPG_Noelf
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var viewId = 0;
-            CharacterCreationParams cParams = new CharacterCreationParams();
-            cParams.playerCreated = CustomPlayer;
+            PlayerParams cParams = new PlayerParams(CustomPlayer.Id);
             SavePlayerData();
             var newView = CoreApplication.CreateNewView();
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 var frame = new Frame();
                 frame.Navigate(typeof(Game), cParams);
@@ -117,7 +127,7 @@ namespace RPG_Noelf
             string path = Path.GetTempPath() + @"/Noelf";
             if(!File.Exists(path))
             {
-                System.IO.Directory.CreateDirectory(path);
+                Directory.CreateDirectory(path);
             }
 
             string fileName = "slot_" + selectedSlot;
@@ -129,10 +139,5 @@ namespace RPG_Noelf
                 sw.WriteLine("id " + CustomPlayer.Id);
             }
         }
-    }
-
-    public class CharacterCreationParams
-    {
-        public Player playerCreated { get; set; }
     }
 }
