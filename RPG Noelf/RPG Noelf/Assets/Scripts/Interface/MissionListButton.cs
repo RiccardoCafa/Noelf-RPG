@@ -1,17 +1,20 @@
 ﻿using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.General;
 using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
     class MissionListButton : Canvas
     {
-        private Quest quest;
         private Image image;
         private TextBlock titulo;
 
-        public string QuestTitle {
+        public Quest Quest { get; set; }
+
+        public string Titulo {
             get {
                 return titulo.Text;
             }
@@ -26,8 +29,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Height = 15;
             image = new Image()
             {
-                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/UIAtivo 33-0.png")),
-                Width = 200,
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/ComoFazerMagica.png")),
+                Width = 100,
                 Height = 15,
                 Stretch = Windows.UI.Xaml.Media.Stretch.Fill
             };
@@ -36,15 +39,20 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             {
                 Width = 100,
                 Height = 15,
-                FontSize = 7,
+                FontSize = 10,
                 Text = quest.name,
-                TextAlignment = Windows.UI.Xaml.TextAlignment.Left
+                TextAlignment = Windows.UI.Xaml.TextAlignment.Center
             };
 
             Children.Add(image);
             Children.Add(titulo);
+            PointerPressed += SelectQuest;
+            this.Quest = quest;
+        }
 
-            this.quest = quest;
+        public void SelectQuest(object sender, PointerRoutedEventArgs e)
+        {
+            GameManager.player._Questmanager.SetActualQuest(Quest);
         }
     }
 }

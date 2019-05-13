@@ -14,18 +14,27 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             allquests = new Dictionary<uint, Quest>();
 
-            SpeakQuest quest1 = new SpeakQuest((uint) 1);
-            quest1.QUEST_ID = 1;
-            quest1.name = "Chega ai parceiro";
-            quest1.Description = "Fale com Lapa";
-            quest1.RewardDescription = "Aprovação em LP II";
+            SpeakQuest quest1 = new SpeakQuest((uint)1)
+            {
+                QUEST_ID = 1,
+                name = "Chega ai parceiro",
+                Description = "Fale com Lapa",
+                RewardDescription = "Aprovação em LP II",
+                GainedGold = 50,
+                GainedXP = 100
+            };
             allquests.Add(1, quest1);
 
-            SpeakQuest quest2 = new SpeakQuest((uint)2);
-            quest2.QUEST_ID = 2;
-            quest2.name = "Conheça o mundo";
-            quest2.Description = "Veja a Quimera debaixo da plataforma";
-            quest2.RewardDescription = "Ouro e Joias";
+            SpeakQuest quest2 = new SpeakQuest((uint)2)
+            {
+                QUEST_ID = 2,
+                name = "Conheça o mundo",
+                Description = "Veja a Quimera debaixo da plataforma",
+                RewardDescription = "Ouro e Joias",
+                GainedGold = 10,
+                GainedXP = 1000,
+                GainedItem = new Inventory_Scripts.Slot(7, 10)
+            };
             allquests.Add(2, quest2);
 
 

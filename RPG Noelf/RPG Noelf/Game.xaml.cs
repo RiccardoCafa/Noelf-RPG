@@ -136,6 +136,11 @@ namespace RPG_Noelf
                 WindowEquipamento.Visibility = Visibility.Collapsed;
                 WindowTreeSkill.Visibility = Visibility.Collapsed;
 
+
+                GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+                GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
+                GameManager.player._Questmanager.actualQuest = GameManager.player._Questmanager.allQuests[1];
+
                 Slot slotDrop = new Slot(40, 1);
                 CreateDrop(100, 500, slotDrop);
 
@@ -964,8 +969,7 @@ namespace RPG_Noelf
         {
             ShopWindow.Visibility = Visibility.Collapsed;
         }
-
-
+        
         #region Quest
         public void CloseQuest()
         {
@@ -994,15 +998,16 @@ namespace RPG_Noelf
         }
         private void ShowQuestList(object sender, PointerRoutedEventArgs e)
         {
+            RotateTransform ta = (RotateTransform)ArrowQuestList.RenderTransform;
             if(MQuestList.Visibility == Visibility.Collapsed)
             {
                 MQuestList.Visibility = Visibility.Visible;
-                RotateTransform ta = ArrowQuestList.RenderTransform;
-                
+                ta.Angle = 90;
             }
             else
             {
                 MQuestList.Visibility = Visibility.Collapsed;
+                ta.Angle = -90;
             }
         }
         private void CloseQuestManagerWindow(object sender, PointerRoutedEventArgs e)
@@ -1033,20 +1038,21 @@ namespace RPG_Noelf
             }
         }
         ObjectPooling<MissionListButton> MsnBtnPool = new ObjectPooling<MissionListButton>();
-        string msnPoolName = "MsnPool";
         private void UpdateQuestList()
         {
             ResetQuestList();
 
             List<Quest> quests = GameManager.player._Questmanager.allQuests;
-
+            int count = 0;
             foreach(Quest q in quests)
             {
                 MissionListButton msnB;
                 if (MsnBtnPool.PoolSize > 0)
                 {
                     MsnBtnPool.GetFromPool(out msnB);
-                    msnB.QuestTitle = q.name;
+                    msnB.Quest = q;
+                    msnB.Titulo = q.name;
+                    msnB.Visibility = Visibility.Visible;
                     MissionList.Children.Add(msnB);
                 } else
                 {
@@ -1054,6 +1060,7 @@ namespace RPG_Noelf
                     MsnBtnPool.Pooled.Add(msnB);
                     MissionList.Children.Add(msnB);
                 }
+                count++;
             }
         }
         private void UpdateQuestManagerEvent(object sender, QuestEventArgs e)
@@ -1181,7 +1188,6 @@ namespace RPG_Noelf
         #region Conversation
         private Grid ButtonsGrid;
         ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
-        string PoolName = "convBtn";
         public void CallConversationBox(NPC npc)
         {
             if (GameManager.interfaceManager.Conversation) return;

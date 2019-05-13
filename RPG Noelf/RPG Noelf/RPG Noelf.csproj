@@ -160,6 +160,7 @@
     <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
     <Compile Include="Assets\Scripts\Interface\ItemImage.cs" />
     <Compile Include="Assets\Scripts\Interface\MainCamera.cs" />
+    <Compile Include="Assets\Scripts\Interface\MissionListButton.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Bag Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Armor.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Encyclopedia.cs" />
@@ -604,6 +605,8 @@
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
     <Content Include="Assets\Images\UI Elements\circle-red.png" />
+    <Content Include="Assets\Images\UI Elements\ComoFazerMagica.png" />
+    <Content Include="Assets\Images\UI Elements\Expand.png" />
     <Content Include="Assets\Images\UI Elements\FundoInventario.png" />
     <Content Include="Assets\Images\UI Elements\Game Menu\LobbyBg.png" />
     <Content Include="Assets\Images\UI Elements\Game Menu\SlotFull.png" />

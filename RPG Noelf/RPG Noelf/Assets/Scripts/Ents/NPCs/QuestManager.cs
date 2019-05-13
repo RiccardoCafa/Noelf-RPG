@@ -20,9 +20,16 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public Quest actualQuest { get; set; }
         private Player player;
 
-        public QuestManager()
+        public QuestManager(Player player)
         {
-            this.player = GameManager.player;
+            this.player = player;
+        }
+
+        public void SetActualQuest(Quest quest)
+        {
+            if (quest == null) return;
+            actualQuest = quest;
+            OnQuestUpdated();
         }
 
         //adicione uma quest nova ao player
@@ -32,7 +39,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             if(q.level <= playerLevel)//checa se o level do player é compativel com a quest
             {
                 allQuests.Add(q);
+                OnQuestUpdated();
             }
+            
         }
         public void ReceiveNewQuest(Quest q, uint genericID)
         {
@@ -40,6 +49,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             if (q.level <= playerLevel && genericID == q.RequiredID)//checa se o level do player é compativel com a quest
             {
                 allQuests.Add(q);
+                OnQuestUpdated();
             }
         }
 
@@ -81,6 +91,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             {
                 allQuests.Remove(q);
                 finishedQuests.Add(q);
+                OnQuestUpdated();
             }
         }
 
@@ -108,7 +119,13 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public void GiveUpActualQuest()
         {
             allQuests.Remove(actualQuest);
-            actualQuest = null;
+            if(allQuests.Count > 0)
+            {
+                actualQuest = allQuests[0];
+            } else
+            {
+                actualQuest = null;
+            }
             OnQuestUpdated();
         }
 

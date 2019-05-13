@@ -61,8 +61,6 @@ namespace RPG_Noelf.Assets.Scripts.General
             player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();
             CraftingStation = new Crafting();
-            player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
-            player._Questmanager.actualQuest = player._Questmanager.allQuests[0];
         }
 
         public static void InitializePlayer()

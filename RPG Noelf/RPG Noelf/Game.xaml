@@ -357,7 +357,7 @@
 
         </Canvas>
 
-        <Canvas Name="QuestManagerWindow" Width="400" Height="300" Canvas.Top="230" Canvas.Left="480" Visibility="Visible">
+        <Canvas Name="QuestManagerWindow" Width="400" Height="300" Canvas.Top="230" Canvas.Left="480" Visibility="Collapsed">
             <Image Width="400" Height="300" Source="/Assets/Images/UI Elements/FundoInventario.png" Stretch="Fill"></Image>
             <TextBlock Name="MQuestTitle" Width="300" TextAlignment="Center" Height="20" Text="Nome Quest Ativa" FontWeight="Bold" Canvas.Left="50" Canvas.Top="10"></TextBlock>
             <TextBlock Name="MQuestDescr"  Width="380" Height="170" Canvas.Top="40" Canvas.Left="10" TextWrapping="Wrap" FontSize="14"
@@ -370,11 +370,11 @@
                 <Image Name="MQuestItem" Width="30" Height="30" Canvas.Left="240" Source="/Assets/Images/itens/barraFerro.png"></Image>
                 <TextBlock Name="MQuestItemQntd" Width="70" Height="20" Canvas.Left="280" Canvas.Top="5" Text="x500" FontSize="10" TextAlignment="Left"></TextBlock>
             </Canvas>
-            <Button Width="100" Height="30" Canvas.Top="260" Canvas.Left="150" Content="Desistir" FontSize="12"></Button>
+            <Button Width="100" Height="30" Canvas.Top="260" Canvas.Left="150" Content="Desistir" FontSize="12" Click="GiveUpButton"></Button>
             <Image Width="20" Height="20" Canvas.Left="365" Canvas.Top="10" Source="/Assets/Images/UI Elements/circle-red.png" PointerPressed="CloseQuestManagerWindow"></Image>
             <Image Name="ArrowQuestList" Width="20" Height="20" Canvas.Left="15" Canvas.Top="10" Source="/Assets/Images/UI Elements/Expand.png" PointerPressed="ShowQuestList" RenderTransformOrigin="0.5,0.5">
-                <Image.RenderTransform Name="ArrowQuestListRender">
-                    <CompositeTransform Rotation="90"/>
+                <Image.RenderTransform>
+                    <RotateTransform Angle="90"/>
                 </Image.RenderTransform>
             </Image>
             <Canvas Name="MQuestList" Width="120" Canvas.Left="-120" Height="300" Visibility="Collapsed">
