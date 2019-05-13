@@ -23,7 +23,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         
         public NPC()
         {
-            this.EventoFala += GameManager.player._Questmanager.EventoFalaComNPCDaQuest;
+            //this.EventoFala += GameManager.player._Questmanager.EventoFalaComNPCDaQuest;
         }
 
         public void StartConversation()
@@ -31,7 +31,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             Game.instance.CallConversationBox(this);
             GameManager.interfaceManager.ConvHasToClose = false;
             GameManager.interfaceManager.Conversation = true;
-            GameManager.player._Questmanager.PrintActualQuestStatus();
             OnEventoFalar();
         }
 
@@ -135,10 +134,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void EndFunction()
         {
-            if (GameManager.player._Questmanager.activeQuests.Contains(myQuest))
+            /*if (GameManager.player._Questmanager.activeQuests.Contains(myQuest))
             {
                 GameManager.CloseQuestWindow();
-            }
+            }*/
         }
 
         public string GetFunctionName()

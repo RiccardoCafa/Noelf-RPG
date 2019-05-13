@@ -47,6 +47,11 @@ namespace RPG_Noelf.Assets.Scripts
             Height = height;
             solids.Add(this);
         }
+
+        public double GetDistance(double xref, double yref)
+        {
+            return Math.Sqrt(Math.Pow(xref - Xi, 2) + Math.Pow(yref - Yi, 2));
+        }
     }
 
     public class HitSolid : Solid//solido q causa dano
@@ -93,6 +98,11 @@ namespace RPG_Noelf.Assets.Scripts
                     }
                 }
             }
+        }
+
+        public double GetDistance(double xref, double yref)
+        {
+            return Math.Sqrt(Math.Pow(xref - (Xi + Width/2), 2) + Math.Pow(yref - (Yi + Height/2), 2));
         }
     }
 
