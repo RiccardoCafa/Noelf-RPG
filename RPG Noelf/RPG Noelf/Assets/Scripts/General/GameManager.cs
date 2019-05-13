@@ -58,10 +58,11 @@ namespace RPG_Noelf.Assets.Scripts.General
             player._Inventory.AddToBag(new Slot(27, 1));
             player._Inventory.AddToBag(new Slot(28, 1));
             player._Inventory.AddToBag(new Slot(42, 1));
-            player._Inventory.AddToBag(new Slot(1, 5));
+            player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();
             CraftingStation = new Crafting();
-            GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+            player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+            player._Questmanager.actualQuest = player._Questmanager.allQuests[0];
         }
 
         public static void InitializePlayer()

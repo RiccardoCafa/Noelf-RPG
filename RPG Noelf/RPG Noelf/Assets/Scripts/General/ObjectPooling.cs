@@ -1,49 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.General
 {
     class ObjectPooling<T>
     {
-        private Dictionary<string, Queue<T>> Pool;
+        private Queue<T> Pool;
+        public List<T> Pooled { get; set; }
+
+        public int PoolSize
+        {
+            get {
+                return Pool.Count;
+            }
+        }
 
         public ObjectPooling()
         {
-            Pool = new Dictionary<string, Queue<T>>();
+            Pool = new Queue<T>();
+            Pooled = new List<T>();
         }
 
-        public void CreatePool(string poolName)
+        public void AddToPool(T poolObject)
         {
-            Pool.Add(poolName, new Queue<T>());
+            Pool.Enqueue(poolObject);
         }
-
-        public void AddToPool(string poolName, T pooledObject)
+        
+        public void GetFromPool(out T pooledObject)
         {
-            Pool[poolName].Enqueue(pooledObject);
-        }
-
-        public int GetPoolSize(string poolName)
-        {
-            return Pool[poolName].Count;
-        }
-
-        public bool ExistPool(string poolName)
-        {
-            return Pool.ContainsKey(poolName);
-        }
-
-        public void GetFromPool(string poolName, out T poolObject)
-        {
-            if(Pool.ContainsKey(poolName))
+            if(Pool != null)
             {
-                poolObject = Pool[poolName].Dequeue();
+                pooledObject = Pool.Dequeue();
+                Pooled.Add(pooledObject);
             } else
             {
-                poolObject = default(T);
+                pooledObject = default(T);
             }
+        }
+
+        public void ReturnToPool()
+        {
+            foreach(T obj in Pooled)
+            {
+                Pool.Enqueue(obj);
+            }
+            Pooled.Clear();
         }
 
     }

@@ -28,7 +28,7 @@ using Windows.UI.Xaml.Navigation;
 namespace RPG_Noelf
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Game page.
     /// </summary>
     public partial class Game : Page
     {
@@ -107,16 +107,15 @@ namespace RPG_Noelf
                 CreatePlayer();
                 GameManager.InitializeGame();
                 CreateInventory(BagWindow);
-                CreateChestWindow();
+                CreateChestWindow(350, 250);
                 CreateMob();
                 CreateCraftingWindow();
 
-                //GameManager.mainCamera = new MainCamera(GameManaer.characterPlayer, Camera, Chunck01);
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdatePlayerInfoEvent;
                 GameManager.player.PlayerUpdated += UpdatePlayerInfoEvent;
-                //CharacterNPC npc2 = new CharacterNPC(Encyclopedia.NonPlayerCharacters[2]);
+                GameManager.player._Questmanager.QuestUpdated += UpdateQuestManagerEvent;
                 Conversation.PointerPressed += EndConversation;
 
                 UpdateBag();
@@ -124,6 +123,7 @@ namespace RPG_Noelf
                 UpdatePlayerInfo();
                 UpdateSkillBar();
                 UpdateShopInfo();
+
                 SetEventForSkillBar();
                 SetEventForSkillTree();
                 SetEventForBagItem();
@@ -141,6 +141,9 @@ namespace RPG_Noelf
 
                 Bau bauchicabaubau = new Bau(Category.Legendary, 15);
                 CreateChest(200, 220, bauchicabaubau);
+
+                Bau bauchicabaubau2 = new Bau(Category.Normal, 10);
+                CreateChest(300, 220, bauchicabaubau2);
             });
 
         }
@@ -290,13 +293,13 @@ namespace RPG_Noelf
             FillGridItemImage(_InventarioGrid, GameManager.player._Inventory, 6, 5, 25, 25);
 
         }
-        public void CreateChestWindow()
+        public void CreateChestWindow(double x, double y)
         {
             //Configurando o ChestWindow
             ChestWindow.Width = 250;
             ChestWindow.Height = 150;
-            Canvas.SetTop(ChestWindow, 350);
-            Canvas.SetLeft(ChestWindow, 250);
+            Canvas.SetTop(ChestWindow, x);
+            Canvas.SetLeft(ChestWindow, y);
             ChestWindow.Visibility = Visibility.Collapsed;
 
             // Criando o texto e a imagem de fundo
@@ -982,15 +985,96 @@ namespace RPG_Noelf
             QuestDescription.Text = GameManager.questerTarget.myQuest.Description;
             QuestRewards.Text = GameManager.questerTarget.myQuest.RewardDescription;
             QuestWindow.Visibility = Visibility.Visible;
-
-            /*
-            QuestTitulo.Text = QuestList.allquests[1].name;
-            QuestDescription.Text = QuestList.allquests[1].Description;
-            QuestRewards.Text = QuestList.allquests[1].RewardDescription;
-            QuestWindow.Visibility = Visibility.Visible;
-            */
         }
 
+        private void ShowQuest(object sender, PointerRoutedEventArgs e)
+        {
+            QuestManagerWindow.Visibility = QuestManagerWindow.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            UpdateActualQuestManager();
+        }
+        private void ShowQuestList(object sender, PointerRoutedEventArgs e)
+        {
+            if(MQuestList.Visibility == Visibility.Collapsed)
+            {
+                MQuestList.Visibility = Visibility.Visible;
+                RotateTransform ta = ArrowQuestList.RenderTransform;
+                
+            }
+            else
+            {
+                MQuestList.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void CloseQuestManagerWindow(object sender, PointerRoutedEventArgs e)
+        {
+            QuestManagerWindow.Visibility = Visibility.Collapsed;
+        }
+        private void UpdateActualQuestManager()
+        {
+            Quest q = GameManager.player._Questmanager.actualQuest;
+            if (q == null)
+            {
+                QuestManagerWindow.Visibility = Visibility.Collapsed;
+                return;
+            }
+            MQuestTitle.Text = q.name;
+            MQuestDescr.Text = q.Description;
+            MQuestDescr.Text += "\n" + q.RewardDescription;
+            MQuestGold.Text = "x" + q.GainedGold;
+            MQuestXP.Text = "x" + q.GainedXP;
+            if(q.GainedItem != null)
+            {
+                MQuestItem.Source = new BitmapImage(new Uri("ms-appx://" + Encyclopedia.SearchFor(q.GainedItem.ItemID).PathImage));
+                MQuestItemQntd.Text = q.GainedItem.ItemAmount.ToString();
+            } else
+            {
+                MQuestItem.Source = new BitmapImage();
+                MQuestItemQntd.Text = "";
+            }
+        }
+        ObjectPooling<MissionListButton> MsnBtnPool = new ObjectPooling<MissionListButton>();
+        string msnPoolName = "MsnPool";
+        private void UpdateQuestList()
+        {
+            ResetQuestList();
+
+            List<Quest> quests = GameManager.player._Questmanager.allQuests;
+
+            foreach(Quest q in quests)
+            {
+                MissionListButton msnB;
+                if (MsnBtnPool.PoolSize > 0)
+                {
+                    MsnBtnPool.GetFromPool(out msnB);
+                    msnB.QuestTitle = q.name;
+                    MissionList.Children.Add(msnB);
+                } else
+                {
+                    msnB = new MissionListButton(q);
+                    MsnBtnPool.Pooled.Add(msnB);
+                    MissionList.Children.Add(msnB);
+                }
+            }
+        }
+        private void UpdateQuestManagerEvent(object sender, QuestEventArgs e)
+        {
+            UpdateActualQuestManager();
+            UpdateQuestList();
+        }
+        private void ResetQuestList()
+        {
+            List<MissionListButton> pooled = MsnBtnPool.Pooled;
+            foreach(MissionListButton msnB in pooled)
+            {
+                msnB.Visibility = Visibility.Collapsed;
+            }
+            MissionList.Children.Clear();
+            MsnBtnPool.ReturnToPool();
+        }
+        private void GiveUpButton(object sender, RoutedEventArgs e) 
+        {
+            GameManager.player._Questmanager.GiveUpActualQuest();
+        }
         #endregion
 
         private void SetEventForShopItem()
@@ -1098,13 +1182,8 @@ namespace RPG_Noelf
         private Grid ButtonsGrid;
         ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
         string PoolName = "convBtn";
-        private List<Button> PooledButtons = new List<Button>();
         public void CallConversationBox(NPC npc)
         {
-            if (!ButtonPool.ExistPool(PoolName))
-            {
-                ButtonPool.CreatePool(PoolName);
-            }
             if (GameManager.interfaceManager.Conversation) return;
             GameManager.npcTarget = npc;
             Conversation.Visibility = Visibility.Visible;
@@ -1128,9 +1207,9 @@ namespace RPG_Noelf
                 };
                 ButtonsGrid.RowDefinitions.Add(row);
                 Button b;
-                if (ButtonPool.GetPoolSize(PoolName) > 0)
+                if (ButtonPool.PoolSize > 0)
                 {
-                    ButtonPool.GetFromPool(PoolName, out b);
+                    ButtonPool.GetFromPool(out b);
                     b.Visibility = Visibility.Visible;
                 }
                 else
@@ -1142,7 +1221,6 @@ namespace RPG_Noelf
                     };
                     ButtonsGrid.Children.Add(b);
                 }
-                PooledButtons.Add(b);
 
                 if (i < Buttons - 1)
                 {
@@ -1169,14 +1247,13 @@ namespace RPG_Noelf
         public void HasToCloseConv(object sender, RoutedEventArgs e)
         {
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
-
-           // ConvText.Text = npc.Conclusion;
-            //npc.EndConversation();
-            foreach (Button b in PooledButtons)
+            
+            Button[] listaButton = new Button[ButtonPool.Pooled.Count]; 
+            foreach (Button b in listaButton)
             {
-                ButtonPool.AddToPool(PoolName, b);
                 b.Visibility = Visibility.Collapsed;
             }
+            ButtonPool.ReturnToPool();
             GameManager.npcTarget = null;
         }
         public void CloseConversationBox(object sender, RoutedEventArgs e)

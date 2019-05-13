@@ -1,27 +1,28 @@
-﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
+﻿using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
+    public class QuestEventArgs
+    {
+        public Quest quest { get; set; }
+    }
+
     public class  QuestManager
     {
-        private const int maxActiveQuests = 1;//numero máximo de quests ativas de um player
-        public int NumActiveQuests { get; set; }
-        public List<Quest> allQuests = new List<Quest>();//lista com todas as quests, ativas ou não, excluindo completas
-        public List<Quest> activeQuests = new List<Quest>();//lista com todas as quests ativas no momento
+        public delegate void QuestHandler(object sender, QuestEventArgs e);
+        public event QuestHandler QuestUpdated;
+        
+        public List<Quest> allQuests = new List<Quest>();//lista com todas as quests, excluindo completas
         public List<Quest> finishedQuests = new List<Quest>();//lista de todas as quest completas
-        public Quest actualQuest;
-
+        public Quest actualQuest { get; set; }
         private Player player;
-        public QuestManager(Player player)
+
+        public QuestManager()
         {
-            NumActiveQuests = 0;
-            this.player = player;
+            this.player = GameManager.player;
         }
 
         //adicione uma quest nova ao player
@@ -30,17 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             int playerLevel = player.level.actuallevel;
             if(q.level <= playerLevel)//checa se o level do player é compativel com a quest
             {
-                if (NumActiveQuests >= maxActiveQuests)//checagem se o numero de quests ativas é o limite
-                {
-                    allQuests.Add(q);
-                }
-                else
-                {
-                    allQuests.Add(q);
-                    activeQuests.Add(q);
-                    NumActiveQuests++;
-                }
-                
+                allQuests.Add(q);
             }
         }
         public void ReceiveNewQuest(Quest q, uint genericID)
@@ -48,17 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             int playerLevel = player.level.actuallevel;
             if (q.level <= playerLevel && genericID == q.RequiredID)//checa se o level do player é compativel com a quest
             {
-                if (NumActiveQuests >= maxActiveQuests)//checagem se o numero de quests ativas é o limite
-                {
-                    allQuests.Add(q);
-                }
-                else
-                {
-                    allQuests.Add(q);
-                    activeQuests.Add(q);
-                    NumActiveQuests++;
-                }
-
+                allQuests.Add(q);
             }
         }
 
@@ -68,7 +49,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             if (q.isComplete)
             {
                 allQuests.Remove(q);
-                activeQuests.Remove(q);
                 finishedQuests.Add(q);
                 return true;
             }
@@ -84,42 +64,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             if(q.isComplete == true)
             {
+                if(q.GainedItem != null)
+                {
+                    player._Inventory.AddToBag(q.GainedItem);
+                }
                 player.level.GainEXP(q.GainedXP);
                 player._Inventory.AddGold(q.GainedGold);
-      
             }       
-
-        }
-
-        //setar uma quest para o status de Ativa
-        //esta primeira seta a partir de uma quest especifica
-        public void SetQuestToActive(Quest q)
-        {
-            if(allQuests.Contains(q) == true && activeQuests.Contains(q) == false && NumActiveQuests < maxActiveQuests)
-            {
-                activeQuests.Add(q);
-            }
-        }
-        //esta seta a partir de um ID de ativação
-        public void SetQuestToActive(uint activatingID)
-        {
-            Quest generic = QuestList.SearchQuest(activatingID);
-            allQuests.Add(generic);
-            if(NumActiveQuests <= maxActiveQuests)
-            {
-                activeQuests.Add(generic);
-            }
-            else
-            {
-
-            }
 
         }
 
         //setar uma quest para o status de finalizada
         public void SetQuestToFinished(Quest q)
         {
-            if(allQuests.Contains(q) == true && activeQuests.Contains(q) == true  && q.isComplete == true)
+            if(allQuests.Contains(q) == true && q.isComplete == true)
             {
                 allQuests.Remove(q);
                 finishedQuests.Add(q);
@@ -141,6 +99,23 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             return false;
         }
 
+        public void RemoveQuest(Quest q)
+        {
+            allQuests.Remove(q);
+            OnQuestUpdated();
+        }
+
+        public void GiveUpActualQuest()
+        {
+            allQuests.Remove(actualQuest);
+            actualQuest = null;
+            OnQuestUpdated();
+        }
+
+        public void OnQuestUpdated()
+        {
+            QuestUpdated?.Invoke(this, new QuestEventArgs() { quest = actualQuest });
+        } 
 
         public void EventoFalaComNPCDaQuest(object source, EventArgs arg, uint id)
         {   
@@ -155,24 +130,5 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 }
             }
         }
-
-        public void PrintActualQuestStatus()
-        {
-            if(actualQuest != null){
-                Debug.Write("Quest Completa");
-            }
-            else
-            {
-                Debug.Write("Funfou não mano");
-            }
-
-        }
-
-
-
-
-
     }
-
-
 }

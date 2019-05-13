@@ -603,6 +603,7 @@
     <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\UI Elements\circle-red.png" />
     <Content Include="Assets\Images\UI Elements\FundoInventario.png" />
     <Content Include="Assets\Images\UI Elements\Game Menu\LobbyBg.png" />
     <Content Include="Assets\Images\UI Elements\Game Menu\SlotFull.png" />
@@ -612,6 +613,7 @@
     <Content Include="Assets\Images\UI Elements\Game Menu\PlayBtn.png" />
     <Content Include="Assets\Images\UI Elements\Game Menu\QuitBtn.png" />
     <Content Include="Assets\Images\UI Elements\Game Menu\Tela.png" />
+    <Content Include="Assets\Images\UI Elements\gold coin.png" />
     <Content Include="Assets\Images\UI Elements\Menu\BagIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\EquipmentIcon.png" />
     <Content Include="Assets\Images\UI Elements\Menu\MenuAbertoP.png" />
@@ -622,6 +624,7 @@
     <Content Include="Assets\Images\UI Elements\UIAtivo 13-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 23-0.png" />
     <Content Include="Assets\Images\UI Elements\UIAtivo 33-0.png" />
+    <Content Include="Assets\Images\UI Elements\xp.png" />
     <Content Include="Assets\Scripts\Scenes\scenario.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

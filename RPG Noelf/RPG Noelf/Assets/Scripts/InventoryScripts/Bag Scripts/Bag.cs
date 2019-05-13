@@ -1,10 +1,6 @@
-﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
@@ -142,6 +138,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
                 slot.ItemAmount = 0;
+                FreeSlots--;
                 OnBagUpdated();
                 return true;
             } else
