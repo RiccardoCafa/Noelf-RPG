@@ -260,6 +260,26 @@ namespace RPG_Noelf
             //loot.UpdateBlocks(TheScene);
             //Trigger dropTrigger = new Trigger(loot);
         }
+        public void CreateSkill(SkillGenerics skill)
+        {
+            WindowTreeSkill.Width = 250;
+            WindowTreeSkill.Height = 150;
+            WindowTreeSkill.HorizontalAlignment = HorizontalAlignment.Stretch;
+            WindowTreeSkill.VerticalAlignment = VerticalAlignment.Stretch;
+            Canvas.SetTop(WindowTreeSkill, 40);
+            Canvas.SetLeft(WindowTreeSkill, 120);
+            TextBlock txt = new TextBlock()
+            {
+
+            }
+            Image bg = new Image()
+            {
+                Width = 40,
+                Height = 30
+            };
+            WindowTreeSkill.Children.Add(bg);
+
+        }
         public void CreateInventory(Canvas BagCanvas)
         {
             // Width="180" Height="20" Text="Bag" Canvas.Top="-20" TextAlignment="Center"
