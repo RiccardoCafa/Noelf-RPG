@@ -8,8 +8,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Scenes
 {
-    class LevelScene
+    public class LevelScene
     {
+        public Canvas Father;
         public Scene scene;
         public Image[] layers;
 
@@ -20,8 +21,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             xScene.Children.Add(layers[1]);
             xScene.Children.Add(layers[0]);
             scene = new Scene(xScene);
+            Father = xScene;
             layers[2].Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/layer3.png"));
-            layers[1].Source = new BitmapImage(new Uri("ms-appx:/// Assets/Images/layer2.png"));
+            layers[1].Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/layer2.png"));
             layers[0].Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/layer1.png"));
             Canvas.SetTop(layers[2], 100);
             Canvas.SetTop(layers[1], 320);

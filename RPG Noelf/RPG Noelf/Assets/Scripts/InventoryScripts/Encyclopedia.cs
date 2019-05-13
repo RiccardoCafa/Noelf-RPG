@@ -20,7 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         public static void LoadItens()
         {
-            CraftingEncyclopedia.LoadCrafting();
+            //CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
             #region Items
             // loaded Itens
@@ -318,7 +318,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/Chao.jpg",
             };
             encyclopedia.Add(30, item3);
-
             Armor item31 = new Armor("Leather Body")
             {
                 ItemCategory = Category.Normal,
@@ -327,8 +326,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 GoldValue = 8,
                 PathImage = "/Assets/Images/itens/coleteCouro.png",
             };
-            encyclopedia.Add(31, item31);
-            
+            encyclopedia.Add(31, item31);         
             Armor item32 = new Armor("Leather Gloves")
             {
                 ItemCategory = Category.Normal,
@@ -338,7 +336,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/itens/Couro.png",
             };
             encyclopedia.Add(32, item32);
-
             Armor item33 = new Armor("Leather Hood")
             {
                 ItemCategory = Category.Normal,
@@ -348,7 +345,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/itens/chapeuCouro.png",
             };
             encyclopedia.Add(33, item33);
-
             Armor item34 = new Armor("Leather Boots")
             {
                 ItemCategory = Category.Normal,
@@ -359,7 +355,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/itens/botaCouro.png"
             };
             encyclopedia.Add(34, item34);
-
             Armor item35 = new Armor("Wool Top")
             {
                 ItemCategory = Category.Normal,
@@ -369,7 +364,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 GoldValue = 3,
                 PathImage = "/Assets/Images/itens/roupaLa.png"
             };
-
+            encyclopedia.Add(35, item35);
             Armor item36 = new Armor("Wool Skirt")
             {
                 ItemCategory = Category.Normal,
@@ -446,8 +441,17 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
             };
             encyclopedia.Add(43, item43);
-            #endregion
+            Item item44 = new Item("Cpt Jack Sparrow")
+            {
+                IsStackable = false,
+                ItemCategory = Category.Legendary,
+                PathImage = "Black Pearl's deck",
+                GoldValue = 99999,
+                description = "Sea turtles, mate"
+            };
+            encyclopedia.Add(44, item44);
 
+            #endregion
         }
 
         public static void LoadNPC()
@@ -465,6 +469,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             Shop s = new Shop();
             s.TradingItems.AddToBag(new Slot(43, 1));
             npc1.AddFunction(new Trader(s));
+            npc1.AddFunction(new Quester(1));
 
             NonPlayerCharacters.Add(1, npc1);
 
@@ -492,7 +497,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 return encyclopedia[key];
             }
-            else throw new ArgumentOutOfRangeException();
+            else return null;
         }
 
         // pega o id de um item especifico

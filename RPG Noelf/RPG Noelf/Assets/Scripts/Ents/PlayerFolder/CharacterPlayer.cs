@@ -45,7 +45,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             if (ActualCam == null) ActualCam = MainCamera.instance;
             while (alive)
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     if (ActualCam != null)
                     {
@@ -116,21 +116,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 if (isFalling) prepRight = false;
             }
         }
-
-        public async void Animation()
-        {
-            while (!IsWalking)
-            {
-                //Vector3Transition vector3Transition = new Vector3Transition();
-                //vector3Transition.Components = Vector3TransitionComponents.X;
-                //MyCanvas.TranslationTransition.Duration = TimeSpan.FromMilliseconds(2000);
-                //await Task.Delay(200);
-                //MyCanvas.RotationTransition.Duration = TimeSpan.FromMilliseconds(2000);
-                //MyCanvas.RotationAxis = new System.Numerics.Vector3(15, 15, 1);
-                //MyCanvas.RotationTransition = new ScalarTransition();
-                //ScalarTransition scalar = new ScalarTransition();
-                //scalar.
-            }
-        }
+        
     }
 }

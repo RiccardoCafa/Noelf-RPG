@@ -9,36 +9,23 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
     class CraftingEncyclopedia
     {
-        public static Dictionary<uint, Recipe> crafting = new Dictionary<uint, Recipe>();//o ID do crafting é o id do item criado
+        public static Dictionary<uint, Recipe> CraftItems;
 
-        public static void LoadCrafting()
+        public static void LoadCraftings()
         {
-            Recipe IronBar = new Recipe(41);//receita de uma barra de ferro
-            IronBar.Materials.Add(new Slot(1, 5));//um slot com 5 barras de ferro é nescessario
-            crafting.Add(41, IronBar);
+            CraftItems = new Dictionary<uint, Recipe>();
+            Recipe IronIngot = new Recipe("Iron Ingot");
+            IronIngot.Add(new Slot(1, 5));
+            CraftItems.Add(42, IronIngot);
+            Recipe IronHelmet = new Recipe("Iron Helmet");
+            IronHelmet.Add(new Slot(42, 5));
+            CraftItems.Add(24, IronHelmet);
+            
         }
-        
-        //checar se o item tem como ser craftado
-        public static bool CheckIDRecipe(uint id)
+
+        public static bool HaveRecipe(uint item)
         {
-           if(crafting.ContainsKey(id) == true)
-            {
-                return true;
-            }
-            return false;
-        }
-        //retornar a receita do dicionario
-       public static Recipe PushRecipe(uint key)
-        {
-            Recipe generic = crafting[key];
-            return generic;
-            throw new ArgumentOutOfRangeException();
-        }
-        //retornar se os materiais do item estão na mochila
-        public static bool CheckMaterialsFromRecipe(uint desiredID, Bag PlayerBag)
-        {
-            Recipe itemRecipe = crafting[desiredID];
-            if(itemRecipe.CheckRecipe(PlayerBag) == true)
+            if (CraftItems.ContainsKey(item))
             {
                 return true;
             }
@@ -47,7 +34,6 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 return false;
             }
         }
-                    
 
 
     }

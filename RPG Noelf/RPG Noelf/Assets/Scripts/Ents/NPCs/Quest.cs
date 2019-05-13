@@ -11,6 +11,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 {
     public abstract class Quest
     {
+        public uint QUEST_ID { get; set; }
         public uint RequiredID { get; set; }//Id nescessario para a ativação da quest
         public int level { get; set; }//level ta int por que só quero comparar o level atual do player
         public string name { get; set; }//nome da quest
@@ -18,11 +19,13 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public int QuestPart { get; set; }//progresso da quest
         public int GainedXP { get; set; }//EXP recebido
         public int GainedGold { get; set; }//ouro recebido
+        public Slot GainedItem { get; set; }
         public bool isComplete { get; set; }//está completa sim ou não
+        public string RewardDescription { get; set; }
 
-        public Quest(string name)
+        public Quest()
         {
-            this.name = name;
+           
             
         }
 
@@ -41,7 +44,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     {
         public uint mobToKill { get; set; }//esse ID está para mob, mas pode ser usado para item
         public int countMobs { get; set; }//contagem ne itens/monstros necessaria
-        public CountQuest(string name, int mobs):base(name)
+        public CountQuest(int mobs)
         {
             countMobs = mobs;
         }
@@ -70,13 +73,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     {
         public uint targetedGuy { get; set; }
         public uint NedeedItem { get; set; }
-        public SpeakQuest(string name, uint targetNPC, uint targetItem) : base(name)
+        public SpeakQuest(uint targetNPC)
         {
             targetedGuy = targetNPC;
-            if(targetItem == 0)
-            {
-                NedeedItem = 0;
-            }
+           
 
         }
 
