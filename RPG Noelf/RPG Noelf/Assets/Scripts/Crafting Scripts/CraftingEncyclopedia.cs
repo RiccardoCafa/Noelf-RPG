@@ -13,13 +13,14 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 
         public static void LoadCraftings()
         {
+            CraftItems = new Dictionary<uint, Recipe>();
             Recipe IronIngot = new Recipe("Iron Ingot");
             IronIngot.Add(new Slot(1, 5));
             CraftItems.Add(42, IronIngot);
+            Recipe IronHelmet = new Recipe("Iron Helmet");
+            IronHelmet.Add(new Slot(42, 5));
+            CraftItems.Add(24, IronHelmet);
             
-
-
-
         }
 
         public static bool HaveRecipe(uint item)

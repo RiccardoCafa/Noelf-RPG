@@ -19,6 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         public int QuestPart { get; set; }//progresso da quest
         public int GainedXP { get; set; }//EXP recebido
         public int GainedGold { get; set; }//ouro recebido
+        public Slot GainedItem { get; set; }
         public bool isComplete { get; set; }//está completa sim ou não
         public string RewardDescription { get; set; }
 
