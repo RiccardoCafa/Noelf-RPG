@@ -25,6 +25,33 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 NumMaterials = ListaMaterial.Count;
             }
         } 
+        /*
+        public bool IsMaterial(uint ID)
+        {
+            var material = from itens in ListaMaterial
+                           where itens.ItemID == ID
+                           select itens;
+            //LINQ eh top
+            return material != null;
+        }
+
+        public int GetMaterialAmount(uint id)
+        {
+            if (IsMaterial(id))
+            {
+               var item = from slots in ListaMaterial
+                           where slots.ItemID == id
+                           select slots;
+               if(item != null)
+                {
+                    Slot slot = item.FirstOrDefault();
+                    return (int) slot.ItemAmount;
+                }
+
+            }
+            return 0;
+        }
+        */
 
     }
 }
