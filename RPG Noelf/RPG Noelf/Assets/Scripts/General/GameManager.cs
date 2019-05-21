@@ -19,7 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         // Player
         public static List<CharacterPlayer> players = new List<CharacterPlayer>();
         public static Player player;
-        public static CharacterPlayer characterPlayer;
+        //public static CharacterPlayer characterPlayer;
         
         // User Interface
         public static InterfaceManager interfaceManager = new InterfaceManager();
@@ -45,6 +45,20 @@ namespace RPG_Noelf.Assets.Scripts.General
             interfaceManager.Inventario = Game.inventarioWindow;
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
+
+            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 150, 120, 60);
+            npcCharacter.trigger.AddTrigger(player.box);
+            
+            player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
+            player._Inventory.AddToBag(new Slot(21, 1));
+            player._Inventory.AddToBag(new Slot(22, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(25, 1));
+            player._Inventory.AddToBag(new Slot(26, 1));
+            player._Inventory.AddToBag(new Slot(27, 1));
+            player._Inventory.AddToBag(new Slot(28, 1));
+            player._Inventory.AddToBag(new Slot(42, 1));
+            player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();
             CraftingStation = new Crafting();
             npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
@@ -104,7 +118,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if(questerTarget != null)
             {
-               Game.instance.CloseQuest();
+                Game.instance.CloseQuest();
             }
         } 
 

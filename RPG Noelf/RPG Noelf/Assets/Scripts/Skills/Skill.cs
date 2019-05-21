@@ -31,22 +31,24 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             this.pathImage = pathImage;
             this.name = name;
+            this.tipobuff = SkillTypeBuff.normal;
         }
 
-        
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
 
         public override bool UseSkill(Ent player, Ent Enemy)
         {
-            return false;
-            /*
-            if (manaCost <= player.Mp)
+            if (manaCost <= player.Mnd)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
                 Enemy.BeHit(player.Hit(DamageBonus));
                 return true;
             }
-            return false;*/
+            return false;
         }
     }
 }
