@@ -40,6 +40,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static Trader traderTarget;
         public static Quester questerTarget;
 
+
         public static void InitializeGame()
         {
             interfaceManager.Inventario = Game.inventarioWindow;
@@ -61,9 +62,9 @@ namespace RPG_Noelf.Assets.Scripts.General
             player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();
             CraftingStation = new Crafting();
-            npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
-            npcCharacter.UpdateBlocks(Game.TheScene);
-            npcCharacter.trigger.AddTrigger(characterPlayer);
+          // npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
+          // npcCharacter.UpdateBlocks(Game.TheScene);
+          // npcCharacter.trigger.AddTrigger(characterPlayer);
             GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
