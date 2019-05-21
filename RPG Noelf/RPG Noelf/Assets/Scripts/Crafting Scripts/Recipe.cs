@@ -25,6 +25,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 NumMaterials = ListaMaterial.Count;
             }
         } 
+        
+     
 
     }
 }
