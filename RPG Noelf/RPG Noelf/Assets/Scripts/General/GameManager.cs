@@ -61,6 +61,24 @@ namespace RPG_Noelf.Assets.Scripts.General
             player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();
             CraftingStation = new Crafting();
+            npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
+            npcCharacter.UpdateBlocks(Game.TheScene);
+            npcCharacter.trigger.AddTrigger(characterPlayer);
+            GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+            //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+            //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
+            //MainPage.instance.OpenQuest();
+
+            //player._Inventory.AddToBag(new Slot(3, 1));
+            //player._Inventory.AddToBag(new Slot(21, 1));
+            //player._Inventory.AddToBag(new Slot(22, 1));
+            //player._Inventory.AddToBag(new Slot(24, 1));
+          //  player._Inventory.AddToBag(new Slot(25, 1));
+            player._Inventory.AddToBag(new Slot(42, 6));
+            player._Inventory.AddToBag(new Slot(1, 6));
+            //characters.Add(mobTarget);
+            //characters.Add(characterPlayer);
+            //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
         }
 
         public static void InitializePlayer()
