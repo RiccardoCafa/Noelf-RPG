@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.Skills;
+﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public List<string> attcks = new List<string>();//(temporario)
         public List<Element> Resistance = new List<Element>();
         public List<Element> Vulnerable = new List<Element>();
+        public Bag MobBag { get; } = new Bag();
         public bool Meek = false;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
