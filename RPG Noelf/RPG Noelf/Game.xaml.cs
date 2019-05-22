@@ -268,10 +268,6 @@ namespace RPG_Noelf
             WindowTreeSkill.VerticalAlignment = VerticalAlignment.Stretch;
             Canvas.SetTop(WindowTreeSkill, 40);
             Canvas.SetLeft(WindowTreeSkill, 120);
-            TextBlock txt = new TextBlock()
-            {
-
-            }
             Image bg = new Image()
             {
                 Width = 40,
@@ -441,9 +437,6 @@ namespace RPG_Noelf
                 grid.Children.Add(item);
                 Grid.SetColumn(item, column);
                 Grid.SetRow(item, row);
-                if(item.myBagRef != null && item.myBagRef.GetSlot(i) != null)
-                    Debug.WriteLine(Encyclopedia.SearchFor(item.myBagRef.GetSlot(i).ItemID).Name 
-                                    + " col " + column + " row " + row + "\n");
                 if (column == columnSize - 1)
                 {
                     row++;

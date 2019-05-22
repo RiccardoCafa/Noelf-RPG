@@ -61,7 +61,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                 chunck.Children.Add(solid);
                                 ground.Add(solid);
                                 solid.Name = "plat" + platX.First() + y;
-                                solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                                //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                                 platX.Clear();
                             }
                         }

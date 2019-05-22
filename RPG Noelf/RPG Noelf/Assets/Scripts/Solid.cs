@@ -10,6 +10,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using System.Linq;
 
 namespace RPG_Noelf.Assets.Scripts
 {
@@ -19,6 +20,7 @@ namespace RPG_Noelf.Assets.Scripts
     public class Solid : Canvas//solido colidivel
     {
         public static List<Solid> solids = new List<Solid>();
+        public Ent MyEnt;
         protected double xi;
         public double Xi {
             get { return xi; }
@@ -58,51 +60,58 @@ namespace RPG_Noelf.Assets.Scripts
     {
         //public delegate void MoveHandler(Solid sender);
         //public event MoveHandler Moved;
+        
+        public DynamicSolid Who;
+        public DispatcherTimer timer;
+        private int TimesTicked = 0;
+        private int TimesToTick = 1;
 
-        public HitSolid(double xi, double yi, double width, double height, byte dmg) : base(xi, yi, width, height)
+        public HitSolid(double xi, double yi, double width, double height, byte dmg, DynamicSolid who) : base(xi, yi, width, height)
         {
             Background = new SolidColorBrush(Color.FromArgb(50, dmg, 0, 0));
             solids.Remove(this);
             //Moved += Collision.OnMoved;
+            Who = who;
         }
 
-        public void Interaciton()//o q este solido faz com os outros ao redor
+        public void DispatcherTimeSetup()
         {
-            const double margin = 20;
-            foreach (Solid solid in solids)
-            {
-                if (solid is DynamicSolid)
-                {
+            timer = new DispatcherTimer();
+            timer.Tick += DispatcherTimer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 1);
+            TimesTicked = 0;
+            timer.Start();
+        }
 
-                }
-                if (Equals(solid)) return;//se for comparar o solidMoving com ele msm, pule o teste
-                if (Yf >= solid.Yi && Yf < solid.Yi + margin)//se o solidMoving esta no nivel de pisar em algum Solid
+        private void DispatcherTimer_Tick(object sender, object a)
+        {
+            TimesTicked++;
+            if(TimesTicked >= TimesToTick)
+            {
+                if(Who != null)
                 {
-                    if (Xi < solid.Xf && Xf > solid.Xi)//se o solidMoving esta colindindo embaixo
-                    {
-                        Yf = solid.Yi;
-                        //freeDirections[Direction.down] = false;
-                    }
+                    Visibility = Visibility.Collapsed;
+                    Who.MyEnt.HitPool.AddToPool(this);
                 }
-                if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
-                {
-                    if (Xf >= solid.Xi && Xf < solid.Xi + margin)//se o solidMoving esta colindindo a direita
-                    {
-                        Xf = solid.Xi;
-                        //freeDirections[Direction.right] = false;
-                    }
-                    if (Xi <= solid.Xf && Xi > solid.Xf - margin)//se o solidMoving esta colindindo a esquerda
-                    {
-                        Xi = solid.Xf;
-                        //freeDirections[Direction.left] = false;
-                    }
-                }
+                timer.Stop();
             }
         }
 
-        public double GetDistance(double xref, double yref)
+        public DynamicSolid Interaction()//o q este solido faz com os outros ao redor
         {
-            return Math.Sqrt(Math.Pow(xref - (Xi + Width/2), 2) + Math.Pow(yref - (Yi + Height/2), 2));
+            DynamicSolid dynamicFound = null;
+            var dinamics = from dinm in solids where dinm is DynamicSolid select dinm;
+
+            foreach(DynamicSolid solid in dinamics)
+            {
+                if (solid.Equals(Who)) continue;
+                if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
+                {
+                    return solid as DynamicSolid;
+                }
+            }
+            DispatcherTimeSetup();
+            return dynamicFound;
         }
     }
 
@@ -110,7 +119,7 @@ namespace RPG_Noelf.Assets.Scripts
     {
         public delegate void MoveHandler();
         public event MoveHandler Moved;
-
+        
         public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
             { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
 
@@ -119,6 +128,7 @@ namespace RPG_Noelf.Assets.Scripts
         public double verticalSpeed;
         public double horizontalSpeed;
         public sbyte horizontalDirection = 0;
+        public sbyte lastHorizontalDirection = 1;
         public const double g = 1500;
         public bool moveRight, moveLeft;
         DateTime time;
@@ -142,8 +152,8 @@ namespace RPG_Noelf.Assets.Scripts
                 time = DateTime.Now;
                 if (freeDirections[Direction.down]) ApplyGravity(span.TotalSeconds);//se n ha chao
                 else verticalSpeed = 0;
-                if (moveRight) horizontalDirection = 1;//se esta se movimentando para direita
-                else if (moveLeft) horizontalDirection = -1;//se esta se movimentando para esquerda
+                if (moveRight) lastHorizontalDirection = horizontalDirection = 1;//se esta se movimentando para direita
+                else if (moveLeft) lastHorizontalDirection = horizontalDirection = -1;//se esta se movimentando para esquerda
                 else horizontalDirection = 0;//se n quer se mover pros lados
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

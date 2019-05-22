@@ -12,6 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Core;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Input;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -111,6 +112,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             ApplyDerivedAttributes();
             //Window.Current.CoreWindow.KeyDown += Attack;
             attkDelay = DateTime.Now;
+
+            Window.Current.CoreWindow.KeyUp += RunAttack;
         }
 
         private void Load()
@@ -148,6 +151,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             SetPlayer(playerImages);
             SetClothes(clothesImages);
             Load();
+            box.MyEnt = this;
         }
 
         //public void Attack(CoreWindow sender, KeyEventArgs e)
@@ -259,6 +263,16 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             textBlock.Text = text;
         }
 
+        public void RunAttack(object sender, KeyEventArgs e)
+        {
+            if(e.VirtualKey == Windows.System.VirtualKey.Z)
+            {
+                new Thread(() =>
+                {
+                    Attack(2);
+                }).Start();
+            }
+        }
 
         public void LevelUpdate(int str, int spd, int dex, int con, int mnd, int exp)//atualiza os atributos ao upar
         {

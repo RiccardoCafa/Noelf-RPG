@@ -94,6 +94,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public void Spawn(double x, double y)//cria o mob na tela
         {
             box = new DynamicSolid(x, y, 120, 120, Run);
+            box.MyEnt = this;
             Load();
         }
 
