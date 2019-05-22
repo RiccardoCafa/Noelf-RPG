@@ -1,5 +1,6 @@
 ﻿using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using System.Linq;
 
 namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 {
@@ -16,20 +17,13 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
         private bool IsPossibleToCraft(uint item)
         {
             Recipe generic = CraftingEncyclopedia.CraftItems[item];
+            var material = (from Slot s in bag.Slots
+                            join m in generic.ListaMaterial on s.ItemID equals m.ItemID
+                            where s.ItemAmount >= m.ItemAmount
+                            select s).ToList<Slot>();
+            return material.Count > 0;
 
-            foreach(Slot s in bag.Slots )
-            {
-                foreach(Slot slot in generic.ListaMaterial)
-                {
-                    if(s.ItemID == slot.ItemID && s.ItemAmount>= slot.ItemAmount)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
         }       
-
         private void RemoveMaterials(uint id)
         {
             if (IsPossibleToCraft(id))
@@ -46,7 +40,6 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 }
             }
         }
-        
         public bool CraftItem(uint itemID)
         {
             Slot NewItem;
@@ -59,7 +52,5 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             }
             return false;
         }
-
-
     }
 }

@@ -24,6 +24,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                 ListaMaterial.Add(t);
             }
         } 
+        
+     
 
     }
 }
