@@ -194,7 +194,7 @@ namespace RPG_Noelf
         public void CreateMob()
         {
             GameManager.mob = new Mob(level: 2);
-            GameManager.mob.Spawn(30, 30);
+            GameManager.mob.Spawn(50, -100);
             TheScene.Children.Add(GameManager.mob.box);
         }
         public void CreatePlayer()
@@ -207,7 +207,7 @@ namespace RPG_Noelf
             {
                 GameManager.player = new Player("0000000");
             }
-            GameManager.player.Spawn(300, 30);
+            GameManager.player.Spawn(300, -100);
             TheScene.Children.Add(GameManager.player.box);
             //GameManager.player.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
         }

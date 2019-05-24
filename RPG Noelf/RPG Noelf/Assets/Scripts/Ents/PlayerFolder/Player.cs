@@ -14,6 +14,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Input;
 using RPG_Noelf.Assets.Scripts.Ents.PlayerFolder;
+using System.IO;
+using System.Linq;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -94,7 +96,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void Spawn(double x, double y)//cria o Player na tela
         {
-            box = new PlayableSolid(x, y, 60, 120, Run);
+            box = new PlayableSolid(x, y, 60 * 0.6, 120 * 0.6, Run);
             _PlayerLoader = new PlayerLoader(box, Id);
             _PlayerLoader.Load(parts, sides);
             box.MyEnt = this;
@@ -123,16 +125,16 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         //private void SetPlayer(List<Image> playerImages)
         //{
         //    DirectoryInfo di = new DirectoryInfo("/Assets/Images/player/");
-        //    List<FileInfo> files = di.GetFiles("*.png").Where(file => (file.Name[0] == Id[0] || file.Name[0] == '_') &&
-        //                                                              (file.Name[1] == Id[2] || file.Name[1] == '_') &&
-        //                                                              (file.Name[2] == Id[3] || file.Name[2] == '_') &&
-        //                                                              (file.Name[3] == Id[4] || file.Name[3] == '_') &&
-        //                                                              (file.Name[4] == Id[5] || file.Name[4] == '_') &&
-        //                                                              (file.Name[5] == Id[6] || file.Name[5] == '_'))
-        //                                               .Select(file => file).ToList();
+        //    var files = from file in di.GetFiles("*.png")
+        //                where (file.Name[0] == Id[0] || file.Name[0] == '_') &&
+        //                      (file.Name[1] == Id[2] || file.Name[1] == '_') &&
+        //                      (file.Name[2] == Id[3] || file.Name[2] == '_') &&
+        //                      (file.Name[3] == Id[4] || file.Name[3] == '_') &&
+        //                      (file.Name[4] == Id[5] || file.Name[4] == '_') &&
+        //                      (file.Name[5] == Id[6] || file.Name[5] == '_') select file;
         //    foreach (FileInfo file in files)
         //    {
-        //        playerImages[0].Source = new BitmapImage(new Uri(MainPage.instance.BaseUri, file.FullName));
+        //        playerImages[0].Source = new BitmapImage(new Uri(Game.instance.BaseUri, file.FullName));
         //    }
         //}
 
