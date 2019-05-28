@@ -31,12 +31,6 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             IronGauntlets.Add(new Slot(42, 5));
             CraftItems.Add(23, IronGauntlets);
 
-            
-
-
-
-
-
         }
 
         public static bool HaveRecipe(uint item)
