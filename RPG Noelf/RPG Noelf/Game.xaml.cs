@@ -141,9 +141,8 @@ namespace RPG_Noelf
                 GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
                 GameManager.player._Questmanager.actualQuest = GameManager.player._Questmanager.allQuests[1];
 
-                Slot slotDrop = new Slot(40, 1);
-                CreateDrop(100, 500, slotDrop);
-
+                //Slot slotDrop = new Slot(40, 1);
+                //CreateDrop(100, 500, slotDrop);
                 Bau bauchicabaubau = new Bau(Category.Legendary, 15);
                 CreateChest(200, 220, bauchicabaubau);
 
@@ -213,11 +212,14 @@ namespace RPG_Noelf
         }
         public void CreateCraftingWindow()
         {
-            CraftBox craftb = new CraftBox(24);
-            CraftBox crafta = new CraftBox(42);
-            
-            CraftPanel.Children.Add(craftb);
-            CraftPanel.Children.Add(crafta);
+            CraftBox IronBoots = new CraftBox(24);
+            CraftBox IronIngot = new CraftBox(42);
+            CraftBox IronChestplate = new CraftBox(21);
+
+
+            CraftPanel.Children.Add(IronBoots);
+            CraftPanel.Children.Add(IronIngot);
+            CraftPanel.Children.Add(IronChestplate);
         }
         public void CreateChest(double x, double y, Bau bau) 
         {
