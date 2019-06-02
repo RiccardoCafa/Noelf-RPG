@@ -11,13 +11,13 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Scenes
 {
-    public class Scene
+    public class Platform
     {
         public Canvas chunck;
         public List<Solid> ground = new List<Solid>();
         public List<string> Blueprint { get; private set; } = new List<string>();
 
-        public Scene(Canvas xScene)//constroi o cenario, com os tiles e os canvas
+        public Platform(Canvas xScene)//constroi o cenario, com os tiles e os canvas
         {
             chunck = new Canvas();
             xScene.Children.Add(chunck);

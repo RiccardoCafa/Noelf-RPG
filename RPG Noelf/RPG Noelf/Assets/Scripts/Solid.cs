@@ -1,6 +1,7 @@
 ﻿using RPG_Noelf.Assets.Scripts.Ents;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -151,7 +152,10 @@ namespace RPG_Noelf.Assets.Scripts
             while (alive)
             {
                 time = DateTime.Now;
-                if (freeDirections[Direction.down]) ApplyGravity(span.TotalSeconds);//se n ha chao
+                if (freeDirections[Direction.down])
+                {
+                    ApplyGravity(span.TotalSeconds);
+                }//se n ha chao
                 else verticalSpeed = 0;
                 if (moveRight) lastHorizontalDirection = horizontalDirection = 1;//se esta se movimentando para direita
                 else if (moveLeft) lastHorizontalDirection = horizontalDirection = -1;//se esta se movimentando para esquerda
@@ -174,7 +178,7 @@ namespace RPG_Noelf.Assets.Scripts
 
         public void OnMoved()//o q este solido faz com os outros ao redor
         {
-            const double margin = 20;
+            const double margin = 15;
             freeDirections[Direction.down] =
             freeDirections[Direction.right] =
             freeDirections[Direction.left] = true;
@@ -205,7 +209,7 @@ namespace RPG_Noelf.Assets.Scripts
             }
         }
 
-        public void ApplyGravity(double span) => verticalSpeed -= g * span;//aplica a gravidade
+        public void ApplyGravity(double span) => verticalSpeed -= g * span / 0.6;//aplica a gravidade
 
         public void Move() => Moved?.Invoke();//metodo q dispara o event Moved
     }
@@ -258,72 +262,33 @@ namespace RPG_Noelf.Assets.Scripts
             if (direction == Axis.vertical)
             {
                 Yi -= verticalSpeed * span;
-                //SetTop(Game.instance.scene1.layers[2], GetTop(Game.instance.scene1.layers[2]) + verticalSpeed * span * 0.075);
-                //SetTop(Game.instance.scene1.layers[1], GetTop(Game.instance.scene1.layers[1]) + verticalSpeed * span * 0.15);
-                //SetTop(Game.instance.scene1.layers[0], GetTop(Game.instance.scene1.layers[0]) + verticalSpeed * span * 0.3);
-                //foreach (UIElement child in Game.instance.scene1.scene.chunck.Children)
-                //{
-                //    if (child is Solid) (child as Solid).Xi += verticalSpeed * span;
-                //    else if (child is Image) SetTop(child, GetTop(child) + verticalSpeed * span);
-                //}
             }
             if (direction == Axis.horizontal)
             {
                 Xi += horizontalDirection * horizontalSpeed * span;
-                //SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - horizontalDirection * horizontalSpeed * span * 0.075);
-                //SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - horizontalDirection * horizontalSpeed * span * 0.15);
-                //SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - horizontalDirection * horizontalSpeed * span * 0.3);
-                //foreach (Solid s in Game.instance.scene1.scene.ground) s.Xi -= horizontalDirection * horizontalSpeed * span;
+                if ((Xi + Xf) / 2 >= 1366)
+                {
+                    Xi -= 1366;
+                    SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - 1366 * 0.075);
+                    SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - 1366 * 0.15);
+                    SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - 1366 * 0.3);
+                    SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) - 1366);
+                    foreach (Solid s in Game.instance.scene1.scene.ground) s.Xi -= 1366;
+                }
+                if ((Xi + Xf) / 2 <= 0)
+                {
+                    Xi += 1366;
+                    SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) + 1366 * 0.075);
+                    SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) + 1366 * 0.15);
+                    SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) + 1366 * 0.3);
+                    SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) + 1366);
+                    foreach (Solid s in Game.instance.scene1.scene.ground) s.Xi += 1366;
+                }
             }
-            //if (verticalSpeed != 0 || horizontalDirection != 0)
-            //{
-            Move();//chama o evento
-            //}
+            if (verticalSpeed != 0 || horizontalDirection != 0)
+            {
+                Move();//chama o evento
+            }
         }
-    }
-
-    public class LimitArgs
-    {
-        public Direction limit;
-        public double speed;
-
-        public LimitArgs(Direction limit, double speed)
-        {
-            this.limit = limit;
-            this.speed = speed;
-        }
-    }
-
-    public static class Camera
-    {
-        private const double boundX = 1366, boundY = 768;
-        public delegate void ReachedLimitHandler(LimitArgs args);
-        public static event ReachedLimitHandler ReachedLimit;
-
-        public static void OnMoved(DynamicSolid solidMoving)
-        {
-            //if (solidMoving.Xi <= 350)
-            //{
-            //    OnReachedLimit(new LimitArgs(Direction.left, solidMoving.speed));
-            //    solidMoving.freeDirections[Direction.left] = false;
-            //}
-            //if (solidMoving.Xf >= boundX - 350)
-            //{
-            //    OnReachedLimit(new LimitArgs(Direction.right, solidMoving.speed));
-            //    solidMoving.freeDirections[Direction.right] = false;
-            //}
-            //if (solidMoving.Yi <= 300)
-            //{
-            //    OnReachedLimit(new LimitArgs(Direction.up, solidMoving.speed));
-            //    solidMoving.freeDirections[Direction.up] = false;
-            //}
-            //if (solidMoving.Yi >= boundY - 200)
-            //{
-            //    OnReachedLimit(new LimitArgs(Direction.down, solidMoving.speed));
-            //    solidMoving.freeDirections[Direction.down] = false;
-            //}
-        }
-
-        public static void OnReachedLimit(LimitArgs args) => ReachedLimit?.Invoke(args);//metodo q dispara o event ReachedLimit
     }
 }
