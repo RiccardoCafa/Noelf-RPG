@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using System.Linq;
+using System.Diagnostics;
 
 namespace RPG_Noelf.Assets.Scripts
 {
@@ -70,7 +71,6 @@ namespace RPG_Noelf.Assets.Scripts
         {
             Background = new SolidColorBrush(Color.FromArgb(50, dmg, 0, 0));
             solids.Remove(this);
-            //Moved += Collision.OnMoved;
             Who = who;
         }
 
@@ -79,7 +79,7 @@ namespace RPG_Noelf.Assets.Scripts
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimer_Tick;
             timer.Interval = new TimeSpan(0, 0, 1);
-            TimesTicked = 0;
+            //TimesTicked = 0;
             timer.Start();
         }
 
@@ -92,8 +92,8 @@ namespace RPG_Noelf.Assets.Scripts
                 {
                     Visibility = Visibility.Collapsed;
                     Who.MyEnt.HitPool.AddToPool(this);
+                    timer.Stop();
                 }
-                timer.Stop();
             }
         }
 
@@ -107,7 +107,8 @@ namespace RPG_Noelf.Assets.Scripts
                 if (solid.Equals(Who)) continue;
                 if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
                 {
-                    return solid as DynamicSolid;
+                    dynamicFound = solid as DynamicSolid;
+                    break;
                 }
             }
             DispatcherTimeSetup();

@@ -76,21 +76,22 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit.Xi = box.Xi + box.Xf;
+                        hit.Xi = box.Xf;
                     } else if (Dsolid.lastHorizontalDirection == -1)
                     {
                         hit.Xi = box.Xi - 100;
                     }
+                    hit.Who = box as DynamicSolid;
                 } else
                 {
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit = new HitSolid(box.Xi + box.Xf, box.Yi, 100, box.Height, dmg, box as DynamicSolid);
+                        hit = new HitSolid(box.Xf, box.Yi, 100, box.Height, dmg, box as DynamicSolid);
                     }
                     else if (Dsolid.lastHorizontalDirection == -1)
                     {
                         double val = 0;
-                        val = Math.Clamp(val, 0, box.Xi - 100);
+                        val = Math.Clamp(val, 0.0, box.Xi - 100.0);
                         hit = new HitSolid(box.Xi - 100, box.Yi, 100, box.Height, dmg, box as DynamicSolid);
                     }
                     Game.TheScene.Children.Add(hit);
