@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using RPG_Noelf.Assets.Scripts.Ents.PlayerFolder;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -212,5 +213,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             PlayerUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        public override void Die()
+        {
+            Debug.WriteLine("Player died");
+        }
     }
 }

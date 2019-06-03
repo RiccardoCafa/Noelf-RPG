@@ -12,7 +12,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using System.Linq;
-using System.Diagnostics;
 
 namespace RPG_Noelf.Assets.Scripts
 {
@@ -106,7 +105,7 @@ namespace RPG_Noelf.Assets.Scripts
             foreach(DynamicSolid solid in dinamics)
             {
                 if (solid.Equals(Who)) continue;
-                if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
+                if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
                 {
                     dynamicFound = solid as DynamicSolid;
                     break;
@@ -137,6 +136,7 @@ namespace RPG_Noelf.Assets.Scripts
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
         {
+            Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
             this.speed = speed;
             jumpSpeed = speed * 150;
             Moved += OnMoved;

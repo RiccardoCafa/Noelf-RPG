@@ -47,7 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
 
-            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 100, 60, 120, 2);
+            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 60 * 0.6, 120 * 0.6, 60, 2);
             //npcCharacter.trigger.AddTrigger(player.box);
             
             player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
@@ -58,6 +58,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             //player._Inventory.AddToBag(new Slot(26, 1));
             //player._Inventory.AddToBag(new Slot(27, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
+            /*player._Inventory.AddToBag(new Slot(24, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
@@ -80,8 +81,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             player._Inventory.AddToBag(new Slot(24, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
-            player._Inventory.AddToBag(new Slot(24, 1));
-            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));*/
             player._Inventory.AddToBag(new Slot(42, 999));
             //player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();

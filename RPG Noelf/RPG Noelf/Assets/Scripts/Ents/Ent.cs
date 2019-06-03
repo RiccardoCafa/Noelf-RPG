@@ -8,6 +8,16 @@ using RPG_Noelf.Assets.Scripts.General;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
+    public class EntEvent : EventArgs
+    {
+        public DynamicSolid EntBox;
+
+        public EntEvent(DynamicSolid boxs)
+        {
+            EntBox = boxs;
+        }
+    }
+
     public abstract class Ent
     {
         public DynamicSolid box;
@@ -38,6 +48,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
         protected readonly string[] sides = { "d", "e" };
 
+        public delegate void AttackEventHandler(object sender, EntEvent args);
+        public event AttackEventHandler Attacked;
+
         public void ApplyDerivedAttributes()
         {
             HpMax = Con * 6 + level.actuallevel * 2;
@@ -67,6 +80,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
             DynamicSolid tDynamic = null;
+            double hitboxSize = 50;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if(HitPool.PoolSize > 0)
@@ -79,20 +93,18 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         hit.Xi = box.Xf;
                     } else if (Dsolid.lastHorizontalDirection == -1)
                     {
-                        hit.Xi = box.Xi - 100;
+                        hit.Xi = box.Xi - hitboxSize;
                     }
                     hit.Who = box as DynamicSolid;
                 } else
                 {
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit = new HitSolid(box.Xf, box.Yi, 100, box.Height, dmg, box as DynamicSolid);
+                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height/2, dmg, box as DynamicSolid);
                     }
                     else if (Dsolid.lastHorizontalDirection == -1)
                     {
-                        double val = 0;
-                        val = Math.Clamp(val, 0.0, box.Xi - 100.0);
-                        hit = new HitSolid(box.Xi - 100, box.Yi, 100, box.Height, dmg, box as DynamicSolid);
+                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2, dmg, box as DynamicSolid);
                     }
                     Game.TheScene.Children.Add(hit);
                 }
@@ -100,11 +112,23 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 if (hit == null) return;
 
                 tDynamic = hit.Interaction();
+                if (!(tDynamic == null || tDynamic.MyEnt == null))
+                {
+                    tDynamic.MyEnt.BeHit(Hit(0));
+                    Debug.WriteLine("Ent hitado hp: " + tDynamic.MyEnt.Hp);
+                    tDynamic.MyEnt.OnAttacked();
+                }
             });
-            if (!(tDynamic == null || tDynamic.MyEnt == null))
+        }
+
+        public abstract void Die();
+
+        public void OnAttacked()
+        {
+            Attacked?.Invoke(this, new EntEvent(box));
+            if(Hp <= 0)
             {
-                tDynamic.MyEnt.BeHit(dmg);
-                Debug.WriteLine("Mob hitado hp: " + tDynamic.MyEnt.Hp);
+                Die();
             }
         }
     }

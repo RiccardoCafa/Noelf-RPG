@@ -50,5 +50,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             }
         }
 
+        public override void Die()
+        {
+            
+        }
     }
 }
