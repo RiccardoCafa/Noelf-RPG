@@ -1,6 +1,8 @@
-﻿using RPG_Noelf.Assets.Scripts.Skills;
+﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public List<string> attcks = new List<string>();//(temporario)
         public List<Element> Resistance = new List<Element>();
         public List<Element> Vulnerable = new List<Element>();
+        public Bag MobBag { get; } = new Bag();
         public bool Meek = false;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
@@ -52,6 +55,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {"armse1", new Image() { Width = 65, Height = 80 } }
         };
 
+        public TextBlock hpTxt;
+
         public Mob(int level)//cria um mob novo, aleatoriamente montado
         {
             #region montagem
@@ -80,6 +85,15 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {
                 box.Children.Add(mobImages[key]);
             }
+            hpTxt = new TextBlock()
+            {
+                Text = Hp.ToString() + "/" + HpMax.ToString(),
+                TextAlignment = Windows.UI.Xaml.TextAlignment.Center,
+                FontSize = 12,
+                FontStyle = Windows.UI.Text.FontStyle.Italic
+            };
+            box.Children.Add(hpTxt);
+            Canvas.SetTop(hpTxt, -50);
             Canvas.SetLeft(mobImages["armsd0"], 4); Canvas.SetTop(mobImages["armsd0"], 18);
             Canvas.SetLeft(mobImages["armsd1"], -21); Canvas.SetTop(mobImages["armsd1"], 49);
             Canvas.SetLeft(mobImages["legsd1"], 32); Canvas.SetTop(mobImages["legsd1"], 76);
@@ -90,11 +104,33 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             Canvas.SetLeft(mobImages["legse0"], 55); Canvas.SetTop(mobImages["legse0"], 47);
             Canvas.SetLeft(mobImages["armse0"], 33); Canvas.SetTop(mobImages["armse0"], 18);
             Canvas.SetLeft(mobImages["armse1"], 12); Canvas.SetTop(mobImages["armse1"], 50);
+
+            Attacked += UpdateHpText;
         }//monta as imagens na box do Mob
         public void Spawn(double x, double y)//cria o mob na tela
         {
             box = new DynamicSolid(x, y, 120, 120, Run);
+            box.MyEnt = this;
             Load();
+        }
+
+        public void UpdateHpText(object sender, EntEvent ent)
+        {
+            hpTxt.Text = Hp.ToString() + "/" + HpMax.ToString();
+        }
+
+        public override void Die()
+        {
+            if(MobBag.Slots.Count > 0)
+            {
+                foreach(Slot mobS in MobBag.Slots)
+                {
+                    Game.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
+                }
+            }
+            Solid.solids.Remove(box);
+            box.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            Debug.WriteLine("Mob died");
         }
 
         private void SetMob(Dictionary<string, Image> images)//aplica as imagens das caracteristicas fisicas do mob

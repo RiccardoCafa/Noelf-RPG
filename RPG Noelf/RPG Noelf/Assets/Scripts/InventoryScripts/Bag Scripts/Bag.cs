@@ -62,10 +62,11 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             // if (FreeSlots > 0) return true;
             // else return false;
             int contador = 0;
-            foreach(Slot s in Slots)
+            /*foreach(Slot s in Slots)
             {
                 contador++;
-            }
+            }*/
+            contador = Slots.Count;
             if (contador >= MaxSlots)
             {
                 return false;
