@@ -23,7 +23,8 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
                             select s).ToList<Slot>();
             return material.Count > 0;
 
-        }       
+        }
+        
         private void RemoveMaterials(uint id)
         {
             if (IsPossibleToCraft(id))

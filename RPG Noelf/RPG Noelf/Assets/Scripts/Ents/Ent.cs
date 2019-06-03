@@ -10,7 +10,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 {
     public abstract class Ent
     {
-        public Solid box;
+        public DynamicSolid box;
 
         public int Str;
         public int Spd;
