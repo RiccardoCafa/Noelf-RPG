@@ -7,6 +7,7 @@ using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Mobs;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using Windows.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,6 +40,8 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static NPC npcTarget;
         public static Trader traderTarget;
         public static Quester questerTarget;
+        
+        // Audio
 
 
         public static void InitializeGame()
