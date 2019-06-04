@@ -216,19 +216,20 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        //private void SetPlayer(List<Image> playerImages)
+        //private void SetPlayer(List<Image> playerimages)
         //{
-        //    DirectoryInfo di = new DirectoryInfo("/Assets/Images/player/");
+        //    DirectoryInfo di = new DirectoryInfo("/assets/images/player/");
         //    var files = from file in di.GetFiles("*.png")
         //                where (file.Name[0] == Id[0] || file.Name[0] == '_') &&
         //                      (file.Name[1] == Id[2] || file.Name[1] == '_') &&
         //                      (file.Name[2] == Id[3] || file.Name[2] == '_') &&
         //                      (file.Name[3] == Id[4] || file.Name[3] == '_') &&
         //                      (file.Name[4] == Id[5] || file.Name[4] == '_') &&
-        //                      (file.Name[5] == Id[6] || file.Name[5] == '_') select file;
+        //                      (file.Name[5] == Id[6] || file.Name[5] == '_')
+        //                select file;
         //    foreach (FileInfo file in files)
         //    {
-        //        playerImages[0].Source = new BitmapImage(new Uri(Game.instance.BaseUri, file.FullName));
+        //        playerimages[0].Source = new BitmapImage(new Uri(Game.instance.BaseUri, file.FullName));
         //    }
         //}
 
