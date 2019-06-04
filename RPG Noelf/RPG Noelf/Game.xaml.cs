@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -36,6 +37,7 @@ namespace RPG_Noelf
 
         private Thread Start;
         private Player PlayerCreated;
+        
 
         public TextBlock mobStatus;
         public TextBlock dayText;
