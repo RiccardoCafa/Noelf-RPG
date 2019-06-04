@@ -97,8 +97,9 @@ namespace RPG_Noelf
         private void AppearPlayer(string id)
         {
             CustomPlayer.Id = id;
-            CustomPlayer.SetPlayer(CustomPlayer.playerImages);
-            CustomPlayer.SetClothes(CustomPlayer.clothesImages);
+            // TODO Concertar roupas player
+            //CustomPlayer.SetPlayer(CustomPlayer.playerImages);
+            //CustomPlayer.SetClothes(CustomPlayer.clothesImages);
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)

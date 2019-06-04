@@ -126,7 +126,6 @@ namespace RPG_Noelf
 
                 SetEventForSkillBar();
                 SetEventForSkillTree();
-                SetEventForBagItem();
                 SetEventForShopItem();
                 SetEventForEquip();
 
@@ -140,15 +139,10 @@ namespace RPG_Noelf
                 GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
                 GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
                 GameManager.player._Questmanager.actualQuest = GameManager.player._Questmanager.allQuests[1];
+                
 
-                Slot slotDrop = new Slot(40, 1);
-                CreateDrop(100, 500, slotDrop);
-
-                Bau bauchicabaubau = new Bau(Category.Legendary, 15);
-                CreateChest(200, 220, bauchicabaubau);
-
-                Bau bauchicabaubau2 = new Bau(Category.Normal, 10);
-                CreateChest(300, 220, bauchicabaubau2);
+                CreateChest(100, 600, new Bau(Category.Legendary, 15));
+                CreateChest(350, 600, new Bau(Category.Normal, 10));
             });
 
         }
@@ -194,7 +188,16 @@ namespace RPG_Noelf
         public void CreateMob()
         {
             GameManager.mob = new Mob(level: 2);
-            GameManager.mob.Spawn(50, -100);
+            GameManager.mob.Spawn(250, 20);
+            MobSlot smb;
+            smb = new MobSlot(2, 10, 0.99);
+            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+            smb = new MobSlot(23, 10, 0.3);
+            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+            smb = new MobSlot(24, 10, 0.3);
+            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+            smb = new MobSlot(25, 10, 0.1);
+            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
             TheScene.Children.Add(GameManager.mob.box);
         }
         public void CreatePlayer()
@@ -208,16 +211,20 @@ namespace RPG_Noelf
                 GameManager.player = new Player("0000000");
             }
             GameManager.player.Spawn(300, -100);
+            GameManager.player.Damage = 0.1;
             TheScene.Children.Add(GameManager.player.box);
             //GameManager.player.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
         }
         public void CreateCraftingWindow()
         {
-            CraftBox craftb = new CraftBox(24);
-            CraftBox crafta = new CraftBox(42);
-            
-            CraftPanel.Children.Add(craftb);
-            CraftPanel.Children.Add(crafta);
+            CraftBox IronBoots = new CraftBox(24);
+            CraftBox IronIngot = new CraftBox(42);
+            CraftBox IronChestplate = new CraftBox(21);
+
+
+            CraftPanel.Children.Add(IronBoots);
+            CraftPanel.Children.Add(IronIngot);
+            CraftPanel.Children.Add(IronChestplate);
         }
         public void CreateChest(double x, double y, Bau bau) 
         {
@@ -238,10 +245,6 @@ namespace RPG_Noelf
             chest.PointerPressed += ShowChest;
             bau.itens.BagUpdated += UpdateChestEvent;
         }
-        public Canvas CreateCharacterNPC()
-        {
-            return NPCCanvas;
-        }
         public void CreateDrop(double x, double y, Slot dropSlot)
         {
             string pathImage = Encyclopedia.SearchFor(dropSlot.ItemID).PathImage;
@@ -259,6 +262,22 @@ namespace RPG_Noelf
             //LootBody loot = new LootBody(drop);
             //loot.UpdateBlocks(TheScene);
             //Trigger dropTrigger = new Trigger(loot);
+        }
+        public void CreateSkill(SkillGenerics skill)
+        {
+            WindowTreeSkill.Width = 250;
+            WindowTreeSkill.Height = 150;
+            WindowTreeSkill.HorizontalAlignment = HorizontalAlignment.Stretch;
+            WindowTreeSkill.VerticalAlignment = VerticalAlignment.Stretch;
+            Canvas.SetTop(WindowTreeSkill, 40);
+            Canvas.SetLeft(WindowTreeSkill, 120);
+            Image bg = new Image()
+            {
+                Width = 40,
+                Height = 30
+            };
+            WindowTreeSkill.Children.Add(bg);
+
         }
         public void CreateInventory(Canvas BagCanvas)
         {
@@ -421,9 +440,6 @@ namespace RPG_Noelf
                 grid.Children.Add(item);
                 Grid.SetColumn(item, column);
                 Grid.SetRow(item, row);
-                if(item.myBagRef != null && item.myBagRef.GetSlot(i) != null)
-                    Debug.WriteLine(Encyclopedia.SearchFor(item.myBagRef.GetSlot(i).ItemID).Name 
-                                    + " col " + column + " row " + row + "\n");
                 if (column == columnSize - 1)
                 {
                     row++;
@@ -615,8 +631,8 @@ namespace RPG_Noelf
                     else
                     {
                         GameManager.player._Inventory.RemoveFromBag(s.ItemID, s.ItemAmount);
-                        CreateDrop(GameManager.player.box.Xi + 10,
-                                    GameManager.player.box.Yi + 60,
+                        CreateDrop(GameManager.player.box.Xi + (GameManager.player.box.Width / 2),
+                                    GameManager.player.box.Yi + (GameManager.player.box.Height/2),
                                     s);
                     }
                 }
@@ -890,19 +906,7 @@ namespace RPG_Noelf
             if (item.description != null) W_ItemDescr.Text = item.description;
             W_ItemValue.Text = item.GoldValue + " gold";
         }
-
-        private void SetEventForBagItem()
-        {
-            /*foreach (UIElement element in _InventarioGrid.Children)
-            {
-                if (element is Image)
-                {
-                    element.PointerEntered += ShowItemWindow;
-                    element.PointerExited += CloseItemWindow;
-                    element.PointerPressed += InventorySlotEvent;
-                }
-            }*/
-        }
+        
 
         public void ShowItemWindow(object sender, PointerRoutedEventArgs e)
         {

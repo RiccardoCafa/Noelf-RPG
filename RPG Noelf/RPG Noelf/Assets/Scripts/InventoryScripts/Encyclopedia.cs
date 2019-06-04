@@ -80,7 +80,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 ItemCategory = Category.Normal,               
                 PathImage = "/Assets/Images/itens/pedraMagica.png",
                 GoldValue = 3,
-                description = "A funny glowing stone, it seems like have powerful inside"
+                description = "A funny glowing stone, it seems like have power inside"
             };
             encyclopedia.Add(7, item7);
             Item item8 = new Item("Steel")

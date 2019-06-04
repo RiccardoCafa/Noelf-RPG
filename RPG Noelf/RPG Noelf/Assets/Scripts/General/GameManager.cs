@@ -40,31 +40,57 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static Trader traderTarget;
         public static Quester questerTarget;
 
+
         public static void InitializeGame()
         {
             interfaceManager.Inventario = Game.inventarioWindow;
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
 
-            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 150, 120, 60);
-            npcCharacter.trigger.AddTrigger(player.box);
+            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 60 * 0.6, 120 * 0.6, 60, 2);
+            //npcCharacter.trigger.AddTrigger(player.box);
             
             player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
-            player._Inventory.AddToBag(new Slot(21, 1));
-            player._Inventory.AddToBag(new Slot(22, 1));
+            //player._Inventory.AddToBag(new Slot(21, 1));
+            //player._Inventory.AddToBag(new Slot(22, 1));
+            //player._Inventory.AddToBag(new Slot(24, 1));
+            //player._Inventory.AddToBag(new Slot(25, 1));
+            //player._Inventory.AddToBag(new Slot(26, 1));
+            //player._Inventory.AddToBag(new Slot(27, 1));
             player._Inventory.AddToBag(new Slot(24, 1));
-            player._Inventory.AddToBag(new Slot(25, 1));
-            player._Inventory.AddToBag(new Slot(26, 1));
-            player._Inventory.AddToBag(new Slot(27, 1));
-            player._Inventory.AddToBag(new Slot(28, 1));
-            player._Inventory.AddToBag(new Slot(42, 1));
-            player._Inventory.AddToBag(new Slot(1, 999));
+            /*player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));
+            player._Inventory.AddToBag(new Slot(24, 1));*/
+            player._Inventory.AddToBag(new Slot(42, 999));
+            //player._Inventory.AddToBag(new Slot(1, 999));
             CraftingEncyclopedia.LoadCraftings();
             CraftingStation = new Crafting();
+
             //npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
             //npcCharacter.UpdateBlocks(Game.TheScene);
             //npcCharacter.trigger.AddTrigger(characterPlayer);
-            GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+            player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
             //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
             //MainPage.instance.OpenQuest();
