@@ -233,6 +233,7 @@
     <Content Include="Assets\Images\Skills\ArcherSkill3.jpg" />
     <Content Include="Assets\Images\Skills\ArcherSkill4.jpg" />
     <Content Include="Assets\Images\Skills\PassiveArcherSkill.jpg" />
+    <Content Include="Assets\Images\tiles\chest.png" />
     <Content Include="Assets\Images\tiles\grass.png" />
     <Content Include="Assets\Images\tiles\ground.png" />
     <Content Include="Assets\Images\iconeLapa.png" />
