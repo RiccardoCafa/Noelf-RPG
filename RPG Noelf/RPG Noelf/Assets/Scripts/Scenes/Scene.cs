@@ -11,13 +11,13 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Scenes
 {
-    public class Scene
+    public class Platform
     {
         public Canvas chunck;
         public List<Solid> ground = new List<Solid>();
         public List<string> Blueprint { get; private set; } = new List<string>();
 
-        public Scene(Canvas xScene)//constroi o cenario, com os tiles e os canvas
+        public Platform(Canvas xScene)//constroi o cenario, com os tiles e os canvas
         {
             chunck = new Canvas();
             xScene.Children.Add(chunck);
@@ -61,7 +61,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                 chunck.Children.Add(solid);
                                 ground.Add(solid);
                                 solid.Name = "plat" + platX.First() + y;
-                                solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                                //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                                 platX.Clear();
                             }
                         }

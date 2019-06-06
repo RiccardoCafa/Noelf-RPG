@@ -59,8 +59,23 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// <returns>True if can be added more and false if not</returns>
         public bool CanAddMore()
         {
-            if (FreeSlots > 0) return true;
-            else return false;
+            // if (FreeSlots > 0) return true;
+            // else return false;
+            int contador = 0;
+            /*foreach(Slot s in Slots)
+            {
+                contador++;
+            }*/
+            contador = Slots.Count;
+            if (contador >= MaxSlots)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
         }
 
         /// <summary>

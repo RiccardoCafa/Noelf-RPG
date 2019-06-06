@@ -1,3 +1,4 @@
+using RPG_Noelf.Assets.Scripts.Ents.PlayerFolder;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -12,26 +13,26 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         Trading
     }
 
-    public class CharacterNPC : Solid
+    public class CharacterNPC : Ent
     {
         public NPC MyNPC;
         public Trigger trigger;
-
-        public CharacterNPC(NPC _NPC, double x, double y, double width, double height) : base(x, y, width, height)
+        private PlayerLoader _PlayerLoader;
+        public string id = "0000000";
+        
+        public CharacterNPC(NPC _NPC, double xi, double yi, double width, double height, double speed)
         {
-            
+            box = new DynamicSolid(xi, yi, width, height, speed);
             MyNPC = _NPC;
-            trigger = new Trigger(this);
-            PointerPressed += InteractWith;
+            box.PointerPressed += InteractWith;
+            Game.TheScene.Children.Add(box);
+            Load();
         }
 
-        public CharacterNPC(NPC _NPC, Canvas canvas) : 
-                        base(GetLeft(canvas), GetTop(canvas), (double)canvas.GetValue(WidthProperty), (double) canvas.GetValue(HeightProperty))
+        public void Load()
         {
-
-            MyNPC = _NPC;
-            trigger = new Trigger(this);
-            PointerPressed += InteractWith;
+            _PlayerLoader = new PlayerLoader(box, id);
+            _PlayerLoader.Load(parts, sides);
         }
 
         private void InteractWith(object sender, PointerRoutedEventArgs e)
@@ -49,5 +50,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             }
         }
 
+        public override void Die()
+        {
+            
+        }
     }
 }
