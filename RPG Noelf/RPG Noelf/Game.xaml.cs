@@ -112,6 +112,7 @@ namespace RPG_Noelf
                 CreateChestWindow(350, 250);
                 //CreateMob();
                 CreateCraftingWindow();
+                CreateConversationLayout();
 
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
@@ -1193,14 +1194,16 @@ namespace RPG_Noelf
         #endregion
         #region Conversation
         private Grid ButtonsGrid;
-        ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
-        public void CallConversationBox(NPC npc)
+        //ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
+        private Button QuesterBtn;
+        private Button TraderBtn;
+        private Button ExitBtn;
+        private Dictionary<string, Button> ListButtons = new Dictionary<string, Button>();
+        private NPC lastNPC = null;
+        private int Buttons = 3;
+
+        public void CreateConversationLayout()
         {
-            if (GameManager.interfaceManager.Conversation) return;
-            GameManager.npcTarget = npc;
-            Conversation.Visibility = Visibility.Visible;
-            int Buttons = npc.GetFunctionSize() + 1;
-            List<string> funcString = npc.GetFunctionsString();
             ButtonsGrid = new Grid();
             ButtonsGrid.Width = Conversation.Width;
             ButtonsGrid.Height = Conversation.Height / 2;
@@ -1211,6 +1214,7 @@ namespace RPG_Noelf
                 Width = new GridLength(ButtonsGrid.Width)
             };
             ButtonsGrid.ColumnDefinitions.Add(column);
+
             for (int i = 0; i < Buttons; i++)
             {
                 RowDefinition row = new RowDefinition
@@ -1218,33 +1222,66 @@ namespace RPG_Noelf
                     Height = new GridLength(ButtonsGrid.Height / Buttons)
                 };
                 ButtonsGrid.RowDefinitions.Add(row);
-                Button b;
-                if (ButtonPool.PoolSize > 0)
-                {
-                    ButtonPool.GetFromPool(out b);
-                    b.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    b = new Button
-                    {
-                        Height = (ButtonsGrid.Height / Buttons) - 10,
-                        Width = ButtonsGrid.Height
-                    };
-                    ButtonsGrid.Children.Add(b);
-                }
+            }
 
-                if (i < Buttons - 1)
+            QuesterBtn = new Button()
+            {
+                Height = (ButtonsGrid.Height / Buttons) - 10,
+                Width = ButtonsGrid.Height,
+                Content = "Quest"
+            };
+            ButtonsGrid.Children.Add(QuesterBtn);
+
+            TraderBtn = new Button()
+            {
+                Height = (ButtonsGrid.Height / Buttons) - 10,
+                Width = ButtonsGrid.Height,
+                Content = "Trader"
+            };
+            ButtonsGrid.Children.Add(TraderBtn);
+
+            ExitBtn = new Button()
+            {
+                Height = (ButtonsGrid.Height / Buttons) - 10,
+                Width = ButtonsGrid.Height,
+                Content = "Exit"
+            };
+            ExitBtn.Click += HasToCloseConv;
+            ButtonsGrid.Children.Add(ExitBtn);
+
+            QuesterBtn.SetValue(Grid.RowProperty, 0);
+            TraderBtn.SetValue(Grid.RowProperty, 1);
+            ExitBtn.SetValue(Grid.RowProperty, 2);
+            
+            ListButtons.Add("Quester", QuesterBtn);
+            ListButtons.Add("Trader", TraderBtn);
+            ListButtons.Add("Exit", ExitBtn);
+        }
+
+        public void CallConversationBox(NPC npc)
+        {
+            if (GameManager.interfaceManager.Conversation) return;
+            GameManager.npcTarget = npc;
+            Conversation.Visibility = Visibility.Visible;
+            List<string> funcString = npc.GetFunctionsString();
+            
+            for (int i = 0; i < Buttons; i++)
+            {
+                string f = ListButtons.Keys.ElementAt(i);
+                if (f == "Exit")
                 {
-                    b.Content = funcString[i];
-                    b.Click += npc.GetFunction(funcString[i]).MyFunction;
+                    ListButtons[f].Visibility = Visibility.Visible;
+                    break;
                 }
-                else
+                if (lastNPC != null && lastNPC.GetFunction(f) != null)
                 {
-                    b.Content = "Nothing";
-                    b.Click += HasToCloseConv;
+                    ListButtons[f].Click -= lastNPC.GetFunction(f).MyFunction;
                 }
-                b.SetValue(Grid.RowProperty, i);
+                if(npc.GetFunction(f) != null)
+                {
+                    ListButtons[f].Click += npc.GetFunction(f).MyFunction;
+                    ListButtons[f].Visibility = Visibility.Visible;
+                }
             }
             ConvText.Text = npc.Introduction;
             ConvLevel.Text = npc.MyLevel.actuallevel.ToString();
@@ -1255,22 +1292,18 @@ namespace RPG_Noelf
             }
             ConvFuncs.Text = convfunc;
             ConvName.Text = npc.Name;
+            lastNPC = npc;
         }
         public void HasToCloseConv(object sender, RoutedEventArgs e)
         {
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
             
-            Button[] listaButton = new Button[ButtonPool.Pooled.Count]; 
-            foreach (Button b in listaButton)
+            foreach (Button b in ListButtons.Values)
             {
                 b.Visibility = Visibility.Collapsed;
             }
-            ButtonPool.ReturnToPool();
             GameManager.npcTarget = null;
-        }
-        public void CloseConversationBox(object sender, RoutedEventArgs e)
-        {
-            Conversation.Visibility = Visibility.Collapsed;
+            GameManager.interfaceManager.ConvHasToClose = true;
         }
         public void EndConversation(object sender, RoutedEventArgs e)
         {

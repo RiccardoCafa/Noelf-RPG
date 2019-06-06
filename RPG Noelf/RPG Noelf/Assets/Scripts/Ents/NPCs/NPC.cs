@@ -51,7 +51,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public NPCFunction GetFunction(string key)
         {
-            return Functions[key];
+            if (Functions.ContainsKey(key))
+                return Functions[key];
+            else return null;
         }
 
         public List<string> GetFunctionsString()
@@ -117,6 +119,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         {
             myQuest = QuestList.allquests[quest];
         }
+
         public void MyFunction(object sender, RoutedEventArgs e)
         {
             GameManager.questerTarget = this;
@@ -135,10 +138,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void EndFunction()
         {
-            /*if (GameManager.player._Questmanager.activeQuests.Contains(myQuest))
-            {
-                GameManager.CloseQuestWindow();
-            }*/
+            GameManager.CloseQuestWindow();
         }
 
         public string GetFunctionName()
@@ -156,9 +156,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
              */
         }
     }
-
-    
-
 
     public sealed class RuneMaster
     {
