@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         private PlayerLoader _PlayerLoader;
 
         public string Id;
-        
+
 
         public int Xp { get; private set; }
         public int XpLim { get; private set; }
@@ -89,9 +89,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             level = new Level(1);
             LevelUpdate(0, 0, 0, 0, 0, 0);
             ApplyDerivedAttributes();
-            //Window.Current.CoreWindow.KeyDown += Attack;
             attkDelay = DateTime.Now;
-
             Window.Current.CoreWindow.KeyUp += RunAttack;
         }
 
@@ -102,43 +100,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             _PlayerLoader.Load(parts, sides);
             box.MyEnt = this;
         }
-
-        //public void Attack(CoreWindow sender, KeyEventArgs e)
-        //{
-        //    if (e.VirtualKey == Windows.System.VirtualKey.Z && attkDelay.Millisecond - DateTime.Now.Millisecond <= AtkSpd * 1000)
-        //    {
-        //        Task.Run(() =>
-        //        {
-        //            HitSolid atk = new HitSolid(100, 20, 40, 50, 240);
-        //            box.Children.Add(atk);
-        //            //TextBlock txt = new TextBlock();
-        //            //txt.Text = "" + (DateTime.Now.Millisecond - attkDelay.Millisecond) + ">=" + (AtkSpd * 1000);
-        //            //atk.Children.Add(txt);
-        //            //Canvas.SetTop(txt, -20);
-        //            //Thread.Sleep(500);
-        //            //box.Children.Remove(atk);
-        //            attkDelay = DateTime.Now;
-        //        });
-        //    }
-        //}
-
-
-        //private void SetPlayer(List<Image> playerimages)
-        //{
-        //    DirectoryInfo di = new DirectoryInfo("/assets/images/player/");
-        //    var files = from file in di.GetFiles("*.png")
-        //                where (file.Name[0] == Id[0] || file.Name[0] == '_') &&
-        //                      (file.Name[1] == Id[2] || file.Name[1] == '_') &&
-        //                      (file.Name[2] == Id[3] || file.Name[2] == '_') &&
-        //                      (file.Name[3] == Id[4] || file.Name[3] == '_') &&
-        //                      (file.Name[4] == Id[5] || file.Name[4] == '_') &&
-        //                      (file.Name[5] == Id[6] || file.Name[5] == '_')
-        //                select file;
-        //    foreach (FileInfo file in files)
-        //    {
-        //        playerimages[0].Source = new BitmapImage(new Uri(Game.instance.BaseUri, file.FullName));
-        //    }
-        //}
 
         public void Status(TextBlock textBlock)//exibe as informaçoes (temporario)
         {
@@ -154,7 +115,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void RunAttack(object sender, KeyEventArgs e)
         {
-            if(e.VirtualKey == Windows.System.VirtualKey.Z)
+            if (e.VirtualKey == Windows.System.VirtualKey.Z)
             {
                 new Thread(() =>
                 {

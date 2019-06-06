@@ -106,11 +106,11 @@ namespace RPG_Noelf
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 scene1 = new LevelScene(xScene);//criaçao do cenario
 
-                CreatePlayer();
+                //CreatePlayer();
                 GameManager.InitializeGame();
                 CreateInventory(BagWindow);
                 CreateChestWindow(350, 250);
-                CreateMob();
+                //CreateMob();
                 CreateCraftingWindow();
 
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
