@@ -31,7 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static DayNight dayNight;
 
         // Mobs
-        public static Mob mob;
+        public static List<Mob> mobs = new List<Mob>();
         public static CharacterMob mobTarget;
 
         // NPC's
@@ -50,7 +50,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             QuestList.load_quests();
             Encyclopedia.LoadEncyclopedia();
 
-            npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 60 * 0.6, 120 * 0.6, 60, 2);
+            //npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 60 * 0.6, 120 * 0.6, 60, 2);
             //npcCharacter.trigger.AddTrigger(player.box);
             
             player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));

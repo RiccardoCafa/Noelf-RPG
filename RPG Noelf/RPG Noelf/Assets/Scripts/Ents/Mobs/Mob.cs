@@ -41,18 +41,19 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {"0", "on" }, {"1", "ey" }, {"2", "d" }, {"3", "o" }, {"4", "ar" }
         };
 
+        static double prop = 0.6;
         public Dictionary<string, Image> mobImages = new Dictionary<string, Image>()
         {
-            {"armsd0", new Image() { Width = 60, Height = 65 } },
-            {"armsd1", new Image() { Width = 70, Height = 80 } },
-            {"legsd1", new Image() { Width = 75, Height = 55 } },
-            {"legsd0", new Image() { Width = 65, Height = 70 } },
-            {"body", new Image() { Width = 160, Height = 135 } },
-            {"head", new Image() { Width = 100, Height = 100 } },
-            {"legse1", new Image() { Width = 75, Height = 55 } },
-            {"legse0", new Image() { Width = 60, Height = 65 } },
-            {"armse0", new Image() { Width = 60, Height = 70 } },
-            {"armse1", new Image() { Width = 65, Height = 80 } }
+            {"armsd0", new Image() { Width = 60 * prop, Height = 65 * prop } },
+            {"armsd1", new Image() { Width = 70 * prop, Height = 80 * prop } },
+            {"legsd1", new Image() { Width = 75 * prop, Height = 55 * prop } },
+            {"legsd0", new Image() { Width = 65 * prop, Height = 70 * prop } },
+            {"body", new Image() { Width = 160 * prop, Height = 135 * prop } },
+            {"head", new Image() { Width = 100 * prop, Height = 100 * prop } },
+            {"legse1", new Image() { Width = 75 * prop, Height = 55 * prop } },
+            {"legse0", new Image() { Width = 60 * prop, Height = 65 * prop } },
+            {"armse0", new Image() { Width = 60 * prop, Height = 70 * prop } },
+            {"armse1", new Image() { Width = 65 * prop, Height = 80 * prop } }
         };
 
         public TextBlock hpTxt;
@@ -94,22 +95,23 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             };
             box.Children.Add(hpTxt);
             Canvas.SetTop(hpTxt, -50);
-            Canvas.SetLeft(mobImages["armsd0"], 4); Canvas.SetTop(mobImages["armsd0"], 18);
-            Canvas.SetLeft(mobImages["armsd1"], -21); Canvas.SetTop(mobImages["armsd1"], 49);
-            Canvas.SetLeft(mobImages["legsd1"], 32); Canvas.SetTop(mobImages["legsd1"], 76);
-            Canvas.SetLeft(mobImages["legsd0"], 20); Canvas.SetTop(mobImages["legsd0"], 45);
-            Canvas.SetLeft(mobImages["body"], 8); Canvas.SetTop(mobImages["body"], -10);
-            Canvas.SetLeft(mobImages["head"], -16); Canvas.SetTop(mobImages["head"], -34);;
-            Canvas.SetLeft(mobImages["legse1"], 64); Canvas.SetTop(mobImages["legse1"], 75);
-            Canvas.SetLeft(mobImages["legse0"], 55); Canvas.SetTop(mobImages["legse0"], 47);
-            Canvas.SetLeft(mobImages["armse0"], 33); Canvas.SetTop(mobImages["armse0"], 18);
-            Canvas.SetLeft(mobImages["armse1"], 12); Canvas.SetTop(mobImages["armse1"], 50);
+            double prop = 0.6;
+            Canvas.SetLeft(mobImages["armsd0"], 4 * prop); Canvas.SetTop(mobImages["armsd0"], 18 * prop);
+            Canvas.SetLeft(mobImages["armsd1"], -21 * prop); Canvas.SetTop(mobImages["armsd1"], 49 * prop);
+            Canvas.SetLeft(mobImages["legsd1"], 32 * prop); Canvas.SetTop(mobImages["legsd1"], 76 * prop);
+            Canvas.SetLeft(mobImages["legsd0"], 20 * prop); Canvas.SetTop(mobImages["legsd0"], 45 * prop);
+            Canvas.SetLeft(mobImages["body"], 8 * prop); Canvas.SetTop(mobImages["body"], -10 * prop);
+            Canvas.SetLeft(mobImages["head"], -16 * prop); Canvas.SetTop(mobImages["head"], -34 * prop);
+            Canvas.SetLeft(mobImages["legse1"], 64 * prop); Canvas.SetTop(mobImages["legse1"], 75 * prop);
+            Canvas.SetLeft(mobImages["legse0"], 55 * prop); Canvas.SetTop(mobImages["legse0"], 47 * prop);
+            Canvas.SetLeft(mobImages["armse0"], 33 * prop); Canvas.SetTop(mobImages["armse0"], 18 * prop);
+            Canvas.SetLeft(mobImages["armse1"], 12 * prop); Canvas.SetTop(mobImages["armse1"], 50 * prop);
 
             Attacked += UpdateHpText;
         }//monta as imagens na box do Mob
         public void Spawn(double x, double y)//cria o mob na tela
         {
-            box = new DynamicSolid(x, y, 120, 120, Run);
+            box = new DynamicSolid(x, y, 120 * 0.6, 120 * 0.6, Run);
             box.MyEnt = this;
             Load();
         }

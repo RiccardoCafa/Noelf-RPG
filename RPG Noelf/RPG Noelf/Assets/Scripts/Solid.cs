@@ -61,7 +61,7 @@ namespace RPG_Noelf.Assets.Scripts
     {
         //public delegate void MoveHandler(Solid sender);
         //public event MoveHandler Moved;
-        
+
         public DynamicSolid Who;
         public DispatcherTimer timer;
         private int TimesTicked = 0;
@@ -86,9 +86,9 @@ namespace RPG_Noelf.Assets.Scripts
         private void DispatcherTimer_Tick(object sender, object a)
         {
             TimesTicked++;
-            if(TimesTicked >= TimesToTick)
+            if (TimesTicked >= TimesToTick)
             {
-                if(Who != null)
+                if (Who != null)
                 {
                     Visibility = Visibility.Collapsed;
                     Who.MyEnt.HitPool.AddToPool(this);
@@ -102,7 +102,7 @@ namespace RPG_Noelf.Assets.Scripts
             DynamicSolid dynamicFound = null;
             var dinamics = from dinm in solids where dinm is DynamicSolid select dinm;
 
-            foreach(DynamicSolid solid in dinamics)
+            foreach (DynamicSolid solid in dinamics)
             {
                 if (solid.Equals(Who)) continue;
                 if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
@@ -120,7 +120,7 @@ namespace RPG_Noelf.Assets.Scripts
     {
         public delegate void MoveHandler();
         public event MoveHandler Moved;
-        
+
         public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
             { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
 
@@ -141,8 +141,18 @@ namespace RPG_Noelf.Assets.Scripts
             jumpSpeed = speed * 150;
             Moved += OnMoved;
             horizontalSpeed = speed * 75;
-            time = DateTime.Now;
-            new Task(Update).Start();
+            Window.Current.CoreWindow.KeyDown += Start;
+        }
+
+        Task task;
+        public void Start(CoreWindow sender, KeyEventArgs e)
+        {
+            if (task == null)
+            {
+                time = DateTime.Now;
+                task = new Task(Update);
+                task.Start();
+            }
         }
 
         public bool alive = true;
@@ -184,26 +194,29 @@ namespace RPG_Noelf.Assets.Scripts
             freeDirections[Direction.left] = true;
             foreach (Solid solid in solids)
             {
-                if (Equals(solid)) return;//se for comparar o solidMoving com ele msm, pule o teste
-                if (Yf >= solid.Yi && Yf < solid.Yi + margin)//se o solidMoving esta no nivel de pisar em algum Solid
+                if (!(solid is DynamicSolid))
                 {
-                    if (Xi < solid.Xf && Xf > solid.Xi)//se o solidMoving esta colindindo embaixo
+                    if (Equals(solid)) return;//se for comparar o solidMoving com ele msm, pule o teste
+                    if (Yf >= solid.Yi && Yf < solid.Yi + margin)//se o solidMoving esta no nivel de pisar em algum Solid
                     {
-                        Yf = solid.Yi;
-                        freeDirections[Direction.down] = false;
+                        if (Xi < solid.Xf && Xf > solid.Xi)//se o solidMoving esta colindindo embaixo
+                        {
+                            Yf = solid.Yi;
+                            freeDirections[Direction.down] = false;
+                        }
                     }
-                }
-                if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
-                {
-                    if (Xf >= solid.Xi && Xf < solid.Xi + margin)//se o solidMoving esta colindindo a direita
+                    if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
                     {
-                        Xf = solid.Xi;
-                        freeDirections[Direction.right] = false;
-                    }
-                    if (Xi <= solid.Xf && Xi > solid.Xf - margin)//se o solidMoving esta colindindo a esquerda
-                    {
-                        Xi = solid.Xf;
-                        freeDirections[Direction.left] = false;
+                        if (Xf >= solid.Xi && Xf < solid.Xi + margin)//se o solidMoving esta colindindo a direita
+                        {
+                            Xf = solid.Xi;
+                            freeDirections[Direction.right] = false;
+                        }
+                        if (Xi <= solid.Xf && Xi > solid.Xf - margin)//se o solidMoving esta colindindo a esquerda
+                        {
+                            Xi = solid.Xf;
+                            freeDirections[Direction.left] = false;
+                        }
                     }
                 }
             }
@@ -273,7 +286,7 @@ namespace RPG_Noelf.Assets.Scripts
                     SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - 1366 * 0.15);
                     SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - 1366 * 0.3);
                     SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) - 1366);
-                    foreach (Solid s in Game.instance.scene1.scene.ground) s.Xi -= 1366;
+                    foreach (Solid s in Game.instance.scene1.scene.floor) s.Xi -= 1366;
                 }
                 if ((Xi + Xf) / 2 <= 0)
                 {
@@ -282,7 +295,7 @@ namespace RPG_Noelf.Assets.Scripts
                     SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) + 1366 * 0.15);
                     SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) + 1366 * 0.3);
                     SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) + 1366);
-                    foreach (Solid s in Game.instance.scene1.scene.ground) s.Xi += 1366;
+                    foreach (Solid s in Game.instance.scene1.scene.floor) s.Xi += 1366;
                 }
             }
             if (verticalSpeed != 0 || horizontalDirection != 0)

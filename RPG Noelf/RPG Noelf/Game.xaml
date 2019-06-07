@@ -8,7 +8,7 @@
     mc:Ignorable="d"
 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768" RequestedTheme="Light">
-    
+
     <Canvas Name="Tela" Width="1366" Height="768"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Canvas.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -17,15 +17,15 @@
             </LinearGradientBrush>
         </Canvas.Background>
         <Canvas Name="Hidden">
-            <MediaElement Name="meplayer" Source="Assets\musiquinha.mp3" IsLooping="True" AutoPlay="True"></MediaElement>
+            <!--<MediaElement Name="meplayer" Source="Assets\musiquinha.mp3" IsLooping="True" AutoPlay="True"></MediaElement>-->
         </Canvas>
-        
+
         <TextBlock Name="DayText" Text="Day 1 - 8:50" FontSize="20" FontStretch="Normal"  Width="200" Height="50" Canvas.Top="30" Canvas.Left="10"/>
         <Canvas Name="Camera" Visibility="Collapsed"  Width="916" Height="72" HorizontalAlignment="Left" Canvas.Left="225" Canvas.Top="364"  VerticalAlignment="Top" Background="#19000000" Margin="0,0,0,0"></Canvas>
 
         <Canvas Name="Chunck01" HorizontalAlignment="Left" Height="768" Width="1366" VerticalAlignment="Top" Margin="0,0,0,0">
             <Canvas Name="xScene" Height="768" Width="1366" Canvas.Top="0"/>
-            
+
         </Canvas>
 
 
@@ -43,15 +43,15 @@
 
         </Canvas>
 
-        <Canvas Name="Menu" Width="402" Height="399" Canvas.Left="850" Canvas.Top="300" CanDrag="True" AllowDrop="True">
-            <Canvas Name="MenuAberto" Width="402" Height="399" PointerExited="MenuClose" Visibility="Collapsed">
-                <Image Source="/Assets/Images/UI Elements/Menu/aberto.png"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/mochila.png" PointerPressed="ShowBag" Canvas.Left="101" Canvas.Top="51" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/equipamento.png" PointerPressed="ShowEquip" Canvas.Left="235" Canvas.Top="45"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/skills.png" PointerPressed="ShowSkillTree" Canvas.Left="318" Canvas.Top="170"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/status.png" PointerPressed="ShowAtributes" Canvas.Left="29" Canvas.Top="167" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/craft.png" PointerPressed="ShowCrafting" Canvas.Left="85" Canvas.Top="294" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Image Source="/Assets/Images/UI Elements/Menu/missoes.png" PointerPressed="ShowQuest" Canvas.Left="240" Canvas.Top="295" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Canvas Name="Menu" Width="202" Height="199" Canvas.Left="1020" Canvas.Top="450" CanDrag="True" AllowDrop="True">
+            <Canvas Name="MenuAberto" Width="202" Height="199" PointerExited="MenuClose" Visibility="Visible">
+                <Image Source="/Assets/Images/UI Elements/Menu/aberto.png" HorizontalAlignment="Stretch" Height="202" VerticalAlignment="Stretch" Width="199"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/mochila.png" PointerPressed="ShowBag" Canvas.Left="51" Canvas.Top="23" Height="35" Width="35"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/equipamento.png" PointerPressed="ShowEquip" Canvas.Left="112" Canvas.Top="24" Height="35" Width="43"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/skills.png" PointerPressed="ShowSkillTree" Canvas.Left="150" Canvas.Top="79" Height="45" Width="36" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/status.png" PointerPressed="ShowAtributes" Canvas.Left="13" Canvas.Top="81" Height="35" Width="38" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/craft.png" PointerPressed="ShowCrafting" Canvas.Left="40" Canvas.Top="144" Height="32" Width="54" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Source="/Assets/Images/UI Elements/Menu/missoes.png" PointerPressed="ShowQuest" Canvas.Left="111" Canvas.Top="139" Height="38" Width="50"/>
             </Canvas>
             <Canvas Name="MenuFechado" Width="85" Height="85">
                 <Image Name="MenuFBolaAtras" Visibility="Collapsed"
@@ -59,8 +59,8 @@
                        Source="/Assets/Images/UI Elements/Menu/semiaberto.png"/>
                 <Image Name="MenuFBola" PointerEntered="MenuSemiOpenEnter" PointerExited="MenuSemiOpenExit"
                        PointerPressed="MenuOpen"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="123" Canvas.Top="121" 
-                       Source="/Assets/Images/UI Elements/Menu/fechado.png"/>
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="61" Canvas.Top="61" 
+                       Source="/Assets/Images/UI Elements/Menu/fechado.png" Height="78" Width="78"/>
             </Canvas>
         </Canvas>
 
@@ -343,7 +343,7 @@
                 <Image Width="120" Height="300" Source="/Assets/Images/UI Elements/FundoInventario.png" Stretch="Fill"></Image>
                 <ScrollViewer Width="100" Canvas.Left="10" Canvas.Top="15" Height="265">
                     <StackPanel Name="MissionList" Width="100" Height="265" Spacing="10">
-                        
+
                     </StackPanel>
                 </ScrollViewer>
             </Canvas>
@@ -432,6 +432,6 @@
         </Canvas>
 
     </Canvas>
-    
+
 </Page>
 
