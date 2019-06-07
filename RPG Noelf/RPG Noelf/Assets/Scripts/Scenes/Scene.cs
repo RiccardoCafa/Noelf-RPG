@@ -1,6 +1,9 @@
 ﻿using RPG_Noelf.Assets.Scripts.Ents.Mobs;
+using RPG_Noelf.Assets.Scripts.Ents.NPCs;
+using RPG_Noelf.Assets.Scripts.Enviroment;
 using RPG_Noelf.Assets.Scripts.General;
 using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -37,6 +40,10 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             file.Close();
             chunck.Width = (sizeX - 1) * Tile.Size[0];
             chunck.Height = sizeY * Tile.Size[1] + Tile.VirtualSize[1] - Tile.Size[1];
+            Solid leftWall = new Solid(-20, 0, 20, chunck.Height);
+            Solid rightWall = new Solid(chunck.Width, 0, 20, chunck.Height);
+            floor.Add(leftWall);
+            floor.Add(rightWall);
             for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
                 List<int> platX = new List<int>();
@@ -67,36 +74,51 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                 platX.Clear();
                             }
                             break;
-                        default: break;
-                    }
-                    x++;
-                }
-                x = 0;
-                foreach (char block in Blueprint[y])
-                {
-                    switch (block)
-                    {
-                        case '-': break;
                         case 'p':
-                            GameManager.player = new Player("0000000");
-                            GameManager.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
-                            xScene.Children.Add(GameManager.player.box);
+                            CreatePlayer(xScene, x, y);
                             break;
                         case 'b':
+                            //Game.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], new Bau(Category.Normal, 10));
                             Solid chest = new Solid(x * Tile.Size[0], y * Tile.Size[1], Tile.Size[0], Tile.Size[1]);
                             //chest.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                            chest.Children.Add(new Image() { Width = Tile.Size[0], Height = Tile.Size[0], Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/tiles/chest.png")) });
+                            chest.Children.Add(new Image()
+                            {
+                                Width = Tile.Size[0],
+                                Height = Tile.Size[0],
+                                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/tiles/chest.png"))
+                            });
                             xScene.Children.Add(chest);
+                            floor.Add(chest);
                             break;
                         case 'm':
-                            GameManager.mob = new Mob(level: 2);
-                            GameManager.mob.Spawn(250, 20);
+                            CreateMob(xScene, x, y);
+                            break;
+                        case 'n':
+                            CharacterNPC npc = new CharacterNPC(new NPC(), x * Tile.Size[0], y * Tile.Size[1], 60 * 0.6, 120 * 0.6, 0);
+                            floor.Add(npc.box);
                             break;
                         default: break;
                     }
                     x++;
                 }
             }
+            //foreach (Mob mob in GameManager.mobs) mob.box.Run();
+        }
+
+        private void CreatePlayer(Canvas xScene, int x, int y)
+        {
+            GameManager.player = new Player("0000000");
+            GameManager.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
+            xScene.Children.Add(GameManager.player.box);
+        }
+
+        private void CreateMob(Canvas xScene, int x, int y)
+        {
+            Mob mob = new Mob(level: 2);
+            GameManager.mobs.Add(mob);
+            mob.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
+            xScene.Children.Add(mob.box);
+            floor.Add(mob.box);
         }
 
         private void SetImage(string source, double width, double height, double x, double y)

@@ -144,8 +144,8 @@ namespace RPG_Noelf
                 GameManager.player._Questmanager.actualQuest = GameManager.player._Questmanager.allQuests[1];
                 
 
-                CreateChest(100, 600, new Bau(Category.Legendary, 15));
-                CreateChest(350, 600, new Bau(Category.Normal, 10));
+                //CreateChest(100, 600, new Bau(Category.Legendary, 15));
+                //CreateChest(350, 600, new Bau(Category.Normal, 10));
             });
 
         }
@@ -188,21 +188,21 @@ namespace RPG_Noelf
 
         #region Interface Update and Events
         #region Interface Elements Creation
-        public void CreateMob()
-        {
-            GameManager.mob = new Mob(level: 2);
-            GameManager.mob.Spawn(250, 20);
-            MobSlot smb;
-            smb = new MobSlot(2, 10, 0.99);
-            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
-            smb = new MobSlot(23, 10, 0.3);
-            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
-            smb = new MobSlot(24, 10, 0.3);
-            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
-            smb = new MobSlot(25, 10, 0.1);
-            if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
-            TheScene.Children.Add(GameManager.mob.box);
-        }
+        //public void CreateMob()
+        //{
+        //    GameManager.mob = new Mob(level: 2);
+        //    GameManager.mob.Spawn(250, 20);
+        //    MobSlot smb;
+        //    smb = new MobSlot(2, 10, 0.99);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    smb = new MobSlot(23, 10, 0.3);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    smb = new MobSlot(24, 10, 0.3);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    smb = new MobSlot(25, 10, 0.1);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    TheScene.Children.Add(GameManager.mob.box);
+        //}
         public void CreatePlayer()
         {
             if (PlayerCreated != null)
