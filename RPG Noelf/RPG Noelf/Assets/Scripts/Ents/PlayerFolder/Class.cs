@@ -132,6 +132,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 manaCost = 45,
                 block = 33,
                 Amplificator = 1.02,
+                description = "Quebra a armadura do seu inimigo",
                 cooldown = 20,
                 tipo = SkillType.habilite,
                 Buff = 1.08,
@@ -143,6 +144,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Damage = 0,
                 manaCost = 75,
                 block = 45,
+                description = "Ignora um ataque",
                 Amplificator = 0.4,
                 cooldown = 15,
                 tipo = SkillType.habilite,
@@ -154,6 +156,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Damage = 0,
                 manaCost = 200,
                 block = 66,
+                description = "Ganha Imunidade por um breve periodo de tempo",
                 Amplificator = 1.01,
                 cooldown = 35,
                 Timer = 3,
@@ -166,10 +169,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Damage = 0,
                 manaCost = 60,
+                description = "Da dois ataques seguidos",
                 block = 56,
                 Amplificator = 0.4,
                 cooldown = 15,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 Buffer = BuffDebuffTypes.Double,
                 tipoatributo = Element.Common
             });
@@ -180,7 +184,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 90,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -191,7 +195,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 67,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -215,7 +219,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.01,
                 cooldown = 0,
                 Timer = 6,
-                tipo = SkillType.passive,
+                tipo = SkillType.ultimate,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
@@ -435,7 +439,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 block = 2,
                 Amplificator = 0.01,
                 cooldown = 0,
-                tipo = SkillType.passive,
+                tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Fire
             });

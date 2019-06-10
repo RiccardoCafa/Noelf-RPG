@@ -55,6 +55,7 @@ namespace RPG_Noelf
         public static Canvas TheScene;
         public static Canvas _InventarioCanvas;
         public static Grid _InventarioGrid;
+        public static Grid SkillGrid;
         public static Grid ChestGrid;
         public LevelScene scene1;
 
@@ -113,6 +114,7 @@ namespace RPG_Noelf
                 //CreateMob();
                 CreateCraftingWindow();
                 CreateConversationLayout();
+                CreateSkill(WindowTreeSkill);
 
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
@@ -266,21 +268,43 @@ namespace RPG_Noelf
             //loot.UpdateBlocks(TheScene);
             //Trigger dropTrigger = new Trigger(loot);
         }
-        public void CreateSkill(SkillGenerics skill)
+        
+        public void CreateSkill(Canvas SkillCanvas)
         {
-            WindowTreeSkill.Width = 250;
-            WindowTreeSkill.Height = 150;
-            WindowTreeSkill.HorizontalAlignment = HorizontalAlignment.Stretch;
-            WindowTreeSkill.VerticalAlignment = VerticalAlignment.Stretch;
+            SkillCanvas.Width = 250;
+            SkillCanvas.Height = 150;
+            SkillCanvas.HorizontalAlignment = HorizontalAlignment.Stretch;
+            SkillCanvas.VerticalAlignment = VerticalAlignment.Stretch;
             Canvas.SetTop(WindowTreeSkill, 40);
             Canvas.SetLeft(WindowTreeSkill, 120);
+            TextBlock text = new TextBlock()
+            {
+                Width = 250,
+                Height = 20,
+                Text = "Árvore de Habilidades",
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            Canvas.SetTop(text, -20);
+            SkillCanvas.Children.Add(text);
             Image bg = new Image()
             {
-                Width = 40,
-                Height = 30
+                Width = 250,
+                Height = 150,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/UIAtivo 23-0.png")),
+                Stretch = Stretch.Fill
             };
-            WindowTreeSkill.Children.Add(bg);
-
+            SkillCanvas.Children.Add(bg);
+            SkillGrid = new Grid()
+            {
+                Width = 250,
+                Height = 150
+            };
+            SkillCanvas.Children.Add(SkillGrid);
+            SkillGrid.SetValue(Grid.PaddingProperty, new Thickness(5, 5, 5, 5));
+            DefinitionsGrid(SkillGrid, 5, 3, 50, 50);
+            FillGridSkillImage(SkillGrid, GameManager.player,5, 3, 40, 40);
         }
         public void CreateInventory(Canvas BagCanvas)
         {
@@ -450,6 +474,25 @@ namespace RPG_Noelf
                 }
             }
         }
+        public void FillGridSkillImage(Grid grid, Player player, int columnSize, int rowSize, int widthImage, int heightImage)
+        {
+            List<SkillGenerics> skills = player._SkillManager.SkillList;
+            int column = -1, row = 0;
+            for (int i = 0; i < columnSize * rowSize; i++)
+            {
+                SkillImage item;
+                column++;
+                item = new SkillImage(widthImage, heightImage, skills[i]); //skills != null ?  : new SkillImage(widthImage, heightImage);
+                grid.Children.Add(item);
+                Grid.SetColumn(item, column);
+                Grid.SetRow(item, row);
+                if (column == columnSize - 1)
+                {
+                    row++;
+                    column = -1;
+                }
+            }
+        }
         #endregion
         #region Player Updates
         public void UpdatePlayerInfo()
@@ -473,7 +516,7 @@ namespace RPG_Noelf
         }
         public void UpdateSkillTree()
         {
-            int cont = 0;
+            /*int cont = 0;
             foreach (UIElement element in SkillsTree.Children)
             {
                 Image img = element as Image;
@@ -481,7 +524,7 @@ namespace RPG_Noelf
                     img.Source = new BitmapImage(new Uri(this.BaseUri, GameManager.player._SkillManager.SkillList.ElementAt(cont).pathImage));
                 else break;
                 cont++;
-            }
+            }*/
         }
         public void UpdateSkillBar()
         {
@@ -506,10 +549,13 @@ namespace RPG_Noelf
         {
             UpdatePlayerInfo();
         }
-        private void UpdateSkillWindowText(SkillGenerics skillInfo)
+        public void UpdateSkillWindowText(object sender, PointerRoutedEventArgs args)
         {
             try
             {
+                WindowSkill.Visibility = Visibility.Visible;
+                SkillImage skillImage = (sender as SkillImage);
+                SkillGenerics skillInfo = skillImage.skill;
                 W_SkillImage.Source = new BitmapImage(new Uri(this.BaseUri, skillInfo.pathImage));
                 W_SkillName.Text = skillInfo.name;
                 W_SkillType.Text = skillInfo.GetTypeString();
@@ -529,6 +575,10 @@ namespace RPG_Noelf
                 return;
             }
 
+        }
+        public void CloseSkillWindowText(object sender, PointerRoutedEventArgs args)
+        {
+            WindowSkill.Visibility = Visibility.Collapsed;
         }
         private void UpdateEquip()
         {
@@ -584,7 +634,7 @@ namespace RPG_Noelf
         }
         private void SetEventForSkillTree()
         {
-            foreach (UIElement element in SkillsTree.Children)
+            /*foreach (UIElement element in SkillsTree.Children)
             {
                 if (element is Image)
                 {
@@ -592,7 +642,7 @@ namespace RPG_Noelf
                     element.PointerExited += CloseSkillWindow;
                     element.PointerPressed += SkillTreePointerEvent;
                 }
-            }
+            }*/
         }
         private void SetEventForEquip()
         {
@@ -695,7 +745,7 @@ namespace RPG_Noelf
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
                     int position = _InventarioGrid.ColumnDefinitions.Count * rowPosition + columnPosition;
                     GameManager.player._SkillManager.SkillBar[position - 1] = null;
-                    UpdateSkillWindowText(null);
+                    //UpdateSkillWindowText(null);
                     UpdateSkillBar();
                 }
             }
@@ -716,7 +766,7 @@ namespace RPG_Noelf
                     skillClicked = GameManager.player._SkillManager.SkillList[position];
                     if (GameManager.player._SkillManager.UpSkill(skillClicked))
                     {
-                        UpdateSkillWindowText(skillClicked);
+                        //UpdateSkillWindowText(skillClicked);
                         UpdatePlayerInfo();
                         UpdateSkillBar();
                     }
@@ -747,10 +797,10 @@ namespace RPG_Noelf
 
             Point mousePosition = e.GetCurrentPoint(Tela).Position;
 
-            Image skillEnter = null;
+            SkillImage skillEnter = null;
             try
             {
-                skillEnter = sender as Image;
+                skillEnter = sender as SkillImage;
             }
             catch (Exception ex)
             {
@@ -762,20 +812,20 @@ namespace RPG_Noelf
             int position = (int)skillEnter.GetValue(Grid.ColumnProperty);
             SkillGenerics skillInfo;
 
-            if (position == 0)
+            /*if (position == 0)
             {
                 skillInfo = GameManager.player._SkillManager.Passive;
             }
             else
             {
                 skillInfo = GameManager.player._SkillManager.SkillBar[position - 1];
-            }
+            }*/
 
-            if (skillInfo == null) return;
+            //if (skillInfo == null) return;
 
             RealocateWindow(WindowSkill, mousePosition);
 
-            UpdateSkillWindowText(skillInfo);
+            //UpdateSkillWindowText(skillInfo);
         }
         private void ShowSkillTreeWindow(object sender, PointerRoutedEventArgs e)
         {

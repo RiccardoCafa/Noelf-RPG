@@ -282,37 +282,7 @@
         </Canvas>
 
         <Canvas Name="WindowTreeSkill" HorizontalAlignment="Stretch" Height="150" Canvas.Left="120" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
-            <TextBlock Text="Árvore de Habilidades" Width="250" Height ="20" Canvas.Top="-20" TextAlignment="Center" ></TextBlock>
-            <Image Width="250" Height="150" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 23-0.png"/>
-            <Grid Name="SkillsTree" ColumnSpacing="0" RowSpacing="0" Padding="0,0,0,0" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg" ></Image>
-                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Image Width="40" Height="40" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" Source="/Assets/Images/Chao.jpg"></Image>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-            </Grid>
+            
         </Canvas>
 
         <Canvas Name="BagWindow">
