@@ -8,7 +8,7 @@
 -----b-
 ----GGGGGGGGGGG-
 ------ggggggg-
---------gggg-----GGG----n-
+--------gggg-----GGG----n----------------------------------b-
 ---------g-g----Ggg---------------------------------GGGGGGGGGGGG---GGGGGGGG-
 ---------g-----Gg-----GGGGG--------------GGGGGGGGGGGgggggggggggg----gggggggGGGG-
 ---GGGG---b---Gg-----GgggggG-----GGGGGGGGgggggggggggggg-----ggg-------gggggggggGGG-

@@ -53,10 +53,10 @@
                 <Image Source="/Assets/Images/UI Elements/Menu/craft.png" PointerPressed="ShowCrafting" Canvas.Left="40" Canvas.Top="144" Height="32" Width="54" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Image Source="/Assets/Images/UI Elements/Menu/missoes.png" PointerPressed="ShowQuest" Canvas.Left="111" Canvas.Top="139" Height="38" Width="50"/>
             </Canvas>
-            <Canvas Name="MenuFechado" Width="85" Height="85">
+            <Canvas Name="MenuFechado" Width="20" Height="20">
                 <Image Name="MenuFBolaAtras" Visibility="Collapsed"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="104" Canvas.Top="102" 
-                       Source="/Assets/Images/UI Elements/Menu/semiaberto.png"/>
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="55" Canvas.Top="54" 
+                       Source="/Assets/Images/UI Elements/Menu/semiaberto.png" Height="90" Width="90"/>
                 <Image Name="MenuFBola" PointerEntered="MenuSemiOpenEnter" PointerExited="MenuSemiOpenExit"
                        PointerPressed="MenuOpen"
                        HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="61" Canvas.Top="61" 

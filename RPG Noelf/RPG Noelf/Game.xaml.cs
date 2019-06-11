@@ -22,7 +22,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Windows.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -95,7 +94,7 @@ namespace RPG_Noelf
                 PlayerCreated = new Player(parames.idPlayer);
             }
         }
-
+        public Canvas bagWindow;
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -103,14 +102,15 @@ namespace RPG_Noelf
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                bagWindow = BagWindow;
                 //mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 scene1 = new LevelScene(xScene);//criaçao do cenario
 
-                //CreatePlayer();
-                GameManager.InitializeGame();
-                CreateInventory(BagWindow);
-                CreateChestWindow(350, 250);
+                ////CreatePlayer();
+                //GameManager.InitializeGame();
+                //CreateInventory(BagWindow);
+                //CreateChestWindow(350, 250);
                 //CreateMob();
                 CreateCraftingWindow();
                 CreateConversationLayout();
@@ -231,24 +231,25 @@ namespace RPG_Noelf
             CraftPanel.Children.Add(IronIngot);
             CraftPanel.Children.Add(IronChestplate);
         }
-        public void CreateChest(double x, double y, Bau bau) 
+        public Solid CreateChest(double x, double y, Bau bau, double w, double h) 
         {
             ChestBody chest = new ChestBody(x, y, bau)
             {
-                Width = 85,
-                Height = 85
+                Width = w,
+                Height = h
             };
             Chunck01.Children.Add(chest);
             Image chestImage = new Image()
             {
                 Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Interactable/chest-rpg-normal.png")),
-                Width = 85,
-                Height = 85
+                Width = w,
+                Height = h
             };
             chest.Children.Add(chestImage);
             chest.ChestOpen += ChestOpen;
             chest.PointerPressed += ShowChest;
             bau.itens.BagUpdated += UpdateChestEvent;
+            return chest;
         }
         public void CreateDrop(double x, double y, Slot dropSlot)
         {
@@ -510,7 +511,7 @@ namespace RPG_Noelf
                                 "Atack Speed: " + GameManager.player.AtkSpd + "\n" +
                                 "Armor: " + GameManager.player.Armor + "\n\n" +
                                 "Level: " + GameManager.player.level.actuallevel + "\n" +
-                                "Experience: " + GameManager.player.Xp + "/" + GameManager.player.XpLim + "\n" +
+                                "Experience: " + GameManager.player.level.actualEXP + "/" + GameManager.player.level.EXPlim + "\n" +
                                 "Pontos de skill disponivel: " + GameManager.player._SkillManager.SkillPoints + "\n" +
                                 "Gold: " + GameManager.player._Inventory.Gold;
         }

@@ -13,13 +13,13 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
         public Bau chest { get; set; }
     }
 
-    class ChestBody : Canvas
+    class ChestBody : Solid
     {
         public delegate void ChestHandler(object sender, ChestEventArgs chestEventArgs);
         public event ChestHandler ChestOpen;
         Bau Chest;
 
-        public ChestBody(double x, double y, Bau Chest)
+        public ChestBody(double x, double y, Bau Chest) : base(x, y, 10, 10)
         {
             this.Chest = Chest;
             SetTop(this, y);
