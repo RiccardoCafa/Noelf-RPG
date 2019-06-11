@@ -73,6 +73,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public void BeHit(double damage)//tratamento do dano levado
         {
             Hp -= damage / (1 + Con * 0.02 + Armor);
+            OnAttacked();
         }
 
         public async void Attack()
@@ -115,7 +116,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 if (!(tDynamic == null || tDynamic.MyEnt == null))
                 {
                     tDynamic.MyEnt.BeHit(Hit(0));
-                    tDynamic.MyEnt.OnAttacked();
                 }
             });
         }
