@@ -47,6 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             }
             return true;
 
+
         }
 
         //função pra ganhar XP
