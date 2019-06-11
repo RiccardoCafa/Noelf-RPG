@@ -35,8 +35,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public string Id;
 
 
-        public int Xp { get; private set; }
-        public int XpLim { get; private set; }
+        //public int Xp { get; private set; }
+        //public int XpLim { get; private set; }
 
         public int Mp;
         public int MpMax;
@@ -181,3 +181,4 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         }
     }
 }
+
