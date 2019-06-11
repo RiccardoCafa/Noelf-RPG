@@ -27,13 +27,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         private void Timer(object sender, object e)
         {
-            
+
             foreach (SkillGenerics habilite in skilltime)//para verificar se as skills ja acabaram seus tempos de CD
             {
                 if (habilite.CountTime >= RealTime)
                 {
                     habilite.CountTime = 0;
-                    habilite.Useabilite = true;
+                    habilite.Active = true;
                     skilltime.Remove(habilite);
                 }
                 else
@@ -46,7 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 }
                 else
                 {
-                    if(habilite.CountBuffTime >= RealTime)
+                    if (habilite.CountBuffTime >= RealTime)
                     {
                         habilite.Usetroca = true;
                         habilite.CountBuffTime = 0;

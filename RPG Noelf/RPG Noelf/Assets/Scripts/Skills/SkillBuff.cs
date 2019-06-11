@@ -9,6 +9,13 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
+
+    public enum SkillTypeBuff {
+        normal,
+        buff,
+        debuff
+    }
+
     public enum Element
     {
         Fire,
@@ -27,45 +34,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
         }
 
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            if (Buffer == BuffDebuffTypes.Dex)
-            {
-                player.Dex = (int)oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Dmg)
-            {
-                player.Damage = oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Res)
-            {
-                player.Armor = oldstatus;
-                return true;
-            }
-            if (Buffer == BuffDebuffTypes.Slow)
-            {
-
-                Enemy.Spd = (int)oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Silence)
-            {
-                Enemy.Damage = oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Prison)
-            {
-                Enemy.Spd =(int)oldstatus;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public override bool UseSkill(Ent player, Ent Enemy)
         {
                
@@ -77,7 +45,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return false;
         }
-        
+
     }
     class SkillDash : SkillGenerics
     {
@@ -87,10 +55,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
         }
 
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public override bool UseSkill(Ent player, Ent Enemy)
 
@@ -109,32 +74,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+       
         public override bool UseSkill(Ent player, Ent Enemy)
 
-        {
-            if (player.Mnd > manaCost)
-            {
-                return false;
-            }
-            return false;
-        }
-    }
-    class SkillThrow : SkillGenerics
-    {
-        public SkillThrow(string pathImage, string name)
-        {
-            this.pathImage = pathImage;
-            this.name = name;
-        }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
-        public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
@@ -150,15 +92,17 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
         {
-            return false;
+            ent.Armor += Buff + Amplificator * Lvl;
         }
+
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
-                Enemy.ArmorBuff = (Buff + Amplificator * Lvl) * -1;
+                Enemy.ArmorBuff -= (Buff + Amplificator * Lvl);
                 return true;
             }
             else
@@ -174,10 +118,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+        
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
@@ -202,10 +143,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+       
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
@@ -231,10 +169,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+    
         public override bool UseSkill(Ent player, Ent Enemy)
         {
 
@@ -258,10 +193,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+       
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
@@ -283,10 +215,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+        
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
@@ -308,10 +237,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+      
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
@@ -335,16 +261,12 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
+       
         public override bool UseSkill(Ent player, Ent Enemy)
         {
             if(player.Mnd > manaCost)
             {
-                Enemy.BeHit(player.Hit(DamageBonus));
-                Enemy.BeHit(player.Hit(DamageBonus));
+                Enemy.BeHit(player.Hit(DamageBonus*2));
                 return true;
             }
             else

@@ -34,10 +34,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.tipobuff = SkillTypeBuff.normal;
         }
 
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
 
         public override bool UseSkill(Ent player, Ent Enemy)
         {
@@ -49,6 +45,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 return true;
             }
             return false;
+        }
+        public abstract HitSolid ThrowSkill(Ent ent)
+        {
+
         }
     }
 }

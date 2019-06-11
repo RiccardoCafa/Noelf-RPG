@@ -32,9 +32,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public double Timer { get; set; }
         public double CountTime;
         public double CountBuffTime;
-        public BuffDebuffTypes Buffer { get; set; }
-        public bool Useabilite = true;
-        public bool Usetroca = false;
+        public bool Active = true;
+        public double xoffset = 0;
+        public double yoffset = 0;
+        public double spd;
+        public double gravity = 0;
 
         public void CalcBonus(Ent calcP)
         {
@@ -65,6 +67,81 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             return "";
         }
         public abstract bool UseSkill(Ent player, Ent Enemy);
-        public abstract bool TurnBasicSkill(Ent player, Ent Enemy);
+        public abstract void RevertSkill(Ent ent);
+
+        public void UpdateThrow(HitSolid hit, Ent ent)
+        {
+            double x, y;
+            double width = 30;
+
+            if (ent.box.lastHorizontalDirection == 1)
+            {
+                x = ent.box.Xf + xoffset;
+                y = ent.box.Yi + 20 - yoffset;
+
+            }
+            else
+            {
+                x = ent.box.Xi - width - xoffset;
+                y = ent.box.Yi + 20 - yoffset;
+            }
+
+            hit.Xi = x;
+            hit.Yi = y;
+            hit.Width = 20;
+            hit.Who = ent.box as DynamicSolid;
+            hit.speed = spd;
+            
+            if (spd != 0)
+            {
+                if (ent.box.lastHorizontalDirection == 1)
+                {
+                    hit.moveRight = true;
+                }
+                else
+                {
+                    hit.moveLeft = true;
+                }
+            }
+
+            hit.g = gravity;
+        }
+
+        public HitSolid Throw (Ent ent)
+        {
+            double x, y;
+            double width = 30;
+            HitSolid myHit;
+            if (ent.box.lastHorizontalDirection == 1)
+            {
+                x = ent.box.Xf + xoffset;
+                y = ent.box.Yi + 20 - yoffset;
+
+            }
+            else
+            {
+                x = ent.box.Xi - width - xoffset;
+                y = ent.box.Yi + 20 - yoffset;
+            }
+
+            myHit = new HitSolid(x, y, width, 20, ent.box as DynamicSolid, spd);
+
+            if (spd != 0)
+            {
+                if (ent.box.lastHorizontalDirection == 1)
+                {
+                    myHit.moveRight = true;
+                }
+                else
+                {
+                    myHit.moveLeft = true;
+                }
+            }
+
+            myHit.g = gravity;
+
+            return myHit;
+        }
+
     }
 }

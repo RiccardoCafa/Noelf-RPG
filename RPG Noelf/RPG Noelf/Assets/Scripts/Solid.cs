@@ -57,7 +57,7 @@ namespace RPG_Noelf.Assets.Scripts
         }
     }
 
-    public class HitSolid : Solid//solido q causa dano
+    public class HitSolid : DynamicSolid//solido q causa dano
     {
         //public delegate void MoveHandler(Solid sender);
         //public event MoveHandler Moved;
@@ -67,10 +67,11 @@ namespace RPG_Noelf.Assets.Scripts
         private int TimesTicked = 0;
         private int TimesToTick = 1;
 
-        public HitSolid(double xi, double yi, double width, double height, byte dmg, DynamicSolid who) : base(xi, yi, width, height)
+        public HitSolid(double xi, double yi, double width, double height,DynamicSolid who,double spd) : base(xi, yi, width, height,spd)
         {
-            Background = new SolidColorBrush(Color.FromArgb(50, dmg, 0, 0));
+            Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
             solids.Remove(this);
+            g = 0;
             Who = who;
         }
 
@@ -130,7 +131,7 @@ namespace RPG_Noelf.Assets.Scripts
         public double horizontalSpeed;
         public sbyte horizontalDirection = 0;
         public sbyte lastHorizontalDirection = 1;
-        public const double g = 1500;
+        public double g = 1500;
         public bool moveRight, moveLeft;
         DateTime time;
 

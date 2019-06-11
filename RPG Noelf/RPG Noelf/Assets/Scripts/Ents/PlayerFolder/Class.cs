@@ -191,7 +191,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillThrow("/Assets/Images/Chao.jpg", "afastar")
+            skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Chao.jpg", "afastar")
             {
                 Damage = 25,
                 manaCost = 50,
@@ -268,7 +268,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillThrow("/Assets/Images/Skills/ArcherSkill4.jpg", "Abrealas")
+            skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Skills/ArcherSkill4.jpg", "Abrealas")
             {
                 Damage = 0,
                 manaCost = 40,
