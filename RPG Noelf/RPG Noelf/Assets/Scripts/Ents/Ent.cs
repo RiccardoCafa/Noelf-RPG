@@ -75,7 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             Hp -= damage / (1 + Con * 0.02 + Armor);
         }
 
-        public async void Attack(byte dmg)
+        public async void Attack()
         {
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
@@ -83,7 +83,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             double hitboxSize = 50;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if(HitPool.PoolSize > 0)
+                if(HitPool.PoolSize > 0)//verificar a pool
                 {
                     HitPool.GetFromPool(out hit);
                     hit.Yi = box.Yi;
@@ -100,11 +100,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 {
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height/2, dmg, box as DynamicSolid);
+                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, 0);
                     }
                     else if (Dsolid.lastHorizontalDirection == -1)
                     {
-                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2, dmg, box as DynamicSolid);
+                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, 0);
                     }
                     Game.TheScene.Children.Add(hit);
                 }
@@ -115,7 +115,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 if (!(tDynamic == null || tDynamic.MyEnt == null))
                 {
                     tDynamic.MyEnt.BeHit(Hit(0));
-                    Debug.WriteLine("Ent hitado hp: " + tDynamic.MyEnt.Hp);
                     tDynamic.MyEnt.OnAttacked();
                 }
             });

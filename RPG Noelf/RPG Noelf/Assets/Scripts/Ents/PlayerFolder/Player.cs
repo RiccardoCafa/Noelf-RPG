@@ -119,7 +119,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 new Thread(() =>
                 {
-                    Attack(2);
+                    Attack();
                 }).Start();
             }
         }
