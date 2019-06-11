@@ -51,7 +51,11 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                 int x = 0;
                 foreach (char block in Blueprint[y])
                 {
-                    if (block == 'p') CreatePlayer(xScene, x, y);
+                    if (block == 'p')
+                    {
+                        CreatePlayer(xScene, x, y);
+                        break;
+                    }
                     x++;
                 }
             }
@@ -88,15 +92,6 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                         case 'b':
                             Solid chest = Game.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
                             a++;
-                            //Solid chest = new Solid(x * Tile.Size[0], y * Tile.Size[1], Tile.Size[0], Tile.Size[1]);
-                            ////chest.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                            //chest.Children.Add(new Image()
-                            //{
-                            //    Width = Tile.Size[0],
-                            //    Height = Tile.Size[0],
-                            //    Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/tiles/chest.png"))
-                            //});
-                            //xScene.Children.Add(chest);
                             floor.Add(chest);
                             break;
                         case 'm':
