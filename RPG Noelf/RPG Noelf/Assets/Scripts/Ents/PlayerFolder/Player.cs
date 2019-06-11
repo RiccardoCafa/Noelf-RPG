@@ -57,8 +57,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {"armsd1", new Image() { Width = 45, Height = 48 } }
         };
 
-        public int Xp { get; private set; }
-        public int XpLim { get; private set; }
+        //public int Xp { get; private set; }
+        //public int XpLim { get; private set; }
 
         public int Mp;
         public int MpMax;
@@ -322,3 +322,4 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
     }
 }
+

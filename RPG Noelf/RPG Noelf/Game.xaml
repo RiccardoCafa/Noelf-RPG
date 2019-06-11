@@ -19,7 +19,7 @@
         <Canvas Name="Hidden">
             <MediaElement Name="meplayer" Source="Assets\musiquinha.mp3" IsLooping="True" AutoPlay="True"></MediaElement>
         </Canvas>
-        
+
         <TextBlock Name="DayText" Text="Day 1 - 8:50" FontSize="20" FontStretch="Normal"  Width="200" Height="50" Canvas.Top="30" Canvas.Left="10"/>
         <Canvas Name="Camera" Visibility="Collapsed"  Width="916" Height="72" HorizontalAlignment="Left" Canvas.Left="225" Canvas.Top="364"  VerticalAlignment="Top" Background="#19000000" Margin="0,0,0,0"></Canvas>
 

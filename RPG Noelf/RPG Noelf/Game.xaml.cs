@@ -22,7 +22,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Windows.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -452,7 +451,7 @@ namespace RPG_Noelf
                                 "Atack Speed: " + GameManager.player.AtkSpd + "\n" +
                                 "Armor: " + GameManager.player.Armor + "\n\n" +
                                 "Level: " + GameManager.player.level.actuallevel + "\n" +
-                                "Experience: " + GameManager.player.Xp + "/" + GameManager.player.XpLim + "\n" +
+                                "Experience: " + GameManager.player.level.actualEXP + "/" + GameManager.player.level.EXPlim + "\n" +
                                 "Pontos de skill disponivel: " + GameManager.player._SkillManager.SkillPoints + "\n" +
                                 "Gold: " + GameManager.player._Inventory.Gold;
         }
