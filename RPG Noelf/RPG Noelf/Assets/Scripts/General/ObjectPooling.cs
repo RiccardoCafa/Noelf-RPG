@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RPG_Noelf.Assets.Scripts.General
 {
-    class ObjectPooling<T>
+    public class ObjectPooling<T>
     {
         private Queue<T> Pool;
         public List<T> Pooled { get; set; }
@@ -31,7 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             if(Pool != null)
             {
                 pooledObject = Pool.Dequeue();
-                Pooled.Add(pooledObject);
+                if(!Pooled.Contains(pooledObject)) Pooled.Add(pooledObject);
             } else
             {
                 pooledObject = default(T);

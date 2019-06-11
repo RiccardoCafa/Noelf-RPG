@@ -93,7 +93,7 @@ namespace RPG_Noelf
                 PlayerCreated = new Player(parames.idPlayer);
             }
         }
-
+        public Canvas bagWindow;
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
@@ -101,16 +101,18 @@ namespace RPG_Noelf
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                bagWindow = BagWindow;
                 //mobStatus = xMobStatus;
                 Window.Current.CoreWindow.KeyDown += Skill_KeyDown;
                 scene1 = new LevelScene(xScene);//criaçao do cenario
 
-                CreatePlayer();
-                GameManager.InitializeGame();
-                CreateInventory(BagWindow);
-                CreateChestWindow(350, 250);
-                CreateMob();
+                ////CreatePlayer();
+                //GameManager.InitializeGame();
+                //CreateInventory(BagWindow);
+                //CreateChestWindow(350, 250);
+                //CreateMob();
                 CreateCraftingWindow();
+                CreateConversationLayout();
 
                 GameManager.player._Inventory.BagUpdated += UpdateBagEvent;
                 GameManager.player.Equipamento.EquipUpdated += UpdateEquipEvent;
@@ -127,7 +129,6 @@ namespace RPG_Noelf
 
                 SetEventForSkillBar();
                 SetEventForSkillTree();
-                SetEventForBagItem();
                 SetEventForShopItem();
                 SetEventForEquip();
 
@@ -141,14 +142,10 @@ namespace RPG_Noelf
                 GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
                 GameManager.player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
                 GameManager.player._Questmanager.actualQuest = GameManager.player._Questmanager.allQuests[1];
+                
 
-                //Slot slotDrop = new Slot(40, 1);
-                //CreateDrop(100, 500, slotDrop);
-                Bau bauchicabaubau = new Bau(Category.Legendary, 15);
-                CreateChest(200, 220, bauchicabaubau);
-
-                Bau bauchicabaubau2 = new Bau(Category.Normal, 10);
-                CreateChest(300, 220, bauchicabaubau2);
+                //CreateChest(100, 600, new Bau(Category.Legendary, 15));
+                //CreateChest(350, 600, new Bau(Category.Normal, 10));
             });
 
         }
@@ -191,12 +188,21 @@ namespace RPG_Noelf
 
         #region Interface Update and Events
         #region Interface Elements Creation
-        public void CreateMob()
-        {
-            GameManager.mob = new Mob(level: 2);
-            GameManager.mob.Spawn(50, -100);
-            TheScene.Children.Add(GameManager.mob.box);
-        }
+        //public void CreateMob()
+        //{
+        //    GameManager.mob = new Mob(level: 2);
+        //    GameManager.mob.Spawn(250, 20);
+        //    MobSlot smb;
+        //    smb = new MobSlot(2, 10, 0.99);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    smb = new MobSlot(23, 10, 0.3);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    smb = new MobSlot(24, 10, 0.3);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    smb = new MobSlot(25, 10, 0.1);
+        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    TheScene.Children.Add(GameManager.mob.box);
+        //}
         public void CreatePlayer()
         {
             if (PlayerCreated != null)
@@ -208,6 +214,7 @@ namespace RPG_Noelf
                 GameManager.player = new Player("0000000");
             }
             GameManager.player.Spawn(300, -100);
+            GameManager.player.Damage = 0.1;
             TheScene.Children.Add(GameManager.player.box);
             //GameManager.player.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
         }
@@ -222,28 +229,25 @@ namespace RPG_Noelf
             CraftPanel.Children.Add(IronIngot);
             CraftPanel.Children.Add(IronChestplate);
         }
-        public void CreateChest(double x, double y, Bau bau) 
+        public Solid CreateChest(double x, double y, Bau bau, double w, double h) 
         {
             ChestBody chest = new ChestBody(x, y, bau)
             {
-                Width = 85,
-                Height = 85
+                Width = w,
+                Height = h
             };
             Chunck01.Children.Add(chest);
             Image chestImage = new Image()
             {
                 Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Interactable/chest-rpg-normal.png")),
-                Width = 85,
-                Height = 85
+                Width = w,
+                Height = h
             };
             chest.Children.Add(chestImage);
             chest.ChestOpen += ChestOpen;
             chest.PointerPressed += ShowChest;
             bau.itens.BagUpdated += UpdateChestEvent;
-        }
-        public Canvas CreateCharacterNPC()
-        {
-            return NPCCanvas;
+            return chest;
         }
         public void CreateDrop(double x, double y, Slot dropSlot)
         {
@@ -262,6 +266,22 @@ namespace RPG_Noelf
             //LootBody loot = new LootBody(drop);
             //loot.UpdateBlocks(TheScene);
             //Trigger dropTrigger = new Trigger(loot);
+        }
+        public void CreateSkill(SkillGenerics skill)
+        {
+            WindowTreeSkill.Width = 250;
+            WindowTreeSkill.Height = 150;
+            WindowTreeSkill.HorizontalAlignment = HorizontalAlignment.Stretch;
+            WindowTreeSkill.VerticalAlignment = VerticalAlignment.Stretch;
+            Canvas.SetTop(WindowTreeSkill, 40);
+            Canvas.SetLeft(WindowTreeSkill, 120);
+            Image bg = new Image()
+            {
+                Width = 40,
+                Height = 30
+            };
+            WindowTreeSkill.Children.Add(bg);
+
         }
         public void CreateInventory(Canvas BagCanvas)
         {
@@ -424,9 +444,6 @@ namespace RPG_Noelf
                 grid.Children.Add(item);
                 Grid.SetColumn(item, column);
                 Grid.SetRow(item, row);
-                if(item.myBagRef != null && item.myBagRef.GetSlot(i) != null)
-                    Debug.WriteLine(Encyclopedia.SearchFor(item.myBagRef.GetSlot(i).ItemID).Name 
-                                    + " col " + column + " row " + row + "\n");
                 if (column == columnSize - 1)
                 {
                     row++;
@@ -618,8 +635,8 @@ namespace RPG_Noelf
                     else
                     {
                         GameManager.player._Inventory.RemoveFromBag(s.ItemID, s.ItemAmount);
-                        CreateDrop(GameManager.player.box.Xi + 10,
-                                    GameManager.player.box.Yi + 60,
+                        CreateDrop(GameManager.player.box.Xi + (GameManager.player.box.Width / 2),
+                                    GameManager.player.box.Yi + (GameManager.player.box.Height/2),
                                     s);
                     }
                 }
@@ -893,19 +910,7 @@ namespace RPG_Noelf
             if (item.description != null) W_ItemDescr.Text = item.description;
             W_ItemValue.Text = item.GoldValue + " gold";
         }
-
-        private void SetEventForBagItem()
-        {
-            /*foreach (UIElement element in _InventarioGrid.Children)
-            {
-                if (element is Image)
-                {
-                    element.PointerEntered += ShowItemWindow;
-                    element.PointerExited += CloseItemWindow;
-                    element.PointerPressed += InventorySlotEvent;
-                }
-            }*/
-        }
+        
 
         public void ShowItemWindow(object sender, PointerRoutedEventArgs e)
         {
@@ -1190,14 +1195,16 @@ namespace RPG_Noelf
         #endregion
         #region Conversation
         private Grid ButtonsGrid;
-        ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
-        public void CallConversationBox(NPC npc)
+        //ObjectPooling<Button> ButtonPool = new ObjectPooling<Button>();
+        private Button QuesterBtn;
+        private Button TraderBtn;
+        private Button ExitBtn;
+        private Dictionary<string, Button> ListButtons = new Dictionary<string, Button>();
+        private NPC lastNPC = null;
+        private int Buttons = 3;
+
+        public void CreateConversationLayout()
         {
-            if (GameManager.interfaceManager.Conversation) return;
-            GameManager.npcTarget = npc;
-            Conversation.Visibility = Visibility.Visible;
-            int Buttons = npc.GetFunctionSize() + 1;
-            List<string> funcString = npc.GetFunctionsString();
             ButtonsGrid = new Grid();
             ButtonsGrid.Width = Conversation.Width;
             ButtonsGrid.Height = Conversation.Height / 2;
@@ -1208,6 +1215,7 @@ namespace RPG_Noelf
                 Width = new GridLength(ButtonsGrid.Width)
             };
             ButtonsGrid.ColumnDefinitions.Add(column);
+
             for (int i = 0; i < Buttons; i++)
             {
                 RowDefinition row = new RowDefinition
@@ -1215,33 +1223,66 @@ namespace RPG_Noelf
                     Height = new GridLength(ButtonsGrid.Height / Buttons)
                 };
                 ButtonsGrid.RowDefinitions.Add(row);
-                Button b;
-                if (ButtonPool.PoolSize > 0)
-                {
-                    ButtonPool.GetFromPool(out b);
-                    b.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    b = new Button
-                    {
-                        Height = (ButtonsGrid.Height / Buttons) - 10,
-                        Width = ButtonsGrid.Height
-                    };
-                    ButtonsGrid.Children.Add(b);
-                }
+            }
 
-                if (i < Buttons - 1)
+            QuesterBtn = new Button()
+            {
+                Height = (ButtonsGrid.Height / Buttons) - 10,
+                Width = ButtonsGrid.Height,
+                Content = "Quest"
+            };
+            ButtonsGrid.Children.Add(QuesterBtn);
+
+            TraderBtn = new Button()
+            {
+                Height = (ButtonsGrid.Height / Buttons) - 10,
+                Width = ButtonsGrid.Height,
+                Content = "Trader"
+            };
+            ButtonsGrid.Children.Add(TraderBtn);
+
+            ExitBtn = new Button()
+            {
+                Height = (ButtonsGrid.Height / Buttons) - 10,
+                Width = ButtonsGrid.Height,
+                Content = "Exit"
+            };
+            ExitBtn.Click += HasToCloseConv;
+            ButtonsGrid.Children.Add(ExitBtn);
+
+            QuesterBtn.SetValue(Grid.RowProperty, 0);
+            TraderBtn.SetValue(Grid.RowProperty, 1);
+            ExitBtn.SetValue(Grid.RowProperty, 2);
+            
+            ListButtons.Add("Quester", QuesterBtn);
+            ListButtons.Add("Trader", TraderBtn);
+            ListButtons.Add("Exit", ExitBtn);
+        }
+
+        public void CallConversationBox(NPC npc)
+        {
+            if (GameManager.interfaceManager.Conversation) return;
+            GameManager.npcTarget = npc;
+            Conversation.Visibility = Visibility.Visible;
+            List<string> funcString = npc.GetFunctionsString();
+            
+            for (int i = 0; i < Buttons; i++)
+            {
+                string f = ListButtons.Keys.ElementAt(i);
+                if (f == "Exit")
                 {
-                    b.Content = funcString[i];
-                    b.Click += npc.GetFunction(funcString[i]).MyFunction;
+                    ListButtons[f].Visibility = Visibility.Visible;
+                    break;
                 }
-                else
+                if (lastNPC != null && lastNPC.GetFunction(f) != null)
                 {
-                    b.Content = "Nothing";
-                    b.Click += HasToCloseConv;
+                    ListButtons[f].Click -= lastNPC.GetFunction(f).MyFunction;
                 }
-                b.SetValue(Grid.RowProperty, i);
+                if(npc.GetFunction(f) != null)
+                {
+                    ListButtons[f].Click += npc.GetFunction(f).MyFunction;
+                    ListButtons[f].Visibility = Visibility.Visible;
+                }
             }
             ConvText.Text = npc.Introduction;
             ConvLevel.Text = npc.MyLevel.actuallevel.ToString();
@@ -1252,22 +1293,18 @@ namespace RPG_Noelf
             }
             ConvFuncs.Text = convfunc;
             ConvName.Text = npc.Name;
+            lastNPC = npc;
         }
         public void HasToCloseConv(object sender, RoutedEventArgs e)
         {
             if (GameManager.interfaceManager.ConvHasToClose != false) return;
             
-            Button[] listaButton = new Button[ButtonPool.Pooled.Count]; 
-            foreach (Button b in listaButton)
+            foreach (Button b in ListButtons.Values)
             {
                 b.Visibility = Visibility.Collapsed;
             }
-            ButtonPool.ReturnToPool();
             GameManager.npcTarget = null;
-        }
-        public void CloseConversationBox(object sender, RoutedEventArgs e)
-        {
-            Conversation.Visibility = Visibility.Collapsed;
+            GameManager.interfaceManager.ConvHasToClose = true;
         }
         public void EndConversation(object sender, RoutedEventArgs e)
         {

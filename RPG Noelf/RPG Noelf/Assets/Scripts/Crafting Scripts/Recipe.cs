@@ -11,7 +11,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
     
       public string ItemNome { get; set; }
       public List<Slot> ListaMaterial;
-      public int NumMaterials { get; set; }  
+      public int NumMaterials { get { return ListaMaterial.Count; } }  
       public Recipe(string nome)
       {
         this.ItemNome = nome;
@@ -22,7 +22,6 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
             if(t != null)
             {
                 ListaMaterial.Add(t);
-                NumMaterials = ListaMaterial.Count;
             }
         } 
         
