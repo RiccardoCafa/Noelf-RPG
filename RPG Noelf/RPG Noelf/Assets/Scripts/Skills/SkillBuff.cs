@@ -9,24 +9,6 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    public enum SkillTypeBuff
-    {
-        debuff,
-        buff,
-        normal
-    }
-    public enum BuffDebuffTypes//todos os tipos possiveis de efeitos
-    {
-        Res,//ok
-        Dex,//ok
-        Dmg,//ok
-        Slow,//ok
-        Broken,//ok
-        Prison,//ok
-        Silence,//ok
-        Critical,//ok
-        Double//ok
-    }
     public enum Element
     {
         Fire,
@@ -35,11 +17,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         Poison
     }
 
-    public class SkillBuff : SkillGenerics //skills com efeitos
+    public class SkillCritical : SkillGenerics //skills com efeitos
     {
         
         public double oldstatus;
-        public SkillBuff(string pathImage, string name)
+        public SkillCritical(string pathImage, string name)
         {
             this.name = name;
             this.pathImage = pathImage;
@@ -89,67 +71,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                
             if (player.Mnd >= manaCost)
             {
-                if (Buffer == BuffDebuffTypes.Dex)
-                {
-                    oldstatus = player.Dex;
-                    player.Dex = (int)(player.Dex * (Buff + Amplificator * Lvl));
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Dmg)
-                {
-                    oldstatus = player.Damage;
-                    player.Damage = player.Damage * (Buff + Amplificator * Lvl);
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Res)
-                {
-                    oldstatus = player.Armor;
-                    player.Armor = player.Armor * (Buff + Amplificator * Lvl);
-                    return true;
-                }
-                if (Buffer == BuffDebuffTypes.Slow)
-                {
-                    oldstatus = Enemy.Spd;
-                    CalcBonus(player);
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Silence)
-                {
-                    oldstatus = Enemy.Damage;
-                    Timer = Timer + Amplificator * Lvl;
-                    CalcBonus(player);
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Damage = 0;
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Prison)
-                {
-                    oldstatus = Enemy.Spd;
-                    Timer = Timer + Amplificator * Lvl;
-                    CalcBonus(player);
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Spd = 0;
-                    return true;
-                }else if(Buffer == BuffDebuffTypes.Double)
-                {
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    return true;
-                }else if(Buffer == BuffDebuffTypes.Critical)
-                {
-                    player.BonusChanceCrit = Buff + Amplificator * Lvl;
-                    return true;
-                }else if (Buffer == BuffDebuffTypes.Broken)
-                {
-                    Enemy.ArmorBuff = (Buff + Amplificator * Lvl) * -1;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                player.BonusChanceCrit = Buff + Amplificator * Lvl;
+                return true;
+                
             }
             return false;
         }
@@ -171,7 +95,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public override bool UseSkill(Ent player, Ent Enemy)
 
         {
-
+            if (player.Mnd > manaCost)
+            {
+                return false;
+            }
             return false;
         }
     }
@@ -189,6 +116,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public override bool UseSkill(Ent player, Ent Enemy)
 
         {
+            if (player.Mnd > manaCost)
+            {
+                return false;
+            }
             return false;
         }
     }
@@ -205,10 +136,224 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public override bool UseSkill(Ent player, Ent Enemy)
         {
+            if (player.Mnd > manaCost)
+            {
+                return false;
+            }
             return false;
         }
     }
+    class SkillBroken : SkillGenerics
+    {
+        public SkillBroken(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                Enemy.ArmorBuff = (Buff + Amplificator * Lvl) * -1;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    class SkillPrison : SkillGenerics
+    {
+        public SkillPrison(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                Timer = Timer + Amplificator * Lvl;
+                CalcBonus(player);
+                Enemy.BeHit(player.Hit(DamageBonus));
+                Enemy.Spd = 0;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+               
+        }
+    }
+    class SkillSilence : SkillGenerics
+    {
+        public SkillSilence(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                Timer = Timer + Amplificator * Lvl;
+                CalcBonus(player);
+                Enemy.BeHit(player.Hit(DamageBonus));
+                Enemy.Damage = 0;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+               
+        }
+       
+    }
+    class SkillDex : SkillGenerics
+    {
+        public SkillDex(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
 
+            if (player.Mnd > manaCost)
+            {
+                player.Dex = (int)(player.Dex * (Buff + Amplificator * Lvl));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
+        
+    }
+    class SkillDmgBuff : SkillGenerics
+    {
+        public SkillDmgBuff(string pathImage,string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                player.Damage = player.Damage * (Buff + Amplificator * Lvl);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
+    }
+    class SkillResbuff : SkillGenerics
+    {
+        public SkillResbuff(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                player.Armor = player.Armor * (Buff + Amplificator * Lvl);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
+    }
+    class SkillSlowbuff : SkillGenerics
+    {
+        public SkillSlowbuff(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                CalcBonus(player);
+                Enemy.BeHit(player.Hit(DamageBonus));
+                Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+    }
+    class SkillDobleHit : SkillGenerics
+    {
+        public SkillDobleHit(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        {
+            return false;
+        }
+        public override bool UseSkill(Ent player, Ent Enemy)
+        {
+            if(player.Mnd > manaCost)
+            {
+                Enemy.BeHit(player.Hit(DamageBonus));
+                Enemy.BeHit(player.Hit(DamageBonus));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+    }
 }
 
 

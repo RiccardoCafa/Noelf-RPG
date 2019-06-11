@@ -52,7 +52,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Mnd = 0;
 
             skillManager.SetWarriorPassive("/Assets/Images/Item2.jpg", "Fúria do guerreiro");
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Endurance")
+            skillManager.SkillList.Add(new SkillResbuff("/Assets/Images/Chao.jpg", "Endurance")
             {
                 Damage = 0,
                 manaCost = 35,
@@ -61,7 +61,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 20,
                 Buff = 1.24,
                 tipo = SkillType.habilite,
-                Buffer = BuffDebuffTypes.Res,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "Esfolar")
@@ -76,7 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "Cabeçada")
+            skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Item2.jpg", "Cabeçada")
             {
                 Damage = 25,
                 manaCost = 15,
@@ -84,11 +83,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.01,
                 cooldown = 5,
                 Timer = 2.9,
-                Buffer = BuffDebuffTypes.Broken,
                 tipo = SkillType.habilite,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Até a morte")
+            skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Chao.jpg", "Até a morte")
             {
                 Damage = 0,
                 manaCost = 200,
@@ -98,7 +96,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 6,
                 Buff = 1.39,
                 tipo = SkillType.ultimate,
-                Buffer = BuffDebuffTypes.Dmg,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "triunfar")
@@ -113,20 +110,19 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "grito de guerra")
+            skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Item2.jpg", "grito de guerra")
             {
                 Damage = 0,
                 manaCost = 50,
                 block = 22,
                 Amplificator = 0.02,
                 cooldown = 12,
-                Buffer = BuffDebuffTypes.Dmg,
                 Buff = 1.15,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "provocar")
+            skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Chao.jpg", "provocar")
             {
                 Damage = 0,
                 manaCost = 45,
@@ -136,10 +132,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 20,
                 tipo = SkillType.habilite,
                 Buff = 1.08,
-                Buffer = BuffDebuffTypes.Broken,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "bloqueio perfeito")
+            skillManager.SkillList.Add(new SkillSilence("/Assets/Images/Item1.jpg", "bloqueio perfeito")
             {
                 Damage = 0,
                 manaCost = 75,
@@ -147,11 +142,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 description = "Ignora um ataque",
                 Amplificator = 0.4,
                 cooldown = 15,
-                tipo = SkillType.habilite,
-                Buffer = BuffDebuffTypes.Silence, 
+                tipo = SkillType.habilite, 
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "Armadura Santa")
+            skillManager.SkillList.Add(new SkillResbuff("/Assets/Images/Item2.jpg", "Armadura Santa")
             {
                 Damage = 0,
                 manaCost = 200,
@@ -162,10 +156,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 3,
                 Buff = 1.89,
                 tipo = SkillType.ultimate,
-                Buffer = BuffDebuffTypes.Res,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "doble hit")
+            skillManager.SkillList.Add(new SkillDobleHit("/Assets/Images/Item1.jpg", "doble hit")
             {
                 Damage = 0,
                 manaCost = 60,
@@ -174,7 +167,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.4,
                 cooldown = 15,
                 tipo = SkillType.habilite,
-                Buffer = BuffDebuffTypes.Double,
                 tipoatributo = Element.Common
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "a marca do duel")//***//
@@ -211,7 +203,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Sede de sangue")/////
+            skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Chao.jpg", "Sede de sangue")/////
             {
                 Damage = 0,
                 manaCost = 200,
@@ -237,42 +229,39 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = 0;
             Mnd = 0;
             skillManager.SetArcherPassive("/Assets/Images/Skills/PassiveArcherSkill.jpg", "Headshot");
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill1.jpg", "Rajadas")
+            skillManager.SkillList.Add(new SkillDex("/Assets/Images/Skills/ArcherSkill1.jpg", "Rajadas")
             {
                 Damage = 0,
                 manaCost = 20,
                 block = 2,
                 Amplificator = 0.02,
                 Buff = 1.23,
-                Buffer = BuffDebuffTypes.Dex,
                 cooldown = 30,
                 Timer = 15,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill2.jpg", "Flecha de fogo")
+            skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Skills/ArcherSkill2.jpg", "Flecha de fogo")
             {
                 Damage = 10,
                 manaCost = 25,
                 block = 6,
                 Amplificator = 0.01,
                 Buff = 1.09,
-                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 7,
                 Timer = 6,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
                 tipoatributo = Element.Fire
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Skills/ArcherSkill3.jpg", "Trap")
+            skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Skills/ArcherSkill3.jpg", "Trap")
             {
                 Damage = 75,
                 manaCost = 45,
                 block = 8,
                 Amplificator = 1.02,
                 Buff = 1.18,
-                Buffer = BuffDebuffTypes.Prison,
                 cooldown = 7,
                 Timer = 2,
                 tipo = SkillType.habilite,
@@ -292,14 +281,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "Flecha de gelo")
+            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item1.jpg", "Flecha de gelo")
             {
                 Damage = 20,
                 manaCost = 30,
                 block = 45,
                 Amplificator = 1.025,
                 Buff = 1.075,
-                Buffer = BuffDebuffTypes.Slow,
                 cooldown = 4,
                 Timer = 1.5,
                 tipo = SkillType.habilite,
@@ -318,14 +306,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "Foco")
+            skillManager.SkillList.Add(new SkillCritical("/Assets/Images/Chao.jpg", "Foco")
             {
                 Damage = 0,
                 manaCost = 30,
                 block = 78,
                 Amplificator = 1.01,
                 Buff = 1.14,
-                Buffer = BuffDebuffTypes.Critical,
                 cooldown = 60,
                 Timer = 30,
                 tipo = SkillType.habilite,
@@ -367,14 +354,13 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.agl,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "Expor fraqueza")
+            skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Item2.jpg", "Expor fraqueza")
             {
                 Damage = 50,
                 manaCost = 65,
                 block = 56,
                 Amplificator = 1.04,
                 Buff = 1.085,
-                Buffer = BuffDebuffTypes.Broken,
                 cooldown = 10,
                 Timer = 5,
                 tipo = SkillType.habilite,
@@ -432,7 +418,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = 0;
             Mnd = 10;
             skillManager.SetMagePassive("/Assets/Images/Item2.jpg", "Manaflow");
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "bola de fogo")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "bola de fogo")
             {
                 Damage = 0,
                 manaCost = 50,
@@ -443,7 +429,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Fire
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "estilhaços")
+            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item1.jpg", "estilhaços")
             {
                 Damage = 0,
                 manaCost = 40,
@@ -454,7 +440,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Ice
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "aprisionar")
+            skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Item2.jpg", "aprisionar")
             {
                 Damage = 0,
                 manaCost = 60,
@@ -487,7 +473,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item2.jpg", "nevasca")
+            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item2.jpg", "nevasca")
             {
                 Damage = 0,
                 manaCost = 80,
@@ -498,7 +484,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Ice
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Chao.jpg", "ilusion")
+            skillManager.SkillList.Add(new SkillSilence("/Assets/Images/Chao.jpg", "ilusion")
             {
                 Damage = 0,
                 manaCost = 180,
@@ -509,7 +495,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "lava")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "lava")
             {
                 Damage = 0,
                 manaCost = 230,
@@ -542,7 +528,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
             });
-            skillManager.SkillList.Add(new SkillBuff("/Assets/Images/Item1.jpg", "usurpar")
+            skillManager.SkillList.Add(new SkillSilence("/Assets/Images/Item1.jpg", "usurpar")
             {
                 Damage = 0,
                 manaCost = 200,
