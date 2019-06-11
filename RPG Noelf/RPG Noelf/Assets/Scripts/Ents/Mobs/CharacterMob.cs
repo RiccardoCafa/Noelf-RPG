@@ -25,7 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
     public class CharacterMob : Character
     {
         public MobState MyState;
-        public List<CharacterPlayer> players;
+        public CharacterPlayer player;
         public Thread UpdateThread;
 
         public double FirstX;
@@ -41,10 +41,10 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
         private double distPlayer;
         private string stats;
 
-        public CharacterMob(Canvas characterCanvas, List<CharacterPlayer> players, Mob mob) : base(characterCanvas)
+        public CharacterMob(Canvas characterCanvas, CharacterPlayer player, Mob mob) : base(characterCanvas)
         {
             Mob = mob;
-            this.players = players;
+            this.player = player;
             UpdateThread = new Thread(Update);
 
             FirstX = xCharacVal;
@@ -59,7 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    CharacterPlayer target = GetNearestPlayer();
+                    CharacterPlayer target = null;// new CharacterPlayer(new Canvas(), new Player("000000"), new Canvas());// = GetNearestPlayer();
                     if (target == null)
                     {
                         MyState = MobState.Alert;
@@ -176,14 +176,14 @@ namespace RPG_Noelf.Assets.Scripts.Mobs
             }
         }
 
-        public CharacterPlayer GetNearestPlayer()
-        {
-            return
-                (from player in players
-                 orderby GetDistance(player.xCharacVal + MainCamera.instance.CameraXOffSet, player.yCharacVal + MainCamera.instance.CameraYOffSet,
-                                    xCharacVal, yCharacVal)
-                select player).ElementAt(0);
+        //public CharacterPlayer GetNearestPlayer()
+        //{
+        //    return
+        //        (from player in players
+        //         orderby GetDistance(player.xCharacVal + MainCamera.instance.CameraXOffSet, player.yCharacVal + MainCamera.instance.CameraYOffSet,
+        //                            xCharacVal, yCharacVal)
+        //        select player).ElementAt(0);
 
-        }
+        //}
     }
 }
