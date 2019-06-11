@@ -123,8 +123,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             {
                 new Bau(Category.Normal, 10),
                 new Bau(Category.Normal, 10),
-                new Bau(Category.Legendary, 15),
-                new Bau(Category.Normal, 10)
+                new Bau(Category.Uncommon, 15),
+                new Bau(Category.Legendary, 10),
+                new Bau(Category.Epic, 10)
             };
         }
 

@@ -28,6 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public int Con;
         public int Mnd;
 
+        public double Mp;
         public double Hp;
         public int HpMax;
         public double AtkSpd;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Ents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,41 +7,35 @@ using System.Threading.Tasks;
 
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
-
-    class Consumable : Item
+    public interface Consumable
     {
-        public float Bonus { get; set; }
-
-        public Consumable(string name) :
-                            base(name)
-        { 
-            IsStackable = true;
-
-        }
-
-
-        public double returnBonus()//retorna o valor do bonus com base na quantidade
-        {
-            //TODO bonus consumable
-            return 0;
-        }
-
-        public bool canUse()//retorna se pode usar ou não
-        {
-            //TODO can use consumable
-            return true;
-        }
-
-        public void afterUsed(int nTimes)//decrementa quando usado um numero n de vezes
-        {
-            //TODO after used consumable
-        }
-
-
+        void Effect(Ent ent);
     }
 
-    
+    class LifePotion : Item, Consumable
+    {
+        public float hp;
+        public LifePotion(string name, float hp) : base(name)
+        {
+            this.hp = hp;
+        }
 
+        public void Effect(Ent ent)
+        {
+            ent.Hp += hp;
+        }
+    }
+    class ManaPotion : Item, Consumable
+    {
+        public float mana;
+        public ManaPotion(string name, float mana) : base(name)
+        {
+            this.mana = mana;
+        }
 
+        public void Effect(Ent ent)
+        {
+            ent.Mp += mana;
+        }
+    }
 }
-    
