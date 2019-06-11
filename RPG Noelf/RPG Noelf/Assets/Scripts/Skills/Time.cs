@@ -45,10 +45,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     //n faz nada
                 }
                 else
-                {
+                { 
                     if (habilite.CountBuffTime >= RealTime)
                     {
-                        habilite.Usetroca = true;
                         habilite.CountBuffTime = 0;
                     }
                     else

@@ -35,20 +35,20 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
 
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (manaCost <= player.Mnd)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
-                Enemy.BeHit(player.Hit(DamageBonus));
-                return true;
+                return DamageBonus;
             }
-            return false;
+            return 0;
         }
-        public abstract HitSolid ThrowSkill(Ent ent)
-        {
 
+        public override void RevertSkill(Ent ent)
+        {
+            
         }
     }
 }

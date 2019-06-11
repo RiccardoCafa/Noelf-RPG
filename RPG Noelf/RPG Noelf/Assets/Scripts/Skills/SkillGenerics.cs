@@ -10,7 +10,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 {//como faz o hit box e onde faz
     public abstract class SkillGenerics //atributos e funcoes genericas de skills 
     {
-      
         public SkillType tipo { get; set; }
         public bool area;
         public AtributBonus atrib { get; set; }
@@ -30,13 +29,22 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public Element tipoatributo { get; set; }
         public double Buff { get; set; }
         public double Timer { get; set; }
+
         public double CountTime;
+
         public double CountBuffTime;
+
         public bool Active = true;
+
         public double xoffset = 0;
+
         public double yoffset = 0;
+
         public double spd;
+
         public double gravity = 0;
+
+        public double oldstatus;
 
         public void CalcBonus(Ent calcP)
         {
@@ -66,7 +74,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return "";
         }
-        public abstract bool UseSkill(Ent player, Ent Enemy);
+        public abstract double UseSkill(Ent player, Ent Enemy);
         public abstract void RevertSkill(Ent ent);
 
         public void UpdateThrow(HitSolid hit, Ent ent)

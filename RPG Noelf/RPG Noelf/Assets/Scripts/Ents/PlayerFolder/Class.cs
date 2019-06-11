@@ -61,7 +61,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 20,
                 Buff = 1.24,
                 tipo = SkillType.habilite,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "Esfolar")
             {
@@ -73,7 +74,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 BonusMultiplier = 1.09,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Item2.jpg", "Cabeçada")
             {
@@ -84,7 +86,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 5,
                 Timer = 2.9,
                 tipo = SkillType.habilite,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Chao.jpg", "Até a morte")
             {
@@ -96,7 +99,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 6,
                 Buff = 1.39,
                 tipo = SkillType.ultimate,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "triunfar")
             {
@@ -108,7 +112,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 20,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Item2.jpg", "grito de guerra")
             {
@@ -120,7 +125,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Buff = 1.15,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Chao.jpg", "provocar")
             {
@@ -132,7 +138,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 20,
                 tipo = SkillType.habilite,
                 Buff = 1.08,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillSilence("/Assets/Images/Item1.jpg", "bloqueio perfeito")
             {
@@ -143,7 +150,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.4,
                 cooldown = 15,
                 tipo = SkillType.habilite, 
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillResbuff("/Assets/Images/Item2.jpg", "Armadura Santa")
             {
@@ -156,7 +164,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 3,
                 Buff = 1.89,
                 tipo = SkillType.ultimate,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new SkillDobleHit("/Assets/Images/Item1.jpg", "doble hit")
             {
@@ -167,7 +176,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Amplificator = 0.4,
                 cooldown = 15,
                 tipo = SkillType.habilite,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "a marca do duel")//***//
             {
@@ -178,7 +188,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "berserk")/**/
             {
@@ -189,7 +200,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Chao.jpg", "afastar")
             {
@@ -201,7 +213,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Buff = 1.18,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Chao.jpg", "Sede de sangue")/////
             {
@@ -213,7 +226,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 6,
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             className = "Guerreiro";
         }
@@ -240,7 +254,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 15,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Skills/ArcherSkill2.jpg", "Flecha de fogo")
             {
@@ -253,7 +268,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 6,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
-                tipoatributo = Element.Fire
+                tipoatributo = Element.Fire,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Skills/ArcherSkill3.jpg", "Trap")
             {
@@ -266,7 +282,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 2,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Skills/ArcherSkill4.jpg", "Abrealas")
             {
@@ -279,7 +296,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 0.25,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item1.jpg", "Flecha de gelo")
             {
@@ -292,7 +310,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 1.5,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
-                tipoatributo = Element.Ice
+                tipoatributo = Element.Ice,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "Flechas de ferro")
             {
@@ -304,7 +323,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 BonusMultiplier = 1.25,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillCritical("/Assets/Images/Chao.jpg", "Foco")
             {
@@ -317,7 +337,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 30,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "TripleShot")
             {
@@ -329,7 +350,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 BonusMultiplier = 1.175,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillDash("/Assets/Images/Item2.jpg", "Dash")
             {
@@ -340,7 +362,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 10,
                 Timer = 0,
                 tipo = SkillType.habilite,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new SkillHidden("/Assets/Images/Item1.jpg", "camuflagem")
             {
@@ -352,7 +375,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 Timer = 3,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.agl,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.buff
             });
             skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Item2.jpg", "Expor fraqueza")
             {
@@ -364,7 +388,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 10,
                 Timer = 5,
                 tipo = SkillType.habilite,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "TIRO aperfeiçoado")
             {
@@ -376,7 +401,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 BonusMultiplier = 0.40,
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "Dragon force")
             {
@@ -388,7 +414,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 BonusMultiplier = 1.30,
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.dex,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "chuva de Mil flechas")
             {
@@ -401,6 +428,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal,
                 area = true
             });
             className = "Arqueiro";
@@ -427,6 +455,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
+                tipobuff = SkillTypeBuff.normal,
                 tipoatributo = Element.Fire
             });
             skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item1.jpg", "estilhaços")
@@ -438,7 +467,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Ice
+                tipoatributo = Element.Ice,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Item2.jpg", "aprisionar")
             {
@@ -449,7 +479,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "bolhas")
             {
@@ -460,7 +491,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "choque")
             {
@@ -471,7 +503,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item2.jpg", "nevasca")
             {
@@ -482,7 +515,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Ice
+                tipoatributo = Element.Ice,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillSilence("/Assets/Images/Chao.jpg", "ilusion")
             {
@@ -493,7 +527,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "lava")
             {
@@ -504,7 +539,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Fire
+                tipoatributo = Element.Fire,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "jorrada")
             {
@@ -515,7 +551,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillHidden("/Assets/Images/Item1.jpg", "darkside")
             {
@@ -526,7 +563,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillSilence("/Assets/Images/Item1.jpg", "usurpar")
             {
@@ -537,7 +575,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "Meteoro")
             {
@@ -548,7 +587,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Fire
+                tipoatributo = Element.Fire,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "Tsunami")
             {
@@ -559,7 +599,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "relógio do apocalipse")
             {
@@ -570,7 +611,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 cooldown = 0,
                 tipo = SkillType.ultimate,
                 atrib = AtributBonus.For,
-                tipoatributo = Element.Common
+                tipoatributo = Element.Common,
+                tipobuff = SkillTypeBuff.normal
             });
             className = "Mago";
         }

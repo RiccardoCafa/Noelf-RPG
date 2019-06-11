@@ -25,9 +25,21 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
             ManageSkill = new Thread(ManageSkillThread);
-            //ManageSkill.Start();
         }
-        
+        public void BeAbleSkill(int index)//tipobuff
+        {
+            if(SkillBar[index]!= null)
+            {
+                if(SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
+                {
+                    myPlayer.AttackSkill(SkillBar[index]);
+                }
+                else
+                {
+                    SkillBar[index].UseSkill(myPlayer, myPlayer);
+                }
+            }
+        }
         public void ManageSkillThread()
         {
             while(true)
@@ -39,14 +51,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public void SetWarriorPassive(string name, string pathImage)
         {
-            Passive = new SkillBuff(name, pathImage)
+            Passive = new SkillDmgBuff(name, pathImage)
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 Buff = 1.04,
-                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 0,
                 Timer = 0,
                 tipo = SkillType.passive,
@@ -59,14 +70,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public void SetArcherPassive(string name, string pathImage)//ainda tem que mexer
         {
-            Passive = new SkillBuff(name, pathImage)
+            Passive = new SkillDex(name, pathImage)
             {
                     Damage = 0,
                     manaCost = 0,
                     block = 1,
                     Amplificator = 0.01,
                     Buff = 1.04,
-                    Buffer = BuffDebuffTypes.Dex,
                     cooldown = 0,
                     Timer = 0,
                     tipo = SkillType.passive,
@@ -79,14 +89,13 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public void SetMagePassive(string name, string pathImage)//aqui tb
         {
-            Passive = new SkillBuff(name, pathImage)
+            Passive = new SkillDmgBuff(name, pathImage)
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 Buff = 1.04,
-                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 0,
                 Timer = 0,
                 tipo = SkillType.passive,
@@ -99,17 +108,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public void AddSkillToBar(SkillGenerics s, int index)
         {
-            if (s.tipobuff == SkillTypeBuff.normal)
-            {
-                SkillBar[index] = s as Skill;
-            }
-            else
-            {
-             
-                 SkillBar[index] = s as SkillBuff;
-                
-            }
-            
+                SkillBar[index] = s;
         }
         
         private bool TestLevelBlock(SkillGenerics skill)

@@ -1419,14 +1419,7 @@ namespace RPG_Noelf
                     indicadorzao = 3;
                 }
             }
-            string s;
-            if (GameManager.player._SkillManager.SkillBar[indicadorzao] != null)
-            {
-                if (GameManager.mobTarget.Mob != null)
-                {
-                    s = (GameManager.player._SkillManager.SkillBar[indicadorzao]).UseSkill(GameManager.player, GameManager.mobTarget.Mob).ToString();
-                }
-            }
+            GameManager.player._SkillManager.BeAbleSkill(indicadorzao);
 
         }
         private void MenuSemiOpenEnter(object sender, PointerRoutedEventArgs e)

@@ -26,24 +26,27 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
     public class SkillCritical : SkillGenerics //skills com efeitos
     {
-        
-        public double oldstatus;
         public SkillCritical(string pathImage, string name)
         {
             this.name = name;
             this.pathImage = pathImage;
         }
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override void RevertSkill(Ent ent)
+        {
+            ent.BonusChanceCrit -= Buff + Amplificator * Lvl;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
                
             if (player.Mnd >= manaCost)
             {
-                player.BonusChanceCrit = Buff + Amplificator * Lvl;
-                return true;
+                player.BonusChanceCrit += Buff + Amplificator * Lvl;
+                return  0;
                 
             }
-            return false;
+            return 0;
         }
 
     }
@@ -55,16 +58,19 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
         }
 
-     
+        public override void RevertSkill(Ent ent)
+        {
+            throw new NotImplementedException();
+        }
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override double UseSkill(Ent player, Ent Enemy)
 
         {
             if (player.Mnd > manaCost)
             {
-                return false;
+                return 0;
             }
-            return false;
+            return 0;
         }
     }
     class SkillHidden : SkillGenerics
@@ -74,15 +80,20 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-       
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
 
         {
             if (player.Mnd > manaCost)
             {
-                return false;
+                return 0;
             }
-            return false;
+            return 0;
         }
     }
     class SkillBroken : SkillGenerics
@@ -95,19 +106,19 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override void RevertSkill(Ent ent)
         {
-            ent.Armor += Buff + Amplificator * Lvl;
+            ent.ArmorBuff += Buff + Amplificator * Lvl;
         }
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
                 Enemy.ArmorBuff -= (Buff + Amplificator * Lvl);
-                return true;
+                return 0;
             }
             else
             {
-                return false;
+                return 0;
             }
         }
     }
@@ -118,20 +129,25 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Spd = (int)oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
+                oldstatus = Enemy.Spd;
                 Timer = Timer + Amplificator * Lvl;
                 CalcBonus(player);
-                Enemy.BeHit(player.Hit(DamageBonus));
                 Enemy.Spd = 0;
-                return true;
+                return DamageBonus;
             }
             else
             {
-                return false;
+                return 0;
             }
                
         }
@@ -143,20 +159,25 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-       
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Damage = oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
+                oldstatus = Enemy.Damage;
                 Timer = Timer + Amplificator * Lvl;
                 CalcBonus(player);
-                Enemy.BeHit(player.Hit(DamageBonus));
                 Enemy.Damage = 0;
-                return true;
+                return DamageBonus;
             }
             else
             {
-                return false;
+                return 0;
             }
                
         }
@@ -169,18 +190,24 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-    
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Dex = (int)oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
 
             if (player.Mnd > manaCost)
             {
-                player.Dex = (int)(player.Dex * (Buff + Amplificator * Lvl));
-                return true;
+                oldstatus = player.Dex;
+                player.Dex += (int)(player.Dex * (Buff + Amplificator * Lvl));
+                return 0;
             }
             else
             {
-                return false;
+                return 0;
             }
                 
         }
@@ -193,17 +220,22 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-       
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.DamageBuff -= ent.Damage * (Buff + Amplificator * Lvl);
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
-                player.Damage = player.Damage * (Buff + Amplificator * Lvl);
-                return true;
+                player.DamageBuff += player.Damage * (Buff + Amplificator * Lvl);
+                return 0;
             }
             else
             {
-                return false;
+                return 0;
             }
                 
         }
@@ -215,17 +247,22 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.ArmorBuff -= (Buff + Amplificator * Lvl);
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
-                player.Armor = player.Armor * (Buff + Amplificator * Lvl);
-                return true;
+                player.ArmorBuff += (Buff + Amplificator * Lvl);
+                return 0;
             }
             else
             {
-                return false;
+                return 0;
             }
                 
         }
@@ -237,19 +274,24 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-      
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Spd = (int)oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if (player.Mnd > manaCost)
             {
+                oldstatus = Enemy.Spd;
                 CalcBonus(player);
-                Enemy.BeHit(player.Hit(DamageBonus));
                 Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
-                return true;
+                return DamageBonus;
             }
             else
             {
-                return false;
+                return 0;
             }
             
         }
@@ -261,17 +303,21 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-       
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
+        {
+            
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
             if(player.Mnd > manaCost)
             {
-                Enemy.BeHit(player.Hit(DamageBonus*2));
-                return true;
+                return DamageBonus * 2;
             }
             else
             {
-                return false;
+                return 0;
             }
             
         }

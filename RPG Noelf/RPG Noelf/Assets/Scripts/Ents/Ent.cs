@@ -47,7 +47,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public double AtkSpeedBuff;
 
         private List<SkillGenerics> status = new List<SkillGenerics>();
-        private Time timestatus;
         private bool ranged = false;
         public ObjectPooling<HitSolid> HitPool { get; } = new ObjectPooling<HitSolid>();
 
@@ -199,7 +198,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     {
                         tDynamic.MyEnt.status.Add(skill);
                     }
-                    tDynamic.MyEnt.BeHit(Hit(0));
+                    tDynamic.MyEnt.BeHit(skill.UseSkill(this,tDynamic.MyEnt));
                     tDynamic.MyEnt.OnAttacked();
                 }
             });
