@@ -71,6 +71,7 @@ namespace RPG_Noelf.Assets.Scripts
         {
             Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
             solids.Remove(this);
+            g = 0;
             Who = who;
             g = 0;
         }

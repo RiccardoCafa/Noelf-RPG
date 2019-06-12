@@ -177,6 +177,7 @@
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillBuff.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillGenerics.cs" />
+    <Compile Include="Assets\Scripts\Skills\SkillImage.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
     <Compile Include="Assets\Scripts\Runes\Rune.cs" />
