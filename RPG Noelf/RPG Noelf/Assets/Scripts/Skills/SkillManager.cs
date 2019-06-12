@@ -39,13 +39,14 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     if (SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
                     {
                         myPlayer.AttackSkill(SkillBar[index]);
-
+                        SkillBar[index].locked = false;
                     }
                     else
                     {
                         SkillBar[index].UseSkill(myPlayer, myPlayer);
                         SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
                         skilltime.Add(SkillBar[index]);
+                        SkillBar[index].locked = false;
                         if (skilltime.Count == 0)
                         {
                             dispatcherTimer.Stop();
@@ -71,6 +72,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 {
                     habilite.CountTime = 0;
                     habilite.Active = true;
+                    habilite.locked = true;
                     skilltime.Remove(habilite);
                 }
             }

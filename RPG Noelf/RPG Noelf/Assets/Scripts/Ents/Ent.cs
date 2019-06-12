@@ -72,14 +72,18 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 if (habilite.CountTime >= RealTime)
                 {
                     habilite.CountTime = 0;
-                    habilite.RevertSkill(this);
                     status.Remove(habilite);
+
+
                 }
                 if (habilite.tipobuff != SkillTypeBuff.normal)
                 {
                     if (habilite.CountBuffTime >= RealTime)
                     {
                         habilite.CountBuffTime = 0;
+                        habilite.RevertSkill(this);
+                        status.Remove(habilite);
+                        habilite.locked = true;
                     }
                 }
             }
