@@ -20,6 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
     public class Platform
     {
         public Canvas chunck;
+        public static int[,] Map;
         public List<Solid> floor = new List<Solid>();
         public List<string> Blueprint { get; private set; } = new List<string>();
         int a = 0;
@@ -46,6 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             Solid rightWall = new Solid(chunck.Width, 0, 20, chunck.Height);
             floor.Add(leftWall);
             floor.Add(rightWall);
+            Map = new int[Blueprint.Count, 1000];
             for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
                 int x = 0;
@@ -54,6 +56,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                     if (block == 'p')
                     {
                         CreatePlayer(xScene, x, y);
+                        Map[y, x] = 1;
                         break;
                     }
                     x++;
@@ -88,6 +91,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                 //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                                 platX.Clear();
                             }
+                            Map[y, x] = 1;
                             break;
                         case 'b':
                             Solid chest = Game.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
