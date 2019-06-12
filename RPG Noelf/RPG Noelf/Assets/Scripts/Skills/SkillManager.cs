@@ -44,10 +44,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
                     skilltime.Add(SkillBar[index]);
                     DispatcherSetup();
-                        if(skilltime.Count == 0)
-                        {
-                            dispatcherTimer.Stop();
-                        }
+                    if(skilltime.Count == 0)
+                    {
+                        dispatcherTimer.Stop();
+                        RealTime = 0;
+                    }
                 }
             }
         }
