@@ -41,7 +41,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
-                return DamageBonus;
+                return DamageBonus+Damage;
             }
             return 0;
         }

@@ -46,6 +46,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public double oldstatus;
 
+        public bool locked = true;
+
         public void CalcBonus(Ent calcP)
         {
             if (atrib == AtributBonus.For)
@@ -113,10 +115,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
 
             hit.g = gravity;
-        }
-        public bool CooldownTime()
-        {
-            return false;
         }
 
         public HitSolid Throw (Ent ent)
