@@ -28,7 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public SkillTypeBuff tipobuff { get; set; }
         public Element tipoatributo { get; set; }
         public double Buff { get; set; }
-        public double Timer { get; set; }
+        public double timer { get; set; }
 
         public double CountTime;
 
@@ -113,6 +113,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
 
             hit.g = gravity;
+        }
+        public bool CooldownTime()
+        {
+            return false;
         }
 
         public HitSolid Throw (Ent ent)

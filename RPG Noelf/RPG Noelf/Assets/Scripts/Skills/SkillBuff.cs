@@ -140,7 +140,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             if (player.Mnd > manaCost)
             {
                 oldstatus = Enemy.Spd;
-                Timer = Timer + Amplificator * Lvl;
+                timer = timer + Amplificator * Lvl;
                 CalcBonus(player);
                 Enemy.Spd = 0;
                 return DamageBonus;
@@ -170,7 +170,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             if (player.Mnd > manaCost)
             {
                 oldstatus = Enemy.Damage;
-                Timer = Timer + Amplificator * Lvl;
+                timer = timer + Amplificator * Lvl;
                 CalcBonus(player);
                 Enemy.Damage = 0;
                 return DamageBonus;

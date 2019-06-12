@@ -94,7 +94,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             bool a = status.Count == 0;
             status.Add(stats);
             stats.CountTime = RealTime + stats.cooldown;
-            stats.CountBuffTime = RealTime + stats.Timer;
+            stats.CountBuffTime = RealTime + stats.timer;
             if(a) DispatcherSetup();
         }
 
@@ -196,7 +196,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 {
                     if(skill.tipobuff == SkillTypeBuff.debuff)
                     {
-                        tDynamic.MyEnt.status.Add(skill);
+                        tDynamic.MyEnt.InsereStatus(skill);
                     }
                     tDynamic.MyEnt.BeHit(skill.UseSkill(this,tDynamic.MyEnt));
                     tDynamic.MyEnt.OnAttacked();
