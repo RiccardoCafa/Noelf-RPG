@@ -72,12 +72,12 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 case '1': Race = new Orc(); break;
                 case '2': Race = new Elf(); break;
             }
-
+            
             switch (Id[1])
             {
-                case '0': _Class = new Warrior(_SkillManager); break;
-                case '1': _Class = new Wizard(_SkillManager); break;
-                case '2': _Class = new Ranger(_SkillManager); break;
+                case '0': _Class = new Warrior(_SkillManager); Ranged = false; break;
+                case '1': _Class = new Wizard(_SkillManager); Ranged = true;  break;
+                case '2': _Class = new Ranger(_SkillManager); Ranged = true; break;
             }
 
             Id = id;

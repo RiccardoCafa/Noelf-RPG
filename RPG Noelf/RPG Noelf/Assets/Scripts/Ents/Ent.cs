@@ -47,7 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public double AtkSpeedBuff;
 
         private List<SkillGenerics> status = new List<SkillGenerics>();
-        private bool ranged = false;
+        protected bool Ranged = false;
         public ObjectPooling<HitSolid> HitPool { get; } = new ObjectPooling<HitSolid>();
 
         protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
@@ -129,12 +129,13 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             HitSolid hit = null;
             DynamicSolid tDynamic = null;
             double hitboxSize = 50;
+            double speeed = Ranged == true ? 4 : 0;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if(HitPool.PoolSize > 0)//verificar a pool
                 {
                     HitPool.GetFromPool(out hit);
-                    hit.speed = 0;
+                    hit.speed = speeed;
                     hit.Yi = box.Yi;
                     hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     if (Dsolid.lastHorizontalDirection == 1)
@@ -149,11 +150,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 {
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, 0);
+                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, speeed);
                     }
                     else if (Dsolid.lastHorizontalDirection == -1)
                     {
-                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, 0);
+                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
                     }
                     Game.TheScene.Children.Add(hit);
                 }
@@ -164,6 +165,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 if (!(tDynamic == null || tDynamic.MyEnt == null))
                 {
                     tDynamic.MyEnt.BeHit(Hit(0));
+                    hit.speed = 0;
                 }
             });
         }

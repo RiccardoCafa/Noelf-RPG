@@ -63,9 +63,11 @@ namespace RPG_Noelf.Assets.Scripts
         //public event MoveHandler Moved;
 
         public DynamicSolid Who;
+        public DynamicSolid Affected;
         public DispatcherTimer timer;
         private int TimesTicked = 0;
         public int TimesToTick = 1;
+        public double bonusDamage = 0;
 
         public HitSolid(double xi, double yi, double width, double height, DynamicSolid who, double spd) : base(xi, yi, width, height, spd)
         {
@@ -95,6 +97,15 @@ namespace RPG_Noelf.Assets.Scripts
                     Visibility = Visibility.Collapsed;
                     Who.MyEnt.HitPool.AddToPool(this);
                     timer.Stop();
+                }
+                if (speed != 0)
+                {
+                    Affected = Interaction();
+                    if(Affected != null)
+                    {
+                        Affected.MyEnt.Hit(Who.MyEnt.Hit(bonusDamage));
+                        speed = 0;
+                    }
                 }
             }
         }
