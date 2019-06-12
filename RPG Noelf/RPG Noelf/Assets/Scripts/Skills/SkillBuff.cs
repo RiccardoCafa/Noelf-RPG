@@ -60,7 +60,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override void RevertSkill(Ent ent)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override double UseSkill(Ent player, Ent Enemy)
@@ -83,7 +83,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override void RevertSkill(Ent ent)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override double UseSkill(Ent player, Ent Enemy)

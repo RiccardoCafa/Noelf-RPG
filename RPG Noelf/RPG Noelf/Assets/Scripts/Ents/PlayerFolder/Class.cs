@@ -77,6 +77,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal
             });
+            skillManager.SkillBar[0] = skillManager.SkillList[2];
             skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Item2.jpg", "Cabeçada")
             {
                 Damage = 25,

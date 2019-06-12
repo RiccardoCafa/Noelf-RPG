@@ -37,11 +37,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (manaCost <= player.Mnd)
+            if (/*manaCost <= player.Mnd*/true)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
-                return DamageBonus;
+                return DamageBonus + Damage;
             }
             return 0;
         }

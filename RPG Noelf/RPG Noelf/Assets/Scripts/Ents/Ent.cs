@@ -196,10 +196,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 {
                     if(skill.tipobuff == SkillTypeBuff.debuff)
                     {
-                        tDynamic.MyEnt.status.Add(skill);
+                        tDynamic.MyEnt.InsereStatus(skill);
                     }
-                    tDynamic.MyEnt.BeHit(skill.UseSkill(this,tDynamic.MyEnt));
-                    tDynamic.MyEnt.OnAttacked();
+                    double dano = skill.UseSkill(this, tDynamic.MyEnt);
+                    Debug.WriteLine("Skill deu: " + dano);
+                    tDynamic.MyEnt.BeHit(dano);
                 }
             });
         }

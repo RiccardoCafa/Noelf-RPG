@@ -550,7 +550,7 @@ namespace RPG_Noelf
         {
             UpdatePlayerInfo();
         }
-        public void UpdateSkillWindowText(object sender, PointerRoutedEventArgs args)
+        public void UpdateSkillWindowText(object sender, PointerRoutedEventArgs e)
         {
             try
             {
@@ -569,8 +569,9 @@ namespace RPG_Noelf
                 {
                     W_SkillLevel.Text = "Lv. " + skillInfo.Lvl.ToString();
                 }
+                RealocateWindow(WindowSkill, e.GetCurrentPoint(Tela).Position);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException ex)
             {
                 WindowSkill.Visibility = Visibility.Collapsed;
                 return;
@@ -1391,7 +1392,7 @@ namespace RPG_Noelf
         }
         private void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
         {
-            int indicadorzao = 0;
+            int indicadorzao = -1;
             if (e.VirtualKey == Windows.System.VirtualKey.Number1)
             {
                 if (GameManager.player._SkillManager.SkillList.Count >= 1)
@@ -1420,7 +1421,7 @@ namespace RPG_Noelf
                     indicadorzao = 3;
                 }
             }
-            GameManager.player._SkillManager.BeAbleSkill(indicadorzao);
+            if(indicadorzao != -1) GameManager.player._SkillManager.BeAbleSkill(indicadorzao);
 
         }
         private void MenuSemiOpenEnter(object sender, PointerRoutedEventArgs e)
