@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using Windows.UI.Xaml;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
@@ -17,7 +18,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public Thread ManageSkill;
         public int SkillPoints { get; set; }
         public uint i = 0;
-
+        private List<SkillGenerics> skilltime = new List<SkillGenerics>();//lista de skills que foram usadas
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private double RealTime = 0;
         public SkillManager(Player myPlayer)
         {
             SkillPoints = 0;
@@ -25,6 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
             ManageSkill = new Thread(ManageSkillThread);
+            //SkillBar[1] = SkillList[2];
         }
         public void BeAbleSkill(int index)//tipobuff
         {
@@ -37,8 +41,36 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 else
                 {
                     SkillBar[index].UseSkill(myPlayer, myPlayer);
+                    SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
+                    skilltime.Add(SkillBar[index]);
+                    DispatcherSetup();
+                    if(skilltime.Count == 0)
+                    {
+                        dispatcherTimer.Stop();
+                        RealTime = 0;
+                    }
                 }
             }
+        }
+        private void DispatcherSetup()
+        {
+            dispatcherTimer.Tick += Timer;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+        private void Timer(object sender, object e)
+        {
+
+            foreach (SkillGenerics habilite in skilltime)//para verificar se as skills ja acabaram seus tempos de CD
+            {
+                if (habilite.CountTime >= RealTime)
+                {
+                    habilite.CountTime = 0;
+                    habilite.Active = true;
+                    skilltime.Remove(habilite);
+                }
+            }
+            RealTime++;
         }
         public void ManageSkillThread()
         {
@@ -59,7 +91,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 Amplificator = 0.01,
                 Buff = 1.04,
                 cooldown = 0,
-                Timer = 0,
+                timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
@@ -78,7 +110,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     Amplificator = 0.01,
                     Buff = 1.04,
                     cooldown = 0,
-                    Timer = 0,
+                    timer = 0,
                     tipo = SkillType.passive,
                     atrib = AtributBonus.dex,
                     tipoatributo = Element.Common
@@ -97,7 +129,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 Amplificator = 0.01,
                 Buff = 1.04,
                 cooldown = 0,
-                Timer = 0,
+                timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common

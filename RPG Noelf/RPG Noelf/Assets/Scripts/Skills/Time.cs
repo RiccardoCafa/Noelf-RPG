@@ -15,7 +15,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public Time(SkillGenerics skill)
         {
             skill.CountTime = RealTime + skill.cooldown;
-            skill.CountBuffTime = RealTime + skill.Timer;
+            skill.CountBuffTime = RealTime + skill.timer;
             skilltime.Add(skill);
             DispatcherSetup();
         }
