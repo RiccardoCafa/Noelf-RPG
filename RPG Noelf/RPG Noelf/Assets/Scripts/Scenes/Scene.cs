@@ -111,7 +111,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 
         private void CreatePlayer(Canvas xScene, int x, int y)
         {
-            GameManager.player = new Player("0000000");
+            GameManager.player = new Player("0200000");
             GameManager.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
             xScene.Children.Add(GameManager.player.box);
 

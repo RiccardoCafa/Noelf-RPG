@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using System.IO;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -98,8 +99,7 @@ namespace RPG_Noelf
         public async void start()
         {
             _str = _spd = _dex = _con = _mnd = 0;
-
-
+            
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 bagWindow = BagWindow;
@@ -209,11 +209,11 @@ namespace RPG_Noelf
         {
             if (PlayerCreated != null)
             {
-                GameManager.player = new Player(PlayerCreated.Id);
+                GameManager.player = new Player("2220000");//PlayerCreated.Id
             }
             else
             {
-                GameManager.player = new Player("0000000");
+                GameManager.player = new Player("2222000");
             }
             GameManager.player.Spawn(300, -100);
             GameManager.player.Damage = 0.1;

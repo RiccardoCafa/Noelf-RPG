@@ -145,27 +145,42 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
                         hit.Xi = box.Xf;
+                        if (speeed != 0)
+                        {
+                            hit.moveRight = true;
+                        }
                     } else if (Dsolid.lastHorizontalDirection == -1)
                     {
                         hit.Xi = box.Xi - hitboxSize;
+                        if (speeed != 0)
+                        {
+                            hit.moveLeft = true;
+                        }
                     }
                     hit.Who = box as DynamicSolid;
+                    if(speeed != 0)
+                    {
+                        hit.alive = true;
+                        hit.task.Start();
+                    }
                 } else
                 {
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, speeed);
+                        hit = new HitSolid(box.Xf + 10, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, speeed);
+                        if (hit.speed != 0) hit.moveRight = true;
                     }
                     else if (Dsolid.lastHorizontalDirection == -1)
                     {
-                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
+                        hit = new HitSolid(box.Xi - hitboxSize - 10, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
+                        if (hit.speed != 0) hit.moveLeft = true;
                     }
                     Game.TheScene.Children.Add(hit);
                 }
                 
                 if (hit == null) return;
 
-                tDynamic = hit.Interaction();
+                Solid s = hit.Interaction();
                 if (!(tDynamic == null || tDynamic.MyEnt == null))
                 {
                     tDynamic.MyEnt.BeHit(Hit(0));
@@ -177,7 +192,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         {
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
-            DynamicSolid tDynamic = null;
+            Solid tDynamic = null;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if (HitPool.PoolSize > 0)

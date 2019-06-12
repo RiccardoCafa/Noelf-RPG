@@ -63,7 +63,7 @@ namespace RPG_Noelf.Assets.Scripts
         //public event MoveHandler Moved;
 
         public DynamicSolid Who;
-        public DynamicSolid Affected;
+        public Solid Affected;
         public DispatcherTimer timer;
         private int TimesTicked = 0;
         public int TimesToTick = 1;
@@ -75,7 +75,6 @@ namespace RPG_Noelf.Assets.Scripts
             solids.Remove(this);
             g = 0;
             Who = who;
-            g = 0;
         }
 
         public void DispatcherTimeSetup()
@@ -92,35 +91,39 @@ namespace RPG_Noelf.Assets.Scripts
             TimesTicked++;
             if (TimesTicked >= TimesToTick)
             {
-                if (Who != null)
-                {
-                    Visibility = Visibility.Collapsed;
-                    Who.MyEnt.HitPool.AddToPool(this);
-                    timer.Stop();
-                }
                 if (speed != 0)
                 {
                     Affected = Interaction();
-                    if(Affected != null)
+                    if(Affected != null && Affected.MyEnt != null)
                     {
                         Affected.MyEnt.Hit(Who.MyEnt.Hit(bonusDamage));
                         speed = 0;
                     }
+                } else if(TimesTicked >= 5f || Affected != null)
+                {
+                    if (Who != null)
+                    {
+                        Visibility = Visibility.Collapsed;
+                        Who.MyEnt.HitPool.AddToPool(this);
+                        timer.Stop();
+                        alive = false;
+                    }
                 }
+                TimesTicked = 0;
             }
         }
 
-        public DynamicSolid Interaction()//o q este solido faz com os outros ao redor
+        public Solid Interaction()//o q este solido faz com os outros ao redor
         {
-            DynamicSolid dynamicFound = null;
-            var dinamics = from dinm in solids where dinm is DynamicSolid select dinm;
+            Solid dynamicFound = null;
+            //var dinamics = from dinm in solids where dinm is DynamicSolid select dinm;
 
-            foreach (DynamicSolid solid in dinamics)
+            foreach (Solid solid in solids)
             {
                 if (solid.Equals(Who)) continue;
                 if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
                 {
-                    dynamicFound = solid as DynamicSolid;
+                    dynamicFound = solid;
                     break;
                 }
             }
@@ -157,7 +160,7 @@ namespace RPG_Noelf.Assets.Scripts
             Window.Current.CoreWindow.KeyDown += Start;
         }
 
-        Task task;
+        public Task task;
         public void Start(CoreWindow sender, KeyEventArgs e)
         {
             if (task == null)
@@ -175,7 +178,7 @@ namespace RPG_Noelf.Assets.Scripts
             while (alive)
             {
                 time = DateTime.Now;
-                if (freeDirections[Direction.down])
+                if (g != 0 && freeDirections[Direction.down])
                 {
                     ApplyGravity(span.TotalSeconds);
                 }//se n ha chao

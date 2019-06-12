@@ -125,7 +125,8 @@ namespace RPG_Noelf
 
         private void SavePlayerData()
         {
-            string path = Path.GetTempPath() + @"/Noelf";
+            string path = Path.GetTempPath() + @"Noelf";
+            
             if(!File.Exists(path))
             {
                 Directory.CreateDirectory(path);
