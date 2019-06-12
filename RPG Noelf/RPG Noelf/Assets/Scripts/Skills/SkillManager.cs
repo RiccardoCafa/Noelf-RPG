@@ -28,28 +28,33 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
             ManageSkill = new Thread(ManageSkillThread);
-            //SkillBar[1] = SkillList[2];
+            DispatcherSetup();
         }
         public void BeAbleSkill(int index)//tipobuff
         {
             if(SkillBar[index]!= null)
             {
-                if(SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
+                if (SkillBar[index].locked == true)
                 {
-                    myPlayer.AttackSkill(SkillBar[index]);
-                }
-                else
-                {
-                    SkillBar[index].UseSkill(myPlayer, myPlayer);
-                    SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
-                    skilltime.Add(SkillBar[index]);
-                    DispatcherSetup();
-                    if(skilltime.Count == 0)
+                    if (SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
                     {
-                        dispatcherTimer.Stop();
-                        RealTime = 0;
+                        myPlayer.AttackSkill(SkillBar[index]);
+                        SkillBar[index].locked = false;
+                    }
+                    else
+                    {
+                        SkillBar[index].UseSkill(myPlayer, myPlayer);
+                        SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
+                        skilltime.Add(SkillBar[index]);
+                        SkillBar[index].locked = false;
+                        if (skilltime.Count == 0)
+                        {
+                            dispatcherTimer.Stop();
+                            RealTime = 0;
+                        }
                     }
                 }
+                  
             }
         }
         private void DispatcherSetup()
@@ -67,6 +72,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 {
                     habilite.CountTime = 0;
                     habilite.Active = true;
+                    habilite.locked = true;
                     skilltime.Remove(habilite);
                 }
             }
