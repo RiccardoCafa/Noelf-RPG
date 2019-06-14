@@ -114,7 +114,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             if (player.Mnd > manaCost)
             {
                 Enemy.ArmorBuff -= (Buff + Amplificator * Lvl);
-                return 0;
+                return DamageBonus + Damage;
             }
             else
             {
@@ -143,7 +143,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 timer = timer + Amplificator * Lvl;
                 CalcBonus(player);
                 Enemy.Spd = 0;
-                return DamageBonus;
+                return DamageBonus + Damage;
             }
             else
             {
@@ -173,7 +173,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 timer = timer + Amplificator * Lvl;
                 CalcBonus(player);
                 Enemy.Damage = 0;
-                return DamageBonus;
+                return DamageBonus + Damage;
             }
             else
             {
@@ -287,7 +287,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 oldstatus = Enemy.Spd;
                 CalcBonus(player);
                 Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
-                return DamageBonus;
+                return DamageBonus + Damage;
             }
             else
             {
