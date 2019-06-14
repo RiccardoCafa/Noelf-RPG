@@ -11,7 +11,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public const int MaxLevel = 100;
         public int actuallevel { get; set; }
         public int actualEXP { get; set; }
-        public string xPBar = "imagem da barra de XP";
+        //public string xPBar = "imagem da barra de XP";
         public double bonusXP { get; set; }
         public bool ableToUp { get; set; }
         public int EXPlim { get; set; }
