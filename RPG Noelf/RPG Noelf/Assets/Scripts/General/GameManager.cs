@@ -12,15 +12,22 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 
 namespace RPG_Noelf.Assets.Scripts.General
 {
     public static class GameManager
     {
+        // Thread
+        public static Task TStart;
+        public static Task TUpdate;
+        public static bool Running = true;
+
         // Player
         public static List<CharacterPlayer> players = new List<CharacterPlayer>();
         public static Player player;
-        //public static CharacterPlayer characterPlayer;
         
         // User Interface
         public static InterfaceManager interfaceManager = new InterfaceManager();
@@ -41,41 +48,40 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static Trader traderTarget;
         public static Quester questerTarget;
         
-       
-
-
         public static void InitializeGame()
         {
-            interfaceManager.Inventario = Game.inventarioWindow;
-            QuestList.load_quests();
-            Encyclopedia.LoadEncyclopedia();
+            TStart.Start();
+        }
 
-            //npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 60 * 0.6, 120 * 0.6, 60, 2);
-            //npcCharacter.trigger.AddTrigger(player.box);
-            
-            //player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
-            //player._Inventory.AddToBag(new Slot(21, 1));S
+        public static async void Start()
+        {
+            // Banco de dados
+            Encyclopedia.LoadEncyclopedia();
             CraftingEncyclopedia.LoadCraftings();
+
+            // Quests
+            QuestList.load_quests();
+            player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+
+            // Crafting
             CraftingStation = new Crafting();
 
-            //npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
-            //npcCharacter.UpdateBlocks(Game.TheScene);
-            //npcCharacter.trigger.AddTrigger(characterPlayer);
-            player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
-            //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
-            //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
-            //MainPage.instance.OpenQuest();
+            // Carrega interface
+            interfaceManager.Inventario = Game.inventarioWindow;
 
-            //player._Inventory.AddToBag(new Slot(3, 1));
-            //player._Inventory.AddToBag(new Slot(21, 1));
-            //player._Inventory.AddToBag(new Slot(22, 1));
-            //player._Inventory.AddToBag(new Slot(24, 1));
-          //  player._Inventory.AddToBag(new Slot(25, 1));
-            //player._Inventory.AddToBag(new Slot(42, 6));
-            //player._Inventory.AddToBag(new Slot(1, 6));
-            //characters.Add(mobTarget);
-            //characters.Add(characterPlayer);
-            //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
+            // Update
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                TUpdate.Start();
+            });
+        }
+
+        public static void Update()
+        {
+            while(Running)
+            {
+
+            }
         }
 
         public static void InitializePlayer()
@@ -85,8 +91,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public static void CreatePlayer()
         {
-            /* Aqui vão ser implementados os métodos que irão criar o player
-              assim como fazer chamada pra main page e criá-lo graficamente */
+           
         }
 
         public static void CreateNPC()

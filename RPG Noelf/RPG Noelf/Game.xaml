@@ -64,7 +64,7 @@
             </Canvas>
         </Canvas>
 
-        <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1010" Canvas.Top="40">
+        <Canvas Name="ShopWindow"  Width="120" Height="120" Canvas.Left="1010" Canvas.Top="40" Visibility="Collapsed">
             <TextBlock Width="120" Height="20" Text="Shop" Canvas.Top="-20" TextAlignment="Center" />
             <Grid Name="ShopGrid"  Padding="0,0,0,0" Height="120" Width="120">
 
