@@ -49,8 +49,9 @@ namespace RPG_Noelf.Assets.Scripts.General
         public static Trader traderTarget;
         public static Quester questerTarget;
         
-        public static void InitializeGame()
+        public static void InitializeGame(Canvas Tela)
         {
+            TStart = new Task(delegate { Start(Tela); } );
             TStart.Start();
         }
 
@@ -71,7 +72,7 @@ namespace RPG_Noelf.Assets.Scripts.General
             CraftingStation = new Crafting();
 
             // Carrega interface
-            interfaceManager.CanvasInventario = Game.inventarioWindow;
+            
 
             // Update
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>

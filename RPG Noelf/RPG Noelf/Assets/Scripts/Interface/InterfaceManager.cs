@@ -39,6 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         // Skill
         public Canvas CanvasSkillWindow { get; set; }
         public Canvas CanvasSkillTree { get; set; }
+        public Canvas CanvasSkillBar { get; set; }
         // Shop
         public Canvas CanvasShop { get; set; }
         public Canvas CanvasOfferShop { get; set; }
@@ -74,6 +75,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public TextBlock TextW_SkillType { get; set; }
         public TextBlock TextW_SkillDescr { get; set; }
         public TextBlock TextW_SkillLevel { get; set; }
+        public TextBlock TextW_SkillCD { get; set; }
         // Chest
         public TextBlock TextChestName { get; set; }
         // Shop
@@ -953,56 +955,836 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             AtributosStack.Children.Add(ButtonHP);
             AtributosStack.Children.Add(ButtonMP);
 
+            Grid grid = new Grid()
+            {
+                Height = 180,
+                Width = 130,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            DefinitionsGrid(grid, 3, 6, new int[] { 30, 70, 30 }, new int[] { 30, 30, 30, 30, 30, 30 });
+
+            Image bg = new Image()
+            {
+                Width = 130,
+                Height = 150,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png")),
+            };
+
+            grid.Children.Add(bg);
+
+            TextBlock strenght = new TextBlock()
+            {
+                Padding = new Thickness(0, 7, 0, 0),
+                Width = 70,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                Text = "STRENGHT",
+                FontSize = 10,
+                TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            grid.Children.Add(strenght);
+            Grid.SetColumn(strenght, 1);
+            Grid.SetRow(strenght, 0);
+
+            TextBlock constitution = new TextBlock()
+            {
+                Padding = new Thickness(0, 7, 0, 0),
+                Width = 70,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                Text = "CONSTITUTION",
+                FontSize = 10,
+                TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+
+            grid.Children.Add(constitution);
+            Grid.SetColumn(constitution, 1);
+            Grid.SetRow(constitution, 2);
+
+            TextBlock speed = new TextBlock()
+            {
+                Padding = new Thickness(0, 7, 0, 0),
+                Width = 70,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                Text = "SPEED",
+                FontSize = 10,
+                TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            grid.Children.Add(speed);
+            Grid.SetColumn(speed, 1);
+            Grid.SetRow(speed, 1);
+
+            TextBlock mind = new TextBlock()
+            {
+                Padding = new Thickness(0, 7, 0, 0),
+                Width = 70,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                Text = "MIND",
+                FontSize = 10,
+                TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            grid.Children.Add(mind);
+            Grid.SetColumn(mind, 1);
+            Grid.SetRow(mind, 4);
+
+            TextBlock dexterity = new TextBlock()
+            {
+                Padding = new Thickness(0, 7, 0, 0),
+                Width = 70,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                Text = "DEXTERITY",
+                FontSize = 10,
+                TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            grid.Children.Add(dexterity);
+            Grid.SetColumn(dexterity, 1);
+            Grid.SetRow(dexterity, 3);
+
+            Button minusStr = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "-"
+            };
+            grid.Children.Add(minusStr);
+            Grid.SetColumn(minusStr, 0);
+            Grid.SetRow(minusStr, 0);
+            minusStr.Click += MSTR;
+
+            Button minusSpd = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "-"
+            };
+            grid.Children.Add(minusSpd);
+            Grid.SetColumn(minusSpd, 0);
+            Grid.SetRow(minusSpd, 1);
+            minusSpd.Click += MSPD;
+
+            Button minusCon = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "-"
+            };
+            grid.Children.Add(minusCon);
+            Grid.SetColumn(minusCon, 0);
+            Grid.SetRow(minusCon, 2);
+            minusCon.Click += MCON;
+
+            Button minusDex = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "-"
+            };
+            grid.Children.Add(minusDex);
+            Grid.SetColumn(minusDex, 0);
+            Grid.SetRow(minusDex, 3);
+            minusDex.Click += MDEX;
+
+            Button minusMnd = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "-"
+            };
+            grid.Children.Add(minusMnd);
+            Grid.SetColumn(minusMnd, 0);
+            Grid.SetRow(minusMnd, 4);
+            minusMnd.Click += MMND;
+
+            Button plusStr = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "+"
+            };
+            grid.Children.Add(plusStr);
+            Grid.SetColumn(plusStr, 2);
+            Grid.SetRow(plusStr, 0);
+            plusStr.Click += PSTR;
+
+            Button plusSpd = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "+"
+            };
+            grid.Children.Add(plusSpd);
+            Grid.SetColumn(plusSpd, 2);
+            Grid.SetRow(plusSpd, 1);
+            plusSpd.Click += PSPD;
+
+            Button plusCon = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "+"
+            };
+            grid.Children.Add(plusCon);
+            Grid.SetColumn(plusCon, 2);
+            Grid.SetRow(plusCon, 2);
+            plusCon.Click += PCON;
+
+            Button plusDex = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "+"
+            };
+            grid.Children.Add(plusDex);
+            Grid.SetColumn(plusDex, 2);
+            Grid.SetRow(plusDex, 3);
+            plusDex.Click += PDEX;
+
+            Button plusMnd = new Button()
+            {
+                Margin = new Thickness(2.5, 1, 0, 0),
+                Width = 25,
+                Height = 25,
+                Padding = new Thickness(0, -9, 0, 0),
+                FontSize = 24,
+                Content = "+"
+            };
+            grid.Children.Add(plusMnd);
+            Grid.SetColumn(plusMnd, 2);
+            Grid.SetRow(plusMnd, 4);
+            plusMnd.Click += PMND;
+
+            Button Apply = new Button()
+            {
+                FontSize = 8,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Height = 25,
+                Width = 90
+            };
+            Apply.Click += ApplyStats;
+            CanvasAtributos.Children.Add(Apply);
         }
-        /*
+
+        public void CreateSkillBar()
+        {
+            CanvasSkillBar = new Canvas()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Height = 50,
+                Width = 300
+            };
+            Tela.Children.Add(CanvasSkillBar);
+            Canvas.SetTop(CanvasSkillBar, 600);
+            Canvas.SetLeft(CanvasSkillBar, 544);
+
+            TextBlock title = new TextBlock()
+            {
+                Text = "Barra de Habilidades",
+                Width = 300,
+                Height = 20,
+                TextAlignment = TextAlignment.Center
+            };
+            CanvasSkillBar.Children.Add(title);
+
+            GridBarraSkill = new Grid()
+            {
+                Height = 50,
+                Width = 300,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            CanvasSkillBar.Children.Add(GridBarraSkill);
+
+            DefinitionsGrid(GridBarraSkill, 5, 1, 60, 50);
+            FillGridSkillImage(GridBarraSkill, GameManager.player, 5, 1, 40, 40);
+        }
+
+        public void CreateSkill()
+        {
+            CanvasSkillTree = new Canvas();
+            CanvasSkillTree.Width = 250;
+            CanvasSkillTree.Height = 150;
+            CanvasSkillTree.HorizontalAlignment = HorizontalAlignment.Stretch;
+            CanvasSkillTree.VerticalAlignment = VerticalAlignment.Stretch;
+            Canvas.SetTop(CanvasSkillTree, 40);
+            Canvas.SetLeft(CanvasSkillTree, 120);
+            TextBlock text = new TextBlock()
+            {
+                Width = 250,
+                Height = 20,
+                Text = "Árvore de Habilidades",
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            Canvas.SetTop(text, -20);
+            CanvasSkillTree.Children.Add(text);
+            Image bg = new Image()
+            {
+                Width = 250,
+                Height = 150,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/UIAtivo 23-0.png")),
+                Stretch = Stretch.Fill
+            };
+            CanvasSkillTree.Children.Add(bg);
+            GridSkill = new Grid()
+            {
+                Width = 250,
+                Height = 150
+            };
+            CanvasSkillTree.Children.Add(GridSkill);
+            GridSkill.SetValue(Grid.PaddingProperty, new Thickness(5, 5, 5, 5));
+            DefinitionsGrid(GridSkill, 5, 3, 50, 50);
+            FillGridSkillImage(GridSkill, GameManager.player, 5, 3, 40, 40);
+        }
+
+        public void CreateInventory()
+        {
+            CanvasInventario = new Canvas();
+            CanvasInventario.Width = 180;
+            CanvasInventario.Height = 150;
+            Canvas.SetLeft(CanvasInventario, 800);
+            Canvas.SetTop(CanvasInventario, 40);
+            TextBlock text = new TextBlock()
+            {
+                Width = 180,
+                Height = 20,
+                Text = "Bag",
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+            Canvas.SetTop(text, -20);
+            CanvasInventario.Children.Add(text);
+            Image bg = new Image()
+            {
+                //Source="/Assets/Images/UI Elements/FundoInventario.png" Width="180" Height="150"
+                Width = 180,
+                Height = 150,
+                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/FundoInventario.png"))
+            };
+            CanvasInventario.Children.Add(bg);
+            GridInventario = new Grid()
+            {
+                Width = 180,
+                Height = 150
+            };
+            GridInventario.SetValue(Grid.PaddingProperty, new Thickness(2.5, 2.5, 2.5, 2.5));
+            CanvasInventario.Children.Add(GridInventario);
+
+            DefinitionsGrid(GridInventario, 6, 5, 30, 30);
+            FillGridItemImage(GridInventario, GameManager.player._Inventory, 6, 5, 25, 25);
+
+        }
+
+        public void CreateQuestManager()
+        {
+            CanvasQuestManager = new Canvas()
+            {
+                Width = 400,
+                Height = 300,
+                Visibility = Visibility.Collapsed
+            };
+            Tela.Children.Add(CanvasQuestManager);
+            Canvas.SetTop(CanvasQuestManager, 230);
+            Canvas.SetLeft(CanvasQuestManager, 480);
+
+            Image bg = new Image()
+            {
+                Width = 400,
+                Height = 300,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/FundoInventario.png"))
+            };
+            CanvasQuestManager.Children.Add(bg);
+
+            TextMQuestTitle = new TextBlock()
+            {
+                Width = 300,
+                Height = 20,
+                TextAlignment = TextAlignment.Center,
+                Text = "Nome quest ativa"
+            };
+            Canvas.SetTop(TextMQuestTitle, 10);
+            Canvas.SetLeft(TextMQuestTitle, 50);
+            CanvasQuestManager.Children.Add(TextMQuestTitle);
+
+            TextMQuestDescr = new TextBlock()
+            {
+                Width = 480,
+                Height = 170,
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 14,
+                Text = "Descrição acerca do que deverá ser feito na quest ativa. Isoum prum rep lit ch et pra set lerium acth katzen in der figen."
+            };
+            CanvasQuestManager.Children.Add(TextMQuestDescr);
+            Canvas.SetTop(TextMQuestDescr, 40);
+            Canvas.SetLeft(TextMQuestDescr, 10);
+
+            Canvas questC = new Canvas()
+            {
+                Width = 360,
+                Height = 30
+            };
+            CanvasQuestManager.Children.Add(questC);
+            Canvas.SetTop(questC, 220);
+            Canvas.SetLeft(questC, 30);
+
+            Image goldImg = new Image()
+            {
+                Width = 30,
+                Height = 30,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/gold coin.png"))
+            };
+            questC.Children.Add(goldImg);
+            Canvas.SetTop(goldImg, 0);
+            Canvas.SetLeft(goldImg, 10);
+
+            TextMQuestGold = new TextBlock()
+            {
+                Width = 70,
+                Height = 20,
+                Text = "x500",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left
+            };
+            questC.Children.Add(TextMQuestGold);
+            Canvas.SetTop(TextMQuestGold, 0);
+            Canvas.SetLeft(TextMQuestGold, 50);
+
+            Image xpImg = new Image()
+            {
+                Width = 30,
+                Height = 30,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/xp.png"))
+            };
+            questC.Children.Add(xpImg);
+            Canvas.SetTop(xpImg, 0);
+            Canvas.SetLeft(xpImg, 125);
+
+            TextMQuestXP = new TextBlock()
+            {
+                Width = 70,
+                Height = 20,
+                Text = "x500",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left
+            };
+            questC.Children.Add(TextMQuestXP);
+            Canvas.SetTop(TextMQuestXP, 5);
+            Canvas.SetLeft(TextMQuestXP, 165);
+
+            Image itemImg = new Image()
+            {
+                Width = 30,
+                Height = 30,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/itens/barraFerro.png"))
+            };
+            questC.Children.Add(itemImg);
+            Canvas.SetTop(itemImg, 0);
+            Canvas.SetLeft(itemImg, 240);
+            
+            TextMQuestItemQntd = new TextBlock()
+            {
+                Width = 70,
+                Height = 20,
+                Text = "x500",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left
+            };
+            questC.Children.Add(TextMQuestItemQntd);
+            Canvas.SetTop(TextMQuestItemQntd, 5);
+            Canvas.SetLeft(TextMQuestItemQntd, 280);
+
+            Button btnDesistir = new Button()
+            {
+                Width = 100,
+                Height = 30,
+                Content = "Desistir",
+                FontSize = 12
+            };
+            CanvasQuestManager.Children.Add(btnDesistir);
+            Canvas.SetTop(btnDesistir, 260);
+            Canvas.SetLeft(btnDesistir, 150);
+            btnDesistir.Click += GiveUpButton;
+
+            Image exit = new Image()
+            {
+                Width = 20,
+                Height = 20,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/circle-red.png"))
+            };
+            CanvasQuestManager.Children.Add(exit);
+            Canvas.SetTop(exit, 10);
+            Canvas.SetLeft(exit, 365);
+            exit.PointerPressed += CloseQuestManagerWindow;
+
+            ImageArrowQuest = new Image()
+            {
+                Width = 20,
+                Height = 20,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/Expand.png")),
+                RenderTransformOrigin = new Point(0.5, 0.5)
+            };
+            CanvasQuestManager.Children.Add(ImageArrowQuest);
+            Canvas.SetTop(ImageArrowQuest, 10);
+            Canvas.SetLeft(ImageArrowQuest, 365);
+            ImageArrowQuest.PointerPressed += ShowQuestList;
+            ((RotateTransform)ImageArrowQuest.RenderTransform).Angle = 90;
+
+            CanvasQuestList = new Canvas()
+            {
+                Width = 120,
+                Height = 300,
+                Visibility = Visibility.Collapsed
+            };
+            CanvasQuestManager.Children.Add(CanvasQuestList);
+            Canvas.SetTop(CanvasQuestList, 0);
+            Canvas.SetLeft(CanvasQuestList, -120);
+
+            Image fundo = new Image()
+            {
+                Width = 120,
+                Height = 300,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/FundoInventario.png"))
+            };
+            CanvasQuestList.Children.Add(fundo);
+
+            ScrollViewer scroll = new ScrollViewer()
+            {
+                Width = 100,
+                Height = 265
+            };
+            CanvasQuestList.Children.Add(scroll);
+            Canvas.SetTop(scroll, 15);
+            Canvas.SetLeft(scroll, 10);
+
+            StackQuest = new StackPanel()
+            {
+                Width = 100,
+                Height = 265,
+                Spacing = 10
+            };
+            scroll.Content = StackQuest;
+        }
         
-        <Canvas Name="Atributos" Width="130" Height="180" Canvas.Left="630" Canvas.Top="40">
-            <ScrollViewer Width="150" Height="232" Canvas.Left="-250" Canvas.Top="00" IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False">
-                <TextBlock Name="PlayerInfo" Canvas.Left="500" Canvas.Top="400" Text="" TextWrapping="Wrap" Height="300" Width="150" 
-                HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontSize="9"/>
-            </ScrollViewer>
-            <StackPanel HorizontalAlignment="Stretch" Height="120" Canvas.Left="-90" Canvas.Top="20" VerticalAlignment="Stretch" Width="70" Padding="5,5,5,5" Spacing="10">
-                <Button Content="+XP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="XPPlus"/>
-                <Button Content="+HP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="HPPlus"/>
-                <Button Content="+MP" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" FontSize="10" Click="MPPlus"/>
-            </StackPanel>
-            <Grid HorizontalAlignment="Center" Height="180" Width="130" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="30"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Image Width="130" Height="150" Stretch="Fill" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Grid.RowSpan="5" Grid.ColumnSpan="3" ></Image>
-                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="0" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="STRENGHT"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="1" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="SPEED"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="2" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="CONSTITUTION"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="3" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="DEXTERITY"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBlock Padding="0,7,0,0" Grid.Column="1" Grid.Row="4" Width="70" HorizontalAlignment="Center" TextAlignment="Center" Text="MIND"  FontSize="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        public void CreateWindowBag()
+        {
+            CanvasWindowBag = new Canvas()
+            {
+                Height = 250,
+                Width = 200,
+                Visibility = Visibility.Collapsed
+            };
+            Tela.Children.Add(CanvasWindowBag);
+            Canvas.SetLeft(CanvasWindowBag, 150);
 
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSTR"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MSPD"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MCON"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MDEX"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="0" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="-" Click="MMND"/>
+            Image bg = new Image()
+            {
+                Margin = new Thickness(-10, 0, 0, 0),
+                Width = 210,
+                Height = 250,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png"))
+            };
+            CanvasWindowBag.Children.Add(bg);
 
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="0" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSTR"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="1" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PSPD"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="2" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PCON"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="3" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PDEX"/>
-                <Button Margin="2.5,1,0,0" Width="25" Height="25" Grid.Column="2" Grid.Row="4" Padding="0,-9,0,0" FontSize="24" Content="+" Click="PMND"/>
+            ImageW_Item = new Image()
+            {
+                Width = 30,
+                Height = 30,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/Chao.jpg"))
+            };
+            CanvasWindowBag.Children.Add(ImageW_Item);
+            Canvas.SetLeft(ImageW_Item, 75);
+            Canvas.SetTop(ImageW_Item, 5);
 
-                <Button Content="Apply" FontSize="8" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" Canvas.Left="650" Canvas.Top="210" VerticalAlignment="Center" Height="25" Width="90" Margin="0,0,0,0" Click="ApplyStats"/>
-            </Grid>
-        </Canvas>
-        */
+            TextW_ItemName = new TextBlock()
+            {
+                Height = 15,
+                Text = "Item name",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasWindowBag.Children.Add(TextW_ItemName);
+            Canvas.SetTop(TextW_ItemName, 35);
+
+            TextW_ItemType = new TextBlock()
+            {
+                Height = 15,
+                Width = 60,
+                Text = "Item type",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasWindowBag.Children.Add(TextW_ItemType);
+            Canvas.SetTop(TextW_ItemType, 35);
+            Canvas.SetLeft(TextW_ItemType, 125);
+            
+            TextW_ItemQntd = new TextBlock()
+            {
+                Height = 15,
+                Width = 60,
+                Text = "999",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            CanvasWindowBag.Children.Add(TextW_ItemQntd);
+            Canvas.SetTop(TextW_ItemQntd, 21);
+            Canvas.SetLeft(TextW_ItemQntd, 108);
+
+            TextW_ItemDescr = new TextBlock()
+            {
+                Height = 100,
+                Width = 180,
+                Text = "Descrição do item",
+                FontSize = 10,
+                FontStyle = Windows.UI.Text.FontStyle.Italic,
+                TextAlignment = TextAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            CanvasWindowBag.Children.Add(TextW_ItemDescr);
+            Canvas.SetTop(TextW_ItemDescr, 80);
+            Canvas.SetLeft(TextW_ItemDescr, 5);
+
+            TextW_ItemValue = new TextBlock()
+            {
+                Text = "Valor",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            CanvasWindowBag.Children.Add(TextW_ItemValue);
+            Canvas.SetTop(TextW_ItemValue, 200);
+            Canvas.SetLeft(TextW_ItemValue, 15);
+
+            TextW_ItemRarity = new TextBlock()
+            {
+                Text = "Rarity",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            CanvasWindowBag.Children.Add(TextW_ItemRarity);
+            Canvas.SetTop(TextW_ItemRarity, 200);
+            Canvas.SetLeft(TextW_ItemRarity, 120);
+
+        }
+        
+        public void CreateConversation()
+        {
+            CanvasConversation = new Canvas()
+            {
+                Width = 500,
+                Height = 500,
+                Visibility = Visibility.Collapsed
+            };
+            Canvas.SetLeft(CanvasConversation, 850);
+            Canvas.SetTop(CanvasConversation, 250);
+            Tela.Children.Add(CanvasConversation);
+
+            Image bg = new Image()
+            {
+                Width = 500,
+                Height = 250,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png")),
+                Stretch = Stretch.Fill
+            };
+            CanvasConversation.Children.Add(bg);
+
+            TextConv = new TextBlock()
+            {
+                Padding = new Thickness(15, 5, 15, 5),
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 12,
+                Width = 500,
+                Height = 200,
+                Text = "Introduction"
+            };
+            Canvas.SetTop(TextConv, 300);
+            CanvasConversation.Children.Add(TextConv);
+
+            TextConvName = new TextBlock()
+            {
+                Padding = new Thickness(15, 5, 15, 5),
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 12,
+                Width = 250,
+                Height = 25,
+                Text = "Level"
+            };
+            Canvas.SetTop(TextConvName, 250);
+            CanvasConversation.Children.Add(TextConvName);
+
+            TextConvLevel = new TextBlock()
+            {
+                Padding = new Thickness(15, 5, 15, 5),
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 12,
+                Width = 250,
+                Height = 25,
+                Text = "Level"
+            };
+            Canvas.SetTop(TextConvLevel, 250);
+            Canvas.SetLeft(TextConvLevel, 250);
+            CanvasConversation.Children.Add(TextConvLevel);
+
+            TextConvFuncs = new TextBlock()
+            {
+                Padding = new Thickness(15, 5, 15, 5),
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = 12,
+                Width = 250,
+                Height = 25,
+                Text = "Tipo 1/Tipo 2/Tipo 3"
+            };
+            Canvas.SetTop(TextConvFuncs, 250);
+            Canvas.SetLeft(TextConvFuncs, 275);
+            CanvasConversation.Children.Add(TextConvFuncs);
+
+
+        }
+        
+        public void CreateSkillWindow()
+        {
+            CanvasSkillWindow = new Canvas()
+            {
+                Width = 200,
+                Height = 250,
+                Visibility = Visibility.Collapsed
+            };
+            Tela.Children.Add(CanvasSkillWindow);
+            Canvas.SetTop(CanvasSkillWindow, 0);
+            Canvas.SetLeft(CanvasSkillWindow, 150);
+
+            Image bg = new Image()
+            {
+                Margin = new Thickness(-5, 0, 0, 0),
+                Width = 205,
+                Height = 250,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png")),
+                Stretch = Stretch.Fill
+            };
+            CanvasSkillWindow.Children.Add(bg);
+            
+            ImageW_Skill = new Image()
+            {
+                Margin = new Thickness(-5, 0, 0, 0),
+                Width = 30,
+                Height = 30,
+                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/Chao.jpg")),
+                Stretch = Stretch.Fill
+            };
+            CanvasSkillWindow.Children.Add(ImageW_Skill);
+            Canvas.SetTop(ImageW_Skill, 2);
+            Canvas.SetLeft(ImageW_Skill, 75);
+
+            TextW_SkillName = new TextBlock()
+            {
+                Text = "Skill name",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasSkillWindow.Children.Add(TextW_SkillName);
+            Canvas.SetTop(TextW_SkillName, 40);
+            Canvas.SetLeft(TextW_SkillName, 0);
+
+            TextW_SkillType = new TextBlock()
+            {
+                Text = "Skill type",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasSkillWindow.Children.Add(TextW_SkillType);
+            Canvas.SetTop(TextW_SkillType, 40);
+            Canvas.SetLeft(TextW_SkillType, 120);
+
+            TextW_SkillDescr = new TextBlock()
+            {
+                Text = "Skill descr",
+                Width = 190,
+                Height = 120,
+                TextWrapping = TextWrapping.Wrap,
+                FontStyle = Windows.UI.Text.FontStyle.Italic,
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasSkillWindow.Children.Add(TextW_SkillDescr);
+            Canvas.SetTop(TextW_SkillDescr, 60);
+            Canvas.SetLeft(TextW_SkillDescr, 3);
+
+            TextW_SkillLevel = new TextBlock()
+            {
+                Text = "Skill level",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasSkillWindow.Children.Add(TextW_SkillLevel);
+            Canvas.SetTop(TextW_SkillLevel, 210);
+            Canvas.SetLeft(TextW_SkillLevel, 20);
+
+            TextW_SkillCD = new TextBlock()
+            {
+                Text = "Skill CD",
+                FontSize = 10,
+                TextAlignment = TextAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            CanvasSkillWindow.Children.Add(TextW_SkillLevel);
+            Canvas.SetTop(TextW_SkillLevel, 210);
+            Canvas.SetLeft(TextW_SkillLevel, 110);
+        }
+
         public void CreateConversationLayout()
         {
             ButtonsGrid = new Grid();
@@ -1059,79 +1841,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             ListButtons.Add("Exit", ButtonExit);
         }
 
-        public void CreateSkill(Canvas SkillCanvas)
-        {
-            SkillCanvas.Width = 250;
-            SkillCanvas.Height = 150;
-            SkillCanvas.HorizontalAlignment = HorizontalAlignment.Stretch;
-            SkillCanvas.VerticalAlignment = VerticalAlignment.Stretch;
-            Canvas.SetTop(CanvasSkillTree, 40);
-            Canvas.SetLeft(CanvasSkillTree, 120);
-            TextBlock text = new TextBlock()
-            {
-                Width = 250,
-                Height = 20,
-                Text = "Árvore de Habilidades",
-                HorizontalTextAlignment = TextAlignment.Center
-            };
-            Canvas.SetTop(text, -20);
-            SkillCanvas.Children.Add(text);
-            Image bg = new Image()
-            {
-                Width = 250,
-                Height = 150,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/UIAtivo 23-0.png")),
-                Stretch = Stretch.Fill
-            };
-            SkillCanvas.Children.Add(bg);
-            GridSkill = new Grid()
-            {
-                Width = 250,
-                Height = 150
-            };
-            SkillCanvas.Children.Add(GridSkill);
-            GridSkill.SetValue(Grid.PaddingProperty, new Thickness(5, 5, 5, 5));
-            DefinitionsGrid(GridSkill, 5, 3, 50, 50);
-            FillGridSkillImage(GridSkill, GameManager.player, 5, 3, 40, 40);
-        }
-        public void CreateInventory(Canvas BagCanvas)
-        {
-            BagCanvas.Width = 180;
-            BagCanvas.Height = 150;
-            Canvas.SetLeft(BagCanvas, 800);
-            Canvas.SetTop(BagCanvas, 40);
-            CanvasInventario = BagCanvas;
-            TextBlock text = new TextBlock()
-            {
-                Width = 180,
-                Height = 20,
-                Text = "Bag",
-                HorizontalTextAlignment = TextAlignment.Center
-            };
-            Canvas.SetTop(text, -20);
-            CanvasInventario.Children.Add(text);
-            Image bg = new Image()
-            {
-                //Source="/Assets/Images/UI Elements/FundoInventario.png" Width="180" Height="150"
-                Width = 180,
-                Height = 150,
-                Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/UI Elements/FundoInventario.png"))
-            };
-            CanvasInventario.Children.Add(bg);
-            GridInventario = new Grid()
-            {
-                Width = 180,
-                Height = 150
-            };
-            GridInventario.SetValue(Grid.PaddingProperty, new Thickness(2.5, 2.5, 2.5, 2.5));
-            CanvasInventario.Children.Add(GridInventario);
-
-            DefinitionsGrid(GridInventario, 6, 5, 30, 30);
-            FillGridItemImage(GridInventario, GameManager.player._Inventory, 6, 5, 25, 25);
-
-        }
         public void CreateCraftingWindow()
         {
             CraftBox IronBoots = new CraftBox(24);
@@ -1142,6 +1851,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             StackCraft.Children.Add(IronIngot);
             StackCraft.Children.Add(IronChestplate);
         }
+
         public void CreateDrop(double x, double y, Slot dropSlot)
         {
             string pathImage = Encyclopedia.SearchFor(dropSlot.ItemID).PathImage;
@@ -2165,6 +2875,23 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 }
             }
         }
+        public void DefinitionsGrid(Grid grid, int columnNumber, int rowNumber, int[] widthCell, int[] heightCell)
+        {
+            int r = 0;
+            for (int i = 0; i < columnNumber || r < rowNumber; i++, r++)
+            {
+                if (i < columnNumber)
+                {
+                    ColumnDefinition coldef = new ColumnDefinition() { Width = new GridLength(widthCell[i]) };
+                    grid.ColumnDefinitions.Add(coldef);
+                }
+                if (r < rowNumber)
+                {
+                    RowDefinition rowdef = new RowDefinition() { Height = new GridLength(heightCell[r]) };
+                    grid.RowDefinitions.Add(rowdef);
+                }
+            }
+        }
         public void FillGridItemImage(Grid grid, Bag gridBag, int columnSize, int rowSize, int widthImage, int heightImage)
         {
             int column = -1, row = 0;
@@ -2203,6 +2930,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void FillGridSkillImage(Grid grid, Player player, int columnSize, int rowSize, int widthImage, int heightImage)
         {
+            if (player == null) return;
             List<SkillGenerics> skills = player._SkillManager.SkillList;
             int column = -1, row = 0;
             for (int i = 0; i < columnSize * rowSize; i++)

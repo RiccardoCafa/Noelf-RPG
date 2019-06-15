@@ -225,7 +225,7 @@
         </Canvas>
 
         <Canvas Name="WindowTreeSkill" HorizontalAlignment="Stretch" Height="150" Canvas.Left="120" Canvas.Top="40" VerticalAlignment="Stretch" Width="250">
-            
+
         </Canvas>
 
         <Canvas Name="BagWindow">
@@ -263,39 +263,14 @@
         </Canvas>
 
         <Canvas Name="WindowBag" Canvas.Left="150" Canvas.Top="0" Height ="250" Width="200" Visibility="Collapsed">
-            <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"></Image>
-            <Grid Width="200" Height="250">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="110"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Image Name="W_ItemImage" Grid.Column="0" Grid.Row="0" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"></Image>
-                <TextBlock Name="W_ItemName" Grid.Row="1" Text="Item Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Name="W_ItemType" Text="Item Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Name="W_ItemQntd" Text="Item Quantity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>
-                <TextBlock Name="W_ItemDescr"  Grid.Row="3" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
-                <Grid Grid.Row="4" Width="200" Height="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Name="W_ItemValue" Text="ItemValue" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
-                    <TextBlock Name="W_ItemRarity" Grid.Column="1" Text="Item Rarity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+            <Image Margin="-10,0,0,0"  Width="210" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png"/>
+            <Image Name="W_ItemImage" Canvas.Left="75" Canvas.Top="5" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"/>
+            <TextBlock Name="W_ItemName" Canvas.Top="35" Height="15" Text="Item Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Canvas.Top="35" Height="15" Width="60"  Canvas.Left="120" Name="W_ItemType" Text="Item Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="W_ItemQntd" Canvas.Top="21" Canvas.Left="108" Text="999" FontSize="10" TextAlignment="Right" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <TextBlock Name="W_ItemDescr" Canvas.Top="80" Canvas.Left="5" Width="180" Height="100" Text="Descrição do item" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
+            <TextBlock Name="W_ItemValue" Width="70" Canvas.Top="200" Canvas.Left="15" Text="ItemValue" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Name="W_ItemRarity" Canvas.Top="200" Canvas.Left="120" Text="Item Rarity" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
         </Canvas>
 
         <Canvas Name="Conversation" Width="500" Height="500" Canvas.Left="850" Canvas.Top="250" Visibility="Collapsed">
@@ -307,41 +282,14 @@
 
         </Canvas>
 
-        <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Collapsed" AllowFocusOnInteraction="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" AutomationProperties.Level="-2" >
+        <Canvas Name="WindowSkill" Canvas.Left="150" Canvas.Top="0" Width="200" Height="250" Visibility="Visible">
             <Image Margin="-5,0,0,0"  Width="205" Height="250" Source="/Assets/Images/UI Elements/UIAtivo 33-0.png" Stretch="Fill"/>
-            <Grid  Width="200" Height="250" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="110"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Image Name="W_SkillImage" Grid.Column="0" Grid.Row="0" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"/>
-                <TextBlock Name="W_SkillName" Grid.Row="1" Text="Skill Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Name="W_SkillType" Text="Skill Type" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>
-                <TextBlock Grid.Row="3" Name="W_SkillDescr" TextWrapping="Wrap" Text="Descrição da skill" FontSize="10" FontStyle="Italic" TextAlignment="Left" TextDecorations="None">
-
-                </TextBlock>
-                <Grid Grid.Row="4" Width="200" Height="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Name="W_SkillLevel" Text="Skill Level" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
-                    <TextBlock Name="W_SkillCD" Grid.Column="1" Text="Skill Cooldown" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+            <Image Name="W_SkillImage"  Canvas.Left="75" Canvas.Top="2" Width="30" Height="30" Source="/Assets/Images/Chao.jpg"/>
+            <TextBlock Name="W_SkillName" Canvas.Left="0" Canvas.Top="40" Text="Skill Name" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="W_SkillType" Text="Skill Type" Canvas.Left="120" Canvas.Top="40" FontSize="10" TextAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="W_SkillDescr" Canvas.Left="3" Canvas.Top="60" Width="190" Height="120" TextWrapping="Wrap" Text="Descrição da skill" FontSize="10" FontStyle="Italic" TextAlignment="Left"/>
+            <TextBlock Name="W_SkillLevel" Text="Skill Level" Canvas.Top="210" Canvas.Left="20" FontSize="10" TextAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Name="W_SkillCD" Text="Skill Cooldown" Canvas.Top="210" Canvas.Left="110" FontSize="10" TextAlignment="Right" VerticalAlignment="Center" />
         </Canvas>
 
     </Canvas>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,8 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             image.Source = new BitmapImage(new Uri("ms-appx://" + skill.pathImage));
             this.skill = skill;
             Children.Add(image);
-            PointerEntered += Game.instance.UpdateSkillWindowText;
-            PointerExited += Game.instance.CloseSkillWindowText;
+            PointerEntered += InterfaceManager.instance.UpdateSkillWindowText;
+            PointerExited += InterfaceManager.instance.CloseSkillWindowText;
         }
         
     }
