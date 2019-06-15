@@ -12,6 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using System.Linq;
+using RPG_Noelf.Assets.Scripts.Interface;
 
 namespace RPG_Noelf.Assets.Scripts
 {
@@ -298,20 +299,20 @@ namespace RPG_Noelf.Assets.Scripts
                 if ((Xi + Xf) / 2 >= 1366)
                 {
                     Xi -= 1366;
-                    SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - 1366 * 0.075);
-                    SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - 1366 * 0.15);
-                    SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - 1366 * 0.3);
-                    SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) - 1366);
-                    foreach (Solid s in Game.instance.scene1.scene.floor) s.Xi -= 1366;
+                    SetLeft(InterfaceManager.instance.scene1.layers[2], GetLeft(InterfaceManager.instance.scene1.layers[2]) - 1366 * 0.075);
+                    SetLeft(InterfaceManager.instance.scene1.layers[1], GetLeft(InterfaceManager.instance.scene1.layers[1]) - 1366 * 0.15);
+                    SetLeft(InterfaceManager.instance.scene1.layers[0], GetLeft(InterfaceManager.instance.scene1.layers[0]) - 1366 * 0.3);
+                    SetLeft(InterfaceManager.instance.scene1.scene.chunck, GetLeft(InterfaceManager.instance.scene1.scene.chunck) - 1366);
+                    foreach (Solid s in InterfaceManager.instance.scene1.scene.floor) s.Xi -= 1366;
                 }
                 if ((Xi + Xf) / 2 <= 0)
                 {
                     Xi += 1366;
-                    SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) + 1366 * 0.075);
-                    SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) + 1366 * 0.15);
-                    SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) + 1366 * 0.3);
-                    SetLeft(Game.instance.scene1.scene.chunck, GetLeft(Game.instance.scene1.scene.chunck) + 1366);
-                    foreach (Solid s in Game.instance.scene1.scene.floor) s.Xi += 1366;
+                    SetLeft(InterfaceManager.instance.scene1.layers[2], GetLeft(InterfaceManager.instance.scene1.layers[2]) + 1366 * 0.075);
+                    SetLeft(InterfaceManager.instance.scene1.layers[1], GetLeft(InterfaceManager.instance.scene1.layers[1]) + 1366 * 0.15);
+                    SetLeft(InterfaceManager.instance.scene1.layers[0], GetLeft(InterfaceManager.instance.scene1.layers[0]) + 1366 * 0.3);
+                    SetLeft(InterfaceManager.instance.scene1.scene.chunck, GetLeft(InterfaceManager.instance.scene1.scene.chunck) + 1366);
+                    foreach (Solid s in InterfaceManager.instance.scene1.scene.floor) s.Xi += 1366;
                 }
             }
             if (verticalSpeed != 0 || horizontalDirection != 0)

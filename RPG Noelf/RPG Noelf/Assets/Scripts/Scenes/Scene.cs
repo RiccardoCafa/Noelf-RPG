@@ -94,7 +94,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                             //Map[y, x] = 1;
                             break;
                         case 'b':
-                            Solid chest = Game.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
+                            Solid chest = InterfaceManager.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
                             a++;
                             floor.Add(chest);
                             break;
@@ -120,9 +120,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             xScene.Children.Add(GameManager.player.box);
 
 
-            GameManager.InitializeGame();
-            Game.instance.CreateInventory(Game.instance.bagWindow);
-            Game.instance.CreateChestWindow(350, 250);
+            //GameManager.InitializeGame();
+            InterfaceManager.instance.CreateInventory();
+            InterfaceManager.instance.CreateChestWindow(350, 250);
             baus = new List<Bau>()
             {
                 new Bau(Category.Normal, 10),

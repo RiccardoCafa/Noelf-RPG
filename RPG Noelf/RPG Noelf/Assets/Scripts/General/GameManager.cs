@@ -57,6 +57,8 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public static async void Start(Canvas Tela)
         {
+            // Instanciar player
+
             // Interface
             interfaceManager = new InterfaceManager(Tela);
 
@@ -165,19 +167,19 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if (traderTarget == null) return;
             interfaceManager.ShopOpen = true;
-            Game.instance.OpenShop();
+            InterfaceManager.instance.OpenShop();
         }
 
         public static void CloseShop()
         {
-            Game.instance.CloseShop();
+            InterfaceManager.instance.CloseShop();
         }
 
         public static void CloseQuestWindow()
         {
             if(questerTarget != null)
             {
-                Game.instance.CloseQuest();
+                InterfaceManager.instance.CloseQuest();
             }
         } 
 
@@ -185,7 +187,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         {
             if (questerTarget != null)
             {
-                Game.instance.OpenQuest();
+                //InterfaceManager.instance.Quest OpenQuest();
             }
             
         }

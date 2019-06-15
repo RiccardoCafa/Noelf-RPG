@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using RPG_Noelf.Assets.Scripts.Scenes;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
@@ -25,6 +26,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
     {
         public static InterfaceManager instance;
 
+        // Scene
+        public LevelScene scene1;
         // Geral
         public Canvas Tela;
         public Canvas CanvasChunck01 { get; set; }
