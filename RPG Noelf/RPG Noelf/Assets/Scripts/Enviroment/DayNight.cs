@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,15 +19,15 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
         public DayNight()
         {
-            ResetTime();
-            DispatcherSetup();
+            //ResetTime();
+            //DispatcherSetup();
         }
 
         public DayNight(int DayLenght)
         {
             this.DayLenght = DayLenght;
-            ResetTime();
-            DispatcherSetup();
+            //ResetTime();
+            //DispatcherSetup();
         }
 
         private void ResetTime()
@@ -38,7 +39,7 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
         private void DispatcherSetup()
         {
-            Game.instance.dayText.Text = "Day " + days + " - " + hours + ":" + minutes;
+            //GameManager.instance.dayText.Text = "Day " + days + " - " + hours + ":" + minutes;
             dispatcherTimer.Tick += Timer;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 86400 / (60 * DayLenght));
             dispatcherTimer.Start();
@@ -58,7 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
                 m = "0" + minutes;
             }
             else m = minutes.ToString();
-            Game.instance.dayText.Text = "Day " + days + " - " + h + ":" + m;
+            //Game.instance.dayText.Text = "Day " + days + " - " + h + ":" + m;
         }
 
         private void TickATime()

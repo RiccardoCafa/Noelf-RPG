@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 Background = new SolidColorBrush(Color.FromArgb(0, 150, 75, 0)),
                 Width = 30, Height = 30
             };
-            Game.ActualChunck.Children.Add(hit);
+            InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
             
         }
     }

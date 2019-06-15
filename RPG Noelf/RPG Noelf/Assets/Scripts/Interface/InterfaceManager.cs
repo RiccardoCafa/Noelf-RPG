@@ -25,15 +25,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
     public class InterfaceManager
     {
         public static InterfaceManager instance;
-
-        // Scene
-        public LevelScene scene1;
+        
         // Geral
         public Canvas Tela;
         public Canvas CanvasChunck01 { get; set; }
         public Canvas MenuAberto { get; set; }
         public Canvas MenuFechado { get; set; }
-        public Canvas MenuFBolaAtras { get; set; }
         // Chest
         public Canvas CanvasChest { get; set; }
         // Inventario
@@ -111,6 +108,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public TextBlock TextConvFuncs { get; set; }
         public TextBlock TextConvName { get; set; }
 
+        public Image MenuFBolaAtras { get; set; }
         public Image ImageW_Skill { get; set; }
         public Image ImageItemBuying { get; set; }
         public Image ImageArrowQuest { get; set; }
@@ -142,13 +140,60 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         private ObjectPooling<MissionListButton> MsnBtnPool = new ObjectPooling<MissionListButton>();
 
-        public string BaseUri = "ms-appx:\\";
+        public string BaseUri = "ms-appx://";
 
         public InterfaceManager(Canvas Tela)
         {
-            instance = this;
-            Window.Current.CoreWindow.KeyUp += ManageKey;
             this.Tela = Tela;
+            instance = this;
+            CreateChunck(1366, 768);
+        }
+
+        public void GenerateHUD()
+        {
+            
+            CreateCraftingCenter();
+
+            CreateChestWindow(300, 300);
+
+            CreateMenu(0, 0);
+
+            CreateShopWindow();
+
+            CreateActiveQuest();
+
+            CreateQuestWindow();
+
+            CreateOfferItem();
+
+            CreateEquipamento();
+
+            CreateAtributos();
+
+            CreateSkillBar();
+
+            CreateSkillTree();
+
+            CreateInventory();
+
+            CreateQuestManager();
+
+            CreateWindowBag();
+
+            CreateConversation();
+
+            CreateSkillWindow();
+            
+            CreateCraftingWindow();
+
+            CanvasShop.Visibility = Visibility.Collapsed;
+            CanvasInventario.Visibility = Visibility.Collapsed;
+            CanvasAtributos.Visibility = Visibility.Collapsed;
+            CanvasEquipamento.Visibility = Visibility.Collapsed;
+            CanvasSkillTree.Visibility = Visibility.Collapsed;
+
+            CanvasConversation.PointerPressed += EndConversation;
+            Window.Current.CoreWindow.KeyUp += ManageKey;
         }
 
         private void ManageKey(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
@@ -192,33 +237,33 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             int indicadorzao = -1;
             if (e.VirtualKey == Windows.System.VirtualKey.Number1)
             {
-                if (GameManager.player._SkillManager.SkillList.Count >= 1)
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 1)
                 {
                     indicadorzao = 0;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number2)
             {
-                if (GameManager.player._SkillManager.SkillList.Count >= 2)
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 2)
                 {
                     indicadorzao = 1;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number3)
             {
-                if (GameManager.player._SkillManager.SkillList.Count >= 3)
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 3)
                 {
                     indicadorzao = 2;
                 }
             }
             if (e.VirtualKey == Windows.System.VirtualKey.Number4)
             {
-                if (GameManager.player._SkillManager.SkillList.Count >= 4)
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 4)
                 {
                     indicadorzao = 3;
                 }
             }
-            if (indicadorzao != -1) GameManager.player._SkillManager.BeAbleSkill(indicadorzao);
+            if (indicadorzao != -1) GameManager.instance.player._SkillManager.BeAbleSkill(indicadorzao);
 
         }
 
@@ -241,7 +286,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             chest.Children.Add(chestImage);
             chest.ChestOpen += ChestOpen;
             chest.PointerPressed += OnChestClicked;
-            bau.itens.BagUpdated += UpdateChestEvent;
+            //bau.itens.BagUpdated += UpdateChestEvent;
             return chest;
         }
 
@@ -270,6 +315,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             };
             Canvas.SetLeft(CanvasCrafting, 30);
             Canvas.SetTop(CanvasCrafting, 200);
+            Tela.Children.Add(CanvasCrafting);
 
             Image bg = new Image()
             {
@@ -278,6 +324,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 Width = 500,
                 Height = 300
             };
+            CanvasCrafting.Children.Add(bg);
 
             ScrollViewer ListadeCraftings = new ScrollViewer()
             {
@@ -300,11 +347,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(scroll, 144);
 
             CanvasCrafting.Children.Add(scroll);
-
-            Tela.Children.Add(CanvasCrafting);
         }
+
         public void CreateChestWindow(double x, double y)
         {
+            if (CanvasChest != null) return;
             //Configurando o ChestWindow
             CanvasChest = new Canvas();
             CanvasChest.Width = 250;
@@ -368,7 +415,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 }
                 foreach (Slot s in ItemSlots)
                 {
-                    if (GameManager.player._Inventory.AddToBag(s))
+                    if (GameManager.instance.player._Inventory.AddToBag(s))
                     {
                         bool c = bag.RemoveFromBag(s.ItemID, s.ItemAmount);
                     }
@@ -406,7 +453,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(Menu, 450);
             Tela.Children.Add(Menu);
 
-            Canvas MenuAberto = new Canvas()
+            MenuAberto = new Canvas()
             {
                 Width = width,
                 Height = height
@@ -502,26 +549,26 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(missoes, 139);
             MenuAberto.Children.Add(missoes);
 
-            Canvas MenuFechado = new Canvas()
+            MenuFechado = new Canvas()
             {
                 Width = 20,
                 Height = 20
             };
             Menu.Children.Add(MenuFechado);
 
-            Image bolaAtras = new Image()
+            MenuFBolaAtras = new Image()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/Menu/semiaberto.png")),
                 Height = 90,
                 Width = 90,
-                Visibility = Visibility.Collapsed
+                Visibility = Visibility.Visible
             };
-            Canvas.SetLeft(bolaAtras, 55);
-            Canvas.SetTop(bolaAtras, 54);
+            Canvas.SetLeft(MenuFBolaAtras, 55);
+            Canvas.SetTop(MenuFBolaAtras, 54);
             
-            MenuFechado.Children.Add(bolaAtras);
+            MenuFechado.Children.Add(MenuFBolaAtras);
 
             Image bola = new Image()
             {
@@ -537,6 +584,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             bola.PointerExited += MenuSemiOpenExit;
             bola.PointerEntered += MenuSemiOpenEnter;
+            bola.PointerPressed += MenuOpen;
+
+            MenuAberto.Visibility = Visibility.Collapsed;
+            MenuFechado.Visibility = Visibility.Visible;
 
         }
 
@@ -704,7 +755,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Content = "Deny"
             };
-            CanvasQuest.Children.Add(ButtonAcceptQuest);
+            CanvasQuest.Children.Add(ButtonDenyQuest);
             Canvas.SetTop(ButtonAcceptQuest, 245);
             Canvas.SetLeft(ButtonAcceptQuest, 110);
             ButtonAcceptQuest.Click += ClickDenyQuestButton;
@@ -857,6 +908,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 Text = "Equipamento"
             };
             Canvas.SetTop(EquipTitle, -25);
+            CanvasEquipamento.Children.Add(EquipTitle);
 
             GridEquip = new Grid()
             {
@@ -1237,10 +1289,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             CanvasSkillBar.Children.Add(GridBarraSkill);
 
             DefinitionsGrid(GridBarraSkill, 5, 1, 60, 50);
-            FillGridSkillImage(GridBarraSkill, GameManager.player, 5, 1, 40, 40);
+            FillGridSkillImage(GridBarraSkill, GameManager.instance.player, 5, 1, 40, 40);
         }
 
-        public void CreateSkill()
+        public void CreateSkillTree()
         {
             CanvasSkillTree = new Canvas();
             CanvasSkillTree.Width = 250;
@@ -1249,6 +1301,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             CanvasSkillTree.VerticalAlignment = VerticalAlignment.Stretch;
             Canvas.SetTop(CanvasSkillTree, 40);
             Canvas.SetLeft(CanvasSkillTree, 120);
+            Tela.Children.Add(CanvasSkillTree);
             TextBlock text = new TextBlock()
             {
                 Width = 250,
@@ -1276,16 +1329,18 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             CanvasSkillTree.Children.Add(GridSkill);
             GridSkill.SetValue(Grid.PaddingProperty, new Thickness(5, 5, 5, 5));
             DefinitionsGrid(GridSkill, 5, 3, 50, 50);
-            FillGridSkillImage(GridSkill, GameManager.player, 5, 3, 40, 40);
+            FillGridSkillImage(GridSkill, GameManager.instance.player, 5, 3, 40, 40);
         }
 
         public void CreateInventory()
         {
+            if (CanvasInventario != null) return;
             CanvasInventario = new Canvas();
             CanvasInventario.Width = 180;
             CanvasInventario.Height = 150;
             Canvas.SetLeft(CanvasInventario, 800);
             Canvas.SetTop(CanvasInventario, 40);
+            Tela.Children.Add(CanvasInventario);
             TextBlock text = new TextBlock()
             {
                 Width = 180,
@@ -1312,7 +1367,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             CanvasInventario.Children.Add(GridInventario);
 
             DefinitionsGrid(GridInventario, 6, 5, 30, 30);
-            FillGridItemImage(GridInventario, GameManager.player._Inventory, 6, 5, 25, 25);
+            FillGridItemImage(GridInventario, GameManager.instance.player._Inventory, 6, 5, 25, 25);
 
         }
 
@@ -1415,16 +1470,16 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(TextMQuestXP, 5);
             Canvas.SetLeft(TextMQuestXP, 165);
 
-            Image itemImg = new Image()
+            ImageMQuestItem = new Image()
             {
                 Width = 30,
                 Height = 30,
                 Stretch = Stretch.Fill,
                 Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/itens/barraFerro.png"))
             };
-            questC.Children.Add(itemImg);
-            Canvas.SetTop(itemImg, 0);
-            Canvas.SetLeft(itemImg, 240);
+            questC.Children.Add(ImageMQuestItem);
+            Canvas.SetTop(ImageMQuestItem, 0);
+            Canvas.SetLeft(ImageMQuestItem, 240);
             
             TextMQuestItemQntd = new TextBlock()
             {
@@ -1472,7 +1527,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(ImageArrowQuest, 10);
             Canvas.SetLeft(ImageArrowQuest, 365);
             ImageArrowQuest.PointerPressed += ShowQuestList;
-            ((RotateTransform)ImageArrowQuest.RenderTransform).Angle = 90;
+            //((RotateTransform)ImageArrowQuest.RenderTransform.).Angle = 90;
 
             CanvasQuestList = new Canvas()
             {
@@ -1783,9 +1838,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 TextAlignment = TextAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            CanvasSkillWindow.Children.Add(TextW_SkillLevel);
-            Canvas.SetTop(TextW_SkillLevel, 210);
-            Canvas.SetLeft(TextW_SkillLevel, 110);
+            CanvasSkillWindow.Children.Add(TextW_SkillCD);
+            Canvas.SetTop(TextW_SkillCD, 210);
+            Canvas.SetLeft(TextW_SkillCD, 110);
         }
 
         public void CreateConversationLayout()
@@ -1921,22 +1976,22 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void UpdatePlayerInfo()
         {
-            TextPlayerInfo.Text = GameManager.player.Race.NameRace + " " + GameManager.player._Class.ClassName + "\n";
-            TextPlayerInfo.Text += "CanvasAtributos: ( " + GameManager.player._Class.StatsPoints + " pontos)\n" +
-                                "Força: " + GameManager.player.Str + " + " + _str + "\n" +
-                                "Mente: " + GameManager.player.Mnd + " + " + _mnd + "\n" +
-                                "Velocidade: " + GameManager.player.Spd + " + " + _spd + "\n" +
-                                "Destreza: " + GameManager.player.Dex + " + " + _dex + "\n" +
-                                "Constituição: " + GameManager.player.Con + " + " + _con + "\n\n" +
-                                "HP: " + GameManager.player.Hp + "/" + GameManager.player.HpMax + "\n" +
-                                "MP: " + GameManager.player.Mp + "/" + GameManager.player.MpMax + "\n" +
-                                "Damage: " + GameManager.player.Damage + "\n" +
-                                "Atack Speed: " + GameManager.player.AtkSpd + "\n" +
-                                "Armor: " + GameManager.player.Armor + "\n\n" +
-                                "Level: " + GameManager.player.level.actuallevel + "\n" +
-                                "Experience: " + GameManager.player.level.actualEXP + "/" + GameManager.player.level.EXPlim + "\n" +
-                                "Pontos de skill disponivel: " + GameManager.player._SkillManager.SkillPoints + "\n" +
-                                "Gold: " + GameManager.player._Inventory.Gold;
+            TextPlayerInfo.Text = GameManager.instance.player.Race.NameRace + " " + GameManager.instance.player._Class.ClassName + "\n";
+            TextPlayerInfo.Text += "CanvasAtributos: ( " + GameManager.instance.player._Class.StatsPoints + " pontos)\n" +
+                                "Força: " + GameManager.instance.player.Str + " + " + _str + "\n" +
+                                "Mente: " + GameManager.instance.player.Mnd + " + " + _mnd + "\n" +
+                                "Velocidade: " + GameManager.instance.player.Spd + " + " + _spd + "\n" +
+                                "Destreza: " + GameManager.instance.player.Dex + " + " + _dex + "\n" +
+                                "Constituição: " + GameManager.instance.player.Con + " + " + _con + "\n\n" +
+                                "HP: " + GameManager.instance.player.Hp + "/" + GameManager.instance.player.HpMax + "\n" +
+                                "MP: " + GameManager.instance.player.Mp + "/" + GameManager.instance.player.MpMax + "\n" +
+                                "Damage: " + GameManager.instance.player.Damage + "\n" +
+                                "Atack Speed: " + GameManager.instance.player.AtkSpd + "\n" +
+                                "Armor: " + GameManager.instance.player.Armor + "\n\n" +
+                                "Level: " + GameManager.instance.player.level.actuallevel + "\n" +
+                                "Experience: " + GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim + "\n" +
+                                "Pontos de skill disponivel: " + GameManager.instance.player._SkillManager.SkillPoints + "\n" +
+                                "Gold: " + GameManager.instance.player._Inventory.Gold;
         }
         public void UpdateSkillBar()
         {
@@ -1945,12 +2000,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             {
                 if (cont == 0)
                 {
-                    (element as Image).Source = new BitmapImage(new Uri(BaseUri + GameManager.player._SkillManager.Passive.pathImage));
+                    (element as Image).Source = new BitmapImage(new Uri(BaseUri + GameManager.instance.player._SkillManager.Passive.pathImage));
                 }
                 else
                 {
-                    if (GameManager.player._SkillManager.SkillBar[cont - 1] != null)
-                        (element as Image).Source = new BitmapImage(new Uri(BaseUri + GameManager.player._SkillManager.SkillBar[cont - 1].pathImage));
+                    if (GameManager.instance.player._SkillManager.SkillBar[cont - 1] != null)
+                        (element as Image).Source = new BitmapImage(new Uri(BaseUri + GameManager.instance.player._SkillManager.SkillBar[cont - 1].pathImage));
                     else
                         (element as Image).Source = new BitmapImage();
                 }
@@ -2028,40 +2083,40 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void UpdateQuest()
         {
-            if (GameManager.questerTarget != null)
+            if (GameManager.instance.questerTarget != null)
             {
-                GameManager.questerTarget.myQuest = QuestList.allquests[GameManager.questerTarget.GetQuestID()];
+                GameManager.instance.questerTarget.myQuest = QuestList.allquests[GameManager.instance.questerTarget.GetQuestID()];
             }
             else
             {
-                GameManager.questerTarget = new Quester(1);
+                GameManager.instance.questerTarget = new Quester(1);
             }
-            TextQuestTitulo.Text = GameManager.questerTarget.myQuest.name;
-            TextQuestDescription.Text = GameManager.questerTarget.myQuest.Description;
-            TextQuestRewards.Text = GameManager.questerTarget.myQuest.RewardDescription;
+            TextQuestTitulo.Text = GameManager.instance.questerTarget.myQuest.name;
+            TextQuestDescription.Text = GameManager.instance.questerTarget.myQuest.Description;
+            TextQuestRewards.Text = GameManager.instance.questerTarget.myQuest.RewardDescription;
             TextQuestWindow.Visibility = Visibility.Visible;
         }
         public void UpdateShopInfo()
         {
-            if (GameManager.traderTarget == null) return;
+            if (GameManager.instance.traderTarget == null) return;
             int count = 0;
             foreach (Image img in GridShop.Children)
             {
                 if (Switch == false)
                 {
-                    if (count >= GameManager.traderTarget.shop.BuyingItems.Slots.Count) img.Source = new BitmapImage();
+                    if (count >= GameManager.instance.traderTarget.shop.BuyingItems.Slots.Count) img.Source = new BitmapImage();
                     else
                     {
-                        Slot s = GameManager.traderTarget.shop.BuyingItems.GetSlot(count);
+                        Slot s = GameManager.instance.traderTarget.shop.BuyingItems.GetSlot(count);
                         img.Source = new BitmapImage(new Uri(BaseUri + Encyclopedia.SearchFor(s.ItemID).PathImage));
                     }
                 }
                 else
                 {
-                    if (count >= GameManager.traderTarget.shop.TradingItems.Slots.Count) img.Source = new BitmapImage();
+                    if (count >= GameManager.instance.traderTarget.shop.TradingItems.Slots.Count) img.Source = new BitmapImage();
                     else
                     {
-                        Slot s = GameManager.traderTarget.shop.TradingItems.GetSlot(count);
+                        Slot s = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(count);
                         img.Source = new BitmapImage(new Uri(BaseUri + Encyclopedia.SearchFor(s.ItemID).PathImage));
                     }
                 }
@@ -2070,7 +2125,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void UpdateActualQuestManager()
         {
-            Quest q = GameManager.player._Questmanager.actualQuest;
+            Quest q = GameManager.instance.player._Questmanager.actualQuest;
             if (q == null)
             {
                 CanvasQuestManager.Visibility = Visibility.Collapsed;
@@ -2096,7 +2151,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             ResetQuestList();
 
-            List<Quest> quests = GameManager.player._Questmanager.allQuests;
+            List<Quest> quests = GameManager.instance.player._Questmanager.allQuests;
             int count = 0;
             foreach (Quest q in quests)
             {
@@ -2152,11 +2207,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 var prop = e.GetCurrentPoint(Tela).Properties;
                 if (prop.IsLeftButtonPressed)
                 {
-                    Slot s = GameManager.player._Inventory.GetSlot((sender as ItemImage).myItemPosition);
+                    Slot s = GameManager.instance.player._Inventory.GetSlot((sender as ItemImage).myItemPosition);
                     if (s == null) return;
                     if (shopOpen)
                     {
-                        GameManager.traderTarget.shop.SlotInOffer = s;
+                        GameManager.instance.traderTarget.shop.SlotInOffer = s;
                         ShowOfferItem(s);
                         UpdateShopInfo();
                     }
@@ -2173,15 +2228,15 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                             {
                                 (GridEquip.Children[1] as EquipImage).MyEquip = i;
                             }
-                            GameManager.player.Equipamento.UseEquip(s.ItemID);
+                            GameManager.instance.player.Equipamento.UseEquip(s.ItemID);
                             CanvasWindowBag.Visibility = Visibility.Collapsed;
                         }
                     }
                     else
                     {
-                        GameManager.player._Inventory.RemoveFromBag(s.ItemID, s.ItemAmount);
-                        CreateDrop(GameManager.player.box.Xi + (GameManager.player.box.Width / 2),
-                                    GameManager.player.box.Yi + (GameManager.player.box.Height / 2), s);
+                        GameManager.instance.player._Inventory.RemoveFromBag(s.ItemID, s.ItemAmount);
+                        CreateDrop(GameManager.instance.player.box.Xi + (GameManager.instance.player.box.Width / 2),
+                                    GameManager.instance.player.box.Yi + (GameManager.instance.player.box.Height / 2), s);
                     }
                 }
             }
@@ -2194,7 +2249,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 if (prop.IsLeftButtonPressed)
                 {
                     Slot s = (sender as ItemImage).Slot;
-                    if (GameManager.player._Inventory.AddToBag(s))
+                    if (GameManager.instance.player._Inventory.AddToBag(s))
                     {
                         bool c = (sender as ItemImage).myBagRef.RemoveFromBag(s.ItemID, s.ItemAmount);
                     }
@@ -2204,20 +2259,20 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             // Conversation
         public void HasToCloseConv(object sender, RoutedEventArgs e)
         {
-            if (GameManager.interfaceManager.ConvHasToClose != false) return;
+            if (GameManager.instance.interfaceManager.ConvHasToClose != false) return;
 
             foreach (Button b in ListButtons.Values)
             {
                 b.Visibility = Visibility.Collapsed;
             }
-            GameManager.npcTarget = null;
-            GameManager.interfaceManager.ConvHasToClose = true;
+            GameManager.instance.npcTarget = null;
+            ConvHasToClose = true;
         }
         public void EndConversation(object sender, RoutedEventArgs e)
         {
-            if (GameManager.interfaceManager.ConvHasToClose)
+            if (GameManager.instance.interfaceManager.ConvHasToClose)
             {
-                GameManager.interfaceManager.Conversation = false;
+                GameManager.instance.interfaceManager.Conversation = false;
                 CanvasConversation.Visibility = Visibility.Collapsed;
             }
         }
@@ -2237,7 +2292,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     int s = -1;
                     s = (int)Encyclopedia.SearchFor((sender as EquipImage).MyEquip);
                     if (s <= -1) return;
-                    GameManager.player.Equipamento.DesEquip((uint) s);
+                    GameManager.instance.player.Equipamento.DesEquip((uint) s);
                 }
             }
         }
@@ -2255,8 +2310,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
                     int position = GridInventario.ColumnDefinitions.Count * rowPosition + columnPosition;
-                    skillClicked = GameManager.player._SkillManager.SkillList[position];
-                    if (GameManager.player._SkillManager.UpSkill(skillClicked))
+                    skillClicked = GameManager.instance.player._SkillManager.SkillList[position];
+                    if (GameManager.instance.player._SkillManager.UpSkill(skillClicked))
                     {
                         //UpdateSkillWindowText(skillClicked);
                         UpdatePlayerInfo();
@@ -2272,9 +2327,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
                     int position = GridInventario.ColumnDefinitions.Count * rowPosition + columnPosition;
 
-                    skillClicked = GameManager.player._SkillManager.SkillList[position];
+                    skillClicked = GameManager.instance.player._SkillManager.SkillList[position];
                     if (skillClicked.Unlocked == false) return;
-                    GameManager.player._SkillManager.ChangeSkill(skillClicked);
+                    GameManager.instance.player._SkillManager.ChangeSkill(skillClicked);
                     UpdateSkillBar();
                 }
             }
@@ -2291,7 +2346,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     int columnPosition = (int)skillEnter.GetValue(Grid.ColumnProperty);
                     int rowPosition = (int)skillEnter.GetValue(Grid.RowProperty);
                     int position = GridInventario.ColumnDefinitions.Count * rowPosition + columnPosition;
-                    GameManager.player._SkillManager.SkillBar[position - 1] = null;
+                    GameManager.instance.player._SkillManager.SkillBar[position - 1] = null;
                     //UpdateSkillWindowText(null);
                     UpdateSkillBar();
                 }
@@ -2305,9 +2360,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 uint MaxValue;
                 if (!Switch)
                 {
-                    MaxValue = GameManager.player._Inventory.GetSlot(GameManager.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
+                    MaxValue = GameManager.instance.player._Inventory.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
                 }
-                else MaxValue = GameManager.traderTarget.shop.TradingItems.GetSlot(GameManager.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
+                else MaxValue = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
 
                 if (val <= 0)
                 {
@@ -2322,10 +2377,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void IncrementOfferAmount(object sender, RoutedEventArgs e)
         {
-            if (GameManager.traderTarget.shop.SlotInOffer == null) return;
+            if (GameManager.instance.traderTarget.shop.SlotInOffer == null) return;
             if (uint.TryParse(TextItemBuyingQuantity.Text, out uint val))
             {
-                uint MaxValue = GameManager.player._Inventory.GetSlot(GameManager.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
+                uint MaxValue = GameManager.instance.player._Inventory.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
                 val++;
                 if (val >= MaxValue)
                 {
@@ -2348,7 +2403,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void OfferItemButton(object sender, RoutedEventArgs e)
         {
-            if (GameManager.traderTarget == null) return;
+            if (GameManager.instance.traderTarget == null) return;
             if (uint.TryParse(TextItemBuyingQuantity.Text, out uint val))
             {
                 if (Switch == false)
@@ -2356,11 +2411,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
                     if (val <= Bag.MaxStack)
                     {
-                        if (GameManager.player._Inventory.RemoveFromBag(GameManager.traderTarget.shop.SlotInOffer.ItemID, val))
+                        if (GameManager.instance.player._Inventory.RemoveFromBag(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID, val))
                         {
-                            Slot newSlot = new Slot(GameManager.traderTarget.shop.SlotInOffer.ItemID, val);
-                            GameManager.traderTarget.shop.AddToBuyingItems(newSlot);
-                            GameManager.traderTarget.shop.SlotInOffer = null;
+                            Slot newSlot = new Slot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID, val);
+                            GameManager.instance.traderTarget.shop.AddToBuyingItems(newSlot);
+                            GameManager.instance.traderTarget.shop.SlotInOffer = null;
                             UpdateShopInfo();
                             CloseOfferItem();
                         }
@@ -2370,8 +2425,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 {
                     if (val <= Bag.MaxStack)
                     {
-                        Slot newSlot = new Slot(GameManager.traderTarget.shop.SlotInOffer.ItemID, val);
-                        GameManager.traderTarget.shop.SellItem(newSlot, GameManager.player._Inventory);
+                        Slot newSlot = new Slot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID, val);
+                        GameManager.instance.traderTarget.shop.SellItem(newSlot, GameManager.instance.player._Inventory);
                         CloseOfferItem();
                     }
                 }
@@ -2382,7 +2437,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             if (Switch == false)
             {
-                GameManager.traderTarget.shop.BuyItem(GameManager.player._Inventory);
+                GameManager.instance.traderTarget.shop.BuyItem(GameManager.instance.player._Inventory);
                 UpdateShopInfo();
                 UpdatePlayerInfo();
             }
@@ -2402,8 +2457,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                         row = (int)(sender as Image).GetValue(Grid.RowProperty);
                         index = column * row + column;*/
                         uint index = Encyclopedia.SearchFor((sender as EquipImage).MyEquip);
-                        Slot s = GameManager.traderTarget.shop.TradingItems.GetSlot(index);
-                        GameManager.traderTarget.shop.SlotInOffer = s;
+                        Slot s = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(index);
+                        GameManager.instance.traderTarget.shop.SlotInOffer = s;
                         if (s == null) return;
                         ShowOfferItem(s);
                     }
@@ -2448,11 +2503,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void GiveUpButton(object sender, RoutedEventArgs e)
         {
-            GameManager.player._Questmanager.GiveUpActualQuest();
+            GameManager.instance.player._Questmanager.GiveUpActualQuest();
         }
         public void ClickAcceptQuestButton(object sender, RoutedEventArgs e)
         {
-            Quester npcF = GameManager.npcTarget.GetFunction("Quester") as Quester;
+            Quester npcF = GameManager.instance.npcTarget.GetFunction("Quester") as Quester;
             Quest generic = npcF.myQuest;
             TextQuestName.Text = generic.name;
             TextQuestDescr.Text = generic.Description;
@@ -2467,20 +2522,20 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             // Status
         public void XPPlus(object sender, RoutedEventArgs e)
         {
-            //GameManager.player.;
-            GameManager.player.LevelUpdate(0, 0, 0, 0, 0, 100);
+            //GameManager.instance.player.;
+            GameManager.instance.player.LevelUpdate(0, 0, 0, 0, 0, 100);
         }
         public void MPPlus(object sender, RoutedEventArgs e)
         {
-            GameManager.player.AddMP(20);
+            GameManager.instance.player.AddMP(20);
         }
         public void HPPlus(object sender, RoutedEventArgs e)
         {
-            GameManager.player.AddHP(20);
+            GameManager.instance.player.AddHP(20);
         }
         public void PSTR(object sender, RoutedEventArgs e)
         {
-            if (GameManager.player._Class.StatsPoints > 0)
+            if (GameManager.instance.player._Class.StatsPoints > 0)
             {
                 _str++;
                 GeralSumStat();
@@ -2488,7 +2543,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void PMND(object sender, RoutedEventArgs e)
         {
-            if (GameManager.player._Class.StatsPoints > 0)
+            if (GameManager.instance.player._Class.StatsPoints > 0)
             {
                 _mnd++;
                 GeralSumStat();
@@ -2496,7 +2551,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void PSPD(object sender, RoutedEventArgs e)
         {
-            if (GameManager.player._Class.StatsPoints > 0)
+            if (GameManager.instance.player._Class.StatsPoints > 0)
             {
                 _spd++;
                 GeralSumStat();
@@ -2504,7 +2559,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void PDEX(object sender, RoutedEventArgs e)
         {
-            if (GameManager.player._Class.StatsPoints > 0)
+            if (GameManager.instance.player._Class.StatsPoints > 0)
             {
                 _dex++;
                 GeralSumStat();
@@ -2512,7 +2567,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void PCON(object sender, RoutedEventArgs e)
         {
-            if (GameManager.player._Class.StatsPoints > 0)
+            if (GameManager.instance.player._Class.StatsPoints > 0)
             {
                 _con++;
                 GeralSumStat();
@@ -2560,12 +2615,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void GeralSumStat()
         {
-            GameManager.player._Class.StatsPoints--;
+            GameManager.instance.player._Class.StatsPoints--;
             UpdatePlayerInfo();
         }
         public void GeralSubStat()
         {
-            GameManager.player._Class.StatsPoints++;
+            GameManager.instance.player._Class.StatsPoints++;
             UpdatePlayerInfo();
         }
 
@@ -2578,7 +2633,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         public void ApplyStats(object sender, RoutedEventArgs e)
         {
-            GameManager.player.LevelUpdate(_str, _spd, _dex, _con, _mnd, 50);
+            GameManager.instance.player.LevelUpdate(_str, _spd, _dex, _con, _mnd, 50);
             _str = _spd = _dex = _con = _mnd = 0;
         }
         
@@ -2743,8 +2798,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         
         public void CallConversationBox(NPC npc)
         {
-            if (GameManager.interfaceManager.Conversation) return;
-            GameManager.npcTarget = npc;
+            if (GameManager.instance.interfaceManager.Conversation) return;
+            GameManager.instance.npcTarget = npc;
             CanvasConversation.Visibility = Visibility.Visible;
             List<string> funcString = npc.GetFunctionsString();
 
@@ -2785,17 +2840,22 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void ShowQuestList(object sender, PointerRoutedEventArgs e)
         {
-            RotateTransform ta = (RotateTransform)ImageArrowQuest.RenderTransform;
+            //RotateTransform ta = (RotateTransform)ImageArrowQuest.RenderTransform;
             if (CanvasQuestList.Visibility == Visibility.Collapsed)
             {
                 CanvasQuestList.Visibility = Visibility.Visible;
-                ta.Angle = 90;
+              //  ta.Angle = 90;
             }
             else
             {
                 CanvasQuestList.Visibility = Visibility.Collapsed;
-                ta.Angle = -90;
+                //ta.Angle = -90;
             }
+        }
+        public void OpenQuest()
+        {
+            CanvasQuestManager.Visibility = CanvasQuestManager.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            UpdateActualQuestManager();
         }
         public void CloseQuest()
         {
@@ -2825,7 +2885,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         
         public void CloseOfferItem()
         {
-            GameManager.traderTarget.shop.SlotInOffer = null;
+            GameManager.instance.traderTarget.shop.SlotInOffer = null;
             CanvasOfferShop.Visibility = Visibility.Collapsed;
         }
         public void CloseShop()
@@ -2956,33 +3016,33 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         //public void CreateMob()
         //{
-        //    GameManager.mob = new Mob(level: 2);
-        //    GameManager.mob.Spawn(250, 20);
+        //    GameManager.instance.mob = new Mob(level: 2);
+        //    GameManager.instance.mob.Spawn(250, 20);
         //    MobSlot smb;
         //    smb = new MobSlot(2, 10, 0.99);
-        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    if(smb.Drop()) GameManager.instance.mob.MobBag.AddToBag(smb);
         //    smb = new MobSlot(23, 10, 0.3);
-        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    if(smb.Drop()) GameManager.instance.mob.MobBag.AddToBag(smb);
         //    smb = new MobSlot(24, 10, 0.3);
-        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
+        //    if(smb.Drop()) GameManager.instance.mob.MobBag.AddToBag(smb);
         //    smb = new MobSlot(25, 10, 0.1);
-        //    if(smb.Drop()) GameManager.mob.MobBag.AddToBag(smb);
-        //    TheScene.Children.Add(GameManager.mob.box);
+        //    if(smb.Drop()) GameManager.instance.mob.MobBag.AddToBag(smb);
+        //    TheScene.Children.Add(GameManager.instance.mob.box);
         //}
         /*public void CreatePlayer()
         {
             if (PlayerCreated != null)
             {
-                GameManager.player = new Player("2220000");//PlayerCreated.Id
+                GameManager.instance.player = new Player("2220000");//PlayerCreated.Id
             }
             else
             {
-                GameManager.player = new Player("2222000");
+                GameManager.instance.player = new Player("2222000");
             }
-            GameManager.player.Spawn(300, -100);
-            GameManager.player.Damage = 0.1;
-            TheScene.Children.Add(GameManager.player.box);
-            //GameManager.player.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
+            GameManager.instance.player.Spawn(300, -100);
+            GameManager.instance.player.Damage = 0.1;
+            TheScene.Children.Add(GameManager.instance.player.box);
+            //GameManager.instance.player.box.Background = new SolidColorBrush(Color.FromArgb(155, 255, 0, 127));
         }*/
 
     }

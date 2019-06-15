@@ -34,12 +34,18 @@ namespace RPG_Noelf
     public partial class Game : Page
     {
         public static Game instance;
-        
-        
+        public GameManager gameManager;
+
         public Game()
         {
             instance = this;
             this.InitializeComponent();
+        }
+
+        void OnLoad(object sender, RoutedEventArgs e)
+        {
+            gameManager = new GameManager();
+            gameManager.InitializeGame(Tela);
         }
         /*
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -51,6 +57,6 @@ namespace RPG_Noelf
                 PlayerCreated = new Player(parames.idPlayer);
             }
         }*/
-        
+
     }
 }

@@ -8,6 +8,7 @@ using RPG_Noelf.Assets.Scripts.General;
 using System.Collections.Generic;
 using RPG_Noelf.Assets.Scripts.Skills;
 using Windows.UI.Xaml;
+using RPG_Noelf.Assets.Scripts.Interface;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
@@ -175,7 +176,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         hit = new HitSolid(box.Xi - hitboxSize - 10, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
                         if (hit.speed != 0) hit.moveLeft = true;
                     }
-                    Game.TheScene.Children.Add(hit);
+                    InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
                 }
                 
                 if (hit == null) return;
@@ -207,7 +208,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     {
                         hit = skill.Throw(this);
                     }
-                    Game.TheScene.Children.Add(hit);
+                    InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
                 }
 
                 if (hit == null) return;

@@ -1,4 +1,5 @@
 using RPG_Noelf.Assets.Scripts.Ents.PlayerFolder;
+using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -25,7 +26,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             box = new DynamicSolid(xi, yi, width, height, speed);
             MyNPC = _NPC;
             box.PointerPressed += InteractWith;
-            Game.TheScene.Children.Add(box);
+            InterfaceManager.instance.CanvasChunck01.Children.Add(box);
             Load();
         }
 

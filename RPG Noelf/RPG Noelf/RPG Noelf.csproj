@@ -131,6 +131,7 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Ents\Collision.cs" />
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
+    <Compile Include="Assets\Scripts\Ents\EquipImage.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
     <Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />

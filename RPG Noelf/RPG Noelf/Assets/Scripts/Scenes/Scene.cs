@@ -115,9 +115,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 
         private void CreatePlayer(Canvas xScene, int x, int y)
         {
-            GameManager.player = new Player("0200000");
-            GameManager.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
-            xScene.Children.Add(GameManager.player.box);
+            GameManager.instance.player = new Player("0200000");
+            GameManager.instance.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
+            xScene.Children.Add(GameManager.instance.player.box);
 
 
             //GameManager.InitializeGame();
@@ -135,7 +135,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         private void CreateMob(Canvas xScene, int x, int y)
         {
             Mob mob = new Mob(level: 2);
-            GameManager.mobs.Add(mob);
+            GameManager.instance.mobs.Add(mob);
             mob.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
             xScene.Children.Add(mob.box);
             floor.Add(mob.box);
