@@ -19,48 +19,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 {
     public static class Matriz
     {
-        private static bool[,] upWall = new bool[114, 21];
-        private static bool[,] downWall = new bool[114, 21];
-        private static bool[,] rightWall = new bool[114, 21];
-        private static bool[,] leftWall = new bool[114, 21];
         public static double scale = 768.0 / 21.0;
-
-        public static bool GetUpWall(double x, double y)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) return upWall[(int)x, (int)y];
-            else return true;
-        }
-        public static void SetUpWall(double x, double y, bool a)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) upWall[(int)x, (int)y] = a;
-        }
-        public static bool GetDownWall(double x, double y)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) return downWall[(int)x, (int)y];
-            else return true;
-        }
-        public static void SetDownWall(double x, double y, bool a)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) downWall[(int)x, (int)y] = a;
-        }
-        public static bool GetRightWall(double x, double y)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) return rightWall[(int)x, (int)y];
-            else return true;
-        }
-        public static void SetRightWall(double x, double y, bool a)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) rightWall[(int)x, (int)y] = a;
-        }
-        public static bool GetLeftWall(double x, double y)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) return leftWall[(int)x, (int)y];
-            else return true;
-        }
-        public static void SetLeftWall(double x, double y, bool a)
-        {
-            if (x >= 0 && x < 114 && y >= 0 && y < 21) leftWall[(int)x, (int)y] = a;
-        }
     }
 
     public class Platform
@@ -107,7 +66,6 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             }
             for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
-                //List<int> platX = new List<int>();
                 int x = 0;
                 foreach (char block in Blueprint[y])
                 {
@@ -120,23 +78,13 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                                   ground.VirtualPosition[0], ground.VirtualPosition[1]);
                             break;
                         case 'G':
-                            if (GetBlueprint(x, y + 1) != 'G' &&
-                                GetBlueprint(x, y + 1) != 'g') Matriz.SetUpWall(x, y, true);
-                            if (GetBlueprint(x, y - 1) != 'G' &&
-                                GetBlueprint(x, y - 1) != 'g') Matriz.SetDownWall(x, y, true);
-                            if (GetBlueprint(x + 1, y) != 'G' &&
-                                GetBlueprint(x + 1, y) != 'g') Matriz.SetRightWall(x, y, true);
-                            if (GetBlueprint(x - 1, y) != 'G' &&
-                                GetBlueprint(x - 1, y) != 'g') Matriz.SetLeftWall(x, y, true);
                             Tile grass = new Tile(Tile.TileCode[block], x, y);
                             SetImage(grass.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
                                                  grass.VirtualPosition[0], grass.VirtualPosition[1]);
-                            //Solid solid = new Solid(x * Matriz.scale, (y - 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-                            //Solid solid = new Solid(x * Solid.wScale, y * Solid.hScale - 1, Solid.wScale, Solid.hScale);
-                            //chunck.Children.Add(solid);
-                            //floor.Add(solid);
-                            //solid.Name = "plat" + platX.First() + y;
-                            //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                            Solid solid = new Solid(Matriz.scale * x, Matriz.scale * y - 1, Matriz.scale, Matriz.scale);
+                            chunck.Children.Add(solid);
+                            floor.Add(solid);
+                            solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                             break;
                         case 'b':
                             Solid chest = Game.instance.CreateChest(x * Matriz.scale, y * Matriz.scale, baus[a], Matriz.scale, Matriz.scale);
@@ -169,40 +117,6 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             //        }
             //    }
             //}
-            for (int i = 0; i < 114; i++)
-            {
-                for (int j = 0; j < 21; j++)
-                {
-                    if (Matriz.GetUpWall(i, j))
-                    {
-                        Solid solid = new Solid(i * 36.57, j * 36.57 + 36.57 / 2, 36.57, 36.57 / 2);
-                        chunck.Children.Add(solid);
-                        floor.Add(solid);
-                        solid.Background = new SolidColorBrush(Color.FromArgb(127, 255, 0, 127));
-                    }
-                    if (Matriz.GetDownWall(i, j))
-                    {
-                        Solid solid = new Solid(i * 36.57, j * 36.57, 36.57, 36.57 / 2);
-                        chunck.Children.Add(solid);
-                        floor.Add(solid);
-                        solid.Background = new SolidColorBrush(Color.FromArgb(127, 255, 127, 0));
-                    }
-                    if (Matriz.GetRightWall(i, j))
-                    {
-                        Solid solid = new Solid(i * 36.57 + 36.57 / 2, j * 36.57, 36.57 / 2, 36.57);
-                        chunck.Children.Add(solid);
-                        floor.Add(solid);
-                        solid.Background = new SolidColorBrush(Color.FromArgb(127, 0, 255, 127));
-                    }
-                    if (Matriz.GetLeftWall(i, j))
-                    {
-                        Solid solid = new Solid(i * 36.57, j * 36.57, 36.57 / 2, 36.57);
-                        chunck.Children.Add(solid);
-                        floor.Add(solid);
-                        solid.Background = new SolidColorBrush(Color.FromArgb(127, 127, 255, 0));
-                    }
-                }
-            }
             //chunck = new Canvas();
             //xScene.Children.Add(chunck);
             //System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");

@@ -21,7 +21,9 @@ namespace RPG_Noelf.Assets.Scripts
 
     public class Solid : Canvas//solido colidivel
     {
-        public static List<Solid> solids = new List<Solid>();
+        public static Solid[,] solids = new Solid[115, 21];
+        public static Solid GetSolid(double x, double y) { if (x >= 0 && y >= 0 && x < 115 && y < 21) return solids[(int)x, (int)y]; else return null; }
+        public static void SetSolid(double x, double y, Solid s) { if (x >= 0 && y >= 0 && x < 115 && y < 21) solids[(int)x, (int)y] = s; }
         public Ent MyEnt;
         protected double xi;
         public double Xi {
@@ -43,14 +45,14 @@ namespace RPG_Noelf.Assets.Scripts
         }
         public bool down, up, right, left;
 
-        public double wScale = 114 / 1366, hScale = 21 / 768;
+        //public double wScale = 114 / 1366, hScale = 21 / 768;
         public Solid(double xi, double yi, double width, double height)
         {
             Xi = xi;
             Yi = yi;
             Width = width;
             Height = height;
-            solids.Add(this);
+            SetSolid(xi / Matriz.scale, yi / Matriz.scale, this);
             //if (!(this is DynamicSolid)) Matriz.matriz[(int)(xi * wScale), (int)(yi * hScale)] = true;
         }
 
@@ -73,7 +75,7 @@ namespace RPG_Noelf.Assets.Scripts
         public HitSolid(double xi, double yi, double width, double height, byte dmg, DynamicSolid who) : base(xi, yi, width, height)
         {
             Background = new SolidColorBrush(Color.FromArgb(50, dmg, 0, 0));
-            solids.Remove(this);
+            //solids.Remove(this);
             Who = who;
         }
 
@@ -103,7 +105,7 @@ namespace RPG_Noelf.Assets.Scripts
         public DynamicSolid Interaction()//o q este solido faz com os outros ao redor
         {
             DynamicSolid dynamicFound = null;
-            var dinamics = from dinm in solids where dinm is DynamicSolid select dinm;
+            var dinamics = new List<DynamicSolid>();// from dinm in solids where dinm is DynamicSolid select dinm;
 
             foreach (DynamicSolid solid in dinamics)
             {
@@ -137,7 +139,7 @@ namespace RPG_Noelf.Assets.Scripts
         public bool moveRight, moveLeft;
         DateTime time;
 
-        public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi + 0, yi - 0, width, height)
+        public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi + 10, yi - 0, width, height)
         {
             Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
             this.speed = speed;
@@ -145,20 +147,6 @@ namespace RPG_Noelf.Assets.Scripts
             Moved += OnMoved;
             horizontalSpeed = speed * 75;
             Window.Current.CoreWindow.KeyDown += Start;
-            Window.Current.CoreWindow.KeyDown += Adaef;
-
-            //Solid z = new Solid(((int)(Xi / Matriz.scale)) * Matriz.scale, ((int)(Yi / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Platform.chunck.Children.Add(z);
-            //z.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
-            //Solid a = new Solid(((int)(Xi / Matriz.scale)) * Matriz.scale, ((int)(Yf / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Platform.chunck.Children.Add(a);
-            //a.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
-            //Solid b = new Solid(((int)(Xf / Matriz.scale)) * Matriz.scale, ((int)(Yi / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Platform.chunck.Children.Add(b);
-            //b.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
-            //Solid c = new Solid(((int)(Xf / Matriz.scale)) * Matriz.scale, ((int)(Yf / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Platform.chunck.Children.Add(c);
-            //c.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 255));
         }
 
         Task task;
@@ -169,49 +157,6 @@ namespace RPG_Noelf.Assets.Scripts
                 time = DateTime.Now;
                 task = new Task(Update);
                 task.Start();
-            }
-        }
-
-        public void Adaef(CoreWindow sender, KeyEventArgs e)
-        {
-            if (e.VirtualKey == VirtualKey.C)
-            {
-                Solid u = new Solid(((int)((Xi - 1) / Matriz.scale) + 1) * Matriz.scale,
-                                    ((int)((Yi - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-                Solid u2 = new Solid(((int)((Xf - 1) / Matriz.scale)) * Matriz.scale,
-                                     ((int)((Yi - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-                Solid d = new Solid(((int)((Xi - 1) / Matriz.scale) + 1) * Matriz.scale,
-                                    ((int)(Yf / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-                Solid d2 = new Solid(((int)((Xf - 1) / Matriz.scale)) * Matriz.scale,
-                                     ((int)(Yf / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-                Solid r = new Solid(((int)((Xf) / Matriz.scale)) * Matriz.scale,
-                                    ((int)((Yf - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-                Solid r2 = new Solid(((int)((Xf) / Matriz.scale)) * Matriz.scale,
-                                     ((int)((Yi - 1) / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-                Solid l = new Solid(((int)((Xi - 1) / Matriz.scale)) * Matriz.scale,
-                                    ((int)((Yi - 1) / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-                Solid l2 = new Solid(((int)((Xi - 1) / Matriz.scale)) * Matriz.scale,
-                                     ((int)((Yf - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-                Platform.chunck.Children.Add(u);
-                u.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(u2);
-                u2.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(d);
-                d.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(d2);
-                d2.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(r);
-                r.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(r2);
-                r2.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(l);
-                l.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
-                Platform.chunck.Children.Add(l2);
-                l2.Background = new SolidColorBrush(Color.FromArgb(255, 255, 127, 0));
             }
         }
 
@@ -227,11 +172,6 @@ namespace RPG_Noelf.Assets.Scripts
                     ApplyGravity(span.TotalSeconds);
                 }//se n ha chao
                 else verticalSpeed = 0;
-                if (!freeDirections[Direction.up])
-                {
-                    verticalSpeed = 0;
-                    ApplyGravity(span.TotalSeconds);
-                }
                 if (moveRight) lastHorizontalDirection = horizontalDirection = 1;//se esta se movimentando para direita
                 else if (moveLeft) lastHorizontalDirection = horizontalDirection = -1;//se esta se movimentando para esquerda
                 else horizontalDirection = 0;//se n quer se mover pros lados
@@ -252,100 +192,84 @@ namespace RPG_Noelf.Assets.Scripts
         }
         public void OnMoved()//o q este solido faz com os outros ao redor
         {
-            //Solid u = new Solid(((int)(Xi / Matriz.scale)) * Matriz.scale, ((int)(Yi / Matriz.scale) - 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid u2 = new Solid(((int)((Xf - 1) / Matriz.scale)) * Matriz.scale, ((int)(Yi / Matriz.scale) - 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid d = new Solid(((int)(Xi / Matriz.scale)) * Matriz.scale, ((int)((Yf - 1) / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid d2 = new Solid(((int)((Xf - 1) / Matriz.scale)) * Matriz.scale, ((int)((Yf - 1) / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid r = new Solid(((int)((Xf - 1) / Matriz.scale) + 1) * Matriz.scale, ((int)((Yf - 1) / Matriz.scale) - 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid r2 = new Solid(((int)((Xf - 1) / Matriz.scale) + 1) * Matriz.scale, ((int)((Yf - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid l = new Solid(((int)(Xi / Matriz.scale) - 1) * Matriz.scale, ((int)(Yi / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid l2 = new Solid(((int)(Xi / Matriz.scale) - 1) * Matriz.scale, ((int)(Yi / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid u = new Solid(((int)((Xi - 1) / Matriz.scale) + 1) * Matriz.scale,
-            //                    ((int)((Yi - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid u2 = new Solid(((int)((Xf - 1) / Matriz.scale)) * Matriz.scale,
-            //                     ((int)((Yi - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid d = new Solid(((int)((Xi - 1) / Matriz.scale) + 1) * Matriz.scale,
-            //                    ((int)(Yf / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid d2 = new Solid(((int)((Xf - 1) / Matriz.scale)) * Matriz.scale,
-            //                     ((int)(Yf / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid r = new Solid(((int)((Xf) / Matriz.scale)) * Matriz.scale,
-            //                    ((int)((Yf - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid r2 = new Solid(((int)((Xf) / Matriz.scale)) * Matriz.scale,
-            //                     ((int)((Yi - 1) / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            //Solid l = new Solid(((int)((Xi - 1) / Matriz.scale)) * Matriz.scale,
-            //                    ((int)((Yi - 1) / Matriz.scale) + 1) * Matriz.scale, Matriz.scale, Matriz.scale);
-            //Solid l2 = new Solid(((int)((Xi - 1) / Matriz.scale)) * Matriz.scale,
-            //                     ((int)((Yf - 1) / Matriz.scale)) * Matriz.scale, Matriz.scale, Matriz.scale);
-
-            if (Matriz.GetUpWall((Xi - 1) / Matriz.scale + 1, (Yi - 1) / Matriz.scale) ||//up
-                Matriz.GetUpWall((Xf - 1) / Matriz.scale, (Yi - 1) / Matriz.scale))
+            freeDirections[Direction.down] =
+            freeDirections[Direction.right] =
+            freeDirections[Direction.left] = true;
+            const double margin = 15;
+            List<Solid> slds = new List<Solid>()
             {
-                //Xi = (int)Xi;
-                Yi = (int)(Yi / Matriz.scale) * Matriz.scale;
-                freeDirections[Direction.up] = false;
-            }
-            else freeDirections[Direction.up] = true;
-            if (Matriz.GetDownWall((Xi - 1) / Matriz.scale + 1, Yf / Matriz.scale) ||//down
-                Matriz.GetDownWall((Xf - 1) / Matriz.scale, Yf / Matriz.scale))
+                GetSolid(Xi / Matriz.scale,Yi / Matriz.scale),
+
+                GetSolid(Xi / Matriz.scale - 1,Yi / Matriz.scale),
+                GetSolid(Xi / Matriz.scale + 1,Yi / Matriz.scale),
+                GetSolid(Xi / Matriz.scale,Yi / Matriz.scale + 1),
+                //GetSolid(Xi / Matriz.scale,Yi / Matriz.scale - 1),
+
+                //GetSolid(Xi / Matriz.scale - 1,Yi / Matriz.scale - 1),
+                GetSolid(Xi / Matriz.scale - 1,Yi / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale + 1,Yi / Matriz.scale + 1),
+                //GetSolid(Xi / Matriz.scale + 1,Yi / Matriz.scale - 1),
+
+                GetSolid((Xf - 1) / Matriz.scale, (Yf - 1) / Matriz.scale),
+
+                GetSolid((Xf - 1) / Matriz.scale - 1,(Yf - 1) / Matriz.scale),
+                GetSolid((Xf - 1) / Matriz.scale + 1,(Yf - 1) / Matriz.scale),
+                GetSolid((Xf - 1) / Matriz.scale,(Yf - 1) / Matriz.scale + 1),
+                GetSolid((Xf - 1) / Matriz.scale,(Yf - 1) / Matriz.scale - 1),
+
+                GetSolid((Xf - 1) / Matriz.scale - 1,(Yf - 1) / Matriz.scale - 1),
+                GetSolid((Xf - 1) / Matriz.scale - 1,(Yf - 1) / Matriz.scale + 1),
+                GetSolid((Xf - 1) / Matriz.scale + 1,(Yf - 1) / Matriz.scale + 1),
+                GetSolid((Xf - 1) / Matriz.scale + 1,(Yf - 1) / Matriz.scale - 1),
+
+                GetSolid(Xi / Matriz.scale - 1,(Yf - 1) / Matriz.scale),
+                GetSolid(Xi / Matriz.scale + 1,(Yf - 1) / Matriz.scale),
+                GetSolid(Xi / Matriz.scale,(Yf - 1) / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale,(Yf - 1) / Matriz.scale - 1),
+
+                GetSolid(Xi / Matriz.scale - 1,(Yf - 1) / Matriz.scale - 1),
+                GetSolid(Xi / Matriz.scale - 1,(Yf - 1) / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale + 1,(Yf - 1) / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale + 1,(Yf - 1) / Matriz.scale - 1),
+
+                GetSolid(Xi / Matriz.scale - 1,(Yf - 1) / Matriz.scale),
+                GetSolid(Xi / Matriz.scale + 1,(Yf - 1) / Matriz.scale),
+                GetSolid(Xi / Matriz.scale,(Yf - 1) / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale,(Yf - 1) / Matriz.scale - 1),
+
+                GetSolid(Xi / Matriz.scale - 1,(Yf - 1) / Matriz.scale - 1),
+                GetSolid(Xi / Matriz.scale - 1,(Yf - 1) / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale + 1,(Yf - 1) / Matriz.scale + 1),
+                GetSolid(Xi / Matriz.scale + 1,(Yf - 1) / Matriz.scale - 1)
+            };
+            foreach (Solid solid in slds)
             {
-                //Xi = (int)Xi;
-                Yi = (int)(Yi / Matriz.scale) * Matriz.scale;
-                freeDirections[Direction.down] = false;
+                if (!(solid is DynamicSolid) && solid != null)
+                {
+                    if (Equals(solid)) return;//se for comparar o solidMoving com ele msm, pule o teste
+                    if (Yf >= solid.Yi && Yf < solid.Yi + margin)//se o solidMoving esta no nivel de pisar em algum Solid
+                    {
+                        if (Xi < solid.Xf && Xf > solid.Xi)//se o solidMoving esta colindindo embaixo
+                        {
+                            Yf = solid.Yi;
+                            freeDirections[Direction.down] = false;
+                        }
+                    }
+                    if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
+                    {
+                        if (Xf >= solid.Xi && Xf < solid.Xi + margin)//se o solidMoving esta colindindo a direita
+                        {
+                            Xf = solid.Xi;
+                            freeDirections[Direction.right] = false;
+                        }
+                        if (Xi <= solid.Xf && Xi > solid.Xf - margin)//se o solidMoving esta colindindo a esquerda
+                        {
+                            Xi = solid.Xf;
+                            freeDirections[Direction.left] = false;
+                        }
+                    }
+                }
             }
-            else freeDirections[Direction.down] = true;
-            if (Matriz.GetLeftWall(Xf / Matriz.scale, (Yf - 1) / Matriz.scale) ||//right
-                Matriz.GetLeftWall(Xf / Matriz.scale, (Yf - 1) / Matriz.scale + 1))
-            {
-                Xi = (int)(Xi / Matriz.scale) * Matriz.scale;
-                //Yi = (int)Yi;
-                freeDirections[Direction.right] = false;
-            }
-            else freeDirections[Direction.right] = true;
-            if (Matriz.GetRightWall((Xi - 1) / Matriz.scale, (Yi - 1) / Matriz.scale + 1) ||//left
-                Matriz.GetRightWall((Xi - 1) / Matriz.scale, (Yi - 1) / Matriz.scale))
-            {
-                Xi = (int)(Xi / Matriz.scale) * Matriz.scale;
-                //Yi = (int)Yi;
-                freeDirections[Direction.left] = false;
-            }
-            else freeDirections[Direction.left] = true;
-            //if (matriz[(int)(Xf * wScale), (int)(Yf * hScale)])
-            //    const double margin = 15;
-            //foreach (Solid solid in solids)
-            //{
-            //    if (!(solid is DynamicSolid))
-            //    {
-            //        if (Equals(solid)) return;//se for comparar o solidMoving com ele msm, pule o teste
-            //        if (Yf >= solid.Yi && Yf < solid.Yi + margin)//se o solidMoving esta no nivel de pisar em algum Solid
-            //        {
-            //            if (Xi < solid.Xf && Xf > solid.Xi)//se o solidMoving esta colindindo embaixo
-            //            {
-            //                Yf = solid.Yi;
-            //                freeDirections[Direction.down] = false;
-            //            }
-            //        }
-            //        if (Yi < solid.Yf && Yf > solid.Yi)//se o solid eh candidato a colidir nos lados do solidMoving
-            //        {
-            //            if (Xf >= solid.Xi && Xf < solid.Xi + margin)//se o solidMoving esta colindindo a direita
-            //            {
-            //                Xf = solid.Xi;
-            //                freeDirections[Direction.right] = false;
-            //            }
-            //            if (Xi <= solid.Xf && Xi > solid.Xf - margin)//se o solidMoving esta colindindo a esquerda
-            //            {
-            //                Xi = solid.Xf;
-            //                freeDirections[Direction.left] = false;
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         public void ApplyGravity(double span) => verticalSpeed -= g * span / 0.6;//aplica a gravidade

@@ -131,7 +131,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     Game.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
             }
-            Solid.solids.Remove(box);
+            //Solid.solids.Remove(box);
             box.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             Debug.WriteLine("Mob died");
         }
