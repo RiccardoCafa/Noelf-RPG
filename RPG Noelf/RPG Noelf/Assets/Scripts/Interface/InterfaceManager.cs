@@ -196,6 +196,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             
             CreateCraftingWindow();
 
+            CreateConversationLayout();
+
             CanvasShop.Visibility = Visibility.Collapsed;
             CanvasInventario.Visibility = Visibility.Collapsed;
             CanvasAtributos.Visibility = Visibility.Collapsed;
