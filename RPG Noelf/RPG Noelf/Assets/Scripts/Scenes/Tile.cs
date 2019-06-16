@@ -22,8 +22,8 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         public TypeTile tpTile;
         public double[] vetor = new double[2];
         public string Path { get; private set; }
-        public static readonly double[] Size = new double[] { 60 * 0.6, 60 * 0.6 };
-        public static readonly double[] VirtualSize = new double[] { 60 * 0.6, 115 * 0.6 };
+        public static readonly double[] Size = new double[] { Matriz.scale, Matriz.scale };
+        public static readonly double[] VirtualSize = new double[] { Matriz.scale, Matriz.scale * 2 };
         public double[] VirtualPosition { get; private set; } = new double[2];
 
         public Tile(TypeTile tpTile, double x, double y)
@@ -33,7 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             vetor[1] = y * Size[1];
             Path = "/Assets/Images/tiles/" + tpTile + ".png";
             VirtualPosition[0] = vetor[0];
-            VirtualPosition[1] = vetor[1] - 40 * 0.6;
+            VirtualPosition[1] = vetor[1] - Matriz.scale * 0.6;
         }
     }
 }

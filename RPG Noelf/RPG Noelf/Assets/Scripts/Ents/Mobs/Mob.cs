@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Scenes;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -111,7 +112,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         }//monta as imagens na box do Mob
         public void Spawn(double x, double y)//cria o mob na tela
         {
-            box = new DynamicSolid(x, y, 120 * 0.6, 120 * 0.6, Run);
+            box = new DynamicSolid(x, y, Matriz.scale * 2, Matriz.scale * 2, Run);
             box.MyEnt = this;
             Load();
         }

@@ -17,6 +17,7 @@ using RPG_Noelf.Assets.Scripts.Ents.PlayerFolder;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using RPG_Noelf.Assets.Scripts.Scenes;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -95,7 +96,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void Spawn(double x, double y)//cria o Player na tela
         {
-            box = new PlayableSolid(x, y, 60 * 0.6, 120 * 0.6, Run);
+            box = new PlayableSolid(x, y, Matriz.scale, Matriz.scale * 2, Run);
             _PlayerLoader = new PlayerLoader(box, Id);
             _PlayerLoader.Load(parts, sides);
             box.MyEnt = this;
