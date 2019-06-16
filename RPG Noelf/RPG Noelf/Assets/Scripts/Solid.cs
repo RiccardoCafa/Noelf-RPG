@@ -84,7 +84,6 @@ namespace RPG_Noelf.Assets.Scripts
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimer_Tick;
             timer.Interval = new TimeSpan(0, 0, 1);
-            //TimesTicked = 0;
             timer.Start();
         }
 
@@ -107,8 +106,8 @@ namespace RPG_Noelf.Assets.Scripts
                     {
                         Visibility = Visibility.Collapsed;
                         Who.MyEnt.HitPool.AddToPool(this);
-                        timer.Stop();
                         alive = false;
+                        timer.Stop();
                     }
                 }
                 TimesTicked = 0;
@@ -139,6 +138,8 @@ namespace RPG_Noelf.Assets.Scripts
         public delegate void MoveHandler();
         public event MoveHandler Moved;
 
+        public static List<DynamicSolid> DynamicSolids = new List<DynamicSolid>();
+
         public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
             { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
 
@@ -155,29 +156,30 @@ namespace RPG_Noelf.Assets.Scripts
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
         {
             Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
+            DynamicSolids.Add(this);
             this.speed = speed;
             jumpSpeed = speed * 150;
             Moved += OnMoved;
             horizontalSpeed = speed * 75;
-            Window.Current.CoreWindow.KeyDown += Start;
+            //Window.Current.CoreWindow.KeyDown += Start;
         }
 
         public Task task;
         public void Start(CoreWindow sender, KeyEventArgs e)
         {
-            if (task == null)
+            /*if (task == null)
             {
                 time = DateTime.Now;
                 task = new Task(Update);
                 task.Start();
-            }
+            }*/
         }
 
         public bool alive = true;
         public async void Update()//atualiza a td instante
         {
             TimeSpan span = DateTime.Now - time;
-            while (alive)
+            if (alive)
             {
                 time = DateTime.Now;
                 if (g != 0 && freeDirections[Direction.down])
