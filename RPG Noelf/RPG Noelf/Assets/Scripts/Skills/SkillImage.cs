@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 {
     class SkillImage : Canvas
     {
-        public delegate void SkillImageHandler(Object sender, SkillImage e);
-        public event SkillImageHandler SkillImageUpdate;
+        public delegate void SkillImageHandler(object sender, SkillImage e);
 
         public Image image;
         public SkillGenerics skill;
@@ -29,6 +29,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             Children.Add(image);
             PointerEntered += InterfaceManager.instance.UpdateSkillWindowText;
             PointerExited += InterfaceManager.instance.CloseSkillWindowText;
+        }
+
+        public void UpdateImage()
+        {
+            image.Source = Encyclopedia.skillsImages[(uint) SkillManager.instance.SkillList.IndexOf(skill)];
         }
         
     }

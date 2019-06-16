@@ -4,6 +4,8 @@ using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
@@ -11,6 +13,10 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         public static Dictionary<uint, Item> encyclopedia;
         public static Dictionary<uint, NPC> NonPlayerCharacters;
+        public static Dictionary<uint, ImageSource> skillsImages = new Dictionary<uint, ImageSource>();
+        public static Dictionary<uint, ImageSource> encycloImages;
+
+        public static string BaseUri = "ms-appx://";
 
         public static void LoadEncyclopedia()
         {
@@ -22,6 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         {
             //CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
+            encycloImages = new Dictionary<uint, ImageSource>();
             #region Items
             // loaded Itens
             Item item1 = new Item("Iron Nugget")
@@ -31,7 +38,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/Chao.jpg",
                 GoldValue = 1,
                 description =  "It's just a small piece of iron, don't eat it"
-               
             };
             encyclopedia.Add(1,item1);
             Item item2 = new Item("Coal")
@@ -452,6 +458,15 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             encyclopedia.Add(44, item44);
 
             #endregion
+
+            uint count = 1;
+            foreach(Item item in encyclopedia.Values)
+            {
+                if(encyclopedia.ContainsKey(count))
+                {
+                    encycloImages.Add(count++, new BitmapImage(new Uri(BaseUri + item.PathImage)));
+                }
+            }
         }
 
         public static void LoadNPC()

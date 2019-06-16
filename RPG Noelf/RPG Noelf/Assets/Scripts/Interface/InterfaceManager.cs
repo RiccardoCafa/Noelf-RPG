@@ -279,7 +279,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         }
 
-        /* ####################################### INSTANTIATES #######################################*/
+        /* ############################################################################################
+        /* ####################################### INSTANTIATES #######################################
+        /* ############################################################################################ */
 
         public Solid CreateChest(double x, double y, Bau bau, double w, double h)
         {
@@ -1381,6 +1383,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             DefinitionsGrid(GridInventario, 6, 5, 30, 30);
             FillGridItemImage(GridInventario, GameManager.instance.player._Inventory, 6, 5, 25, 25);
 
+
         }
 
         public void CreateQuestManager()
@@ -1941,17 +1944,17 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             //Trigger dropTrigger = new Trigger(loot);
         }
 
-        /* ############################################################################################*/
-
-        /* ########################################## UPDATES #########################################*/
+        /* ##################################################################################################*/
+        /* ########################################## UPDATES ###############################################*/
+        /* ##################################################################################################*/
 
         public void UpdateChest(Bau chest)
         {
-            UpdateGridBagItemImages(GridChest, chest.itens);
+            UpdateGridBagItemImages(GridChest, chest.itens, EItemOwner.drop);
             int count = 0;
             foreach (ItemImage img in GridChest.Children)
             {
-                if (count >= chest.itens.Slots.Count) img.Source = new BitmapImage();
+                if (count >= chest.itens.Slots.Count) img.Source = null;
                 else
                 {
                     img.Source = new BitmapImage(
@@ -1967,7 +1970,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             int count = 0;
             foreach (ItemImage img in GridChest.Children)
             {
-                if (count >= chest.Slots.Count) img.Source = new BitmapImage();
+                if (count >= chest.Slots.Count) img.Source = null;
                 else
                 {
                     img.Source = new BitmapImage(
@@ -1977,12 +1980,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             }
         }
         
-        public void UpdateGridBagItemImages(Grid grid, Bag bag)
+        public void UpdateGridBagItemImages(Grid grid, Bag bag, EItemOwner own)
         {
             foreach (ItemImage item in grid.Children)
             {
                 item.myBagRef = bag;
-                item.itemOwner = EItemOwner.drop;
+                item.itemOwner = own;
                 item.SetEvents();
             }
         }
@@ -2019,7 +2022,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     if (GameManager.instance.player._SkillManager.SkillBar[cont - 1] != null)
                         (element as Image).Source = new BitmapImage(new Uri(BaseUri + GameManager.instance.player._SkillManager.SkillBar[cont - 1].pathImage));
                     else
-                        (element as Image).Source = new BitmapImage();
+                        (element as Image).Source = null;
                 }
                 cont++;
             }
@@ -2116,7 +2119,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             {
                 if (Switch == false)
                 {
-                    if (count >= GameManager.instance.traderTarget.shop.BuyingItems.Slots.Count) img.Source = new BitmapImage();
+                    if (count >= GameManager.instance.traderTarget.shop.BuyingItems.Slots.Count) img.Source = null;
                     else
                     {
                         Slot s = GameManager.instance.traderTarget.shop.BuyingItems.GetSlot(count);
@@ -2125,7 +2128,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 }
                 else
                 {
-                    if (count >= GameManager.instance.traderTarget.shop.TradingItems.Slots.Count) img.Source = new BitmapImage();
+                    if (count >= GameManager.instance.traderTarget.shop.TradingItems.Slots.Count) img.Source = null;
                     else
                     {
                         Slot s = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(count);
@@ -2155,7 +2158,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             }
             else
             {
-                ImageMQuestItem.Source = new BitmapImage();
+                ImageMQuestItem.Source = null;
                 TextMQuestItemQntd.Text = "";
             }
         }
@@ -2195,10 +2198,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             StackQuest.Children.Clear();
             MsnBtnPool.ReturnToPool();
         }
-        
-        /* ############################################################################################*/
 
-        /* ########################################### EVENTS #########################################*/
+        /* ##################################################################################################*/
+        /* ########################################### EVENTS ###############################################*/
+        /* ##################################################################################################*/
 
         //chest
         public void OnChestClicked(object sender, PointerRoutedEventArgs e)
@@ -2663,10 +2666,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 }
             }
         }
-        
-        /* ############################################################################################*/
 
+        /* ##################################################################################################*/
         /* ######################################## OPEN/CLOSE WINDOW #######################################*/
+        /* ##################################################################################################*/
 
         public void ChestOpen(object sender, ChestEventArgs e)
         {
@@ -2807,7 +2810,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             RealocateWindow(CanvasWindowBag, mousePosition);
             UpdateItemWindowText(itemImg.MyEquip);
         }
-        
+
         public void CallConversationBox(NPC npc)
         {
             if (GameManager.instance.interfaceManager.Conversation) return;
@@ -2904,10 +2907,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             CanvasShop.Visibility = Visibility.Collapsed;
         }
-        
-        /* ############################################################################################*/
 
+        /* ###################################################################################################*/
         /* ######################################## TRANSFORM & MISC #########################################*/
+        /* ###################################################################################################*/
 
         public void RealocateWindow(Canvas window, Point mousePosition)
         {
@@ -3023,7 +3026,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 }
             }
         }
-        /* ############################################################################################*/
+        /* ###################################################################################################*/
 
 
         //public void CreateMob()

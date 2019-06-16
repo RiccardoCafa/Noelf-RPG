@@ -1,13 +1,7 @@
 ﻿using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
@@ -45,7 +39,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 Source = null;
                 return;
             }
-            Source = new BitmapImage(new Uri("ms-appx://" + MyEquip.PathImage));
+            Source = Encyclopedia.encycloImages[Encyclopedia.SearchFor(MyEquip)];
+            //Source = new BitmapImage(new Uri("ms-appx://" + MyEquip.PathImage));
         }
     }
 }

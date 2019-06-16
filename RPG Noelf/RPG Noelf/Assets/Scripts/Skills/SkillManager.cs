@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
     public class SkillManager//adiministrador de skills no game
     {
+        public static SkillManager instance;
         public List<SkillGenerics> SkillList { get; set; }
         private List<SkillGenerics> skilltime = new List<SkillGenerics>();//lista de skills que foram usadas
 
@@ -28,6 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public SkillManager(Player myPlayer)
         {
+            instance = this;
             SkillPoints = 0;
             this.myPlayer = myPlayer;
             SkillList = new List<SkillGenerics>();
@@ -147,6 +151,17 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
+        
+        public void UpdateEncyclopedia()
+        {
+            uint count = 0;
+            foreach(Skill s in SkillList)
+            {
+                Encyclopedia.skillsImages.Add(count, new BitmapImage(new Uri("ms-appx://" + s.pathImage)));
+                count++;
+            }
+        }
+
         public void AddSkillToBar(SkillGenerics s, int index)
         {
             SkillBar[index] = s;
@@ -274,5 +289,3 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 	}
 }
     
-
-

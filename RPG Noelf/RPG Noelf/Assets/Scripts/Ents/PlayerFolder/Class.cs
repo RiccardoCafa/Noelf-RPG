@@ -242,6 +242,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipobuff = SkillTypeBuff.buff
             });
             className = "Guerreiro";
+            skillManager.UpdateEncyclopedia();
+
         }
     }
 
@@ -457,6 +459,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipobuff = SkillTypeBuff.normal,
             });
             className = "Arqueiro";
+            skillManager.UpdateEncyclopedia();
         }
     }
 
@@ -658,6 +661,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipobuff = SkillTypeBuff.normal
             });
             className = "Mago";
+            skillManager.UpdateEncyclopedia();
         }
     }
 }

@@ -1,14 +1,7 @@
-﻿using RPG_Noelf.Assets.Scripts.General;
-using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
@@ -115,10 +108,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                         myBagRef.GetSlot(myItemPosition).ItemID : 0;
             if (itemID != 0)
             {
-                image.Source = new BitmapImage(new Uri("ms-appx://" + Encyclopedia.SearchFor(itemID).PathImage));
+                image.Source = Encyclopedia.encycloImages[myBagRef.GetSlot(myItemPosition).ItemID];
             } else
             {
-                image.Source = new BitmapImage();
+                image.Source = null;
             }
         }
     }
