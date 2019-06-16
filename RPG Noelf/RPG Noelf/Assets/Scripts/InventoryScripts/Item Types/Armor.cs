@@ -12,13 +12,14 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     }
     public enum PositionArmor
     {
-        Elm, Armor, Legs, Boots
+        Elm = 0, Armor = 1, Legs = 2, Boots = 3
     }
     public class Armor : Item
     {
         public PositionArmor PositArmor;
         public TypeArmor tpArmor;
         public float defense;
+
         public Armor(string name) : base(name)
         {
             IsStackable = false;
@@ -41,7 +42,10 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             return "";
         }
 
-
+        public int GetPosition()
+        {
+            return (int) PositArmor;
+        }
 
     }
 

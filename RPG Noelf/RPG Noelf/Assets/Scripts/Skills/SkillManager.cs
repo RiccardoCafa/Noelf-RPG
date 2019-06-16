@@ -12,24 +12,29 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     public class SkillManager//adiministrador de skills no game
     {
         public List<SkillGenerics> SkillList { get; set; }
+        private List<SkillGenerics> skilltime = new List<SkillGenerics>();//lista de skills que foram usadas
+
         public SkillGenerics[] SkillBar { get; set; }
         public SkillGenerics Passive { get; set; }
+
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
         public Player myPlayer;
-        public Thread ManageSkill;
+
         public int SkillPoints { get; set; }
         public uint i = 0;
-        private List<SkillGenerics> skilltime = new List<SkillGenerics>();//lista de skills que foram usadas
-        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
         private double RealTime = 0;
+
         public SkillManager(Player myPlayer)
         {
             SkillPoints = 0;
             this.myPlayer = myPlayer;
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
-            ManageSkill = new Thread(ManageSkillThread);
             DispatcherSetup();
         }
+
         public void BeAbleSkill(int index)//tipobuff
         {
             if(SkillBar[index]!= null)
@@ -77,14 +82,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 }
             }
             RealTime++;
-        }
-        public void ManageSkillThread()
-        {
-            while(true)
-            {
-                Thread.Sleep(1000);
-                Game.i++;
-            }
         }
 
         public void SetWarriorPassive(string name, string pathImage)
@@ -146,7 +143,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public void AddSkillToBar(SkillGenerics s, int index)
         {
-                SkillBar[index] = s;
+            SkillBar[index] = s;
         }
         
         private bool TestLevelBlock(SkillGenerics skill)

@@ -109,7 +109,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     defesaTotal += arm.defense;
             }
             player.ArmorEquip = defesaTotal;
-            OnEquipUpdated();
+
+            player.Damage = weapon.bonusDamage;
+            //OnEquipUpdated();
         }
 
         public virtual void OnEquipUpdated()

@@ -17,6 +17,7 @@ using RPG_Noelf.Assets.Scripts.Ents.PlayerFolder;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using RPG_Noelf.Assets.Scripts.Interface;
 
 namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 {
@@ -72,12 +73,12 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 case '1': Race = new Orc(); break;
                 case '2': Race = new Elf(); break;
             }
-
+            
             switch (Id[1])
             {
-                case '0': _Class = new Warrior(_SkillManager); break;
-                case '1': _Class = new Wizard(_SkillManager); break;
-                case '2': _Class = new Ranger(_SkillManager); break;
+                case '0': _Class = new Warrior(_SkillManager); Ranged = false; break;
+                case '1': _Class = new Wizard(_SkillManager); Ranged = true;  break;
+                case '2': _Class = new Ranger(_SkillManager); Ranged = true; break;
             }
 
             Id = id;
@@ -91,6 +92,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             ApplyDerivedAttributes();
             attkDelay = DateTime.Now;
             Window.Current.CoreWindow.KeyUp += RunAttack;
+
+            //_Inventory.BagUpdated += InterfaceManager.instance.UpdateBagEvent;
+            //Equipamento.EquipUpdated += InterfaceManager.instance.UpdateEquipEvent;
+            //PlayerUpdated += UpdatePlayerInfo
         }
 
         public void Spawn(double x, double y)//cria o Player na tela
@@ -141,7 +146,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             TimeMgcDmg = 0.45 * Mnd;
             Damage = Str;
             Armor = ArmorBuff + ArmorEquip;
-            OnPlayerUpdate();
+            //OnPlayerUpdate();
         }
 
         public void AddMP(int MP)
@@ -154,7 +159,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Mp += MP;
             }
-            OnPlayerUpdate();
+            //OnPlayerUpdate();
         }
 
         public void AddHP(int HP)
@@ -167,7 +172,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             {
                 Hp += HP;
             }
-            OnPlayerUpdate();
+            //OnPlayerUpdate();
         }
 
         public virtual void OnPlayerUpdate()

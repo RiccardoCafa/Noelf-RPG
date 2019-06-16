@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -127,7 +128,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {
                 foreach(Slot mobS in MobBag.Slots)
                 {
-                    Game.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
+                    InterfaceManager.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
             }
             Solid.solids.Remove(box);

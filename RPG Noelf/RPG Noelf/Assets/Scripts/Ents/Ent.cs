@@ -8,6 +8,7 @@ using RPG_Noelf.Assets.Scripts.General;
 using System.Collections.Generic;
 using RPG_Noelf.Assets.Scripts.Skills;
 using Windows.UI.Xaml;
+using RPG_Noelf.Assets.Scripts.Interface;
 
 namespace RPG_Noelf.Assets.Scripts.Ents
 {
@@ -47,7 +48,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public double AtkSpeedBuff;
 
         private List<SkillGenerics> status = new List<SkillGenerics>();
-        private bool ranged = false;
+        protected bool Ranged = false;
         public ObjectPooling<HitSolid> HitPool { get; } = new ObjectPooling<HitSolid>();
 
         protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
@@ -124,6 +125,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public void BeHit(double damage)//tratamento do dano levado
         {
             Hp -= damage / (1 + Con * 0.02 + Armor);
+            OnAttacked();
         }
 
         public async void Attack()
@@ -132,42 +134,58 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             HitSolid hit = null;
             DynamicSolid tDynamic = null;
             double hitboxSize = 50;
+            double speeed = Ranged == true ? 4 : 0;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if(HitPool.PoolSize > 0)
+                if(HitPool.PoolSize > 0)//verificar a pool
                 {
                     HitPool.GetFromPool(out hit);
-                    hit.speed = 0;
+                    hit.speed = speeed;
                     hit.Yi = box.Yi;
                     hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
                         hit.Xi = box.Xf;
+                        if (speeed != 0)
+                        {
+                            hit.moveRight = true;
+                        }
                     } else if (Dsolid.lastHorizontalDirection == -1)
                     {
                         hit.Xi = box.Xi - hitboxSize;
+                        if (speeed != 0)
+                        {
+                            hit.moveLeft = true;
+                        }
                     }
                     hit.Who = box as DynamicSolid;
+                    if(speeed != 0)
+                    {
+                        hit.alive = true;
+                        hit.task.Start();
+                    }
                 } else
                 {
                     if (Dsolid.lastHorizontalDirection == 1)
                     {
-                        hit = new HitSolid(box.Xf, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid,0);
+                        hit = new HitSolid(box.Xf + 10, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, speeed);
+                        if (hit.speed != 0) hit.moveRight = true;
                     }
                     else if (Dsolid.lastHorizontalDirection == -1)
                     {
-                        hit = new HitSolid(box.Xi - hitboxSize, box.Yi + 20, hitboxSize, box.Height/2,box as DynamicSolid,0);
+                        hit = new HitSolid(box.Xi - hitboxSize - 10, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
+                        if (hit.speed != 0) hit.moveLeft = true;
                     }
-                    Game.TheScene.Children.Add(hit);
+                    InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
                 }
                 
                 if (hit == null) return;
 
-                tDynamic = hit.Interaction();
+                Solid s = hit.Interaction();
                 if (!(tDynamic == null || tDynamic.MyEnt == null))
                 {
                     tDynamic.MyEnt.BeHit(Hit(0));
-                    tDynamic.MyEnt.OnAttacked();
+                    hit.speed = 0;
                 }
             });
         }
@@ -175,7 +193,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         {
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
-            DynamicSolid tDynamic = null;
+            Solid tDynamic = null;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if (HitPool.PoolSize > 0)
@@ -190,7 +208,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     {
                         hit = skill.Throw(this);
                     }
-                    Game.TheScene.Children.Add(hit);
+                    InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
                 }
 
                 if (hit == null) return;
@@ -202,8 +220,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     {
                         tDynamic.MyEnt.InsereStatus(skill);
                     }
-                    tDynamic.MyEnt.BeHit(skill.UseSkill(this,tDynamic.MyEnt));
-                    tDynamic.MyEnt.OnAttacked();
+                    double dano = skill.UseSkill(this, tDynamic.MyEnt);
+                    Debug.WriteLine("Skill deu: " + dano);
+                    tDynamic.MyEnt.BeHit(dano);
                 }
             });
         }
