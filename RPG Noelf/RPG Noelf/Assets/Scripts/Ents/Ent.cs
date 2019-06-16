@@ -67,7 +67,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         }
         private void Timer(object sender, object e)
         {
-
             foreach (SkillGenerics habilite in status)//para verificar se as skills ja acabaram seus tempos de CD
             {
                 if (habilite.CountTime >= RealTime)

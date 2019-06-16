@@ -11,7 +11,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
     public abstract class SkillGenerics //atributos e funcoes genericas de skills 
     {
         public SkillType tipo { get; set; }
-        public bool area;
         public AtributBonus atrib { get; set; }
         public int Lvl { get; set; } = 1;
         public double Damage { get; set; }

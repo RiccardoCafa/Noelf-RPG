@@ -455,7 +455,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 atrib = AtributBonus.dex,
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal,
-                area = true
             });
             className = "Arqueiro";
         }

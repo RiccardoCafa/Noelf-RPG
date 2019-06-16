@@ -43,7 +43,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                 Damage = Damage + Amplificator * Lvl;
                 return DamageBonus + Damage;
             }
-            return 0;
         }
 
         public override void RevertSkill(Ent ent)

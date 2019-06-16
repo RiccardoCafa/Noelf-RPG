@@ -27,6 +27,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public static InterfaceManager instance;
         
         // Geral
+
         public Canvas Tela;
         public Canvas CanvasChunck01 { get; set; }
         public Canvas MenuAberto { get; set; }
@@ -66,6 +67,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public Grid GridInventario { get; set; }
         public Grid GridBarraSkill { get; set; }
         public Grid GridSkill { get; set; }
+
         public Grid ButtonsGrid;
 
         // Player
@@ -116,22 +118,30 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public Image ImageW_Item { get; set; }
 
         public Button ButtonBuy { get; set; }
+
         public Button ButtonQuester;
+
         public Button ButtonTrader;
+
         public Button ButtonExit;
 
         public bool InventarioOpen { get; set; }
         public bool ShopOpen { get; set; } = false;
         public bool ConvHasToClose { get; set; }
         public bool Conversation { get; set; } = false;
+
         public bool Switch = false;
+
         public bool shopOpen = false;
+
         public bool equipOpen = false;
 
         public const int LootWidth = 50;
+
         public const int LootHeight = 50;
 
         private int Buttons = 3;
+
         private int _str, _spd, _dex, _con, _mnd;
 
         private NPC lastNPC = null;

@@ -50,6 +50,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     {
                         SkillBar[index].UseSkill(myPlayer, myPlayer);
                         SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
+                        SkillBar[index].CountBuffTime = RealTime + SkillBar[index].timer;
                         skilltime.Add(SkillBar[index]);
                         SkillBar[index].locked = false;
                         if (skilltime.Count == 0)
@@ -79,6 +80,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
                     habilite.Active = true;
                     habilite.locked = true;
                     skilltime.Remove(habilite);
+                }
+                if (habilite.CountBuffTime >= RealTime)
+                {
+                    habilite.CountBuffTime = 0;
+                    habilite.RevertSkill(myPlayer);
                 }
             }
             RealTime++;
