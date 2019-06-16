@@ -539,7 +539,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             });
             skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item2.jpg", "nevasca")
             {
-                description = "causa dano mágico equivalente a 10% da int E causa 25% de lentidão"
+                description = "causa dano mágico equivalente a 10% da int E causa 25% de lentidão",
                 Damage = 35,
                 manaCost = 80,
                 block = 22,
@@ -617,7 +617,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Item2.jpg", "Meteoro")
             {
-                description = "causa dano mágico em área equivalente a 65% da int"
+                description = "causa dano mágico em área equivalente a 65% da int",
                 Damage = 500,
                 manaCost = 400,
                 block = 33,
@@ -633,7 +633,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             });
             skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "Tsunami")
             {
-                description = "causa dano mágico equivalente a 40% da int e da 20% de lentidão"
+                description = "causa dano mágico equivalente a 40% da int e da 20% de lentidão",
                 Damage = 450,
                 manaCost = 450,
                 block = 66,
