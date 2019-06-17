@@ -106,7 +106,7 @@ namespace RPG_Noelf
         {
             var viewId = 0;
             PlayerParams cParams = new PlayerParams(CustomPlayer.Id);
-            SavePlayerData();
+            //SavePlayerData();
             var newView = CoreApplication.CreateNewView();
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -121,24 +121,6 @@ namespace RPG_Noelf
                 Window.Current.Activate();
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
-        }
-
-        private void SavePlayerData()
-        {
-            string path = Path.GetTempPath() + @"/Noelf";
-            if(!File.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            string fileName = "slot_" + selectedSlot;
-
-            path = Path.Combine(path, fileName);
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine("id " + CustomPlayer.Id);
-            }
         }
     }
 }

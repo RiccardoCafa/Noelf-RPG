@@ -4,51 +4,107 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
     public class SkillManager//adiministrador de skills no game
     {
+        public static SkillManager instance;
         public List<SkillGenerics> SkillList { get; set; }
+        private List<SkillGenerics> skilltime = new List<SkillGenerics>();//lista de skills que foram usadas
+
         public SkillGenerics[] SkillBar { get; set; }
         public SkillGenerics Passive { get; set; }
+
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
         public Player myPlayer;
-        public Thread ManageSkill;
+
         public int SkillPoints { get; set; }
         public uint i = 0;
 
+        private double RealTime = 0;
+
         public SkillManager(Player myPlayer)
         {
+            instance = this;
             SkillPoints = 0;
             this.myPlayer = myPlayer;
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
-            ManageSkill = new Thread(ManageSkillThread);
-            //ManageSkill.Start();
+            DispatcherSetup();
         }
-        
-        public void ManageSkillThread()
+
+        public void BeAbleSkill(int index)//tipobuff
         {
-            while(true)
+            if(SkillBar[index]!= null)
             {
-                Thread.Sleep(1000);
-                Game.i++;
+                if (SkillBar[index].locked == true)
+                {
+                    if (SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
+                    {
+                        myPlayer.AttackSkill(SkillBar[index]);
+                        SkillBar[index].locked = false;
+                    }
+                    else
+                    {
+                        SkillBar[index].UseSkill(myPlayer, myPlayer);
+                        SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
+                        SkillBar[index].CountBuffTime = RealTime + SkillBar[index].timer;
+                        skilltime.Add(SkillBar[index]);
+                        SkillBar[index].locked = false;
+                        if (skilltime.Count == 0)
+                        {
+                            dispatcherTimer.Stop();
+                            RealTime = 0;
+                        }
+                    }
+                }
+                  
             }
+        }
+        private void DispatcherSetup()
+        {
+            dispatcherTimer.Tick += Timer;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+        private void Timer(object sender, object e)
+        {
+
+            foreach (SkillGenerics habilite in skilltime)//para verificar se as skills ja acabaram seus tempos de CD
+            {
+                if (habilite.CountTime >= RealTime)
+                {
+                    habilite.CountTime = 0;
+                    habilite.Active = true;
+                    habilite.locked = true;
+                    skilltime.Remove(habilite);
+                }
+                if (habilite.CountBuffTime >= RealTime)
+                {
+                    habilite.CountBuffTime = 0;
+                    habilite.RevertSkill(myPlayer);
+                }
+            }
+            RealTime++;
         }
 
         public void SetWarriorPassive(string name, string pathImage)
         {
-            Passive = new SkillBuff(name, pathImage)
+            Passive = new SkillDmgBuff(name, pathImage)
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 Buff = 1.04,
-                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 0,
-                Timer = 0,
+                timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
@@ -59,16 +115,15 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public void SetArcherPassive(string name, string pathImage)//ainda tem que mexer
         {
-            Passive = new SkillBuff(name, pathImage)
+            Passive = new SkillDex(name, pathImage)
             {
                     Damage = 0,
                     manaCost = 0,
                     block = 1,
                     Amplificator = 0.01,
                     Buff = 1.04,
-                    Buffer = BuffDebuffTypes.Dex,
                     cooldown = 0,
-                    Timer = 0,
+                    timer = 0,
                     tipo = SkillType.passive,
                     atrib = AtributBonus.dex,
                     tipoatributo = Element.Common
@@ -79,16 +134,15 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         public void SetMagePassive(string name, string pathImage)//aqui tb
         {
-            Passive = new SkillBuff(name, pathImage)
+            Passive = new SkillDmgBuff(name, pathImage)
             {
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
                 Amplificator = 0.01,
                 Buff = 1.04,
-                Buffer = BuffDebuffTypes.Dmg,
                 cooldown = 0,
-                Timer = 0,
+                timer = 0,
                 tipo = SkillType.passive,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common
@@ -97,19 +151,20 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             Passive.Unlocked = true;
             SkillList.Add(Passive);
         }
+        
+        public void UpdateEncyclopedia()
+        {
+            uint count = 0;
+            foreach(SkillGenerics s in SkillList)
+            {
+                Encyclopedia.skillsImages.Add(count, new BitmapImage(new Uri("ms-appx://" + s.pathImage)));
+                count++;
+            }
+        }
+
         public void AddSkillToBar(SkillGenerics s, int index)
         {
-            if (s.tipobuff == SkillTypeBuff.normal)
-            {
-                SkillBar[index] = s as Skill;
-            }
-            else
-            {
-             
-                 SkillBar[index] = s as SkillBuff;
-                
-            }
-            
+            SkillBar[index] = s;
         }
         
         private bool TestLevelBlock(SkillGenerics skill)
@@ -234,5 +289,3 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 	}
 }
     
-
-

@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using System.Linq;
 using RPG_Noelf.Assets.Scripts.Scenes;
+using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.General;
 
 namespace RPG_Noelf.Assets.Scripts
 {
@@ -62,20 +64,23 @@ namespace RPG_Noelf.Assets.Scripts
         }
     }
 
-    public class HitSolid : Solid//solido q causa dano
+    public class HitSolid : DynamicSolid//solido q causa dano
     {
         //public delegate void MoveHandler(Solid sender);
         //public event MoveHandler Moved;
 
         public DynamicSolid Who;
+        public Solid Affected;
         public DispatcherTimer timer;
         private int TimesTicked = 0;
-        private int TimesToTick = 1;
+        public int TimesToTick = 1;
+        public double bonusDamage = 0;
 
-        public HitSolid(double xi, double yi, double width, double height, byte dmg, DynamicSolid who) : base(xi, yi, width, height)
+        public HitSolid(double xi, double yi, double width, double height, DynamicSolid who, double spd) : base(xi, yi, width, height, spd)
         {
-            Background = new SolidColorBrush(Color.FromArgb(50, dmg, 0, 0));
+            Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
             //solids.Remove(this);
+            g = 0;
             Who = who;
         }
 
@@ -84,35 +89,47 @@ namespace RPG_Noelf.Assets.Scripts
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimer_Tick;
             timer.Interval = new TimeSpan(0, 0, 1);
-            //TimesTicked = 0;
             timer.Start();
         }
 
-        private void DispatcherTimer_Tick(object sender, object a)
+        protected virtual void DispatcherTimer_Tick(object sender, object a)
         {
             TimesTicked++;
             if (TimesTicked >= TimesToTick)
             {
-                if (Who != null)
+                if (speed != 0)
                 {
-                    Visibility = Visibility.Collapsed;
-                    Who.MyEnt.HitPool.AddToPool(this);
-                    timer.Stop();
+                    Affected = Interaction();
+                    if(Affected != null && Affected.MyEnt != null)
+                    {
+                        Affected.MyEnt.Hit(Who.MyEnt.Hit(bonusDamage));
+                        speed = 0;
+                    }
+                } else if(TimesTicked >= 5f || Affected != null)
+                {
+                    if (Who != null)
+                    {
+                        Visibility = Visibility.Collapsed;
+                        Who.MyEnt.HitPool.AddToPool(this);
+                        alive = false;
+                        timer.Stop();
+                    }
                 }
+                TimesTicked = 0;
             }
         }
 
-        public DynamicSolid Interaction()//o q este solido faz com os outros ao redor
+        public Solid Interaction()//o q este solido faz com os outros ao redor
         {
             DynamicSolid dynamicFound = null;
             var dinamics = new List<DynamicSolid>();// from dinm in solids where dinm is DynamicSolid select dinm;
 
-            foreach (DynamicSolid solid in dinamics)
+            foreach (Solid solid in solids)
             {
                 if (solid.Equals(Who)) continue;
                 if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
                 {
-                    dynamicFound = solid as DynamicSolid;
+                    dynamicFound = (DynamicSolid)solid;
                     break;
                 }
             }
@@ -126,6 +143,8 @@ namespace RPG_Noelf.Assets.Scripts
         public delegate void MoveHandler();
         public event MoveHandler Moved;
 
+        public static List<DynamicSolid> DynamicSolids = new List<DynamicSolid>();
+
         public Dictionary<Direction, bool> freeDirections = new Dictionary<Direction, bool>() {
             { Direction.up, true }, { Direction.down, true }, { Direction.right, true }, { Direction.left, true } };
 
@@ -135,39 +154,40 @@ namespace RPG_Noelf.Assets.Scripts
         public double horizontalSpeed;
         public sbyte horizontalDirection = 0;
         public sbyte lastHorizontalDirection = 1;
-        public const double g = 1500;
+        public double g = 1500;
         public bool moveRight, moveLeft;
         DateTime time;
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi + 10, yi - 0, width, height)
         {
             Background = new SolidColorBrush(Color.FromArgb(50, 50, 0, 0));
+            DynamicSolids.Add(this);
             this.speed = speed;
             jumpSpeed = speed * 150;
             Moved += OnMoved;
             horizontalSpeed = speed * 75;
-            Window.Current.CoreWindow.KeyDown += Start;
+            //Window.Current.CoreWindow.KeyDown += Start;
         }
 
-        Task task;
+        public Task task;
         public void Start(CoreWindow sender, KeyEventArgs e)
         {
-            if (task == null)
+            /*if (task == null)
             {
                 time = DateTime.Now;
                 task = new Task(Update);
                 task.Start();
-            }
+            }*/
         }
 
         public bool alive = true;
         public async void Update()//atualiza a td instante
         {
             TimeSpan span = DateTime.Now - time;
-            while (alive)
+            if (alive)
             {
                 time = DateTime.Now;
-                if (freeDirections[Direction.down])
+                if (g != 0 && freeDirections[Direction.down])
                 {
                     ApplyGravity(span.TotalSeconds);
                 }//se n ha chao
@@ -332,20 +352,20 @@ namespace RPG_Noelf.Assets.Scripts
                 if ((Xi + Xf) / 2 >= 1366)
                 {
                     Xi -= 1366;
-                    SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) - 1366 * 0.075);
-                    SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) - 1366 * 0.15);
-                    SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) - 1366 * 0.3);
-                    SetLeft(Platform.chunck, GetLeft(Platform.chunck) - 1366);
-                    foreach (Solid s in Game.instance.scene1.scene.floor) s.Xi -= 1366;
+                    SetLeft(GameManager.instance.scene.layers[2], GetLeft(GameManager.instance.scene.layers[2]) - 1366 * 0.075);
+                    SetLeft(GameManager.instance.scene.layers[1], GetLeft(GameManager.instance.scene.layers[1]) - 1366 * 0.15);
+                    SetLeft(GameManager.instance.scene.layers[0], GetLeft(GameManager.instance.scene.layers[0]) - 1366 * 0.3);
+                    SetLeft(Platform.chunck, GetLeft(GameManager.instance.scene.scene.chunck) - 1366);
+                    foreach (Solid s in GameManager.instance.scene.scene.floor) s.Xi -= 1366;
                 }
                 if ((Xi + Xf) / 2 <= 0)
                 {
                     Xi += 1366;
-                    SetLeft(Game.instance.scene1.layers[2], GetLeft(Game.instance.scene1.layers[2]) + 1366 * 0.075);
-                    SetLeft(Game.instance.scene1.layers[1], GetLeft(Game.instance.scene1.layers[1]) + 1366 * 0.15);
-                    SetLeft(Game.instance.scene1.layers[0], GetLeft(Game.instance.scene1.layers[0]) + 1366 * 0.3);
+                    SetLeft(GameManager.instance.scene.layers[2], GetLeft(GameManager.instance.scene.layers[2]) + 1366 * 0.075);
+                    SetLeft(GameManager.instance.scene.layers[1], GetLeft(GameManager.instance.scene.layers[1]) + 1366 * 0.15);
+                    SetLeft(GameManager.instance.scene.layers[0], GetLeft(GameManager.instance.scene.layers[0]) + 1366 * 0.3);
                     SetLeft(Platform.chunck, GetLeft(Platform.chunck) + 1366);
-                    foreach (Solid s in Game.instance.scene1.scene.floor) s.Xi += 1366;
+                    foreach (Solid s in GameManager.instance.scene.scene.floor) s.Xi += 1366;
                 }
             }
             if (verticalSpeed != 0 || horizontalDirection != 0)
