@@ -52,7 +52,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         public void SelectQuest(object sender, PointerRoutedEventArgs e)
         {
-            GameManager.player._Questmanager.SetActualQuest(Quest);
+            GameManager.instance.player._Questmanager.SetActualQuest(Quest);
         }
     }
 }

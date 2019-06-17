@@ -11,7 +11,7 @@ namespace RPG_Noelf.Assets.Scripts.Crafting_Scripts
 
         public Crafting()
         {
-            bag = GameManager.player._Inventory;
+            bag = GameManager.instance.player._Inventory;
         }
 
         private bool IsPossibleToCraft(uint item)

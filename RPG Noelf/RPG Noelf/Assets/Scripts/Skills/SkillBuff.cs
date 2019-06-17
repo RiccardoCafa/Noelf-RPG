@@ -9,24 +9,13 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-    public enum SkillTypeBuff
-    {
-        debuff,
+
+    public enum SkillTypeBuff {
+        normal,
         buff,
-        normal
+        debuff
     }
-    public enum BuffDebuffTypes//todos os tipos possiveis de efeitos
-    {
-        Res,//ok
-        Dex,//ok
-        Dmg,//ok
-        Slow,//ok
-        Broken,//ok
-        Prison,//ok
-        Silence,//ok
-        Critical,//ok
-        Double//ok
-    }
+
     public enum Element
     {
         Fire,
@@ -35,125 +24,31 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         Poison
     }
 
-    public class SkillBuff : SkillGenerics //skills com efeitos
+    public class SkillCritical : SkillGenerics //skills com efeitos
     {
-        
-        public double oldstatus;
-        public SkillBuff(string pathImage, string name)
+        public SkillCritical(string pathImage, string name)
         {
             this.name = name;
             this.pathImage = pathImage;
         }
 
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        public override void RevertSkill(Ent ent)
         {
-            if (Buffer == BuffDebuffTypes.Dex)
-            {
-                player.Dex = (int)oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Dmg)
-            {
-                player.Damage = oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Res)
-            {
-                player.Armor = oldstatus;
-                return true;
-            }
-            if (Buffer == BuffDebuffTypes.Slow)
-            {
-
-                Enemy.Spd = (int)oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Silence)
-            {
-                Enemy.Damage = oldstatus;
-                return true;
-            }
-            else if (Buffer == BuffDebuffTypes.Prison)
-            {
-                Enemy.Spd =(int)oldstatus;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            ent.BonusChanceCrit -= Buff + Amplificator * Lvl;
         }
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override double UseSkill(Ent player, Ent Enemy)
         {
                
             if (player.Mnd >= manaCost)
             {
-                if (Buffer == BuffDebuffTypes.Dex)
-                {
-                    oldstatus = player.Dex;
-                    player.Dex = (int)(player.Dex * (Buff + Amplificator * Lvl));
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Dmg)
-                {
-                    oldstatus = player.Damage;
-                    player.Damage = player.Damage * (Buff + Amplificator * Lvl);
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Res)
-                {
-                    oldstatus = player.Armor;
-                    player.Armor = player.Armor * (Buff + Amplificator * Lvl);
-                    return true;
-                }
-                if (Buffer == BuffDebuffTypes.Slow)
-                {
-                    oldstatus = Enemy.Spd;
-                    CalcBonus(player);
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Silence)
-                {
-                    oldstatus = Enemy.Damage;
-                    Timer = Timer + Amplificator * Lvl;
-                    CalcBonus(player);
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Damage = 0;
-                    return true;
-                }
-                else if (Buffer == BuffDebuffTypes.Prison)
-                {
-                    oldstatus = Enemy.Spd;
-                    Timer = Timer + Amplificator * Lvl;
-                    CalcBonus(player);
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.Spd = 0;
-                    return true;
-                }else if(Buffer == BuffDebuffTypes.Double)
-                {
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    Enemy.BeHit(player.Hit(DamageBonus));
-                    return true;
-                }else if(Buffer == BuffDebuffTypes.Critical)
-                {
-                    player.BonusChanceCrit = Buff + Amplificator * Lvl;
-                    return true;
-                }else if (Buffer == BuffDebuffTypes.Broken)
-                {
-                    Enemy.ArmorBuff = (Buff + Amplificator * Lvl) * -1;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                player.BonusChanceCrit += Buff + Amplificator * Lvl;
+                return  0;
+                
             }
-            return false;
+            return 0;
         }
-        
+
     }
     class SkillDash : SkillGenerics
     {
@@ -163,16 +58,19 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
         }
 
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+        public override void RevertSkill(Ent ent)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override double UseSkill(Ent player, Ent Enemy)
 
         {
-
-            return false;
+            if (player.Mnd > manaCost)
+            {
+                return 0;
+            }
+            return 0;
         }
     }
     class SkillHidden : SkillGenerics
@@ -182,33 +80,248 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
         {
-            return false;
+            
         }
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override double UseSkill(Ent player, Ent Enemy)
 
         {
-            return false;
+            if (player.Mnd > manaCost)
+            {
+                return 0;
+            }
+            return 0;
         }
     }
-    class SkillThrow : SkillGenerics
+    class SkillBroken : SkillGenerics
     {
-        public SkillThrow(string pathImage, string name)
+        public SkillBroken(string pathImage, string name)
         {
             this.pathImage = pathImage;
             this.name = name;
         }
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
+
+        public override void RevertSkill(Ent ent)
         {
-            return false;
+            ent.ArmorBuff += Buff + Amplificator * Lvl;
         }
-        public override bool UseSkill(Ent player, Ent Enemy)
+
+        public override double UseSkill(Ent player, Ent Enemy)
         {
-            return false;
+            if (player.Mnd > manaCost)
+            {
+                Enemy.ArmorBuff -= (Buff + Amplificator * Lvl);
+                return DamageBonus + Damage;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
+    class SkillPrison : SkillGenerics
+    {
+        public SkillPrison(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
 
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Spd = (int)oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                oldstatus = Enemy.Spd;
+                timer = timer + Amplificator * Lvl;
+                CalcBonus(player);
+                Enemy.Spd = 0;
+                return DamageBonus + Damage;
+            }
+            else
+            {
+                return 0;
+            }
+               
+        }
+    }
+    class SkillSilence : SkillGenerics
+    {
+        public SkillSilence(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Damage = oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                oldstatus = Enemy.Damage;
+                timer = timer + Amplificator * Lvl;
+                CalcBonus(player);
+                Enemy.Damage = 0;
+                return DamageBonus + Damage;
+            }
+            else
+            {
+                return 0;
+            }
+               
+        }
+       
+    }
+    class SkillDex : SkillGenerics
+    {
+        public SkillDex(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Dex = (int)oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+
+            if (player.Mnd > manaCost)
+            {
+                oldstatus = player.Dex;
+                player.Dex += (int)(player.Dex * (Buff + Amplificator * Lvl));
+                return 0;
+            }
+            else
+            {
+                return 0;
+            }
+                
+        }
+        
+    }
+    class SkillDmgBuff : SkillGenerics
+    {
+        public SkillDmgBuff(string pathImage,string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.DamageBuff -= ent.Damage * (Buff + Amplificator * Lvl);
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                player.DamageBuff += player.Damage * (Buff + Amplificator * Lvl);
+                return 0;
+            }
+            else
+            {
+                return 0;
+            }
+                
+        }
+    }
+    class SkillResbuff : SkillGenerics
+    {
+        public SkillResbuff(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.ArmorBuff -= (Buff + Amplificator * Lvl);
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                player.ArmorBuff += (Buff + Amplificator * Lvl);
+                return 0;
+            }
+            else
+            {
+                return 0;
+            }
+                
+        }
+    }
+    class SkillSlowbuff : SkillGenerics
+    {
+        public SkillSlowbuff(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            ent.Spd = (int)oldstatus;
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+            if (player.Mnd > manaCost)
+            {
+                oldstatus = Enemy.Spd;
+                CalcBonus(player);
+                Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
+                return DamageBonus + Damage;
+            }
+            else
+            {
+                return 0;
+            }
+            
+        }
+    }
+    class SkillDobleHit : SkillGenerics
+    {
+        public SkillDobleHit(string pathImage, string name)
+        {
+            this.pathImage = pathImage;
+            this.name = name;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            
+        }
+
+        public override double UseSkill(Ent player, Ent Enemy)
+        {
+            if(player.Mnd > manaCost)
+            {
+                return DamageBonus * 2;
+            }
+            else
+            {
+                return 0;
+            }
+            
+        }
+    }
 }
 
 

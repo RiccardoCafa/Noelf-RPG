@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.General;
+using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,14 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         
         public NPC()
         {
-            //this.EventoFala += GameManager.player._Questmanager.EventoFalaComNPCDaQuest;
+            this.EventoFala += GameManager.instance.player._Questmanager.EventoFalaComNPCDaQuest; 
         }
 
         public void StartConversation()
         {
-            Game.instance.CallConversationBox(this);
-            GameManager.interfaceManager.ConvHasToClose = false;
-            GameManager.interfaceManager.Conversation = true;
+            InterfaceManager.instance.CallConversationBox(this);
+            InterfaceManager.instance.ConvHasToClose = false;
+            InterfaceManager.instance.Conversation = true;
             OnEventoFalar();
         }
 
@@ -41,7 +42,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             {
                 f.EndFunction();
             }
-            GameManager.interfaceManager.ConvHasToClose = true;
+            InterfaceManager.instance.ConvHasToClose = true;
         }
 
         public void AddFunction(NPCFunction Function)
@@ -99,12 +100,12 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         }
         public void MyFunction(object sender, RoutedEventArgs e)
         {
-            GameManager.traderTarget = this;
-            GameManager.OpenShop();
+            GameManager.instance.traderTarget = this;
+            GameManager.instance.OpenShop();
         }
         public void EndFunction()
         {
-            if (GameManager.interfaceManager.ShopOpen) GameManager.CloseShop();
+            if (InterfaceManager.instance.ShopOpen) InterfaceManager.instance.CloseShop();
         }
         public string GetFunctionName()
         {
@@ -122,23 +123,23 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
 
         public void MyFunction(object sender, RoutedEventArgs e)
         {
-            GameManager.questerTarget = this;
-            Game.instance.OpenQuest();
+            GameManager.instance.questerTarget = this;
+            InterfaceManager.instance.OpenQuest();
             
         }
         
         //GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
         public void AcceptQuest()
         {
-            if(GameManager.player._Questmanager.CheckQuestLevel(myQuest))
+            if(GameManager.instance.player._Questmanager.CheckQuestLevel(myQuest))
             {
-                GameManager.player._Questmanager.ReceiveNewQuest(myQuest);
+                GameManager.instance.player._Questmanager.ReceiveNewQuest(myQuest);
             }
         }
 
         public void EndFunction()
         {
-            GameManager.CloseQuestWindow();
+            InterfaceManager.instance.CloseQuest();// .CloseQuestWindow();
         }
 
         public string GetFunctionName()

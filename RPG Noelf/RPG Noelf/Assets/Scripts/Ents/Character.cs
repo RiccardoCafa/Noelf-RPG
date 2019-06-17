@@ -116,7 +116,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                         }
                     }
 
-                    if (GameManager.interfaceManager.Conversation) return;
+                    if (InterfaceManager.instance.Conversation) return;
                     if (freeLeft && moveLeft)
                     {
                         MoveCharac(-Hspeed, Canvas.LeftProperty);

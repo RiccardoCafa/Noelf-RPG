@@ -4,6 +4,8 @@ using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 {
@@ -11,17 +13,21 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
     {
         public static Dictionary<uint, Item> encyclopedia;
         public static Dictionary<uint, NPC> NonPlayerCharacters;
+        public static Dictionary<uint, ImageSource> skillsImages = new Dictionary<uint, ImageSource>();
+        public static Dictionary<uint, ImageSource> encycloImages;
+
+        public static string BaseUri = "ms-appx://";
 
         public static void LoadEncyclopedia()
         {
             LoadItens();
-            LoadNPC();
         }
 
         public static void LoadItens()
         {
             //CraftingEncyclopedia.LoadCrafting();
             encyclopedia = new Dictionary<uint, Item>();
+            encycloImages = new Dictionary<uint, ImageSource>();
             #region Items
             // loaded Itens
             Item item1 = new Item("Iron Nugget")
@@ -31,7 +37,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/Chao.jpg",
                 GoldValue = 1,
                 description =  "It's just a small piece of iron, don't eat it"
-               
             };
             encyclopedia.Add(1,item1);
             Item item2 = new Item("Coal")
@@ -445,13 +450,22 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = false,
                 ItemCategory = Category.Legendary,
-                PathImage = "Black Pearl's deck",
+                PathImage = "/Assets/Images/Item1.jpg",
                 GoldValue = 99999,
-                description = "Sea turtles, mate"
+                description = "Black Pearl's deck! Sea turtles, mate"
             };
             encyclopedia.Add(44, item44);
 
             #endregion
+
+            uint count = 1;
+            foreach(Item item in encyclopedia.Values)
+            {
+                if(encyclopedia.ContainsKey(count))
+                {
+                    encycloImages.Add(count++, new BitmapImage(new Uri(BaseUri + item.PathImage)));
+                }
+            }
         }
 
         public static void LoadNPC()
@@ -464,7 +478,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 Name = "Lapa",
                 Introduction = "Tenho Doutorado em POG e mestrado em XGH. Quer comprar algumas gambiarras?",
                 Conclusion = "Muito obrigado por falar com o rei dos POG, tome aqui uns big bigs",
-                MyLevel = new Ents.Level(999)
+                MyLevel = new Ents.Level(999, null)
             };
             Shop s = new Shop();
             s.TradingItems.AddToBag(new Slot(43, 1));
@@ -479,7 +493,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 Name = "Pai",
                 Introduction = "Meu filho, já passei por inúmeras aventuras, agora é sua vez! Colete relíquias, talentos, mate monstros e se aventure nesse incrível mundo...",
                 Conclusion = "Vá em paz meu filho",
-                MyLevel = new Ents.Level(99)
+                MyLevel = new Ents.Level(99, null)
             };
 
             npc2.AddFunction(new Quester(1));

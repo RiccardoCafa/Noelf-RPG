@@ -1,4 +1,5 @@
-﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public Mob(int level)//cria um mob novo, aleatoriamente montado
         {
             #region montagem
-            this.level = new Level(level);
+            this.level = new Level(level, null);
             Str = 2;
             Spd = 2;
             Dex = 2;
@@ -127,7 +128,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             {
                 foreach(Slot mobS in MobBag.Slots)
                 {
-                    Game.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
+                    InterfaceManager.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
             }
             Solid.solids.Remove(box);
