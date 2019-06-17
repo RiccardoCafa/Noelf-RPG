@@ -67,7 +67,21 @@ namespace RPG_Noelf.Assets.Scripts.General
         }
         public void LoadGameData(ref Player loadPlayer)
         {
-
+            string path = Path.Combine(Path.GetTempPath() + @"/Noelf/slot_" + );
+            if (File.Exists(path))
+            {
+                //playerData.Add(new Dictionary<string, string>());
+                //playerData[i].Add("slot", i.ToString());
+                using (StreamReader rw = File.OpenText(path))
+                {
+                    string r = "";
+                    while ((r = rw.ReadLine()) != null)
+                    {
+                        var b = r.Split(" ");
+                        //playerData[i].Add(b[0], b[1]);
+                    }
+                }
+            }
         }
     }
 }
