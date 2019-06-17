@@ -1,14 +1,7 @@
-﻿using RPG_Noelf.Assets.Scripts.General;
-using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+﻿using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Interface
 {
@@ -20,7 +13,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
     public enum EItemOwner
     {
         player,
-        drop
+        drop,
+        shop
     }
 
     class ItemImage : Canvas
@@ -68,20 +62,41 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             SetEvents();
         }
 
+        public ItemImage(int itemPosition, int widthSize, int heightSize, Bag bag, EItemOwner own)
+        {
+            itemOwner = own;
+            myBagRef = bag;
+            this.myItemPosition = itemPosition;
+            image = new Image()
+            {
+                Width = widthSize,
+                Height = heightSize
+            };
+            Children.Add(image);
+            SetEvents();
+        }
+
         public void SetEvents()
         {
             if (itemOwner == EItemOwner.player)
             {
-                PointerPressed -= Game.instance.ItemSlotEventDrop;
-                PointerPressed += Game.instance.InventorySlotEvent;
+                PointerPressed -= InterfaceManager.instance.ItemSlotEventDrop;
+                PointerPressed -= InterfaceManager.instance.ShopItemBuy;
+                PointerPressed += InterfaceManager.instance.InventorySlotEvent;
             }
             else if(itemOwner == EItemOwner.drop)
             {
-                PointerPressed -= Game.instance.InventorySlotEvent;
-                PointerPressed += Game.instance.ItemSlotEventDrop;
+                PointerPressed -= InterfaceManager.instance.InventorySlotEvent;
+                PointerPressed -= InterfaceManager.instance.ShopItemBuy;
+                PointerPressed += InterfaceManager.instance.ItemSlotEventDrop;
+            } else if(itemOwner == EItemOwner.shop)
+            {
+                PointerPressed -= InterfaceManager.instance.InventorySlotEvent;
+                PointerPressed -= InterfaceManager.instance.ItemSlotEventDrop;
+                PointerPressed += InterfaceManager.instance.ShopItemBuy;
             }
-            if(PointerExitedEvent != null) PointerExited += Game.instance.CloseItemWindow;
-            if(PointerEnteredEvent != null) PointerEntered += Game.instance.ShowItemWindow;
+            if(PointerExitedEvent != null) PointerExited += InterfaceManager.instance.CloseItemWindow;
+            if(PointerEnteredEvent != null) PointerEntered += InterfaceManager.instance.ShowItemWindow;
         }
 
         public void OnItemImageUpdate()
@@ -93,10 +108,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                         myBagRef.GetSlot(myItemPosition).ItemID : 0;
             if (itemID != 0)
             {
-                image.Source = new BitmapImage(new Uri("ms-appx://" + Encyclopedia.SearchFor(itemID).PathImage));
+                image.Source = Encyclopedia.encycloImages[myBagRef.GetSlot(myItemPosition).ItemID];
             } else
             {
-                image.Source = new BitmapImage();
+                image.Source = null;
             }
         }
     }

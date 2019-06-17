@@ -24,14 +24,14 @@ namespace RPG_Noelf.Assets.Scripts.Enviroment
 
         public void OnLootPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (Character.GetDistance(GameManager.player.box.Xi, GameManager.player.box.Yi, (double)GetLeft(this), (double)GetTop(this)) < 65)
+            if (Character.GetDistance(GameManager.instance.player.box.Xi, GameManager.instance.player.box.Yi, (double)GetLeft(this), (double)GetTop(this)) < 65)
             {
                 if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
                     var prop = e.GetCurrentPoint(this).Properties;
                     if(prop.IsLeftButtonPressed)
                     {
-                        if(GameManager.player._Inventory.AddToBag(MySlot))
+                        if(GameManager.instance.player._Inventory.AddToBag(MySlot))
                         {
                             if(MySlot.ItemAmount <= 0)
                             {

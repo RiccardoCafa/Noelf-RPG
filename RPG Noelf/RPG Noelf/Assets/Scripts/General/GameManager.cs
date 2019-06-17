@@ -12,118 +12,170 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
+using RPG_Noelf.Assets.Scripts.Scenes;
 
 namespace RPG_Noelf.Assets.Scripts.General
 {
-    public static class GameManager
+    public class GameManager
     {
+        // SINGLETON
+        public static GameManager instance;
+
+        // Thread
+        public Task TStart;
+        public Task TUpdate;
+        public Task TDraw;
+        public bool Running = true;
+
         // Player
-        public static List<CharacterPlayer> players = new List<CharacterPlayer>();
-        public static Player player;
-        //public static CharacterPlayer characterPlayer;
+        public List<CharacterPlayer> players = new List<CharacterPlayer>();
+        public Player player;
         
         // User Interface
-        public static InterfaceManager interfaceManager = new InterfaceManager();
+        public InterfaceManager interfaceManager;
 
         // Enviroment
-        public static List<Character> characters = new List<Character>();
-        public static MainCamera mainCamera;
-        public static DayNight dayNight;
+        public List<Character> characters = new List<Character>();
+        public MainCamera mainCamera;
+        public DayNight dayNight;
+        public LevelScene scene;
 
         // Mobs
-        public static List<Mob> mobs = new List<Mob>();
-        public static CharacterMob mobTarget;
+        public List<Mob> mobs = new List<Mob>();
+        public CharacterMob mobTarget;
 
         // NPC's
-        public static Crafting CraftingStation;
-        public static CharacterNPC npcCharacter;
-        public static NPC npcTarget;
-        public static Trader traderTarget;
-        public static Quester questerTarget;
+        public Crafting CraftingStation;
+        public CharacterNPC npcCharacter;
+        public NPC npcTarget;
+        public Trader traderTarget;
+        public Quester questerTarget;
         
-       
-
-
-        public static void InitializeGame()
+        public GameManager()
         {
-            interfaceManager.Inventario = Game.inventarioWindow;
-            QuestList.load_quests();
-            Encyclopedia.LoadEncyclopedia();
-
-            //npcCharacter = new CharacterNPC(Encyclopedia.NonPlayerCharacters[1], 650, 60 * 0.6, 120 * 0.6, 60, 2);
-            //npcCharacter.trigger.AddTrigger(player.box);
-            
-            //player._Inventory.AddToBag(new Slot(3, Bag.MaxStack - 20));
-            //player._Inventory.AddToBag(new Slot(21, 1));S
-            CraftingEncyclopedia.LoadCraftings();
-            CraftingStation = new Crafting();
-
-            //npcCharacter = new CharacterNPC(Game.instance.CreateCharacterNPC(), Encyclopedia.NonPlayerCharacters[1]);
-            //npcCharacter.UpdateBlocks(Game.TheScene);
-            //npcCharacter.trigger.AddTrigger(characterPlayer);
-            player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
-            //player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
-            //npcTarget.EventoFala += player._Questmanager.EventoFalaComNPCDaQuest;
-            //MainPage.instance.OpenQuest();
-
-            //player._Inventory.AddToBag(new Slot(3, 1));
-            //player._Inventory.AddToBag(new Slot(21, 1));
-            //player._Inventory.AddToBag(new Slot(22, 1));
-            //player._Inventory.AddToBag(new Slot(24, 1));
-          //  player._Inventory.AddToBag(new Slot(25, 1));
-            //player._Inventory.AddToBag(new Slot(42, 6));
-            //player._Inventory.AddToBag(new Slot(1, 6));
-            //characters.Add(mobTarget);
-            //characters.Add(characterPlayer);
-            //Parallel.Invoke(() => characters[0].Update(), () => characters[1].Update());
+            instance = this;
         }
 
-        public static void InitializePlayer()
+        public void InitializeGame(Canvas Tela)
         {
-
+            TStart = new Task(delegate { Start(Tela); } );
+            TStart.Start();
         }
 
-        public static void CreatePlayer()
+        public async void Start(Canvas Tela)
         {
-            /* Aqui vão ser implementados os métodos que irão criar o player
-              assim como fazer chamada pra main page e criá-lo graficamente */
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                //Debug.WriteLine("Criando HuD");
+                // Interface
+                interfaceManager = new InterfaceManager(Tela);
+                //Debug.WriteLine("HuD Criada");
+
+                // Carregando itens
+                Encyclopedia.LoadEncyclopedia();
+                
+                // Criar o scenario e instanciar o player
+                scene = new LevelScene(interfaceManager.CanvasChunck01);
+
+                // Banco de dados
+                //Debug.WriteLine("Carregando banco de dados");
+                QuestList.LoadQuests();
+                Encyclopedia.LoadNPC();
+                CraftingEncyclopedia.LoadCraftings();
+                // Quests
+                QuestList.LoadQuests();
+                player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
+                player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
+                player._Questmanager.actualQuest = player._Questmanager.allQuests[1];
+
+                // Criando HuD
+                interfaceManager.GenerateHUD();
+
+                // Crafting
+                CraftingStation = new Crafting();
+
+                // Update
+                TUpdate = new Task(Update);
+                TUpdate.Start();
+
+            });
+            // Carrega interface
+
+
+
+            // Draw
+            //TDraw = new Task(Draw);
+            //TDraw.Start();
         }
 
-        public static void CreateNPC()
+        /*  UpdateBag();
+            UpdateSkillTree();
+            UpdatePlayerInfo();
+            UpdateSkillBar();
+            UpdateShopInfo();*/
+
+        public async void Update()
         {
-            
+            while(Running)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    interfaceManager.UpdateBag();
+
+                    interfaceManager.UpdateSkillBar();
+
+                    interfaceManager.UpdatePlayerInfo();
+
+                    interfaceManager.UpdateEquip();
+
+                    interfaceManager.UpdateActualQuestManager();
+
+                    interfaceManager.UpdateQuestList();
+
+                    Task.Delay(1000 / 60);
+                });
+
+            }
         }
 
-        public static void CreateMobs()
+        public void Draw()
         {
+            while(Running)
+            {
 
+            }
         }
 
-        public static void OpenShop()
+        public void OpenShop()
         {
             if (traderTarget == null) return;
             interfaceManager.ShopOpen = true;
-            Game.instance.OpenShop();
+            InterfaceManager.instance.OpenShop();
         }
 
-        public static void CloseShop()
+        public void CloseShop()
         {
-            Game.instance.CloseShop();
+            InterfaceManager.instance.CloseShop();
         }
 
-        public static void CloseQuestWindow()
+        public void CloseQuestWindow()
         {
             if(questerTarget != null)
             {
-                Game.instance.CloseQuest();
+                InterfaceManager.instance.CloseQuest();
             }
         } 
 
-        public static void OpenQuestWindow()
+        public void OpenQuestWindow()
         {
             if (questerTarget != null)
             {
-                Game.instance.OpenQuest();
+                InterfaceManager.instance.OpenQuest();
+                //InterfaceManager.instance.Quest OpenQuest();
             }
             
         }

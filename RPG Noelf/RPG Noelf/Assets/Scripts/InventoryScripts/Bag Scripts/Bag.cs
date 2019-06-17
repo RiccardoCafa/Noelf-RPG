@@ -133,7 +133,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                         slot.ItemAmount -= offset;
                         FreeSlots--;
                         AddToBag(slot, ref slotOffset);
-                        OnBagUpdated();
+                        //OnBagUpdate();
                         return true;
                     }
                     else
@@ -145,7 +145,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     playerSlot.ItemAmount += slot.ItemAmount;
                     slot.ItemAmount = 0;
-                    OnBagUpdated();
+                    //OnBagUpdate();
                     return true;
                 }
             }
@@ -154,7 +154,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
                 slot.ItemAmount = 0;
                 FreeSlots--;
-                OnBagUpdated();
+                //OnBagUpdate();
                 return true;
             } else
             return false;
@@ -186,7 +186,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     {
                         FreeSlots--;
                         AddToBag(slot);
-                        OnBagUpdated();
+                        //OnBagUpdate();
                         return true;
                     }
                     else
@@ -198,7 +198,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     playerSlot.ItemAmount += slot.ItemAmount;
                     slot.ItemAmount = 0;
-                    OnBagUpdated();
+                    //OnBagUpdate();
                     return true;
                 }
             }
@@ -206,7 +206,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
                 slot.ItemAmount = 0;
-                OnBagUpdated();
+                //OnBagUpdate();
                 return true;
             }
             else
@@ -266,7 +266,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     Slots.Remove(s);
                     FreeSlots--;
-                    OnBagUpdated();
+                    //OnBagUpdate();
                     if (amount > 1)
                     {
                         s = Slots.Find(x => x.ItemID == s.ItemID);
@@ -297,7 +297,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     {
                         Slots.Remove(s);
                         FreeSlots++;
-                        OnBagUpdated();
+                        //OnBagUpdate();
                     }
                     return true;
                 } else
@@ -325,7 +325,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                     {
                         Slots.RemoveAt(index);
                         FreeSlots++;
-                        OnBagUpdated();
+                        //OnBagUpdate();
                     }
                 } else
                 {
@@ -348,7 +348,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     Slots.Remove(slot);
                     FreeSlots++;
-                    OnBagUpdated();
+                    //OnBagUpdate();
                 }
             } else
             {
@@ -369,7 +369,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 {
                     Slots.Remove(slot);
                     FreeSlots++;
-                    OnBagUpdated();
+                    //OnBagUpdate();
                 }
             }
             else

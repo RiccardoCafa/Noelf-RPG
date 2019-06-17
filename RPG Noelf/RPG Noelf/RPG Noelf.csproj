@@ -131,6 +131,7 @@
     <Compile Include="Assets\Scripts\Crafting Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Ents\Collision.cs" />
     <Compile Include="Assets\Scripts\Ents\Ent.cs" />
+    <Compile Include="Assets\Scripts\Ents\EquipImage.cs" />
     <Compile Include="Assets\Scripts\Ents\Level.cs" />
     <Compile Include="Assets\Scripts\Ents\Equips.cs" />
     <Compile Include="Assets\Scripts\Ents\NPCs\NPC.cs" />
@@ -177,11 +178,11 @@
     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillBuff.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillGenerics.cs" />
+    <Compile Include="Assets\Scripts\Skills\SkillImage.cs" />
     <Compile Include="Assets\Scripts\Skills\SkillManager.cs" />
     <Compile Include="Assets\Scripts\InventoryScripts\Item Types\Weapon.cs" />
     <Compile Include="Assets\Scripts\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\Shop Scripts\Shop.cs" />
-    <Compile Include="Assets\Scripts\Skills\Time.cs" />
     <Compile Include="Assets\Scripts\Solid.cs" />
     <Compile Include="CharacterCreation.xaml.cs">
       <DependentUpon>CharacterCreation.xaml</DependentUpon>
