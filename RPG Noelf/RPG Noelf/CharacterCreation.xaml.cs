@@ -122,24 +122,5 @@ namespace RPG_Noelf
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
         }
-
-        private void SavePlayerData()
-        {
-            string path = Path.GetTempPath() + @"Noelf";
-            
-            if(!File.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            string fileName = "slot_" + selectedSlot;
-
-            path = Path.Combine(path, fileName);
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine("id " + CustomPlayer.Id);
-            }
-        }
     }
 }
