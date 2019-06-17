@@ -35,10 +35,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public string Id;
 
-
-        //public int Xp { get; private set; }
-        //public int XpLim { get; private set; }
-
         public int Mp;
         public int MpMax;
 
@@ -87,8 +83,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Dex = Race.Dex + _Class.Dex;
             Con = Race.Con + _Class.Con;
             Mnd = Race.Mnd + _Class.Mnd;
-            level = new Level(1);
-            LevelUpdate(0, 0, 0, 0, 0, 0);
+            level = new Level(1, this);
+            LevelUpdate(0, 0, 0, 0, 0);
             ApplyDerivedAttributes();
             attkDelay = DateTime.Now;
             Window.Current.CoreWindow.KeyUp += RunAttack;
@@ -129,9 +125,9 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             }
         }
 
-        public void LevelUpdate(int str, int spd, int dex, int con, int mnd, int exp)//atualiza os atributos ao upar
+        public void LevelUpdate(int str, int spd, int dex, int con, int mnd)//atualiza os atributos ao upar
         {
-            level.GainEXP(exp);
+            
             Str += str;
             Spd += spd;
             Dex += dex;

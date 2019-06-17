@@ -25,7 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         
         public NPC()
         {
-            //this.EventoFala += GameManager.player._Questmanager.EventoFalaComNPCDaQuest;
+            this.EventoFala += GameManager.instance.player._Questmanager.EventoFalaComNPCDaQuest; 
         }
 
         public void StartConversation()

@@ -62,7 +62,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public Mob(int level)//cria um mob novo, aleatoriamente montado
         {
             #region montagem
-            this.level = new Level(level);
+            this.level = new Level(level, null);
             Str = 2;
             Spd = 2;
             Dex = 2;

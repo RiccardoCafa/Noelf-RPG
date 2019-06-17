@@ -75,15 +75,17 @@ namespace RPG_Noelf.Assets.Scripts.General
                 interfaceManager = new InterfaceManager(Tela);
                 //Debug.WriteLine("HuD Criada");
 
-                // Banco de dados
-                //Debug.WriteLine("Carregando banco de dados");
-                QuestList.LoadQuests();
+                // Carregando itens
                 Encyclopedia.LoadEncyclopedia();
-                CraftingEncyclopedia.LoadCraftings();
-
+                
                 // Criar o scenario e instanciar o player
                 scene = new LevelScene(interfaceManager.CanvasChunck01);
 
+                // Banco de dados
+                //Debug.WriteLine("Carregando banco de dados");
+                QuestList.LoadQuests();
+                Encyclopedia.LoadNPC();
+                CraftingEncyclopedia.LoadCraftings();
                 // Quests
                 QuestList.LoadQuests();
                 player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
@@ -96,14 +98,14 @@ namespace RPG_Noelf.Assets.Scripts.General
                 // Crafting
                 CraftingStation = new Crafting();
 
+                // Update
+                TUpdate = new Task(Update);
+                TUpdate.Start();
 
             });
             // Carrega interface
 
 
-            // Update
-            //TUpdate = new Task(Update);
-            //TUpdate.Start();
 
             // Draw
             //TDraw = new Task(Draw);
@@ -116,10 +118,26 @@ namespace RPG_Noelf.Assets.Scripts.General
             UpdateSkillBar();
             UpdateShopInfo();*/
 
-        public void Update()
+        public async void Update()
         {
             while(Running)
             {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    interfaceManager.UpdateBag();
+
+                    interfaceManager.UpdateSkillBar();
+
+                    interfaceManager.UpdatePlayerInfo();
+
+                    interfaceManager.UpdateEquip();
+
+                    interfaceManager.UpdateActualQuestManager();
+
+                    interfaceManager.UpdateQuestList();
+
+                    Task.Delay(1000 / 60);
+                });
 
             }
         }

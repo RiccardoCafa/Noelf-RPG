@@ -155,7 +155,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public void UpdateEncyclopedia()
         {
             uint count = 0;
-            foreach(Skill s in SkillList)
+            foreach(SkillGenerics s in SkillList)
             {
                 Encyclopedia.skillsImages.Add(count, new BitmapImage(new Uri("ms-appx://" + s.pathImage)));
                 count++;

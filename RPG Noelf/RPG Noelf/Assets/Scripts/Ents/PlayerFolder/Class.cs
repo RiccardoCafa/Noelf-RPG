@@ -460,6 +460,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             });
             className = "Arqueiro";
             skillManager.UpdateEncyclopedia();
+
+            skillManager.SkillBar[0] = skillManager.SkillList[1];
+            skillManager.SkillBar[1] = skillManager.SkillList[2];
+            skillManager.SkillBar[2] = skillManager.SkillList[3];
         }
     }
 

@@ -21,7 +21,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public static void LoadEncyclopedia()
         {
             LoadItens();
-            LoadNPC();
         }
 
         public static void LoadItens()
@@ -451,9 +450,9 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             {
                 IsStackable = false,
                 ItemCategory = Category.Legendary,
-                PathImage = "Black Pearl's deck",
+                PathImage = "/Assets/Images/Item1.jpg",
                 GoldValue = 99999,
-                description = "Sea turtles, mate"
+                description = "Black Pearl's deck! Sea turtles, mate"
             };
             encyclopedia.Add(44, item44);
 
@@ -479,7 +478,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 Name = "Lapa",
                 Introduction = "Tenho Doutorado em POG e mestrado em XGH. Quer comprar algumas gambiarras?",
                 Conclusion = "Muito obrigado por falar com o rei dos POG, tome aqui uns big bigs",
-                MyLevel = new Ents.Level(999)
+                MyLevel = new Ents.Level(999, null)
             };
             Shop s = new Shop();
             s.TradingItems.AddToBag(new Slot(43, 1));
@@ -494,7 +493,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 Name = "Pai",
                 Introduction = "Meu filho, já passei por inúmeras aventuras, agora é sua vez! Colete relíquias, talentos, mate monstros e se aventure nesse incrível mundo...",
                 Conclusion = "Vá em paz meu filho",
-                MyLevel = new Ents.Level(99)
+                MyLevel = new Ents.Level(99, null)
             };
 
             npc2.AddFunction(new Quester(1));
