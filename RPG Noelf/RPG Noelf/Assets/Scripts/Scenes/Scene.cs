@@ -20,6 +20,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
     public class Platform
     {
         public Canvas chunck;
+        //public static int[,] Map;
         public List<Solid> floor = new List<Solid>();
         public List<string> Blueprint { get; private set; } = new List<string>();
         int a = 0;
@@ -46,6 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             Solid rightWall = new Solid(chunck.Width, 0, 20, chunck.Height);
             floor.Add(leftWall);
             floor.Add(rightWall);
+            //Map = new int[Blueprint.Count, 1000];
             for (int y = Blueprint.Count - 1; y >= 0; y--)
             {
                 int x = 0;
@@ -54,6 +56,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                     if (block == 'p')
                     {
                         CreatePlayer(xScene, x, y);
+                        //Map[y, x] = 1;
                         break;
                     }
                     x++;
@@ -88,9 +91,10 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                 //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                                 platX.Clear();
                             }
+                            //Map[y, x] = 1;
                             break;
                         case 'b':
-                            Solid chest = Game.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
+                            Solid chest = InterfaceManager.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
                             a++;
                             floor.Add(chest);
                             break;
@@ -111,14 +115,14 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 
         private void CreatePlayer(Canvas xScene, int x, int y)
         {
-            GameManager.player = new Player("0000000");
-            GameManager.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
-            xScene.Children.Add(GameManager.player.box);
+            GameManager.instance.player = new Player("0200000");
+            GameManager.instance.player.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
+            xScene.Children.Add(GameManager.instance.player.box);
 
 
-            GameManager.InitializeGame();
-            Game.instance.CreateInventory(Game.instance.bagWindow);
-            Game.instance.CreateChestWindow(350, 250);
+            //GameManager.InitializeGame();
+            InterfaceManager.instance.CreateInventory();
+            InterfaceManager.instance.CreateChestWindow(350, 250);
             baus = new List<Bau>()
             {
                 new Bau(Category.Normal, 10),
@@ -131,7 +135,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         private void CreateMob(Canvas xScene, int x, int y)
         {
             Mob mob = new Mob(level: 2);
-            GameManager.mobs.Add(mob);
+            GameManager.instance.mobs.Add(mob);
             mob.Spawn(x * Tile.Size[0], y * Tile.Size[1]);
             xScene.Children.Add(mob.box);
             floor.Add(mob.box);

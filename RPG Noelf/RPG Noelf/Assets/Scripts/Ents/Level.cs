@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG_Noelf.Assets.Scripts.PlayerFolder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,11 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public double bonusXP { get; set; }
         public bool ableToUp { get; set; }
         public int EXPlim { get; set; }
+        private Player player;
 
-        public Level(int init_level)
+        public Level(int init_level, Player player)
         {
+            this.player = player;
             actualEXP = 0;
             actuallevel = init_level;
             bonusXP = 0;
@@ -44,6 +47,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 {
                     ableToUp = false;
                 }
+                if (player != null) player._SkillManager.SkillPoints++;
+                if (player != null) player._Class.StatsPoints++;
             }
             return true;
 
@@ -54,12 +59,16 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public bool GainEXP(int qtdExp)
         {
             actualEXP += qtdExp;
+            bool upou = false;
             while (actualEXP>=EXPlim)
             {
-                actualEXP -= EXPlim;
+                int sobra = EXPlim - actualEXP;
+                //actualEXP = 0;
                 UpLevel();
+                upou = true;
+                actualEXP = sobra;
             }
-            return true;
+            return upou;
         }
     }
 }

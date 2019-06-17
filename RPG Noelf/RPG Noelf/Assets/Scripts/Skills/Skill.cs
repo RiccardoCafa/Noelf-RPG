@@ -34,21 +34,20 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.tipobuff = SkillTypeBuff.normal;
         }
 
-        public override bool TurnBasicSkill(Ent player, Ent Enemy)
-        {
-            return false;
-        }
 
-        public override bool UseSkill(Ent player, Ent Enemy)
+        public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (manaCost <= player.Mnd)
+            if (/*manaCost <= player.Mnd*/true)
             {
                 CalcBonus(player);
                 Damage = Damage + Amplificator * Lvl;
-                Enemy.BeHit(player.Hit(DamageBonus));
-                return true;
+                return DamageBonus + Damage;
             }
-            return false;
+        }
+
+        public override void RevertSkill(Ent ent)
+        {
+            
         }
     }
 }

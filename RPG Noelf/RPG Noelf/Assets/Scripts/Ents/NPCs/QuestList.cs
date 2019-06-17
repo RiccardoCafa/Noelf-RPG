@@ -10,7 +10,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
     {
         public static Dictionary<uint, Quest> allquests;
 
-        public static void load_quests()
+        public static void LoadQuests()
         {
             allquests = new Dictionary<uint, Quest>();
 

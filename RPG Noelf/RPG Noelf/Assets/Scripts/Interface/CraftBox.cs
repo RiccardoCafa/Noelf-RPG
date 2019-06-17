@@ -25,7 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         private void CraftBoxClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            GameManager.CraftingStation.CraftItem(ItemToCraft);
+            GameManager.instance.CraftingStation.CraftItem(ItemToCraft);
         }
     }
 }
