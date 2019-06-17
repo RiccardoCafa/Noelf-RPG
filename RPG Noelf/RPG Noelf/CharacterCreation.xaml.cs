@@ -106,7 +106,7 @@ namespace RPG_Noelf
         {
             var viewId = 0;
             PlayerParams cParams = new PlayerParams(CustomPlayer.Id);
-            SavePlayerData();
+            //SavePlayerData();
             var newView = CoreApplication.CreateNewView();
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
