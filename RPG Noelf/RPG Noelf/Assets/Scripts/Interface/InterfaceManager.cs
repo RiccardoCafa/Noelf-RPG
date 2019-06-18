@@ -2643,7 +2643,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public void XPPlus(object sender, RoutedEventArgs e)
         {
             //GameManager.instance.player.;
-            GameManager.instance.player.level.GainEXP(100);
+            GameManager.instance.player.level.GainEXP(25*GameManager.instance.player.level.actuallevel);
             //GameManager.instance.player.LevelUpdate(0, 0, 0, 0, 0);
         }
         public void MPPlus(object sender, RoutedEventArgs e)
