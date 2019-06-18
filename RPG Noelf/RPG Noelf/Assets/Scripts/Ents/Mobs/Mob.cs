@@ -11,11 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     public class Mob : Ent
     {
+        Player player;
+
         public List<Action> Attacks = new List<Action>();
         public List<string> attcks = new List<string>();//(temporario)
         public List<Element> Resistance = new List<Element>();
@@ -61,8 +64,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public TextBlock hpTxt;
 
-        public Mob(int level)//cria um mob novo, aleatoriamente montado
+        public Mob(int level, Player player)//cria um mob novo, aleatoriamente montado
         {
+            this.player = player;
             #region montagem
             this.level = new Level(level, null);
             Str = 2;
@@ -81,6 +85,27 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             #endregion
             ApplyDerivedAttributes();
             SetMob(mobImages);
+        }
+
+        //public void Start(CoreWindow sender, KeyEventArgs e)
+        //{
+        //    box.Start(sender, e);
+        //}
+        public void Update()
+        {
+            if(player.box.Xi < box.Xi)
+            {
+                box.moveLeft = box.freeDirections[Direction.left];
+            }
+            else if(player.box.Xi > box.Xi)
+            {
+                box.moveRight = box.freeDirections[Direction.right];
+            }
+            else
+            {
+                box.moveLeft = box.moveRight = false;
+            }
+            box.Update();
         }
 
         private void Load()
