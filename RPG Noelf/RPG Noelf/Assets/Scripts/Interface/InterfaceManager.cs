@@ -2100,6 +2100,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 TextW_SkillName.Text = skillInfo.name;
                 TextW_SkillType.Text = skillInfo.GetTypeString();
                 TextW_SkillDescr.Text = skillInfo.description;
+                TextW_SkillCD.Text = skillInfo.cooldown.ToString() + "s";
                 if (skillInfo.Unlocked == false)
                 {
                     TextW_SkillLevel.Text = "Unlock Lv. " + skillInfo.block;

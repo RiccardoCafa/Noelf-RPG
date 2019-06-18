@@ -153,6 +153,11 @@ namespace RPG_Noelf.Assets.Scripts.General
                         dyn.Update();
                     }
 
+                    foreach(Ent ent in Ent.Entidades)
+                    {
+                        ent.Update();
+                    }
+
                     //instance.player.box.Update();
                     /*Parallel.ForEach(DynamicSolid.DynamicSolids, (current) =>
                     {
