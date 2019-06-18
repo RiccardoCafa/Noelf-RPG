@@ -124,7 +124,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.For,
                 tipoatributo = Element.Common,
-                tipobuff = SkillTypeBuff.normal
+                tipobuff = SkillTypeBuff.debuff
             });
             skillManager.SkillList.Add(new SkillDmgBuff("/Assets/Images/Item2.jpg", "grito de guerra")
             {
