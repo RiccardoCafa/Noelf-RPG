@@ -9,13 +9,11 @@ using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
 {
-
     public enum SkillTypeBuff {
         normal,
         buff,
         debuff
     }
-
     public enum Element
     {
         Fire,
@@ -23,7 +21,6 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         Common,
         Poison
     }
-
     public class SkillCritical : SkillGenerics //skills com efeitos
     {
         public SkillCritical(string pathImage, string name)
@@ -31,20 +28,18 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.name = name;
             this.pathImage = pathImage;
         }
-
         public override void RevertSkill(Ent ent)
         {
             ent.BonusChanceCrit -= Buff + Amplificator * Lvl;
         }
-
         public override double UseSkill(Ent player, Ent Enemy)
         {
-               
-            if (player.Mnd >= manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 player.BonusChanceCrit += Buff + Amplificator * Lvl;
-                return  0;
-                
+                return  0;   
             }
             return 0;
         }
@@ -57,18 +52,18 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-
         public override void RevertSkill(Ent ent)
         {
             
         }
-
         public override double UseSkill(Ent player, Ent Enemy)
 
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
-                return 0;
+                player.Mp -= manaCost;
+                return DamageBonus + Damage;
             }
             return 0;
         }
@@ -80,18 +75,18 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.pathImage = pathImage;
             this.name = name;
         }
-
         public override void RevertSkill(Ent ent)
         {
             
         }
-
         public override double UseSkill(Ent player, Ent Enemy)
 
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
-                return 0;
+                player.Mp -= manaCost;
+                return DamageBonus + Damage;
             }
             return 0;
         }
@@ -111,8 +106,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 Enemy.ArmorBuff -= (Buff + Amplificator * Lvl);
                 return DamageBonus + Damage;
             }
@@ -137,8 +134,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 oldstatus = Enemy.Spd;
                 timer = timer + Amplificator * Lvl;
                 CalcBonus(player);
@@ -167,8 +166,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 oldstatus = Enemy.Damage;
                 timer = timer + Amplificator * Lvl;
                 CalcBonus(player);
@@ -198,9 +199,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-
-            if (/*player.Mnd > manaCost*/true)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 oldstatus = player.Dex;
                 player.Dex += (int)(player.Dex * (Buff + Amplificator * Lvl));
                 return 0;
@@ -228,8 +230,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 player.DamageBuff += player.Damage * (Buff + Amplificator * Lvl);
                 return 0;
             }
@@ -255,8 +259,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 player.ArmorBuff += (Buff + Amplificator * Lvl);
                 return 0;
             }
@@ -282,8 +288,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if (player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
+                player.Mp -= manaCost;
                 oldstatus = Enemy.Spd;
                 CalcBonus(player);
                 Enemy.Spd = (int)(Enemy.Spd * (Buff + Amplificator * Lvl));
@@ -311,9 +319,11 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 
         public override double UseSkill(Ent player, Ent Enemy)
         {
-            if(player.Mnd > manaCost)
+            if (!(player is Player)) return 0;
+            if (manaCost <= (player as Player).Mp)
             {
-                return DamageBonus * 2;
+                player.Mp -= manaCost;
+                return Damage * 2;
             }
             else
             {

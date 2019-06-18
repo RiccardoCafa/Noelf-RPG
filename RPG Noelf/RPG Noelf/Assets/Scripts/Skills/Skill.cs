@@ -40,8 +40,9 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             if (!(player is Player)) return 0;
             if (manaCost <= (player as Player).Mp)
             {
-                CalcBonus(player);
-                Damage = Damage + Amplificator * Lvl;
+               // CalcBonus(player);
+               // Damage = Damage + Amplificator * Lvl;
+                player.Mp -= manaCost;
                 return DamageBonus + Damage;
             }
             return 0;
