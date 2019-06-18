@@ -161,6 +161,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             if(Attacking)
             {
                 Attack(null);
+                CanAtk = false;
             }
 
             if(UsingSkill != null)
@@ -172,6 +173,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         public void Attack(SkillGenerics skill)
         {
+            if (!CanAtk) return;
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
             DynamicSolid tDynamic = null;
@@ -219,7 +221,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 tDynamic.MyEnt.BeHit(Hit(0));
                 //hit.speed = 0;
             }
-
+            AtkT = 0;
             Attacking = false;
         }
         public void AttackSkill(SkillGenerics skill)
