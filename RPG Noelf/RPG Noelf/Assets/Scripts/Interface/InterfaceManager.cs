@@ -109,8 +109,10 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public TextBlock TextConvLevel { get; set; }
         public TextBlock TextConvFuncs { get; set; }
         public TextBlock TextConvName { get; set; }
-        // Barra de EXP
+        // Barras
         public TextBlock ExpIndicator { get; set; }
+        public TextBlock HPIndicator { get; set; }
+
 
         public Image MenuFBolaAtras { get; set; }
         public Image ImageW_Skill { get; set; }
@@ -322,12 +324,13 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         public void GenerateExpBar()
         {
-            int tamx, tamy;
             var child = new Canvas()
             {
                 Width = 200,
-                Height = 400
-            };
+                Height = 400,
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0, 182, 182, 182))
+
+        };
             Tela.Children.Add(child);
             ExpIndicator = new TextBlock()
             {
@@ -347,12 +350,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 Height = 400
             };
             Tela.Children.Add(child);
-            var text = new TextBlock()
+            HPIndicator = new TextBlock()
             {
                 Text = "HP: " + GameManager.instance.player.Hp + "/" + GameManager.instance.player.HpMax + "\n",
                 TextAlignment = TextAlignment.Center
             };
-            child.Children.Add(text);
+            child.Children.Add(HPIndicator);
             Canvas.SetTop(child, 0);
 
 
@@ -2093,12 +2096,12 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                                 "Level: " + GameManager.instance.player.level.actuallevel + "\n" +
                                 "Experience: " + GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim + "\n" +
                                 "Pontos de skill disponivel: " + GameManager.instance.player._SkillManager.SkillPoints + "\n" +
-
                                 "Gold: " + GameManager.instance.player._Inventory.Gold;
             ExpIndicator.Text = GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim;
-
-                                "Vertical Speed: " + GameManager.instance.player.box.verticalSpeed + "\n" +
-                                "Gravidade: " + GameManager.instance.player.box.g + "\n";
+            HPIndicator.Text =  GameManager.instance.player.Hp + "/" + GameManager.instance.player.HpMax + "\n";
+ 
+            // "Vertical Speed: " + GameManager.instance.player.box.verticalSpeed + "\n" +
+            // "Gravidade: " + GameManager.instance.player.box.g + "\n";
 
         }
         public void UpdateSkillBar()
@@ -2640,7 +2643,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public void XPPlus(object sender, RoutedEventArgs e)
         {
             //GameManager.instance.player.;
-            GameManager.instance.player.level.GainEXP(50000);
+            GameManager.instance.player.level.GainEXP(100);
             //GameManager.instance.player.LevelUpdate(0, 0, 0, 0, 0);
         }
         public void MPPlus(object sender, RoutedEventArgs e)
