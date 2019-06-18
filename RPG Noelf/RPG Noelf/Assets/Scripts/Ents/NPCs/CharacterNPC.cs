@@ -82,7 +82,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             }
         }
 
-        public override void Die()
+        public override void Die(Ent someone)
         {
             
         }
