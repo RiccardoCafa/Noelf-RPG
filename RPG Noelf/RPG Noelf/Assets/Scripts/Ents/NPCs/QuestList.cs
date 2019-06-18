@@ -36,9 +36,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
                 GainedItem = new Inventory_Scripts.Slot(7, 10)
             };
             allquests.Add(2, quest2);
-
-
-
         }
         //procurar a quest no dicionario de Quests
         public static Quest SearchQuest(uint genericID)
@@ -51,12 +48,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
             {
                 throw new ArgumentOutOfRangeException();
             }
-
-            
-
         }
-
-
-
     }
 }
