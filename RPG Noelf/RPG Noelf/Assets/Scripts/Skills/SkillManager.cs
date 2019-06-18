@@ -94,6 +94,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             Passive = new SkillDmgBuff(name, pathImage)
             {
+                ID = 0,
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
@@ -113,6 +114,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             Passive = new SkillDex(name, pathImage)
             {
+                    ID = 15,
                     Damage = 0,
                     manaCost = 0,
                     block = 1,
@@ -132,6 +134,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             Passive = new SkillDmgBuff(name, pathImage)
             {
+                ID = 30,
                 Damage = 0,
                 manaCost = 0,
                 block = 1,
@@ -215,7 +218,14 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             return false;
         }
-
+        public SkillGenerics FindSkill(int id)
+        {
+            foreach (SkillGenerics item in SkillList)
+            {
+                if (item.ID == id) return item;
+            }
+            return null;
+        }
         public bool UpSkill(SkillGenerics skill)
         {
             int MinimiumLevel = 0;
