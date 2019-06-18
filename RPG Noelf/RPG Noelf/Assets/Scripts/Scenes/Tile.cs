@@ -8,7 +8,8 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 {
     enum TypeTile
     {
-        grass, ground
+        grass, ground,
+        grassNeve, groundNeve
     }
 
     class Tile
@@ -16,7 +17,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         public static Dictionary<char, TypeTile> TileCode = new Dictionary<char, TypeTile>()
         {
             {'G', TypeTile.grass },
-            {'g', TypeTile.ground }
+            {'g', TypeTile.ground },
+            {'O', TypeTile.grassNeve },
+            {'o', TypeTile.groundNeve }
         };
 
         public TypeTile tpTile;
