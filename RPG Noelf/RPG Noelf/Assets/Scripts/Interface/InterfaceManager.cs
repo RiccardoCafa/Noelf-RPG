@@ -202,6 +202,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             GenerateExpBar();
 
+            GenerateLifeBar();
+
             CanvasShop.Visibility = Visibility.Collapsed;
             CanvasInventario.Visibility = Visibility.Collapsed;
             CanvasAtributos.Visibility = Visibility.Collapsed;
@@ -289,10 +291,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         public void GenerateExpBar()
         {
+            int tamx, tamy;
             var child = new Canvas()
             {
-                Width = 300,
-                Height = 300
+                Width = 200,
+                Height = 400
             };
             Tela.Children.Add(child);
             ExpIndicator = new TextBlock()
@@ -302,7 +305,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             };
             child.Children.Add(ExpIndicator);
-            Canvas.SetTop(child, 10);
+            Canvas.SetTop(child, 12);
         } 
 
         public void GenerateLifeBar()
@@ -319,7 +322,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 TextAlignment = TextAlignment.Center
             };
             child.Children.Add(text);
-            Canvas.SetTop(child, -30);
+            Canvas.SetTop(child, 0);
 
 
 
