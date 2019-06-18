@@ -34,7 +34,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         {
             chunck = new Canvas();
             xScene.Children.Add(chunck);
-            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario1.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario2.txt");
             string bp;
             int sizeX = 0;
             int sizeY = 0;
@@ -100,6 +100,19 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                             CharacterNPC npc = new CharacterNPC(new NPC(), x * Matriz.scale, y * Matriz.scale, Matriz.scale, Matriz.scale * 2, 0);
                             floor.Add(npc.box);
                             break;
+                        case 'N':
+                            Tile neve = new Tile(Tile.TileCode[block], x, y);
+                            SetImage(neve.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
+                                                 neve.VirtualPosition[0], neve.VirtualPosition[1]);
+                            Block blkn = new Block(Matriz.scale * x, Matriz.scale * y - 1);
+                            break;
+                        case 'L':
+                            Tile lava = new Tile(Tile.TileCode[block], x, y);
+                            SetImage(lava.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
+                                                 lava.VirtualPosition[0], lava.VirtualPosition[1]);
+                            Block blkl = new Block(Matriz.scale * x, Matriz.scale * y - 1);
+                            break;
+
                         default: break;
                     }
                     x++;
@@ -220,11 +233,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             InterfaceManager.instance.CreateChestWindow(350, 250);
             baus = new List<Bau>()
             {
-                new Bau(Category.Normal, 10),
+                new Bau(Category.Legendary, 10),
                 new Bau(Category.Normal, 10),
                 new Bau(Category.Uncommon, 15),
-                new Bau(Category.Legendary, 10),
-                new Bau(Category.Epic, 10)
             };
         }
 

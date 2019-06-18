@@ -607,6 +607,8 @@
     <Content Include="Assets\Images\player\player\legs\e\1\210___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\211___.png" />
     <Content Include="Assets\Images\player\player\legs\e\1\212___.png" />
+    <Content Include="Assets\Images\tiles\lava.png" />
+    <Content Include="Assets\Images\tiles\neve.png" />
     <Content Include="Assets\Images\UI Elements\circle-red.png" />
     <Content Include="Assets\Images\UI Elements\ComoFazerMagica.png" />
     <Content Include="Assets\Images\UI Elements\Expand.png" />
@@ -643,6 +645,7 @@
     <Content Include="Assets\musiquinha.mp3" />
     <Content Include="Assets\Scripts\Scenes\scenario.txt" />
     <Content Include="Assets\Scripts\Scenes\scenario1.txt" />
+    <Content Include="Assets\Scripts\Scenes\scenario2.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

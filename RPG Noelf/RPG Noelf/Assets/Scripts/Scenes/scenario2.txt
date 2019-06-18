@@ -1,0 +1,21 @@
+﻿-
+-
+-
+-
+------------------------------------------------------------------------------------------------------------------
+----------------------n---------------------------------m---------------------------------------------------------
+------------------------b------------------------------b-------------------------------------n--------------------
+---------------------LLLLL----------------------------LLLL--------------------------------------------------------
+------------------------gg---------------------------LggggL-------------------------------LLLLLL------------------
+-----------------------m-g--------------------------LggggggL--------------------------LLLLg-g---LLLL--------------
+---------------LLLLL-----gg------------------------LggggggggL----------------------LLLggg------gg---L-----b-------
+------------------ggLLLLLLLL----------------------LggggggggggL--------------------Lgggg----------gg--LLLLLL-------
+--------------------gg--ggggLLLL-----------------LggggggggggggL------------------------------------ggggg----------
+---------------------------ggg-gL-------------- LggggggggggggggL--------------L-------------------------g---------
+-------------------------------ggLL------------LggggggggggggggggL------------LgL---m--------------------g---------
+-p---------------------------------LLL--------LggggggggggggggggggLL-m-------LgggL---------------------------------
+---------m--------------------------------LLLLgggggggggggggggggggggL------LLgggggLLLLLLLLLLLLL----m---------------
+LLL--------------------------------------LggggggggggggggggggggggggggLLLLLLggggggggggggggggggggLL------------------
+gggLLLLLLLLLLLLLLLLLLLLLLLLLL----------LLgggggggggggggggggggggggggggggggggggggggggggggggggggggggLLLLLLLLLLL-------
+gggggggggggggggggggggggggggggLLLLLLLLLLggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggLLLLLL-
+ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg-
