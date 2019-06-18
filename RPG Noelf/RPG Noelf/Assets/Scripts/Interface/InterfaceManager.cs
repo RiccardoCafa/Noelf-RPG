@@ -109,6 +109,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public TextBlock TextConvLevel { get; set; }
         public TextBlock TextConvFuncs { get; set; }
         public TextBlock TextConvName { get; set; }
+        // Barra de EXP
+        public TextBlock ExpIndicator { get; set; }
 
         public Image MenuFBolaAtras { get; set; }
         public Image ImageW_Skill { get; set; }
@@ -198,6 +200,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             CreateConversationLayout();
 
+            GenerateExpBar();
+
             CanvasShop.Visibility = Visibility.Collapsed;
             CanvasInventario.Visibility = Visibility.Collapsed;
             CanvasAtributos.Visibility = Visibility.Collapsed;
@@ -282,6 +286,44 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         /* ############################################################################################ */
         /* ####################################### INSTANTIATES ####################################### */
         /* ############################################################################################ */
+
+        public void GenerateExpBar()
+        {
+            var child = new Canvas()
+            {
+                Width = 300,
+                Height = 300
+            };
+            Tela.Children.Add(child);
+            ExpIndicator = new TextBlock()
+            {
+                Text = GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim,
+                TextAlignment = TextAlignment.Center
+
+            };
+            child.Children.Add(ExpIndicator);
+            Canvas.SetTop(child, 10);
+        } 
+
+        public void GenerateLifeBar()
+        {
+            var child = new Canvas()
+            {
+                Width = 200,
+                Height = 400
+            };
+            Tela.Children.Add(child);
+            var text = new TextBlock()
+            {
+                Text = "HP: " + GameManager.instance.player.Hp + "/" + GameManager.instance.player.HpMax + "\n",
+                TextAlignment = TextAlignment.Center
+            };
+            child.Children.Add(text);
+            Canvas.SetTop(child, -30);
+
+
+
+        }
 
         public Solid CreateChest(double x, double y, Bau bau, double w, double h)
         {
@@ -374,6 +416,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(CanvasChest, x);
             Canvas.SetLeft(CanvasChest, y);
             CanvasChest.Visibility = Visibility.Collapsed;
+            Tela.Children.Add(CanvasChest);
 
             // Criando o texto e a imagem de fundo
             TextChestName = new TextBlock()
@@ -2025,6 +2068,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                                 "Experience: " + GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim + "\n" +
                                 "Pontos de skill disponivel: " + GameManager.instance.player._SkillManager.SkillPoints + "\n" +
                                 "Gold: " + GameManager.instance.player._Inventory.Gold;
+            ExpIndicator.Text = GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim;
+
         }
         public void UpdateSkillBar()
         {
