@@ -30,7 +30,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         {
             chunck = new Canvas();
             xScene.Children.Add(chunck);
-            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario1.txt");
             string bp;
             int sizeX = 0;
             int sizeY = 0;
