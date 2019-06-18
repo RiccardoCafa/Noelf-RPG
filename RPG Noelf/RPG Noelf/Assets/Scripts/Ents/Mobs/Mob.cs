@@ -1,7 +1,7 @@
 
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Scenes;
-﻿using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -11,17 +11,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
     public class Mob : Ent
     {
+        Player player;
+
         public List<Action> Attacks = new List<Action>();
         public List<string> attcks = new List<string>();//(temporario)
         public List<Element> Resistance = new List<Element>();
         public List<Element> Vulnerable = new List<Element>();
         public Bag MobBag { get; } = new Bag();
         public bool Meek = false;
+        public int xpSolta;
+        public int GoldSolta;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
 
@@ -61,8 +66,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public TextBlock hpTxt;
 
-        public Mob(int level)//cria um mob novo, aleatoriamente montado
+        public Mob(int level, Player player)//cria um mob novo, aleatoriamente montado
         {
+            this.player = player;
             #region montagem
             this.level = new Level(level, null);
             Str = 2;
@@ -81,6 +87,57 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             #endregion
             ApplyDerivedAttributes();
             SetMob(mobImages);
+            xpSolta = level * 20 + (int)Damage / 2;
+            Random rnd = new Random();
+            GoldSolta = rnd.Next(level * 10, level * 50);
+
+            int numberOfItems = rnd.Next(0, 3);
+
+            for(int i = 0; i < numberOfItems; i++)
+            {
+                int itemID = rnd.Next(1, Encyclopedia.encycloImages.Count);
+                MobBag.AddToBag(new Slot((uint)itemID, (uint)rnd.Next(1, 90)));
+            }
+
+        }
+
+        public void Start()
+        {
+            box.Start();
+        }
+        public void Update()
+        {
+            
+            if (Math.Abs(player.box.Xi - box.Xi) < 300)
+            {
+                if((!box.freeDirections[Direction.left] || !box.freeDirections[Direction.right]) && !box.freeDirections[Direction.down])
+                {
+                    box.Yi -= box.jumpSpeed / 5;//verticalSpeed = jumpSpeed * 10;
+                    box.OnMoved();//verticalSpeed = jumpSpeed;
+                    box.time = DateTime.Now;
+                }
+                if (player.box.Xi < box.Xi)
+                {
+                    box.moveLeft = box.freeDirections[Direction.left];
+                }
+                else if (player.box.Xi > box.Xi)
+                {
+                    box.moveRight = box.freeDirections[Direction.right];
+                }
+                else
+                {
+                    box.moveLeft = box.moveRight = false;
+                }
+                if(Math.Abs(player.box.Xi - box.Xi) < 20 && Math.Abs(player.box.Yi - box.Yi) < 30)
+                {
+                    Attacking = true;
+                }
+            }
+            else
+            {
+                box.moveLeft = box.moveRight = false;
+            }
+            box.Update();
         }
 
         private void Load()
@@ -124,18 +181,24 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             hpTxt.Text = Hp.ToString() + "/" + HpMax.ToString();
         }
 
-        public override void Die()
+        public override void Die(Ent WhoKilledMe)
         {
-            if(MobBag.Slots.Count > 0)
+            if (MobBag.Slots.Count > 0)
             {
-                foreach(Slot mobS in MobBag.Slots)
+                foreach (Slot mobS in MobBag.Slots)
                 {
                     InterfaceManager.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
             }
+            if(WhoKilledMe is Player)
+            {
+                Player p = WhoKilledMe as Player;
+                p.level.GainEXP(xpSolta);
+                p._Inventory.AddGold(GoldSolta);
+            }
             //Solid.solids.Remove(box);
             box.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            Debug.WriteLine("Mob died");
+            //Debug.WriteLine("Mob died");
         }
 
         private void SetMob(Dictionary<string, Image> images)//aplica as imagens das caracteristicas fisicas do mob

@@ -33,9 +33,9 @@ namespace RPG_Noelf.Assets.Scripts.General
         public bool CanGo = false;
 
         // Player
-        public List<CharacterPlayer> players = new List<CharacterPlayer>();
+        //public List<CharacterPlayer> players = new List<CharacterPlayer>();
         public Player player;
-        
+
         // User Interface
         public InterfaceManager interfaceManager;
 
@@ -47,7 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         // Mobs
         public List<Mob> mobs = new List<Mob>();
-        public CharacterMob mobTarget;
+        //public Mob mobTarget;
 
         // NPC's
         public Crafting CraftingStation;
@@ -55,7 +55,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public NPC npcTarget;
         public Trader traderTarget;
         public Quester questerTarget;
-        
+
         public GameManager()
         {
             instance = this;
@@ -63,7 +63,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public void InitializeGame(Canvas Tela)
         {
-            TStart = new Task(delegate { Start(Tela); } );
+            TStart = new Task(delegate { Start(Tela); });
             TStart.Start();
         }
 
@@ -78,6 +78,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
                 // Carregando itens
                 Encyclopedia.LoadEncyclopedia();
+                QuestList.LoadQuests();
                 
                 // Criar o scenario e instanciar o player
                 scene = new LevelScene(interfaceManager.CanvasChunck01);
@@ -88,7 +89,6 @@ namespace RPG_Noelf.Assets.Scripts.General
                 Encyclopedia.LoadNPC();
                 CraftingEncyclopedia.LoadCraftings();
                 // Quests
-                QuestList.LoadQuests();
                 player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
                 player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
                 player._Questmanager.actualQuest = player._Questmanager.allQuests[1];
@@ -107,7 +107,7 @@ namespace RPG_Noelf.Assets.Scripts.General
                 player._Inventory.AddToBag(new Slot(24, 1));
                 player._Inventory.AddToBag(new Slot(18, 2));
 
-
+                foreach (Mob mob in mobs) { mob.Start(); }
                 // Update
                 TUpdate = new Task(Update);
                 TUpdate.Start();
@@ -130,7 +130,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public async void Update()
         {
-            while(Running)
+            while (Running)
             {
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -146,12 +146,24 @@ namespace RPG_Noelf.Assets.Scripts.General
 
                     interfaceManager.UpdateQuestList();
 
-                    instance.player.box.Update();
+                    interfaceManager.UpdateShopInfo();
+
+                    foreach(DynamicSolid dyn in DynamicSolid.DynamicSolids)
+                    {
+                        dyn.Update();
+                    }
+
+                    foreach(Ent ent in Ent.Entidades)
+                    {
+                        ent.Update();
+                    }
+
+                    //instance.player.box.Update();
                     /*Parallel.ForEach(DynamicSolid.DynamicSolids, (current) =>
                     {
                         current.Update();
                     });*/
-
+                    foreach (Mob mob in mobs) { mob.Update(); }
                     Task.Delay(1000 / 60);
                 });
 
@@ -160,7 +172,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public void Draw()
         {
-            while(Running)
+            while (Running)
             {
 
             }
@@ -180,11 +192,11 @@ namespace RPG_Noelf.Assets.Scripts.General
 
         public void CloseQuestWindow()
         {
-            if(questerTarget != null)
+            if (questerTarget != null)
             {
                 InterfaceManager.instance.CloseQuest();
             }
-        } 
+        }
 
         public void OpenQuestWindow()
         {
@@ -193,7 +205,7 @@ namespace RPG_Noelf.Assets.Scripts.General
                 InterfaceManager.instance.OpenQuest();
                 //InterfaceManager.instance.Quest OpenQuest();
             }
-            
+
         }
 
     }

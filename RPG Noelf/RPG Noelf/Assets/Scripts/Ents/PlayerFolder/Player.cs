@@ -74,8 +74,8 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             switch (Id[1])
             {
                 case '0': _Class = new Warrior(_SkillManager); Ranged = false; break;
-                case '1': _Class = new Wizard(_SkillManager); Ranged = true;  break;
-                case '2': _Class = new Ranger(_SkillManager); Ranged = true; break;
+                case '1': _Class = new Wizard(_SkillManager); Ranged = false;  break;
+                case '2': _Class = new Ranger(_SkillManager); Ranged = false; break;
             }
 
             Id = id;
@@ -89,10 +89,6 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             ApplyDerivedAttributes();
             attkDelay = DateTime.Now;
             Window.Current.CoreWindow.KeyUp += RunAttack;
-
-            //_Inventory.BagUpdated += InterfaceManager.instance.UpdateBagEvent;
-            //Equipamento.EquipUpdated += InterfaceManager.instance.UpdateEquipEvent;
-            //PlayerUpdated += UpdatePlayerInfo
         }
 
         public void Spawn(double x, double y)//cria o Player na tela
@@ -119,10 +115,11 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         {
             if (e.VirtualKey == Windows.System.VirtualKey.Z)
             {
-                new Thread(() =>
-                {
-                    Attack();
-                }).Start();
+                Attacking = true;
+                //new Thread(() =>
+                //{
+                    //Attack();
+              //  }).Start();
             }
         }
 
@@ -135,7 +132,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con += con;
             Mnd += mnd;
             HpMax = Con * 6 + level.actuallevel * 2;
-            Hp = HpMax;
+            //Hp = HpMax;
             MpMax = Mnd * 5 + level.actuallevel;
             Mp = MpMax;
             AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
@@ -161,7 +158,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void AddHP(int HP)
         {
-            if (Hp + HP >= HpMax)
+            if (this.Hp + HP >= HpMax)
             {
                 Hp = HpMax;
             }
@@ -177,9 +174,10 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             PlayerUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public override void Die()
+        public override void Die(Ent someone)
         {
-            Debug.WriteLine("Player died");
+            box.alive = false;
+            //Application.Current.Exit();
         }
     }
 }
