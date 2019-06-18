@@ -128,7 +128,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 {
                     box.moveLeft = box.moveRight = false;
                 }
-                if(Math.Abs(player.box.Xi - box.Xi) < 20)
+                if(Math.Abs(player.box.Xi - box.Xi) < 20 && Math.Abs(player.box.Yi - box.Yi) < 30)
                 {
                     Attacking = true;
                 }
