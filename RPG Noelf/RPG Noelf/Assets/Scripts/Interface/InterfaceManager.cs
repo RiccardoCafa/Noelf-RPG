@@ -2459,7 +2459,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             if (GameManager.instance.traderTarget.shop.SlotInOffer == null) return;
             if (uint.TryParse(TextItemBuyingQuantity.Text, out uint val))
             {
-                uint MaxValue = GameManager.instance.player._Inventory.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
+                uint MaxValue = 99;//GameManager.instance.player._Inventory.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
                 val++;
                 if (val >= MaxValue)
                 {

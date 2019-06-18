@@ -132,7 +132,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con += con;
             Mnd += mnd;
             HpMax = Con * 6 + level.actuallevel * 2;
-            Hp = HpMax;
+            //Hp = HpMax;
             MpMax = Mnd * 5 + level.actuallevel;
             Mp = MpMax;
             AtkSpd = 2 - (1.25 * Dex + 1.5 * Spd) / 100;
