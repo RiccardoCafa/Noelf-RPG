@@ -248,6 +248,37 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     else CanvasSkillTree.Visibility = Visibility.Collapsed;
                     break;
             }
+
+            int indicadorzao = -1;
+            if (e.VirtualKey == Windows.System.VirtualKey.Number1)
+            {
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 1)
+                {
+                    indicadorzao = 0;
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number2)
+            {
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 2)
+                {
+                    indicadorzao = 1;
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number3)
+            {
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 3)
+                {
+                    indicadorzao = 2;
+                }
+            }
+            if (e.VirtualKey == Windows.System.VirtualKey.Number4)
+            {
+                if (GameManager.instance.player._SkillManager.SkillList.Count >= 4)
+                {
+                    indicadorzao = 3;
+                }
+            }
+            if (indicadorzao != -1) GameManager.instance.player._SkillManager.BeAbleSkill(indicadorzao);
         }
 
         public void Skill_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs e)
@@ -376,15 +407,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetLeft(CanvasCrafting, 30);
             Canvas.SetTop(CanvasCrafting, 200);
             Tela.Children.Add(CanvasCrafting);
-            /*
-            Image bg = new Image()
-            {
-                Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png")),
-                Stretch = Stretch.Fill,
-                Width = 500,
-                Height = 300
-            };
-            CanvasCrafting.Children.Add(bg);*/
 
             ScrollViewer ListadeCraftings = new ScrollViewer()
             {
@@ -956,7 +978,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             CanvasEquipamento = new Canvas()
             {
                 Width = 100,
-                Height = 200
+                Height = 200,
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(182, 182, 182, 182))
             };
             Tela.Children.Add(CanvasEquipamento);
             Canvas.SetTop(CanvasEquipamento, 40);
@@ -2070,15 +2093,28 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                                 "Level: " + GameManager.instance.player.level.actuallevel + "\n" +
                                 "Experience: " + GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim + "\n" +
                                 "Pontos de skill disponivel: " + GameManager.instance.player._SkillManager.SkillPoints + "\n" +
+
                                 "Gold: " + GameManager.instance.player._Inventory.Gold;
             ExpIndicator.Text = GameManager.instance.player.level.actualEXP + "/" + GameManager.instance.player.level.EXPlim;
+
+                                "Vertical Speed: " + GameManager.instance.player.box.verticalSpeed + "\n" +
+                                "Gravidade: " + GameManager.instance.player.box.g + "\n";
 
         }
         public void UpdateSkillBar()
         {
+            int count = -1;
             foreach (SkillImage element in GridBarraSkill.Children)
             {
+                if (count == -1)
+                {
+                    count++;
+                    continue;
+                    //element.skill = GameManager.instance.player._SkillManager.Passive;
+                }
+                element.skill = GameManager.instance.player._SkillManager.SkillBar[count];
                 element.UpdateImage();
+                count++;
             }
         }
         public void UpdateSkillWindowText(object sender, PointerRoutedEventArgs e)
@@ -2145,11 +2181,24 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void UpdateEquip()
         {
+            int count = 0;
             foreach (EquipImage element in GridEquip.Children)
             {
                 EquipImage img = element as EquipImage;
+                if(img.MyEquip != null && img.MyEquip is Armor)
+                {
+                    img.MyEquip = GameManager.instance.player.Equipamento.armor[count];
+                } else if(img.MyEquip != null && img.MyEquip is Weapon)
+                {
+                    img.MyEquip = GameManager.instance.player.Equipamento.weapon;
+                } else
+                {
+                    img.MyEquip = null;
+                }
                 img.UpdateImage();
+                count++;
             }
+            GameManager.instance.player.Equipamento.UpdateEquip();
         }
         public void UpdateQuest()
         {
@@ -2290,19 +2339,17 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     else if (equipOpen)
                     {
                         Item i = Encyclopedia.encyclopedia[s.ItemID];
-                        if (i is Armor || i is Weapon)
+
+                        if(i is Armor)
                         {
-                            if(i is Armor)
-                            {
-                                (GridEquip.Children[(i as Armor).GetPosition()] as EquipImage).MyEquip = i;
-                            }
-                            else
-                            {
-                                (GridEquip.Children[1] as EquipImage).MyEquip = i;
-                            }
-                            GameManager.instance.player.Equipamento.UseEquip(s.ItemID);
-                            CanvasWindowBag.Visibility = Visibility.Collapsed;
+                            (GridEquip.Children[(i as Armor).GetPosition()] as EquipImage).MyEquip = i;
                         }
+                        else if(i is Weapon)
+                        {
+                            (GridEquip.Children[4] as EquipImage).MyEquip = i;
+                        }
+                        GameManager.instance.player.Equipamento.UseEquip(s.ItemID);
+                        CanvasWindowBag.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
@@ -2593,7 +2640,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public void XPPlus(object sender, RoutedEventArgs e)
         {
             //GameManager.instance.player.;
-            GameManager.instance.player.level.GainEXP(50);
+            GameManager.instance.player.level.GainEXP(50000);
             //GameManager.instance.player.LevelUpdate(0, 0, 0, 0, 0);
         }
         public void MPPlus(object sender, RoutedEventArgs e)
