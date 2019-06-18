@@ -184,7 +184,7 @@ namespace RPG_Noelf.Assets.Scripts
         public double g = 1500;
         public bool moveRight, moveLeft;
         public bool alive = false;
-        protected DateTime time;
+        public DateTime time;
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi + 0, yi - 0, width, height)
         {
@@ -204,14 +204,21 @@ namespace RPG_Noelf.Assets.Scripts
             time = DateTime.Now;
             span = DateTime.Now - time;
         }
-
+        public void Start()
+        {
+            alive = true;
+            time = DateTime.Now;
+            span = DateTime.Now - time;
+        }
+        public bool jump;
         public virtual void Update()//atualiza a td instante
         {
+                time = DateTime.Now;
             if (alive)
             {
-                time = DateTime.Now;
                 if (g != 0 && freeDirections[Direction.down])
                 {
+                    //if (jump) verticalSpeed = jumpSpeed;
                     ApplyGravity(span.TotalSeconds);
                 }//se n ha chao
                 else verticalSpeed = 0;
@@ -220,8 +227,9 @@ namespace RPG_Noelf.Assets.Scripts
                 else horizontalDirection = 0;//se n quer se mover pros lados
                 Translate(Axis.vertical, span.TotalSeconds);
                 Translate(Axis.horizontal, span.TotalSeconds);
-                span = DateTime.Now - time;
+                //jump = false;
             }
+                span = DateTime.Now - time;
         }
 
         public virtual void Translate(Axis direction, double span)//translada o DynamicSolid
@@ -332,10 +340,15 @@ namespace RPG_Noelf.Assets.Scripts
                 case VirtualKey.W://usuario quer pular
                     if (!freeDirections[Direction.down])
                     {
+                        //jump = true;
                         Yi -= jumpSpeed / 5;//verticalSpeed = jumpSpeed * 10;
                         OnMoved();//verticalSpeed = jumpSpeed;
                         time = DateTime.Now;
                     }
+                    //else
+                    //{
+                    //    jump = false;
+                    //}
                         //verticalSpeed = 700;
                     break;
                 case VirtualKey.Right:

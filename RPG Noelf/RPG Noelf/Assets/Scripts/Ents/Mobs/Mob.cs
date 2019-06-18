@@ -87,14 +87,21 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             SetMob(mobImages);
         }
 
-        //public void Start(CoreWindow sender, KeyEventArgs e)
-        //{
-        //    box.Start(sender, e);
-        //}
+        public void Start()
+        {
+            box.Start();
+        }
         public void Update()
         {
-            if (player.box.Xi - box.Xi < 300 || player.box.Xi - box.Xi < -300)
+            
+            if (Math.Abs(player.box.Xi - box.Xi) < 300)
             {
+                if((!box.freeDirections[Direction.left] || !box.freeDirections[Direction.right]) && !box.freeDirections[Direction.down])
+                {
+                    box.Yi -= box.jumpSpeed / 5;//verticalSpeed = jumpSpeed * 10;
+                    box.OnMoved();//verticalSpeed = jumpSpeed;
+                    box.time = DateTime.Now;
+                }
                 if (player.box.Xi < box.Xi)
                 {
                     box.moveLeft = box.freeDirections[Direction.left];
@@ -106,6 +113,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                 else
                 {
                     box.moveLeft = box.moveRight = false;
+                }
+                if(Math.Abs(player.box.Xi - box.Xi) < 20)
+                {
+                    Attacking = true;
                 }
             }
             else

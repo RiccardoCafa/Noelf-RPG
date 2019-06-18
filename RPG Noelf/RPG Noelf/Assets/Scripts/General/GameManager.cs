@@ -107,7 +107,7 @@ namespace RPG_Noelf.Assets.Scripts.General
                 player._Inventory.AddToBag(new Slot(24, 1));
                 player._Inventory.AddToBag(new Slot(18, 2));
 
-                //foreach (Mob mob in mobs) { mob.Start(); }
+                foreach (Mob mob in mobs) { mob.Start(); }
                 // Update
                 TUpdate = new Task(Update);
                 TUpdate.Start();
