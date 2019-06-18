@@ -45,8 +45,8 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                 sizeY++;
             }
             file.Close();
-            chunck.Width = (sizeX - 1) * Tile.Size[0];
-            chunck.Height = sizeY * Tile.Size[1] + Tile.VirtualSize[1] - Tile.Size[1];
+            chunck.Width = (sizeX - 1) * Matriz.scale;
+            chunck.Height = sizeY * Matriz.scale + Tile.VirtualSize[1] - Matriz.scale;
             Solid leftWall = new Solid(-20, 0, 20, chunck.Height);
             Solid rightWall = new Solid(chunck.Width, 0, 20, chunck.Height);
             floor.Add(leftWall);
@@ -83,10 +83,10 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                             Tile grass = new Tile(Tile.TileCode[block], x, y);
                             SetImage(grass.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
                                                  grass.VirtualPosition[0], grass.VirtualPosition[1]);
-                            Solid solid = new Solid(Matriz.scale * x, Matriz.scale * y - 1, Matriz.scale, Matriz.scale);
-                            chunck.Children.Add(solid);
-                            floor.Add(solid);
-                            solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                            Block blk = new Block(Matriz.scale * x, Matriz.scale * y - 1);
+                            //chunck.Children.Add(solid);
+                            //floor.Add(solid);
+                            //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
                             break;
                         case 'b':
                             Solid chest = InterfaceManager.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
