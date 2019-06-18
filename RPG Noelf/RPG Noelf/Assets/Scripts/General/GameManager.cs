@@ -78,6 +78,7 @@ namespace RPG_Noelf.Assets.Scripts.General
 
                 // Carregando itens
                 Encyclopedia.LoadEncyclopedia();
+                QuestList.LoadQuests();
                 
                 // Criar o scenario e instanciar o player
                 scene = new LevelScene(interfaceManager.CanvasChunck01);
@@ -88,7 +89,6 @@ namespace RPG_Noelf.Assets.Scripts.General
                 Encyclopedia.LoadNPC();
                 CraftingEncyclopedia.LoadCraftings();
                 // Quests
-                QuestList.LoadQuests();
                 player._Questmanager.ReceiveNewQuest(QuestList.allquests[1]);
                 player._Questmanager.ReceiveNewQuest(QuestList.allquests[2]);
                 player._Questmanager.actualQuest = player._Questmanager.allQuests[1];
@@ -146,7 +146,12 @@ namespace RPG_Noelf.Assets.Scripts.General
 
                     interfaceManager.UpdateQuestList();
 
-                    instance.player.box.Update();
+                    foreach(DynamicSolid dyn in DynamicSolid.DynamicSolids)
+                    {
+                        dyn.Update();
+                    }
+
+                    //instance.player.box.Update();
                     /*Parallel.ForEach(DynamicSolid.DynamicSolids, (current) =>
                     {
                         current.Update();
