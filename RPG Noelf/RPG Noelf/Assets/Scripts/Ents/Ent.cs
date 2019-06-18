@@ -184,6 +184,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 HitPool.GetFromPool(out hit);
                 hit.speed = speeed;
                 hit.Yi = box.Yi;
+                hit.Who = box as DynamicSolid;
                 hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 if (Dsolid.lastHorizontalDirection == 1)
                 {
@@ -193,7 +194,6 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     hit.Xi = box.Xi - hitboxSize;
                 }
                 hit.Start(null, null); //.alive = true;
-                hit.Who = box as DynamicSolid;
             } else
             {
                 if (Dsolid.lastHorizontalDirection == 1)
