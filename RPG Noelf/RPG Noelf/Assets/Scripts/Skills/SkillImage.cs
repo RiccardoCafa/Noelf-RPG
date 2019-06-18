@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace RPG_Noelf.Assets.Scripts.Skills
@@ -51,6 +52,14 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             } else
             {
                 image.Source = null;
+            }
+            if (skill.locked)
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0, 182, 182, 182));
+            }
+            else
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(200, 182, 182, 182));
             }
         }
 

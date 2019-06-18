@@ -74,7 +74,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         }
         public void LoadGameData(ref Player loadPlayer)
         {
-            int lvl,xp,quest=0;
+            int lvl,xp;
             string path = Path.Combine(Path.GetTempPath() + @"/Noelf/slot_");
             if (File.Exists(path))
             {
