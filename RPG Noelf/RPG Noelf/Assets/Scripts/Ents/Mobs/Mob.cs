@@ -1,5 +1,7 @@
-﻿using RPG_Noelf.Assets.Scripts.Interface;
+
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
+using RPG_Noelf.Assets.Scripts.Scenes;
+﻿using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -62,7 +64,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public Mob(int level)//cria um mob novo, aleatoriamente montado
         {
             #region montagem
-            this.level = new Level(level);
+            this.level = new Level(level, null);
             Str = 2;
             Spd = 2;
             Dex = 2;
@@ -112,7 +114,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         }//monta as imagens na box do Mob
         public void Spawn(double x, double y)//cria o mob na tela
         {
-            box = new DynamicSolid(x, y, 120 * 0.6, 120 * 0.6, Run);
+            box = new DynamicSolid(x, y, Matriz.scale * 2, Matriz.scale * 2, Run);
             box.MyEnt = this;
             Load();
         }
@@ -131,7 +133,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     InterfaceManager.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
             }
-            Solid.solids.Remove(box);
+            //Solid.solids.Remove(box);
             box.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             Debug.WriteLine("Mob died");
         }

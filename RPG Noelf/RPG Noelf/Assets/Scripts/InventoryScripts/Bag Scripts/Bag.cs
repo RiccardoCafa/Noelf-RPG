@@ -59,23 +59,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         /// <returns>True if can be added more and false if not</returns>
         public bool CanAddMore()
         {
-            // if (FreeSlots > 0) return true;
-            // else return false;
-            int contador = 0;
-            /*foreach(Slot s in Slots)
-            {
-                contador++;
-            }*/
-            contador = Slots.Count;
-            if (contador >= MaxSlots)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
+            return FreeSlots > 0;
         }
 
         /// <summary>
@@ -122,6 +106,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public virtual bool AddToBag(Slot slot, ref Slot slotOffset)
         {
             Slot playerSlot = Slots.Find(x => x.ItemID == slot.ItemID && x.ItemAmount < MaxStack && Encyclopedia.SearchStackID(x.ItemID));
+            
             if (playerSlot != null)
             {
                 if (playerSlot.ItemAmount + slot.ItemAmount > MaxStack)
@@ -152,7 +137,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             else if(CanAddMore())
             {
                 Slots.Add(new Slot(slot.ItemID, slot.ItemAmount));
-                slot.ItemAmount = 0;
+                slot = null;
                 FreeSlots--;
                 //OnBagUpdate();
                 return true;

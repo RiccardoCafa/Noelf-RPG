@@ -27,7 +27,7 @@ namespace RPG_Noelf
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class CharacterCreation : Page
+    public sealed partial class CharacterCreation : Page 
     {
 
         public Dictionary<string, Image> PlayerImages;
@@ -106,7 +106,7 @@ namespace RPG_Noelf
         {
             var viewId = 0;
             PlayerParams cParams = new PlayerParams(CustomPlayer.Id);
-            SavePlayerData();
+            //SavePlayerData();
             var newView = CoreApplication.CreateNewView();
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
