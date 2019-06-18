@@ -11,12 +11,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1366" Height="768" RequestedTheme="Light">
 
     <Canvas Name="Tela" Width="1366" Height="768"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <!--<Canvas.Background>
+        <Canvas.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF1CB9D3"/>
                 <GradientStop Color="#FF6CFFFF" Offset="1"/>
             </LinearGradientBrush>
-        </Canvas.Background>-->
+        </Canvas.Background>
         <!--<Canvas Name="Hidden">
             <MediaElement Name="meplayer" Source="Assets\musiquinha.mp3" IsLooping="True" AutoPlay="True"></MediaElement>
         </Canvas>-->

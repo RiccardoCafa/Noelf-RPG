@@ -151,7 +151,8 @@ namespace RPG_Noelf.Assets.Scripts
         public sbyte lastHorizontalDirection = 1;
         public double g = 1500;
         public bool moveRight, moveLeft;
-        DateTime time;
+        public bool alive = false;
+        protected DateTime time;
 
         public DynamicSolid(double xi, double yi, double width, double height, double speed) : base(xi, yi, width, height)
         {
@@ -160,25 +161,25 @@ namespace RPG_Noelf.Assets.Scripts
             this.speed = speed;
             jumpSpeed = speed * 150;
             Moved += OnMoved;
-            horizontalSpeed = speed * 75;
-            //Window.Current.CoreWindow.KeyDown += Start;
+            horizontalSpeed = speed * 250;// 10000000;
+            Window.Current.CoreWindow.KeyDown += Start;
         }
-
+        TimeSpan span;
         public Task task;
         public void Start(CoreWindow sender, KeyEventArgs e)
         {
+            alive = true;
             /*if (task == null)
             {
-                time = DateTime.Now;
                 task = new Task(Update);
                 task.Start();
             }*/
+            time = DateTime.Now;
+            span = DateTime.Now - time;
         }
 
-        public bool alive = true;
-        public async void Update()//atualiza a td instante
+        public void Update()//atualiza a td instante
         {
-            TimeSpan span = DateTime.Now - time;
             if (alive)
             {
                 time = DateTime.Now;
@@ -190,11 +191,8 @@ namespace RPG_Noelf.Assets.Scripts
                 if (moveRight) lastHorizontalDirection = horizontalDirection = 1;//se esta se movimentando para direita
                 else if (moveLeft) lastHorizontalDirection = horizontalDirection = -1;//se esta se movimentando para esquerda
                 else horizontalDirection = 0;//se n quer se mover pros lados
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    Translate(Axis.vertical, span.TotalSeconds);
-                    Translate(Axis.horizontal, span.TotalSeconds);
-                });
+                Translate(Axis.vertical, span.TotalSeconds);
+                Translate(Axis.horizontal, span.TotalSeconds);
                 span = DateTime.Now - time;
             }
         }
@@ -242,7 +240,7 @@ namespace RPG_Noelf.Assets.Scripts
             }
         }
 
-        public void ApplyGravity(double span) => verticalSpeed -= g * span / 0.6;//aplica a gravidade
+        public void ApplyGravity(double span) => verticalSpeed -= g * span / 0.06;//aplica a gravidade
 
         public void Move() => Moved?.Invoke();//metodo q dispara o event Moved
     }
@@ -262,7 +260,13 @@ namespace RPG_Noelf.Assets.Scripts
             {
                 case VirtualKey.Up:
                 case VirtualKey.W://usuario quer pular
-                    if (!freeDirections[Direction.down]) verticalSpeed = jumpSpeed;
+                    if (!freeDirections[Direction.down])
+                    {
+                        Yi -= jumpSpeed / 5;//verticalSpeed = jumpSpeed * 10;
+                        OnMoved();//verticalSpeed = jumpSpeed;
+                        time = DateTime.Now;
+                    }
+                        //verticalSpeed = 700;
                     break;
                 case VirtualKey.Right:
                 case VirtualKey.D://usuario quer mover p direita
