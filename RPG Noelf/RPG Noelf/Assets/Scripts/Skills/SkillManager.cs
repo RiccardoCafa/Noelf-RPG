@@ -47,7 +47,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             {
                 if (SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
                 {
-                    myPlayer.AttackSkill(SkillBar[index]);
+                    myPlayer.Attack(SkillBar[index]);
                 }
                 else
                 {

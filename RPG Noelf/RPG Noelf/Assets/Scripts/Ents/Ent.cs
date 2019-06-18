@@ -160,7 +160,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         {
             if(Attacking)
             {
-                Attack();
+                Attack(null);
             }
 
             if(UsingSkill != null)
@@ -170,7 +170,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             }
         }
 
-        public void Attack()
+        public void Attack(SkillGenerics skill)
         {
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
@@ -212,6 +212,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             Solid s = hit.Interaction();
             if (!(tDynamic == null || tDynamic.MyEnt == null))
             {
+                if(skill != null)
+                {
+                    tDynamic.MyEnt.BeHit(skill.UseSkill(this, tDynamic.MyEnt));
+                } else 
                 tDynamic.MyEnt.BeHit(Hit(0));
                 //hit.speed = 0;
             }

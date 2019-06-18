@@ -301,7 +301,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipo = SkillType.habilite,
                 atrib = AtributBonus.Int,
                 tipoatributo = Element.Fire,
-                tipobuff = SkillTypeBuff.buff
+                tipobuff = SkillTypeBuff.normal
             });
             skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Skills/ArcherSkill3.jpg", "Trap")
             {
