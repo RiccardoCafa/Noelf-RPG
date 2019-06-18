@@ -177,7 +177,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
         public override void Die(Ent someone)
         {
             box.alive = false;
-            Application.Current.Exit();
+            //Application.Current.Exit();
         }
     }
 }
