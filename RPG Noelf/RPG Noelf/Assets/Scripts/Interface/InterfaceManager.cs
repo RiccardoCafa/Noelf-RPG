@@ -2656,8 +2656,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void HPPlus(object sender, RoutedEventArgs e)
         {
-            GameManager.instance.player.BeHit(-20, null);//AddHP(-20);
-            Debug.WriteLine("Vida diminuiu -20 " + GameManager.instance.player.Hp);
+            GameManager.instance.player.AddHP(-20);
+            //GameManager.instance.player.BeHit(-20, null);//AddHP(-20);
+            //Debug.WriteLine("Vida diminuiu -20 " + GameManager.instance.player.Hp);
         }
         public void PSTR  (object sender, RoutedEventArgs e)
         {
