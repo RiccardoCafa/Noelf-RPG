@@ -13,6 +13,17 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
 
         public Slot(uint ItemID, uint ItemAmount)
         {
+            if(!Encyclopedia.encyclopedia.ContainsKey(ItemID))
+            {
+                this.ItemAmount = 1;
+                this.ItemID = 1;
+                return;
+            }
+            if (ItemAmount == 0) ItemAmount = 1;
+            if(Encyclopedia.encyclopedia[ItemID] is Weapon || Encyclopedia.encyclopedia[ItemID] is Armor)
+            {
+                ItemAmount = 1;
+            }
             this.ItemAmount = ItemAmount;
             this.ItemID = ItemID;
         }

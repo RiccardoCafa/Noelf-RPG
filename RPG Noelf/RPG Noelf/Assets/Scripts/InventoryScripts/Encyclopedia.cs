@@ -1,4 +1,5 @@
 ﻿using RPG_Noelf.Assets.Scripts.Crafting_Scripts;
+using RPG_Noelf.Assets.Scripts.Ents.Mobs;
 using RPG_Noelf.Assets.Scripts.Ents.NPCs;
 using RPG_Noelf.Assets.Scripts.Shop_Scripts;
 using System;
@@ -15,6 +16,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public static Dictionary<uint, NPC> NonPlayerCharacters;
         public static Dictionary<uint, ImageSource> skillsImages = new Dictionary<uint, ImageSource>();
         public static Dictionary<uint, ImageSource> encycloImages;
+        public static Dictionary<uint, Mob> mobs = new Dictionary<uint, Mob>();
 
         public static ImageSource portal;
 
@@ -25,6 +27,14 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             portal = new BitmapImage(new Uri(BaseUri + "/Assets/Images/Interactable/portal.gif"));
 
             LoadItens();
+            LoadMobs();
+        }
+
+        public static void LoadMobs()
+        {
+            //Mob mob1 = new Mob(3);
+            //mob1.xpSolta = 50;
+            //mobs.Add(1, /)
         }
 
         public static void LoadItens()
@@ -485,8 +495,8 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 MyLevel = new Ents.Level(999, null)
             };
             Shop s = new Shop();
-            s.TradingItems.AddToBag(new Slot(43, 1));
-            s.TradingItems.AddToBag(new Slot(21, 1));
+            s.TradingItems.AddToBag(new Slot(40, 1));
+            s.TradingItems.AddToBag(new Slot(41, 1));
             npc1.AddFunction(new Trader(s));
             npc1.AddFunction(new Quester(1));
 

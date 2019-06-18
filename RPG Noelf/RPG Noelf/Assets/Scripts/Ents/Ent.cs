@@ -150,10 +150,10 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             else return bonusDamage + Damage * dmg100 * 2;//critico
         }
 
-        public void BeHit(double damage)//tratamento do dano levado
+        public void BeHit(double damage, Ent WhoHitted)//tratamento do dano levado
         {
             Hp -= (damage / (1 + Con * 0.02 + Armor))/100;
-            OnAttacked();
+            OnAttacked(WhoHitted);
         }
 
         public void Update()
@@ -216,9 +216,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
             {
                 if(skill != null)
                 {
-                    tDynamic.MyEnt.BeHit(skill.UseSkill(this, tDynamic.MyEnt));
+                    tDynamic.MyEnt.BeHit(skill.UseSkill(this, tDynamic.MyEnt), this);
                 } else 
-                tDynamic.MyEnt.BeHit(Hit(0));
+                tDynamic.MyEnt.BeHit(Hit(0), this);
                 //hit.speed = 0;
             }
             AtkT = 0;
@@ -254,17 +254,17 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     tDynamic.MyEnt.InsereStatus(skill);
                 }
                 double dano = skill.UseSkill(this, tDynamic.MyEnt);
-                tDynamic.MyEnt.BeHit(dano);
+                tDynamic.MyEnt.BeHit(dano, this);
             }
         }
-        public abstract void Die();
+        public abstract void Die(Ent WhoKilledMe);
 
-        public void OnAttacked()
+        public void OnAttacked(Ent WhoKilledMe)
         {
             Attacked?.Invoke(this, new EntEvent(box));
             if(Hp <= 0)
             {
-                Die();
+                Die(WhoKilledMe);
             }
         }
     }

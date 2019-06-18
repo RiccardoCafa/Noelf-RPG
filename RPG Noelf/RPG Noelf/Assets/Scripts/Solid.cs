@@ -146,18 +146,25 @@ namespace RPG_Noelf.Assets.Scripts
         public Solid Interaction()//o q este solido faz com os outros ao redor
         {
             DynamicSolid dynamicFound = null;
-            var dinamics = DynamicSolid.DynamicSolids;// from dinm in solids where dinm is DynamicSolid select dinm;
-
-            foreach (DynamicSolid solid in dinamics)
+            if(Who is PlayableSolid)
             {
-                if (solid.Equals(Who)) continue;
-                if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
+                var dinamics = DynamicSolid.DynamicSolids;// from dinm in solids where dinm is DynamicSolid select dinm;
+
+                foreach (DynamicSolid solid in dinamics)
                 {
-                    dynamicFound = solid;
-                    break;
+                    if (solid.Equals(Who)) continue;
+                    if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
+                    {
+                        dynamicFound = solid;
+                        break;
+                    }
                 }
+            } else
+            {
+                dynamicFound = GameManager.instance.player.box;
             }
-            if(dynamicFound != null && dynamicFound.MyEnt != null) dynamicFound.MyEnt.BeHit(Who.MyEnt.Hit(bonusDamage));
+            
+            if(dynamicFound != null && dynamicFound.MyEnt != null) dynamicFound.MyEnt.BeHit(Who.MyEnt.Hit(bonusDamage), Who.MyEnt);
             TimesTicked = TimesToTick + 10;
             //DispatcherTimer
             return dynamicFound;

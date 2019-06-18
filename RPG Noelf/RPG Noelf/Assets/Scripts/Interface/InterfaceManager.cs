@@ -1035,7 +1035,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             Button ButtonHP = new Button()
             {
-                Content = "+HP",
+                Content = "-HP",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Width = 60,
@@ -1079,7 +1079,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             grid.Children.Add(bg);*/
 
-                TextBlock strenght = new TextBlock()
+           TextBlock strenght = new TextBlock()
             {
                 Padding = new Thickness(0, 7, 0, 0),
                 Width = 70,
@@ -2318,6 +2318,13 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                         CreateDrop(GameManager.instance.player.box.Xi + (GameManager.instance.player.box.Width / 2),
                                     GameManager.instance.player.box.Yi + (GameManager.instance.player.box.Height / 2), s);
                     }
+                } else if(prop.IsRightButtonPressed)
+                {
+                    if(Encyclopedia.SearchFor((sender as ItemImage).Slot.ItemID) is Consumable)
+                    {
+                        Consumable cons = Encyclopedia.SearchFor((sender as ItemImage).Slot.ItemID) as Consumable;
+                        cons.Effect(GameManager.instance.player);
+                    }
                 }
             }
         }
@@ -2597,7 +2604,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void HPPlus(object sender, RoutedEventArgs e)
         {
-            GameManager.instance.player.AddHP(20);
+            GameManager.instance.player.BeHit(-20, null);//AddHP(-20);
         }
         public void PSTR  (object sender, RoutedEventArgs e)
         {

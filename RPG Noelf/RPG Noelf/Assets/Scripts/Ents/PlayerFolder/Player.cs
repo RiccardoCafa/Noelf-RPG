@@ -158,7 +158,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
 
         public void AddHP(int HP)
         {
-            if (Hp + HP >= HpMax)
+            if (this.Hp + HP >= HpMax)
             {
                 Hp = HpMax;
             }
@@ -174,7 +174,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             PlayerUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public override void Die()
+        public override void Die(Ent someone)
         {
             Debug.WriteLine("Player died");
         }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using RPG_Noelf.Assets.Scripts.PlayerFolder;
 
 namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 {
@@ -22,6 +23,8 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         public List<Element> Vulnerable = new List<Element>();
         public Bag MobBag { get; } = new Bag();
         public bool Meek = false;
+        public int xpSolta;
+        public int GoldSolta;
 
         private IParts[] Parts = { new Face(), new Body(), new Arms(), new Legs() };
 
@@ -81,6 +84,18 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             #endregion
             ApplyDerivedAttributes();
             SetMob(mobImages);
+            xpSolta = level * 20 + (int)Damage / 2;
+            Random rnd = new Random();
+            GoldSolta = rnd.Next(level * 10, level * 50);
+
+            int numberOfItems = rnd.Next(0, 3);
+
+            for(int i = 0; i < numberOfItems; i++)
+            {
+                int itemID = rnd.Next(1, Encyclopedia.encycloImages.Count);
+                MobBag.AddToBag(new Slot((uint)itemID, (uint)rnd.Next(1, 90)));
+            }
+
         }
 
         private void Load()
@@ -124,7 +139,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
             hpTxt.Text = Hp.ToString() + "/" + HpMax.ToString();
         }
 
-        public override void Die()
+        public override void Die(Ent WhoKilledMe)
         {
             if(MobBag.Slots.Count > 0)
             {
@@ -133,9 +148,15 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
                     InterfaceManager.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
             }
+            if(WhoKilledMe is Player)
+            {
+                Player p = WhoKilledMe as Player;
+                p.level.GainEXP(xpSolta);
+                p._Inventory.AddGold(GoldSolta);
+            }
             //Solid.solids.Remove(box);
             box.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            Debug.WriteLine("Mob died");
+            //Debug.WriteLine("Mob died");
         }
 
         private void SetMob(Dictionary<string, Image> images)//aplica as imagens das caracteristicas fisicas do mob
