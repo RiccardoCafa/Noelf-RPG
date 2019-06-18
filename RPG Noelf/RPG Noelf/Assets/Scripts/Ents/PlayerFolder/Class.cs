@@ -335,7 +335,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.debuff
             });
-            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Skills/ArcherSkill5.png", "Flecha de gelo")
+            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Skills/ArcherSkill7.png", "Flecha de gelo")
             {
                 ID = 20,
                 description = "causa dano e lentidão equivalente a 10% da int",
@@ -351,7 +351,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Ice,
                 tipobuff = SkillTypeBuff.debuff
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill6.png", "Flechas de ferro")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill8.png", "Flechas de ferro")
             {
                 ID = 21,
                 description = "causa dano equivalente a 25% da dex",
@@ -366,7 +366,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal
             });
-            skillManager.SkillList.Add(new SkillCritical("/Assets/Images/Skills/ArcherSkill7.png", "Foco")
+            skillManager.SkillList.Add(new SkillCritical("/Assets/Images/Skills/ArcherSkill8.png", "Foco")
             {
                 ID = 22,
                 description = "aumenta a chance de acerto crítico em 15% Por 30s",
@@ -382,7 +382,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.buff
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill8.png", "TripleShot")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill10.png", "TripleShot")
             {
                 ID = 23,
                 description = "causa dano físico de 20% da dex",
@@ -397,7 +397,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal
             });
-            skillManager.SkillList.Add(new SkillDash("/Assets/Images/Skills/ArcherSkill9.png", "Dash")
+            skillManager.SkillList.Add(new SkillDash("/Assets/Images/Skills/ArcherSkill11.png", "Dash")
             {
                 ID = 24,
                 description = "avança para alguma lado",
@@ -411,7 +411,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.buff
             });
-            skillManager.SkillList.Add(new SkillHidden("/Assets/Images/Skills/ArcherSkill10.png", "camuflagem")
+            skillManager.SkillList.Add(new SkillHidden("/Assets/Images/Skills/ArcherSkill12.png", "camuflagem")
             {
                 ID = 25,
                 description = "fica invisível por 3 seg e ao sair da camuflagem ganha 10%de agilidade",
@@ -426,7 +426,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.buff
             });
-            skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Skills/ArcherSkill11.png", "Expor fraqueza")
+            skillManager.SkillList.Add(new SkillBroken("/Assets/Images/Skills/ArcherSkill13.png", "Expor fraqueza")
             {
                 ID = 26,
                 description = "diminui a resistência em 25%",
@@ -441,7 +441,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.debuff
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill12.png", "TIRO aperfeiçoado")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill6.png", "TIRO aperfeiçoado")
             {
                 ID = 27,
                 description = "causa 40% de sua dextreza",
@@ -456,7 +456,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill13.png", "Dragon force")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill14.png", "Dragon force")
             {
                 ID = 28,
                 description = "causa dano fisico/mágico equivalente a 30% da destreza e int",
@@ -471,7 +471,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill14.png", "chuva de Mil flechas")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/Skills/ArcherSkill5.png", "chuva de Mil flechas")
             {
                 ID = 29,
                 description = "causa dano físico em área igual a 30% da destreza",
@@ -506,7 +506,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
             Con = 0;
             Mnd = 10;
             skillManager.SetMagePassive("/Assets/Images/Item2.jpg", "Manaflow");
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "bola de fogo")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/MageSkill1.png", "bola de fogo")
             {
                 ID = 31,
                 description = "causa dano mágico equivalente a 25% da int",
@@ -520,7 +520,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipobuff = SkillTypeBuff.normal,
                 tipoatributo = Element.Fire
             });
-            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/Item1.jpg", "estilhaços")
+            skillManager.SkillList.Add(new SkillSlowbuff("/Assets/Images/MageSkill2.png", "estilhaços")
             {
                 ID = 32,
                 description = "causa dano mágico equivalente a 15% da int E causa 20% de lentidão",
@@ -534,7 +534,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Ice,
                 tipobuff = SkillTypeBuff.debuff
             });
-            skillManager.SkillList.Add(new SkillPrison("/Assets/Images/Item2.jpg", "aprisionar")
+            skillManager.SkillList.Add(new SkillPrison("/Assets/Images/MageSkill13.png", "aprisionar")
             {
                 ID = 33,
                 description = "prende o cara por 2 segs",
@@ -548,7 +548,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.debuff
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Chao.jpg", "bolhas")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/MageSkill11.png", "bolhas")
             {
                 ID = 34,
                 description = "causa dano mágico equivalente a 15% da int",
@@ -562,7 +562,7 @@ namespace RPG_Noelf.Assets.Scripts.PlayerFolder
                 tipoatributo = Element.Common,
                 tipobuff = SkillTypeBuff.normal
             });
-            skillManager.SkillList.Add(new Skill("/Assets/Images/Item1.jpg", "choque")
+            skillManager.SkillList.Add(new Skill("/Assets/Images/MageSkill3.png", "choque")
             {
                 ID = 35,
                 description = "causa dano mágico equivalente a 25% da int",
