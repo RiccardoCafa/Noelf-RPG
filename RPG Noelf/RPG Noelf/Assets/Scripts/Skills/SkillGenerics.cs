@@ -10,6 +10,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
 {//como faz o hit box e onde faz
     public abstract class SkillGenerics //atributos e funcoes genericas de skills 
     {
+        public int ID;
         public SkillType tipo { get; set; }
         public AtributBonus atrib { get; set; }
         public int Lvl { get; set; } = 1;

@@ -108,12 +108,12 @@ namespace RPG_Noelf.Assets.Scripts
     {
         //public delegate void MoveHandler(Solid sender);
         //public event MoveHandler Moved;
-
+        public static List<HitSolid> hits = new List<HitSolid>();
         public DynamicSolid Who;
         public Solid Affected;
         public DispatcherTimer timer;
         private int TimesTicked = 0;
-        public int TimesToTick = 1;
+        public int TimesToTick = 1000;
         public double bonusDamage = 0;
 
         public HitSolid(double xi, double yi, double width, double height, DynamicSolid who, double spd) : base(xi, yi, width, height, spd)
@@ -122,61 +122,46 @@ namespace RPG_Noelf.Assets.Scripts
             //solids.Remove(this);
             g = 0;
             Who = who;
+            hits.Add(this);
         }
 
-        public void DispatcherTimeSetup()
+        public override void Update()
         {
-            timer = new DispatcherTimer();
-            timer.Tick += DispatcherTimer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Start();
-        }
+            base.Update();
 
-        protected virtual void DispatcherTimer_Tick(object sender, object a)
-        {
-            TimesTicked++;
-            if (TimesTicked >= TimesToTick)
+            if (alive)
             {
-                if (speed != 0)
+                TimesTicked++;
+                if(TimesTicked >= TimesToTick)
                 {
-                    Affected = Interaction();
-                    if (Affected != null && Affected.MyEnt != null)
-                    {
-                        Affected.MyEnt.Hit(Who.MyEnt.Hit(bonusDamage));
-                        speed = 0;
-                    }
+                    alive = false;
+                    Visibility = Visibility.Collapsed;
+                    Who.MyEnt.HitPool.AddToPool(this);
+                    TimesTicked = 0;
                 }
-                else if (TimesTicked >= 5f || Affected != null)
-                {
-                    if (Who != null)
-                    {
-                        Visibility = Visibility.Collapsed;
-                        Who.MyEnt.HitPool.AddToPool(this);
-                        alive = false;
-                        timer.Stop();
-                    }
-                }
-                TimesTicked = 0;
             }
+
         }
 
         public Solid Interaction()//o q este solido faz com os outros ao redor
         {
-            //DynamicSolid dynamicFound = null;
-            //var dinamics = new List<DynamicSolid>();// from dinm in solids where dinm is DynamicSolid select dinm;
+            DynamicSolid dynamicFound = null;
+            var dinamics = DynamicSolid.DynamicSolids;// from dinm in solids where dinm is DynamicSolid select dinm;
 
-            //foreach (Solid solid in solids)
-            //{
-            //    if (solid.Equals(Who)) continue;
-            //    if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
-            //    {
-            //        dynamicFound = (DynamicSolid)solid;
-            //        break;
-            //    }
-            //}
-            //DispatcherTimeSetup();
-            //return dynamicFound;
-            return new Solid(0, 0, 0, 0);
+            foreach (DynamicSolid solid in dinamics)
+            {
+                if (solid.Equals(Who)) continue;
+                if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
+                {
+                    dynamicFound = solid;
+                    break;
+                }
+            }
+            if(dynamicFound != null && dynamicFound.MyEnt != null) dynamicFound.MyEnt.BeHit(Who.MyEnt.Hit(bonusDamage));
+            TimesTicked = TimesToTick + 10;
+            //DispatcherTimer
+            return dynamicFound;
+            //return new Solid(0, 0, 0, 0);
         }
     }
 
@@ -209,10 +194,10 @@ namespace RPG_Noelf.Assets.Scripts
             jumpSpeed = speed * 150;
             Moved += OnMoved;
             horizontalSpeed = speed * 250;
-            Window.Current.CoreWindow.KeyDown += Start;
+            if(this is PlayableSolid) Window.Current.CoreWindow.KeyDown += Start;
         }
         TimeSpan span;
-        public Task task;
+        //public Task task;
         public void Start(CoreWindow sender, KeyEventArgs e)
         {
             alive = true;
@@ -220,7 +205,7 @@ namespace RPG_Noelf.Assets.Scripts
             span = DateTime.Now - time;
         }
 
-        public void Update()//atualiza a td instante
+        public virtual void Update()//atualiza a td instante
         {
             if (alive)
             {
@@ -243,7 +228,7 @@ namespace RPG_Noelf.Assets.Scripts
         {
             if (direction == Axis.vertical) Yi -= verticalSpeed * span;
             if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed * span;
-            if (verticalSpeed != 0 || horizontalDirection != 0) Move();//Interaction();//chama o evento
+            if (verticalSpeed != 0 || horizontalDirection != 0) Move();//Interact/ion();//chama o evento
         }
         List<Block> slds = new List<Block>();
         public void OnMoved()//o q este solido faz com os outros ao redor

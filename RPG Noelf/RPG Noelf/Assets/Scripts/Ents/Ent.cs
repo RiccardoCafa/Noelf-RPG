@@ -25,6 +25,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
     public abstract class Ent
     {
         public DynamicSolid box;
+        public static List<Ent> Entidades = new List<Ent>();
 
         public int Str;
         public int Spd;
@@ -32,6 +33,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public int Con;
         public int Mnd;
 
+        public double Mp;
         public double Hp;
         public int HpMax;
         public double AtkSpd;
@@ -49,6 +51,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         private List<SkillGenerics> status = new List<SkillGenerics>();
         protected bool Ranged = false;
+        protected bool CanAtk = true;
+        protected bool Attacking = false;
+        protected SkillGenerics UsingSkill = null;
         public ObjectPooling<HitSolid> HitPool { get; } = new ObjectPooling<HitSolid>();
 
         protected readonly string[] parts = { "eye", "hair", "head", "body", "arms", "legs" };
@@ -57,14 +62,39 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         public delegate void AttackEventHandler(object sender, EntEvent args);
         public event AttackEventHandler Attacked;
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private DispatcherTimer attackTime = new DispatcherTimer();
+
         private double RealTime = 0;
+        private double AtkT = 0;
+
+        public Ent()
+        {
+            Entidades.Add(this);
+            AttackTimer();
+        }
         
+        private void AttackTimer()
+        {
+            attackTime.Tick += AtkTime;
+            attackTime.Interval = new TimeSpan(0, 0, 1);
+            attackTime.Start();
+        }
         private void DispatcherSetup()
         {
             dispatcherTimer.Tick += Timer;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
+        private void AtkTime(object sender, object e)
+        {
+            if(AtkT > AtkSpd)
+            {
+                CanAtk = true;
+                AtkT = 0;
+            }
+
+            if(!CanAtk) AtkT++;
+        } 
         private void Timer(object sender, object e)
         {
             int count = 0;
@@ -122,107 +152,108 @@ namespace RPG_Noelf.Assets.Scripts.Ents
 
         public void BeHit(double damage)//tratamento do dano levado
         {
-            Hp -= damage / (1 + Con * 0.02 + Armor);
+            Hp -= (damage / (1 + Con * 0.02 + Armor))/100;
             OnAttacked();
         }
 
-        public async void Attack()
+        public void Update()
+        {
+            if(Attacking)
+            {
+                Attack(null);
+            }
+
+            if(UsingSkill != null)
+            {
+                AttackSkill(UsingSkill);
+                UsingSkill = null;
+            }
+        }
+
+        public void Attack(SkillGenerics skill)
         {
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
             DynamicSolid tDynamic = null;
             double hitboxSize = 50;
             double speeed = Ranged == true ? 4 : 0;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if(HitPool.PoolSize > 0)//verificar a pool
             {
-                if(HitPool.PoolSize > 0)//verificar a pool
+                HitPool.GetFromPool(out hit);
+                hit.speed = speeed;
+                hit.Yi = box.Yi;
+                hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                if (Dsolid.lastHorizontalDirection == 1)
                 {
-                    HitPool.GetFromPool(out hit);
-                    hit.speed = speeed;
-                    hit.Yi = box.Yi;
-                    hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    if (Dsolid.lastHorizontalDirection == 1)
-                    {
-                        hit.Xi = box.Xf;
-                        if (speeed != 0)
-                        {
-                            hit.moveRight = true;
-                        }
-                    } else if (Dsolid.lastHorizontalDirection == -1)
-                    {
-                        hit.Xi = box.Xi - hitboxSize;
-                        if (speeed != 0)
-                        {
-                            hit.moveLeft = true;
-                        }
-                    }
-                    hit.Who = box as DynamicSolid;
-                    if(speeed != 0)
-                    {
-                        hit.alive = true;
-                        hit.task.Start();
-                    }
-                } else
+                    hit.Xi = box.Xf;
+                } else if (Dsolid.lastHorizontalDirection == -1)
                 {
-                    if (Dsolid.lastHorizontalDirection == 1)
-                    {
-                        hit = new HitSolid(box.Xf + 10, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, speeed);
-                        if (hit.speed != 0) hit.moveRight = true;
-                    }
-                    else if (Dsolid.lastHorizontalDirection == -1)
-                    {
-                        hit = new HitSolid(box.Xi - hitboxSize - 10, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
-                        if (hit.speed != 0) hit.moveLeft = true;
-                    }
-                    InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
+                    hit.Xi = box.Xi - hitboxSize;
                 }
+                hit.Start(null, null); //.alive = true;
+                hit.Who = box as DynamicSolid;
+            } else
+            {
+                if (Dsolid.lastHorizontalDirection == 1)
+                {
+                    hit = new HitSolid(box.Xf + 10, box.Yi + 20, hitboxSize, box.Height / 2, box as DynamicSolid, speeed);
+                    hit.Start(null, null);//hit.alive = true;
+                }
+                else if (Dsolid.lastHorizontalDirection == -1)
+                {
+                    hit = new HitSolid(box.Xi - hitboxSize - 10, box.Yi + 20, hitboxSize, box.Height/2, box as DynamicSolid, speeed);
+                    hit.Start(null, null);//hit.alive = true;
+                }
+                InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
+            }
                 
-                if (hit == null) return;
+            if (hit == null) return;
 
-                Solid s = hit.Interaction();
-                if (!(tDynamic == null || tDynamic.MyEnt == null))
+            Solid s = hit.Interaction();
+            if (!(tDynamic == null || tDynamic.MyEnt == null))
+            {
+                if(skill != null)
                 {
-                    tDynamic.MyEnt.BeHit(Hit(0));
-                    hit.speed = 0;
-                }
-            });
+                    tDynamic.MyEnt.BeHit(skill.UseSkill(this, tDynamic.MyEnt));
+                } else 
+                tDynamic.MyEnt.BeHit(Hit(0));
+                //hit.speed = 0;
+            }
+
+            Attacking = false;
         }
-        public async void AttackSkill(SkillGenerics skill)
+        public void AttackSkill(SkillGenerics skill)
         {
             DynamicSolid Dsolid = (box as DynamicSolid);
             HitSolid hit = null;
             Solid tDynamic = null;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if (HitPool.PoolSize > 0)
             {
-                if (HitPool.PoolSize > 0)
+                HitPool.GetFromPool(out hit);
+                skill.UpdateThrow(hit, this);
+                hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
+            else
+            {
+                if(skill.Active)
                 {
-                    HitPool.GetFromPool(out hit);
-                    skill.UpdateThrow(hit, this);
-                    hit.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    hit = skill.Throw(this);
                 }
-                else
-                {
-                    if(skill.Active)
-                    {
-                        hit = skill.Throw(this);
-                    }
-                    InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
-                }
+                InterfaceManager.instance.CanvasChunck01.Children.Add(hit);
+            }
 
-                if (hit == null) return;
+            if (hit == null) return;
 
-                tDynamic = hit.Interaction();
-                if (!(tDynamic == null || tDynamic.MyEnt == null))
+            tDynamic = hit.Interaction();
+            if (!(tDynamic == null || tDynamic.MyEnt == null))
+            {
+                if(skill.tipobuff == SkillTypeBuff.debuff)
                 {
-                    if(skill.tipobuff == SkillTypeBuff.debuff)
-                    {
-                        tDynamic.MyEnt.InsereStatus(skill);
-                    }
-                    double dano = skill.UseSkill(this, tDynamic.MyEnt);
-                    //Debug.WriteLine("Skill deu: " + dano);
-                    tDynamic.MyEnt.BeHit(dano);
+                    tDynamic.MyEnt.InsereStatus(skill);
                 }
-            });
+                double dano = skill.UseSkill(this, tDynamic.MyEnt);
+                tDynamic.MyEnt.BeHit(dano);
+            }
         }
         public abstract void Die();
 
