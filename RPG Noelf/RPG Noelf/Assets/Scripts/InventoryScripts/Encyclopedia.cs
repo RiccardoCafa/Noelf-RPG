@@ -16,10 +16,14 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public static Dictionary<uint, ImageSource> skillsImages = new Dictionary<uint, ImageSource>();
         public static Dictionary<uint, ImageSource> encycloImages;
 
+        public static ImageSource portal;
+
         public static string BaseUri = "ms-appx://";
 
         public static void LoadEncyclopedia()
         {
+            portal = new BitmapImage(new Uri(BaseUri + "/Assets/Images/Interactable/portal.gif"));
+
             LoadItens();
         }
 

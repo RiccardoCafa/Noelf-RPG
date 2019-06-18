@@ -35,7 +35,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         {
             chunck = new Canvas();
             xScene.Children.Add(chunck);
-            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario2.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");
             string bp;
             int sizeX = 0;
             int sizeY = 0;
@@ -118,7 +118,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                                                  lava.VirtualPosition[0], lava.VirtualPosition[1]);
                             Block blkl = new Block(Matriz.scale * x, Matriz.scale * y - 1);
                             break;
-
+                        case 'P':
+                            InterfaceManager.instance.CreatePortal(x * Matriz.scale, y * Matriz.scale, "");
+                            break;
                         default: break;
                     }
                     x++;

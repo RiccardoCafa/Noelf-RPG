@@ -1992,6 +1992,19 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             //Trigger dropTrigger = new Trigger(loot);
         }
 
+        public void CreatePortal(double x, double y, string PhaseToLoad)
+        {
+            Image portal = new Image()
+            {
+                Width = 70,
+                Height = 500,
+                Source = Encyclopedia.portal
+            };
+            Canvas.SetLeft(portal, x);
+            Canvas.SetTop(portal, y);
+            CanvasChunck01.Children.Add(portal);
+        }
+
         /* ##################################################################################################*/
         /* ########################################## UPDATES ###############################################*/
         /* ##################################################################################################*/
