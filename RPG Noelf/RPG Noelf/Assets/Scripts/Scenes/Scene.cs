@@ -165,7 +165,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 
         private void CreateMob(Canvas xScene, int x, int y)
         {
-            Mob mob = new Mob(level: 2);
+            Mob mob = new Mob(level: 2, GameManager.instance.player);
             GameManager.instance.mobs.Add(mob);
             mob.Spawn(x * Matriz.scale, y * Matriz.scale);
             xScene.Children.Add(mob.box);
