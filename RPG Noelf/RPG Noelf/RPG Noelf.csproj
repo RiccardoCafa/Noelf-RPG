@@ -208,6 +208,7 @@
   <ItemGroup>
     <Content Include="Assets\Images\Chao.jpg" />
     <Content Include="Assets\Images\Interactable\chest-rpg-normal.png" />
+    <Content Include="Assets\Images\Interactable\portal.gif" />
     <Content Include="Assets\Images\itens\arcoComposto.png" />
     <Content Include="Assets\Images\itens\barraFerro.png" />
     <Content Include="Assets\Images\itens\botaCouro.png" />

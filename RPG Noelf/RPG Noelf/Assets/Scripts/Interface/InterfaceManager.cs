@@ -396,6 +396,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             Canvas.SetTop(CanvasChest, x);
             Canvas.SetLeft(CanvasChest, y);
             CanvasChest.Visibility = Visibility.Collapsed;
+            Tela.Children.Add(CanvasChest);
 
             // Criando o texto e a imagem de fundo
             TextChestName = new TextBlock()
@@ -450,12 +451,16 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 {
                     ItemSlots.Add(item.Slot);
                 }
-                foreach (Slot s in ItemSlots)
+                foreach (Slot slot in ItemSlots)
                 {
-                    if (GameManager.instance.player._Inventory.AddToBag(s))
+                    if (GameManager.instance.player._Inventory.AddToBag(slot))
                     {
-                        bool c = bag.RemoveFromBag(s.ItemID, s.ItemAmount);
+                        bool c = bag.RemoveFromBag(slot.ItemID, slot.ItemAmount);
                     }
+                }
+                foreach (ItemImage item in GridChest.Children)
+                {
+                    item.OnItemImageUpdate();
                 }
             };
 
@@ -1074,7 +1079,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             grid.Children.Add(bg);*/
 
-            TextBlock strenght = new TextBlock()
+                TextBlock strenght = new TextBlock()
             {
                 Padding = new Thickness(0, 7, 0, 0),
                 Width = 70,
@@ -2417,12 +2422,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             if (uint.TryParse(TextItemBuyingQuantity.Text, out uint val))
             {
                 uint MaxValue = 9999;
-               // if (!Switch)
-               // {
-               //     MaxValue = GameManager.instance.player._Inventory.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
-                //}
-               // else MaxValue = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
-
                 if (val <= 0)
                 {
                     val = 1;
@@ -2510,13 +2509,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     var prop = e.GetCurrentPoint(Tela).Properties;
                     if (prop.IsLeftButtonPressed)
                     {
-                        /*int index;
-                        int column, row;
-                        column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
-                        row = (int)(sender as Image).GetValue(Grid.RowProperty);
-                        index = column * row + column;*/
-                        //uint index = Encyclopedia.encyclopedia[(sender as ItemImage).Slot.ItemID];
-                        //Slot s = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(index);
                         if ((sender as ItemImage).Slot == null) return;
                         GameManager.instance.traderTarget.shop.SlotInOffer = (sender as ItemImage).Slot;
                         ShowOfferItem((sender as ItemImage).Slot);
