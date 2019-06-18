@@ -146,6 +146,8 @@ namespace RPG_Noelf.Assets.Scripts.General
 
                     interfaceManager.UpdateQuestList();
 
+                    interfaceManager.UpdateShopInfo();
+
                     foreach(DynamicSolid dyn in DynamicSolid.DynamicSolids)
                     {
                         dyn.Update();

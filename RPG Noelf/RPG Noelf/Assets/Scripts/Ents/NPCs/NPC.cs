@@ -105,7 +105,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents.NPCs
         }
         public void EndFunction()
         {
-            if (InterfaceManager.instance.ShopOpen) InterfaceManager.instance.CloseShop();
+            InterfaceManager.instance.CloseShop();
         }
         public string GetFunctionName()
         {

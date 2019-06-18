@@ -482,6 +482,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             };
             Shop s = new Shop();
             s.TradingItems.AddToBag(new Slot(43, 1));
+            s.TradingItems.AddToBag(new Slot(21, 1));
             npc1.AddFunction(new Trader(s));
             npc1.AddFunction(new Quester(1));
 
