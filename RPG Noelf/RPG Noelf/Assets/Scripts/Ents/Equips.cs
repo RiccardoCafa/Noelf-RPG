@@ -30,23 +30,27 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                     switch ((item as Armor).PositArmor) //swtich to know where the armor is
                     {
                         case PositionArmor.Elm:
+                            if (armor[0] != null) DesEquip(Encyclopedia.SearchFor(armor[0]));
                             armor[0] = Encyclopedia.SearchFor(ID) as Armor;
                             player._Inventory.RemoveFromBag(ID, 1);//equip elm
                             break;
                         case PositionArmor.Armor:
+                            if (armor[1] != null) DesEquip(Encyclopedia.SearchFor(armor[1]));
                             armor[1] = Encyclopedia.SearchFor(ID) as Armor;
                             player._Inventory.RemoveFromBag(ID, 1);//equip armor
                             break;
                         case PositionArmor.Legs:
+                            if (armor[2] != null) DesEquip(Encyclopedia.SearchFor(armor[2]));
                             armor[2] = Encyclopedia.SearchFor(ID) as Armor;
                             player._Inventory.RemoveFromBag(ID, 1);//equip legs
                             break;
                         case PositionArmor.Boots:
+                            if (armor[3] != null) DesEquip(Encyclopedia.SearchFor(armor[3]));
                             armor[3] = Encyclopedia.SearchFor(ID) as Armor;
                             player._Inventory.RemoveFromBag(ID, 1);//equip boots
                             break;
                     }
-                    UpdateEquip();
+                    //UpdateEquip();
                 }
             }
             else if (item is Weapon)
@@ -54,19 +58,21 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                 Slot weap = player._Inventory.GetSlot(ID);
                 if (weap != null)
                 {
+                    if (weapon != null) DesEquip(Encyclopedia.SearchFor(weapon));
                     weapon = Encyclopedia.SearchFor(weap.ItemID) as Weapon;
                     player._Inventory.RemoveFromBag(ID, 1);// equip weapon
-                    UpdateEquip();
+                    //UpdateEquip();
                 }
             }
-
         }
+        Item item;
         public void DesEquip(uint ID)//function that causes the equipment to be unbalanced by the player.
         {
-            Item item = Encyclopedia.encyclopedia[ID];
+            item = Encyclopedia.encyclopedia[ID];
+            Slot slot = new Slot(ID, 1);
             if (item is Armor)
             {
-                if (player._Inventory.AddToBag(new Slot(ID, 1)))
+                if (player._Inventory.AddToBag(slot, ref slot))
                 {
                     switch ((item as Armor).PositArmor)//swtich to know where the armor is
                     {
@@ -84,33 +90,36 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                             break;
                     }
                 }
-                UpdateEquip();
+                //UpdateEquip();
             }
             else if (item is Weapon)
             {
-                Slot weap = player._Inventory.GetSlot(ID);
+                if (player._Inventory.AddToBag(slot, ref slot))
+                {
+                    weapon = null;
+                }
+                /*Slot weap = player._Inventory.GetSlot(ID);
                 if (weap != null)
                 {
-                    if (player._Inventory.AddToBag(new Slot(ID, 1)))
-                    {
-                        weapon = null;//unequip weapon
-                        UpdateEquip();
-                    }
-                }
+                    
+                }*/
             }
         }
 
+        double defesaTotal;
         public void UpdateEquip()
         {
-            double defesaTotal = 0;
-            foreach(Armor arm in armor)
+            defesaTotal = 0;
+            foreach (Armor arm in armor)
             {
                 if(arm != null)
                     defesaTotal += arm.defense;
             }
             player.ArmorEquip = defesaTotal;
 
-            player.Damage = weapon.bonusDamage;
+            if(weapon != null) player.Damage = weapon.bonusDamage;
+
+            player.LevelUpdate(0, 0, 0, 0, 0);
             //OnEquipUpdated();
         }
 

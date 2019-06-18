@@ -30,6 +30,7 @@ namespace RPG_Noelf.Assets.Scripts.General
         public Task TUpdate;
         public Task TDraw;
         public bool Running = true;
+        public bool CanGo = false;
 
         // Player
         public List<CharacterPlayer> players = new List<CharacterPlayer>();
@@ -98,6 +99,15 @@ namespace RPG_Noelf.Assets.Scripts.General
                 // Crafting
                 CraftingStation = new Crafting();
 
+                player._Inventory.AddToBag(new Slot(2, 90));
+                player._Inventory.AddToBag(new Slot(13, 1));
+                player._Inventory.AddToBag(new Slot(21, 1));
+                player._Inventory.AddToBag(new Slot(22, 1));
+                player._Inventory.AddToBag(new Slot(23, 1));
+                player._Inventory.AddToBag(new Slot(24, 1));
+                player._Inventory.AddToBag(new Slot(18, 2));
+
+
                 // Update
                 TUpdate = new Task(Update);
                 TUpdate.Start();
@@ -135,6 +145,12 @@ namespace RPG_Noelf.Assets.Scripts.General
                     interfaceManager.UpdateActualQuestManager();
 
                     interfaceManager.UpdateQuestList();
+
+                    instance.player.box.Update();
+                    /*Parallel.ForEach(DynamicSolid.DynamicSolids, (current) =>
+                    {
+                        current.Update();
+                    });*/
 
                     Task.Delay(1000 / 60);
                 });

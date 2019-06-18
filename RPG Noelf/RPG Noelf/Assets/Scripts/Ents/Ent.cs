@@ -68,25 +68,24 @@ namespace RPG_Noelf.Assets.Scripts.Ents
         }
         private void Timer(object sender, object e)
         {
+            int count = 0;
+            SkillGenerics[] removeStatus = new SkillGenerics[status.Count];
             foreach (SkillGenerics habilite in status)//para verificar se as skills ja acabaram seus tempos de CD
             {
-                if (habilite.CountTime >= RealTime)
-                {
-                    habilite.CountTime = 0;
-                    status.Remove(habilite);
-
-
-                }
                 if (habilite.tipobuff != SkillTypeBuff.normal)
                 {
-                    if (habilite.CountBuffTime >= RealTime)
+                    if (habilite.CountBuffTime <= RealTime)
                     {
                         habilite.CountBuffTime = 0;
                         habilite.RevertSkill(this);
-                        status.Remove(habilite);
-                        habilite.locked = true;
+                        removeStatus[count] = habilite;
+                        count++;
                     }
                 }
+            }
+            foreach(SkillGenerics s in removeStatus)
+            {
+                status.Remove(s);
             }
             if(status.Count == 0)
             {
@@ -221,7 +220,7 @@ namespace RPG_Noelf.Assets.Scripts.Ents
                         tDynamic.MyEnt.InsereStatus(skill);
                     }
                     double dano = skill.UseSkill(this, tDynamic.MyEnt);
-                    Debug.WriteLine("Skill deu: " + dano);
+                    //Debug.WriteLine("Skill deu: " + dano);
                     tDynamic.MyEnt.BeHit(dano);
                 }
             });
