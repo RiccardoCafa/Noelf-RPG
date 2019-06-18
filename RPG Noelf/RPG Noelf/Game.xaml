@@ -17,9 +17,9 @@
                 <GradientStop Color="#FF6CFFFF" Offset="1"/>
             </LinearGradientBrush>
         </Canvas.Background>
-        <!--<Canvas Name="Hidden">
+        <Canvas Name="Hidden">
             <MediaElement Name="meplayer" Source="Assets\musiquinha.mp3" IsLooping="True" AutoPlay="True"></MediaElement>
-        </Canvas>-->
+        </Canvas>
 
         
     </Canvas>
