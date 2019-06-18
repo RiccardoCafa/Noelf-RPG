@@ -1,7 +1,7 @@
 
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using RPG_Noelf.Assets.Scripts.Scenes;
-﻿using RPG_Noelf.Assets.Scripts.Interface;
+using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Skills;
 using System;
 using System.Collections.Generic;
@@ -93,13 +93,20 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
         //}
         public void Update()
         {
-            if(player.box.Xi < box.Xi)
+            if (player.box.Xi - box.Xi < 300 || player.box.Xi - box.Xi < -300)
             {
-                box.moveLeft = box.freeDirections[Direction.left];
-            }
-            else if(player.box.Xi > box.Xi)
-            {
-                box.moveRight = box.freeDirections[Direction.right];
+                if (player.box.Xi < box.Xi)
+                {
+                    box.moveLeft = box.freeDirections[Direction.left];
+                }
+                else if (player.box.Xi > box.Xi)
+                {
+                    box.moveRight = box.freeDirections[Direction.right];
+                }
+                else
+                {
+                    box.moveLeft = box.moveRight = false;
+                }
             }
             else
             {
@@ -151,9 +158,9 @@ namespace RPG_Noelf.Assets.Scripts.Ents.Mobs
 
         public override void Die()
         {
-            if(MobBag.Slots.Count > 0)
+            if (MobBag.Slots.Count > 0)
             {
-                foreach(Slot mobS in MobBag.Slots)
+                foreach (Slot mobS in MobBag.Slots)
                 {
                     InterfaceManager.instance.CreateDrop(box.Xi + (box.Width / 2), box.Yi + (box.Height / 2), mobS);
                 }
