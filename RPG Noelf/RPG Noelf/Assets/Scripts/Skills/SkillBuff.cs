@@ -199,7 +199,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         public override double UseSkill(Ent player, Ent Enemy)
         {
 
-            if (player.Mnd > manaCost)
+            if (/*player.Mnd > manaCost*/true)
             {
                 oldstatus = player.Dex;
                 player.Dex += (int)(player.Dex * (Buff + Amplificator * Lvl));

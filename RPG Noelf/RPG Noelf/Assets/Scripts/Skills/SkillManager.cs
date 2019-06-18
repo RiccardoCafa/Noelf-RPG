@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -36,35 +37,32 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             this.myPlayer = myPlayer;
             SkillList = new List<SkillGenerics>();
             SkillBar = new SkillGenerics[4];
-            DispatcherSetup();
+            //DispatcherSetup();
         }
 
         public void BeAbleSkill(int index)//tipobuff
         {
-            if(SkillBar[index]!= null)
+            if (RealTime == 0) DispatcherSetup();
+            if(SkillBar[index]!= null && SkillBar[index].locked == true)
             {
-                if (SkillBar[index].locked == true)
+                if (SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
                 {
-                    if (SkillBar[index].tipobuff == SkillTypeBuff.debuff || SkillBar[index].tipobuff == SkillTypeBuff.normal)
-                    {
-                        myPlayer.AttackSkill(SkillBar[index]);
-                        SkillBar[index].locked = false;
-                    }
-                    else
-                    {
-                        SkillBar[index].UseSkill(myPlayer, myPlayer);
-                        SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
-                        SkillBar[index].CountBuffTime = RealTime + SkillBar[index].timer;
-                        skilltime.Add(SkillBar[index]);
-                        SkillBar[index].locked = false;
-                        if (skilltime.Count == 0)
-                        {
-                            dispatcherTimer.Stop();
-                            RealTime = 0;
-                        }
-                    }
+                    myPlayer.AttackSkill(SkillBar[index]);
                 }
-                  
+                else
+                {
+                    SkillBar[index].UseSkill(myPlayer, myPlayer);
+                    SkillBar[index].CountBuffTime = RealTime + SkillBar[index].timer;
+                }
+
+                SkillBar[index].CountTime = RealTime + SkillBar[index].cooldown;
+                skilltime.Add(SkillBar[index]);
+                if (skilltime.Count == 0)
+                {
+                    dispatcherTimer.Stop();
+                    RealTime = 0;
+                }
+                SkillBar[index].locked = false;
             }
         }
         private void DispatcherSetup()
@@ -75,21 +73,28 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         }
         private void Timer(object sender, object e)
         {
-
+            SkillGenerics[] removeSkills = new SkillGenerics[skilltime.Count];
+            int count = 0;
             foreach (SkillGenerics habilite in skilltime)//para verificar se as skills ja acabaram seus tempos de CD
             {
-                if (habilite.CountTime >= RealTime)
+                if (habilite.CountTime <= RealTime)
                 {
                     habilite.CountTime = 0;
                     habilite.Active = true;
                     habilite.locked = true;
-                    skilltime.Remove(habilite);
+                    removeSkills[count] = habilite;
+                    count++;
+                    //skilltime.Remove(habilite);
                 }
-                if (habilite.CountBuffTime >= RealTime)
+                if (habilite.CountBuffTime <= RealTime)
                 {
                     habilite.CountBuffTime = 0;
                     habilite.RevertSkill(myPlayer);
                 }
+            }
+            foreach(SkillGenerics s in removeSkills)
+            {
+                skilltime.Remove(s);
             }
             RealTime++;
         }
@@ -202,10 +207,10 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             }
             else if (skill.tipo == SkillType.ultimate)
             {
-                if (SkillBar[3] == null)
-                {
-                    SkillBar[3] = skill;
-                }
+                SkillBar[3] = skill;
+                //if (SkillBar[3] == null)
+                //{
+                //}
             }
         }
 

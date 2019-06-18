@@ -3,6 +3,7 @@ using RPG_Noelf.Assets.Scripts.Interface;
 using RPG_Noelf.Assets.Scripts.Inventory_Scripts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
             };
             this.skill = skill;
             if(skill!=null) image.Source = new BitmapImage(new Uri("ms-appx://" + skill.pathImage));
-            position = (uint) SkillManager.instance.SkillList.IndexOf(skill);
+            if(skill!=null)position = (uint) SkillManager.instance.SkillList.IndexOf(skill);
             Children.Add(image);
             PointerEntered += InterfaceManager.instance.UpdateSkillWindowText;
             PointerExited += InterfaceManager.instance.CloseSkillWindowText;
@@ -45,6 +46,7 @@ namespace RPG_Noelf.Assets.Scripts.Skills
         {
             if(skill != null)
             {
+                position = (uint)SkillManager.instance.SkillList.IndexOf(skill);
                 image.Source = Encyclopedia.skillsImages[position];
             } else
             {
