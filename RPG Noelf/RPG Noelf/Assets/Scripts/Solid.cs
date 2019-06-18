@@ -162,21 +162,21 @@ namespace RPG_Noelf.Assets.Scripts
 
         public Solid Interaction()//o q este solido faz com os outros ao redor
         {
-            //DynamicSolid dynamicFound = null;
-            //var dinamics = new List<DynamicSolid>();// from dinm in solids where dinm is DynamicSolid select dinm;
+            DynamicSolid dynamicFound = null;
+            var dinamics = DynamicSolid.DynamicSolids;// from dinm in solids where dinm is DynamicSolid select dinm;
 
-            //foreach (Solid solid in solids)
-            //{
-            //    if (solid.Equals(Who)) continue;
-            //    if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
-            //    {
-            //        dynamicFound = (DynamicSolid)solid;
-            //        break;
-            //    }
-            //}
-            //DispatcherTimeSetup();
-            //return dynamicFound;
-            return new Solid(0, 0, 0, 0);
+            foreach (DynamicSolid solid in dinamics)
+            {
+                if (solid.Equals(Who)) continue;
+                if (Yi < solid.Yf && Yf > solid.Yi && Xi < solid.Xf && Xf > solid.Xi)//se o solid eh candidato a colidir nos lados do solidMoving
+                {
+                    dynamicFound = solid;
+                    break;
+                }
+            }
+            DispatcherTimeSetup();
+            return dynamicFound;
+            //return new Solid(0, 0, 0, 0);
         }
     }
 
@@ -243,7 +243,7 @@ namespace RPG_Noelf.Assets.Scripts
         {
             if (direction == Axis.vertical) Yi -= verticalSpeed * span;
             if (direction == Axis.horizontal) Xi += horizontalDirection * horizontalSpeed * span;
-            if (verticalSpeed != 0 || horizontalDirection != 0) Move();//Interaction();//chama o evento
+            if (verticalSpeed != 0 || horizontalDirection != 0) Move();//Interact/ion();//chama o evento
         }
         List<Block> slds = new List<Block>();
         public void OnMoved()//o q este solido faz com os outros ao redor

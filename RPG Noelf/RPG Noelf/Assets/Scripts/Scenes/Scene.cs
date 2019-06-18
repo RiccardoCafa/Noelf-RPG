@@ -28,6 +28,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
         public List<Solid> floor = new List<Solid>();
         public List<string> Blueprint { get; private set; } = new List<string>();
         int a = 0;
+        uint n = 0;
         private List<Bau> baus;
 
         public Platform(Canvas xScene)//constroi o cenario, com os tiles e os canvas
@@ -75,11 +76,13 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                     {
                         case '-': break;
                         case 'g':
+                        case 'o':
                             Tile ground = new Tile(Tile.TileCode[block], x, y);
                             SetImage(ground.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
                                                   ground.VirtualPosition[0], ground.VirtualPosition[1]);
                             break;
                         case 'G':
+                        case 'O':
                             Tile grass = new Tile(Tile.TileCode[block], x, y);
                             SetImage(grass.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
                                                  grass.VirtualPosition[0], grass.VirtualPosition[1]);
@@ -97,108 +100,32 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                             CreateMob(xScene, x, y);
                             break;
                         case 'n':
-                            CharacterNPC npc = new CharacterNPC(new NPC(), x * Matriz.scale, y * Matriz.scale, Matriz.scale, Matriz.scale * 2, 0);
+                            //new CharacterNPC()
+                            n++;
+                            NPC np = CreateNPCPhase(1, n);
+                            CharacterNPC npc = new CharacterNPC(np, x * Matriz.scale, y * Matriz.scale, Matriz.scale, Matriz.scale * 2, 0);
                             floor.Add(npc.box);
+                            break;
+                        case 'N':
+                            Tile neve = new Tile(Tile.TileCode[block], x, y);
+                            SetImage(neve.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
+                                                 neve.VirtualPosition[0], neve.VirtualPosition[1]);
+                            Block blkn = new Block(Matriz.scale * x, Matriz.scale * y - 1);
+                            break;
+                        case 'L':
+                            Tile lava = new Tile(Tile.TileCode[block], x, y);
+                            SetImage(lava.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
+                                                 lava.VirtualPosition[0], lava.VirtualPosition[1]);
+                            Block blkl = new Block(Matriz.scale * x, Matriz.scale * y - 1);
+                            break;
+                        case 'P':
+                            InterfaceManager.instance.CreatePortal(x * Matriz.scale, y * Matriz.scale, "");
                             break;
                         default: break;
                     }
                     x++;
                 }
             }
-            //for (int i = 0; i < 114; i++)
-            //{
-            //    for (int j = 0; j < 21; j++)
-            //    {
-            //        if (Matriz.GetDownWall(i, j))
-            //        {
-            //            Solid solid = new Solid(i * Matriz.scale, j * Matriz.scale, Matriz.scale, Matriz.scale);
-            //            chunck.Children.Add(solid);
-            //            //floor.Add(solid);
-            //            //solid.Name = "plat" + platX.First() + y;
-            //            solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-            //        }
-            //    }
-            //}
-            //chunck = new Canvas();
-            //xScene.Children.Add(chunck);
-            //System.IO.StreamReader file = new System.IO.StreamReader("Assets/Scripts/Scenes/scenario.txt");
-            //string bp;
-            //int sizeX = 0;
-            //int sizeY = 0;
-            //while ((bp = file.ReadLine()) != null)
-            //{
-            //    Blueprint.Add(bp);
-            //    sizeX = sizeX <= bp.Length ? bp.Length : sizeX;
-            //    sizeY++;
-            //}
-            //file.Close();
-            //chunck.Width = (sizeX - 1) * Tile.Size[0];
-            //chunck.Height = sizeY * Tile.Size[1] + Tile.VirtualSize[1] - Tile.Size[1];
-            //Solid leftWall = new Solid(-20, 0, 20, chunck.Height);
-            //Solid rightWall = new Solid(chunck.Width, 0, 20, chunck.Height);
-            //floor.Add(leftWall);
-            //floor.Add(rightWall);
-            //for (int y = Blueprint.Count - 1; y >= 0; y--)
-            //{
-            //    int x = 0;
-            //    foreach (char block in Blueprint[y])
-            //    {
-            //        if (block == 'p')
-            //        {
-            //            CreatePlayer(xScene, x, y);
-            //            break;
-            //        }
-            //        x++;
-            //    }
-            //}
-            //for (int y = Blueprint.Count - 1; y >= 0; y--)
-            //{
-            //    List<int> platX = new List<int>();
-            //    int x = 0;
-            //    foreach (char block in Blueprint[y])
-            //    {
-            //        switch (block)
-            //        {
-            //            case '-': break;
-            //            case 'g':
-            //                Tile ground = new Tile(Tile.TileCode[block], x, y);
-            //                SetImage(ground.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
-            //                                      ground.VirtualPosition[0], ground.VirtualPosition[1]);
-            //                break;
-            //            case 'G':
-            //                Tile grass = new Tile(Tile.TileCode[block], x, y);
-            //                SetImage(grass.Path, Tile.VirtualSize[0], Tile.VirtualSize[1],
-            //                                     grass.VirtualPosition[0], grass.VirtualPosition[1]);
-            //                platX.Add(x);
-            //                if (Blueprint[y].ToArray()[x + 1] != 'G')
-            //                {
-            //                    Solid solid = new Solid(Tile.Size[0] * platX.First(), Tile.Size[1] * y - 1,
-            //                                            Tile.Size[0] * (platX.Last() - platX.First() + 1), Tile.Size[1]);
-            //                    chunck.Children.Add(solid);
-            //                    floor.Add(solid);
-            //                    solid.Name = "plat" + platX.First() + y;
-            //                    //solid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-            //                    platX.Clear();
-            //                }
-            //                break;
-            //            case 'b':
-            //                Solid chest = Game.instance.CreateChest(x * Tile.Size[0], y * Tile.Size[1], baus[a], Tile.Size[0], Tile.Size[1]);
-            //                a++;
-            //                floor.Add(chest);
-            //                break;
-            //            case 'm':
-            //                CreateMob(xScene, x, y);
-            //                break;
-            //            case 'n':
-            //                CharacterNPC npc = new CharacterNPC(new NPC(), x * Tile.Size[0], y * Tile.Size[1], 60 * 0.6, 120 * 0.6, 0);
-            //                floor.Add(npc.box);
-            //                break;
-            //            default: break;
-            //        }
-            //        x++;
-            //    }
-            //}
-            //foreach (Mob mob in GameManager.mobs) mob.box.Run();
         }
 
         private char GetBlueprint(int x, int y)
@@ -207,6 +134,16 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
                 return Blueprint[y].ToCharArray()[x];
             else
                 return '-';
+        }
+        //List<NPC> npcs = new List<NPC>();
+        private NPC CreateNPCPhase(int phase, uint number)
+        {
+            if (Encyclopedia.NonPlayerCharacters == null) Encyclopedia.LoadNPC();
+            if(phase == 1)
+            {
+                return Encyclopedia.NonPlayerCharacters[number];
+            }
+            return null;
         }
 
         private void CreatePlayer(Canvas xScene, int x, int y)
@@ -220,10 +157,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             InterfaceManager.instance.CreateChestWindow(350, 250);
             baus = new List<Bau>()
             {
+                new Bau(Category.Legendary, 10),
                 new Bau(Category.Normal, 10),
-                new Bau(Category.Normal, 10),
-                new Bau(Category.Legendary, 15),
-                new Bau(Category.Normal, 10)
+                new Bau(Category.Uncommon, 15),
             };
         }
 

@@ -499,12 +499,16 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 {
                     ItemSlots.Add(item.Slot);
                 }
-                foreach (Slot s in ItemSlots)
+                foreach (Slot slot in ItemSlots)
                 {
-                    if (GameManager.instance.player._Inventory.AddToBag(s))
+                    if (GameManager.instance.player._Inventory.AddToBag(slot))
                     {
-                        bool c = bag.RemoveFromBag(s.ItemID, s.ItemAmount);
+                        bool c = bag.RemoveFromBag(slot.ItemID, slot.ItemAmount);
                     }
+                }
+                foreach (ItemImage item in GridChest.Children)
+                {
+                    item.OnItemImageUpdate();
                 }
             };
 
@@ -746,6 +750,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             };
             Canvas.SetTop(change, 160);
             Canvas.SetLeft(change, 0);
+            change.Click += TrocaButton;
 
             CanvasShop.Children.Add(change);
 
@@ -1122,7 +1127,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
             grid.Children.Add(bg);*/
 
-            TextBlock strenght = new TextBlock()
+                TextBlock strenght = new TextBlock()
             {
                 Padding = new Thickness(0, 7, 0, 0),
                 Width = 70,
@@ -1786,7 +1791,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 Height = 500,
                 Visibility = Visibility.Collapsed
             };
-            Canvas.SetLeft(CanvasConversation, 850);
+            Canvas.SetLeft(CanvasConversation, 50);
             Canvas.SetTop(CanvasConversation, 250);
             Tela.Children.Add(CanvasConversation);
 
@@ -1797,6 +1802,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png")),
                 Stretch = Stretch.Fill
             };
+            Canvas.SetTop(bg, 250);
             CanvasConversation.Children.Add(bg);
 
             TextConv = new TextBlock()
@@ -1972,7 +1978,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             {
                 Height = (ButtonsGrid.Height / Buttons) - 10,
                 Width = ButtonsGrid.Height,
-                Content = "Quest"
+                Content = "Quest",
+                Visibility = Visibility.Collapsed
             };
             ButtonsGrid.Children.Add(ButtonQuester);
 
@@ -1980,7 +1987,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             {
                 Height = (ButtonsGrid.Height / Buttons) - 10,
                 Width = ButtonsGrid.Height,
-                Content = "Trader"
+                Content = "Trader",
+                Visibility = Visibility.Collapsed
             };
             ButtonsGrid.Children.Add(ButtonTrader);
 
@@ -2030,6 +2038,19 @@ namespace RPG_Noelf.Assets.Scripts.Interface
             //LootBody loot = new LootBody(drop);
             //loot.UpdateBlocks(TheScene);
             //Trigger dropTrigger = new Trigger(loot);
+        }
+
+        public void CreatePortal(double x, double y, string PhaseToLoad)
+        {
+            Image portal = new Image()
+            {
+                Width = 70,
+                Height = 500,
+                Source = Encyclopedia.portal
+            };
+            Canvas.SetLeft(portal, x);
+            Canvas.SetTop(portal, y);
+            CanvasChunck01.Children.Add(portal);
         }
 
         /* ##################################################################################################*/
@@ -2221,30 +2242,18 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public void UpdateShopInfo()
         {
             if (GameManager.instance.traderTarget == null) return;
-            //int count = 0;
-            foreach (ItemImage img in GridShop.Children)
+            Bag bag;
+            if(Switch)
             {
-                img.OnItemImageUpdate();
-                //if (Switch == false)
-                //{
-                //    if (count >= GameManager.instance.traderTarget.shop.BuyingItems.Slots.Count) img.Source = null;
-                //    else
-                //    {
-                //        //Slot s = GameManager.instance.traderTarget.shop.BuyingItems.GetSlot(count);
-                //        //img.Source = new BitmapImage(new Uri(BaseUri + Encyclopedia.SearchFor(s.ItemID).PathImage));
-                //    }
-                //}
-                //else
-                //{
-                //    if (count >= GameManager.instance.traderTarget.shop.TradingItems.Slots.Count) img.Source = null;
-                //    else
-                //    {
-                //        img.OnItemImageUpdate();
-                //        //Slot s = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(count);
-                //        //img.Source = new BitmapImage(new Uri(BaseUri + Encyclopedia.SearchFor(s.ItemID).PathImage));
-                //    }
-                //}
-                //count++;
+                bag = GameManager.instance.traderTarget.shop.TradingItems;
+            } else
+            {
+                bag = GameManager.instance.traderTarget.shop.BuyingItems;
+            }
+            for (int i = 0; i < GridShop.Children.Count; i++)
+            {
+                (GridShop.Children[i] as ItemImage).myBagRef = bag;
+                (GridShop.Children[i] as ItemImage).OnItemImageUpdate();
             }
         }
         public void UpdateActualQuestManager()
@@ -2333,11 +2342,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 {
                     Slot s = GameManager.instance.player._Inventory.GetSlot((sender as ItemImage).myItemPosition);
                     if (s == null) return;
-                    if (shopOpen)
+                    if (shopOpen && !Switch)
                     {
                         GameManager.instance.traderTarget.shop.SlotInOffer = s;
                         ShowOfferItem(s);
-                        UpdateShopInfo();
+                        //UpdateShopInfo();
                     }
                     else if (equipOpen)
                     {
@@ -2477,13 +2486,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             if (uint.TryParse(TextItemBuyingQuantity.Text, out uint val))
             {
-                uint MaxValue;
-                if (!Switch)
-                {
-                    MaxValue = GameManager.instance.player._Inventory.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
-                }
-                else MaxValue = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(GameManager.instance.traderTarget.shop.SlotInOffer.ItemID).ItemAmount;
-
+                uint MaxValue = 9999;
                 if (val <= 0)
                 {
                     val = 1;
@@ -2571,16 +2574,9 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                     var prop = e.GetCurrentPoint(Tela).Properties;
                     if (prop.IsLeftButtonPressed)
                     {
-                        /*int index;
-                        int column, row;
-                        column = (int)(sender as Image).GetValue(Grid.ColumnProperty);
-                        row = (int)(sender as Image).GetValue(Grid.RowProperty);
-                        index = column * row + column;*/
-                        uint index = Encyclopedia.SearchFor((sender as EquipImage).MyEquip);
-                        Slot s = GameManager.instance.traderTarget.shop.TradingItems.GetSlot(index);
-                        GameManager.instance.traderTarget.shop.SlotInOffer = s;
-                        if (s == null) return;
-                        ShowOfferItem(s);
+                        if ((sender as ItemImage).Slot == null) return;
+                        GameManager.instance.traderTarget.shop.SlotInOffer = (sender as ItemImage).Slot;
+                        ShowOfferItem((sender as ItemImage).Slot);
                     }
                 }
             }
@@ -2654,7 +2650,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             GameManager.instance.player.AddHP(20);
         }
-        public void PSTR(object sender, RoutedEventArgs e)
+        public void PSTR  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2662,7 +2658,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PMND(object sender, RoutedEventArgs e)
+        public void PMND  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2670,7 +2666,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PSPD(object sender, RoutedEventArgs e)
+        public void PSPD  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2678,7 +2674,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PDEX(object sender, RoutedEventArgs e)
+        public void PDEX  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2686,7 +2682,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PCON(object sender, RoutedEventArgs e)
+        public void PCON  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2694,7 +2690,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void MSTR(object sender, RoutedEventArgs e)
+        public void MSTR  (object sender, RoutedEventArgs e)
         {
             if (_str > 0)
             {
@@ -2702,7 +2698,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MDEX(object sender, RoutedEventArgs e)
+        public void MDEX  (object sender, RoutedEventArgs e)
         {
             if (_dex > 0)
             {
@@ -2710,7 +2706,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MSPD(object sender, RoutedEventArgs e)
+        public void MSPD  (object sender, RoutedEventArgs e)
         {
             if (_spd > 0)
             {
@@ -2718,7 +2714,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MCON(object sender, RoutedEventArgs e)
+        public void MCON  (object sender, RoutedEventArgs e)
         {
             if (_con > 0)
             {
@@ -2726,7 +2722,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MMND(object sender, RoutedEventArgs e)
+        public void MMND  (object sender, RoutedEventArgs e)
         {
             if (_mnd > 0)
             {
@@ -2749,7 +2745,6 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             Switch = !Switch;
             ButtonBuy.Content = Switch == true ? "Buy" : "Sell";
-            UpdateShopInfo();
         }
 
         public void ApplyStats(object sender, RoutedEventArgs e)
@@ -2893,16 +2888,21 @@ namespace RPG_Noelf.Assets.Scripts.Interface
 
         public void ShowEquip(object sender, PointerRoutedEventArgs e)
         {
-            if (CanvasEquipamento.Visibility == Visibility.Collapsed)
+            if (!shopOpen && CanvasEquipamento.Visibility == Visibility.Collapsed)
             {
                 CanvasEquipamento.Visibility = Visibility.Visible;
                 equipOpen = true;
             }
-            else
+            else 
             {
                 CanvasEquipamento.Visibility = Visibility.Collapsed;
                 equipOpen = false;
             }
+        }
+        public void CloseEquip()
+        {
+            CanvasEquipamento.Visibility = Visibility.Collapsed;
+            equipOpen = false;
         }
         public void ShowEquipWindow(object sender, PointerRoutedEventArgs e)
         {
@@ -2976,7 +2976,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         public void OpenQuest()
         {
             CanvasQuestManager.Visibility = CanvasQuestManager.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-            UpdateActualQuestManager();
+            //UpdateActualQuestManager();
         }
         public void CloseQuest()
         {
@@ -2999,9 +2999,11 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void OpenShop()
         {
-            CanvasAtributos.Visibility = Visibility.Collapsed;
+            CloseEquip();
             CanvasShop.Visibility = Visibility.Visible;
-            UpdateShopInfo();
+            //CanvasInventario.Visibility = Visibility.Visible;
+            //CanvasAtributos.Visibility = Visibility.Visible;
+            shopOpen = true;
         }
         
         public void CloseOfferItem()
@@ -3011,6 +3013,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         }
         public void CloseShop()
         {
+            shopOpen = false;
             CanvasShop.Visibility = Visibility.Collapsed;
         }
 
@@ -3102,6 +3105,8 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 ItemImage item;
                 column++;
                 item = gridBag != null ? new ItemImage(i, widthImage, heightImage, gridBag, owner) : new ItemImage(i, widthImage, heightImage);
+                item.itemOwner = owner;
+                item.SetEvents();
                 grid.Children.Add(item);
                 Grid.SetColumn(item, column);
                 Grid.SetRow(item, row);

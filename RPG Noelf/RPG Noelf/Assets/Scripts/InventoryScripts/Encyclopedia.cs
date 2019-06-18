@@ -16,10 +16,14 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
         public static Dictionary<uint, ImageSource> skillsImages = new Dictionary<uint, ImageSource>();
         public static Dictionary<uint, ImageSource> encycloImages;
 
+        public static ImageSource portal;
+
         public static string BaseUri = "ms-appx://";
 
         public static void LoadEncyclopedia()
         {
+            portal = new BitmapImage(new Uri(BaseUri + "/Assets/Images/Interactable/portal.gif"));
+
             LoadItens();
         }
 
@@ -406,22 +410,22 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 PathImage = "/Assets/Images/itens/sapatoComum.png"
             };
             encyclopedia.Add(39, item39);
-            Consumable item40 = new Consumable("Minor Health Potion")
+            LifePotion item40 = new LifePotion("Minor Health Potion", 25)
             {
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
-                Bonus = 20,
+                hp = 20,
                 PathImage = "/Assets/Images/itens/PocaoVidaP.png",
                 description = "Adventurer's best Friend, i think you must carry lots of this"
-                
+
 
             };
             encyclopedia.Add(40, item40);
-            Consumable item41 = new Consumable("Minor Mana Potion")
+            ManaPotion item41 = new ManaPotion("Minor Mana Potion", 20)
             {
                 GoldValue = 20,
                 ItemCategory = Category.Normal,
-                Bonus = 20,
+                mana = 20,
                 PathImage = "/Assets/Images/itens/PocaoManaP.png"
 
             };
@@ -482,6 +486,7 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
             };
             Shop s = new Shop();
             s.TradingItems.AddToBag(new Slot(43, 1));
+            s.TradingItems.AddToBag(new Slot(21, 1));
             npc1.AddFunction(new Trader(s));
             npc1.AddFunction(new Quester(1));
 
@@ -543,16 +548,6 @@ namespace RPG_Noelf.Assets.Scripts.Inventory_Scripts
                 return ((Armor)encyclopedia[key]).defense;
             }
             else throw new ArgumentOutOfRangeException();
-        }
-
-        //procura o bonus do Consumivel
-        public static float SearchConsumableBonus(uint key)
-        {
-            if (encyclopedia.ContainsKey(key) && encyclopedia[key] is Consumable)
-            {
-                return ((Consumable)encyclopedia[key]).Bonus;//it.giveBonus;
-            }
-            return 0f;
         }
 
         //procura o dano da Arma
