@@ -1748,6 +1748,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 Source = new BitmapImage(new Uri(BaseUri + "/Assets/Images/UI Elements/UIAtivo 33-0.png")),
                 Stretch = Stretch.Fill
             };
+            Canvas.SetTop(bg, 250);
             CanvasConversation.Children.Add(bg);
 
             TextConv = new TextBlock()
@@ -2601,7 +2602,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
         {
             GameManager.instance.player.AddHP(20);
         }
-        public void PSTR(object sender, RoutedEventArgs e)
+        public void PSTR  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2609,7 +2610,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PMND(object sender, RoutedEventArgs e)
+        public void PMND  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2617,7 +2618,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PSPD(object sender, RoutedEventArgs e)
+        public void PSPD  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2625,7 +2626,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PDEX(object sender, RoutedEventArgs e)
+        public void PDEX  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2633,7 +2634,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void PCON(object sender, RoutedEventArgs e)
+        public void PCON  (object sender, RoutedEventArgs e)
         {
             if (GameManager.instance.player._Class.StatsPoints > 0)
             {
@@ -2641,7 +2642,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSumStat();
             }
         }
-        public void MSTR(object sender, RoutedEventArgs e)
+        public void MSTR  (object sender, RoutedEventArgs e)
         {
             if (_str > 0)
             {
@@ -2649,7 +2650,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MDEX(object sender, RoutedEventArgs e)
+        public void MDEX  (object sender, RoutedEventArgs e)
         {
             if (_dex > 0)
             {
@@ -2657,7 +2658,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MSPD(object sender, RoutedEventArgs e)
+        public void MSPD  (object sender, RoutedEventArgs e)
         {
             if (_spd > 0)
             {
@@ -2665,7 +2666,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MCON(object sender, RoutedEventArgs e)
+        public void MCON  (object sender, RoutedEventArgs e)
         {
             if (_con > 0)
             {
@@ -2673,7 +2674,7 @@ namespace RPG_Noelf.Assets.Scripts.Interface
                 GeralSubStat();
             }
         }
-        public void MMND(object sender, RoutedEventArgs e)
+        public void MMND  (object sender, RoutedEventArgs e)
         {
             if (_mnd > 0)
             {

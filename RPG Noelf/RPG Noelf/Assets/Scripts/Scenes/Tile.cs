@@ -8,7 +8,9 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
 {
     enum TypeTile
     {
+
         grass, ground, neve, lava
+
     }
 
     class Tile
@@ -19,6 +21,7 @@ namespace RPG_Noelf.Assets.Scripts.Scenes
             {'g', TypeTile.ground },
             {'N', TypeTile.neve },
             {'L', TypeTile.lava }
+
         };
 
         public TypeTile tpTile;
